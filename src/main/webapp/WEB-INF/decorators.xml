@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<!-- /WebContent/WEB-INF/decorators.xml -->
+<decorators defaultdir="/decorator" >
+	<decorator name="main" page="decorator.jsp">
+		<pattern>*.duck</pattern>
+	</decorator>
+	<!-- <excludes> :  -->
+	<excludes>
+		<!-- 제외시킬 페이지 -->
+	</excludes>
+</decorators>
