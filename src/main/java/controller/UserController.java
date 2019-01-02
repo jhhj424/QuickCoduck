@@ -87,7 +87,7 @@ public class UserController {
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		session.invalidate();
-		mav.setViewName("redirect:loginForm.shop");
+		mav.setViewName("redirect:loginForm.duck");
 		return mav;
 	}
 }
