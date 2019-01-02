@@ -33,6 +33,42 @@ public class UserController {
 		mav.addObject(new User());
 		return mav;
 	}
+	@RequestMapping("user/login")
+	public ModelAndView login(@Valid User user, BindingResult bindResult, HttpSession session) {
+		// @Valid : 유효성 검증. Item 클래스에 정의된 내용으로 검증을 함.
+		ModelAndView mav = new ModelAndView();
+		if (bindResult.hasErrors()) {
+			mav.getModel().putAll(bindResult.getModel());
+			return mav;
+		}
+		// db에서 아이디의 회원정보 조회하고 비밀번호 검증하여 session에 등록
+		// 로그인 성공시 loginSucess.jsp 페이지 출력하기
+		// 아이디, 패스워드 모두 입력된 경우
+		try {
+			// dbuser : 아이디에 해당하는 db의 사용자 정보 저장
+			User dbuser = service.userSelect(user);
+			// 아이디 존재하는 경우
+			if (dbuser == null) {
+				bindResult.reject("error.login.id");
+				mav.getModel().putAll(bindResult.getModel());
+				return mav;
+			}
+			if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
+				session.setAttribute("loginUser", dbuser); // 로그인 성공
+			} else { // 비밀번호가 불일치
+				bindResult.reject("error.login.password");
+				mav.getModel().putAll(bindResult.getModel());
+				return mav;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			bindResult.reject("error.user.login");
+			mav.getModel().putAll(bindResult.getModel());
+			return mav;
+		}
+		mav.setViewName("user/loginSuccess");
+		return mav;
+	}
 
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {

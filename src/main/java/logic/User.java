@@ -102,6 +102,5 @@ public class User {
 		return "User [userid=" + userid + ", pass=" + pass + ", address=" + address + ", tel=" + tel + ", birth="
 				+ birth + ", type=" + type + ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
-	}
-	
+	}	
 }

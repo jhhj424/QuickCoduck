@@ -94,4 +94,9 @@ public class DuckService {
 	public void boarddelete(int num) {
 		boardDao.delete(num);
 	}
+
+	public User userSelect(User user) {
+		User dbuser = userDao.userSelect(user);
+		return dbuser;
+	}
 }
