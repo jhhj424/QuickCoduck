@@ -22,7 +22,7 @@
 <mvc:annotation-driven />
 <!-- Aspect가 활동가능하게해줌 -->
 <aop:aspectj-autoproxy />
-<!-- http://localhost:8080/mavenshop3/item/list.shop
+<!-- http://localhost:8080/mavenduck3/item/list.duck
 	 item : ItemController 클래스 검색.   ↑
 	 URL 요청정보와 Controller를 이름으로 매핑하도록 설정
  -->
@@ -52,14 +52,12 @@
 	<property name="exceptionMappings" >
 	<!-- CartEmptyException 라는 exception이 발생되면 exception.jsp로 제어를 넘김 -->
 	<!-- exception.CartEmptyException 예외 발생시 /WEB-INF/view/exception.jsp 페이지 가 예외페이지로 설정 -->
-		<value>exception.CartEmptyException=exception
-				exception.LoginException=exception
-				exception.ShopException=exception</value> 
+		<value> exception.LoginException=exception</value> 
 	</property>
 </bean>
 
 <bean id="echoHandler" class="websocket.EchoHandler"/> <!-- EchoHandler : Chatting 서버의 역할 -->
 <websocket:handlers>
-	<websocket:mapping handler="echoHandler" path="/chatting.shop" />
+	<websocket:mapping handler="echoHandler" path="/chatting.duck" />
 </websocket:handlers>
 </beans>

@@ -20,6 +20,7 @@ public class DuckService {
 	private UserDao userDao;
 	@Autowired
 	private BoardDao boardDao;
+
 	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String uploadPath = request.getServletContext().getRealPath("/") + "/" + path + "/";
 		// 파일의 이름.
