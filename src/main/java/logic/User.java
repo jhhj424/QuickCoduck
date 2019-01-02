@@ -25,8 +25,8 @@ public class User {
 	public String getUserId() {
 		return userid;
 	}
-	public void setUserId(String userId) {
-		this.userid = userId;
+	public void setUserId(String userid) {
+		this.userid = userid;
 	}
 	public String getPass() {
 		return pass;
@@ -90,7 +90,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
+		return "User [userid=" + userid + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
 				+ ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum=" + creditnum
 				+ ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
 	}	
