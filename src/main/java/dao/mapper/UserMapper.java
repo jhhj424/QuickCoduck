@@ -10,14 +10,14 @@ import logic.User;
 
 public interface UserMapper  {
 	
-	@Insert("insert into user_backup (userid,password,username,phoneno,postcode,address,email,birthday) "
-		 	+ " values(#{userId},#{password},#{userName},#{phoneNo},#{postcode},#{address},#{email},#{birthDay})")
+	@Insert("insert into user (userid,pass,email,type) "
+		 	+ " values(#{userid},#{pass},#{email},#{type})")
 	void insert(User user);
 	
-	@Update("update user_backup set username=#{userName}, phoneno=#{phoneNo}, postcode=#{postcode},"
+	@Update("update user set username=#{userName}, phoneno=#{phoneNo}, postcode=#{postcode},"
 			+ " address=#{address}, email=#{email}, birthday=#{birthDay} where userid = #{userId}")
 	void update(User user);
 
-	@Delete("delete from user_backup where userid=#{userId}")
+	@Delete("delete from user where userid=#{userId}")
 	void delete(Map<String, String> map);
 }

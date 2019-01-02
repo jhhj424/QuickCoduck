@@ -87,4 +87,8 @@ public class DuckService {
 		User dbuser = userDao.userSelect(user);
 		return dbuser;
 	}
+	
+	public void userCreate(User user, HttpServletRequest request) {
+		userDao.insert(user);
+	}
 }
