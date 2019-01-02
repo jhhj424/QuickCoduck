@@ -10,6 +10,7 @@ public class User {
 	private String userid;
 	@Size(min=4, max=12, message="비밀번호는 4자이상 12자 이하로 입력하세요")
 	private String pass;
+	private String address;
 	private String tel;
 	@Past(message="생일은 과거 날짜만 가능합니다.")
 	private Date birth;
@@ -22,10 +23,10 @@ public class User {
 	private Integer matching;
 
 	//getter,setter,toString
-	public String getUserId() {
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserId(String userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public String getPass() {
@@ -33,6 +34,12 @@ public class User {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getTel() {
 		return tel;
@@ -90,8 +97,9 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
-				+ ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum=" + creditnum
-				+ ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
-	}	
+		return "User [userid=" + userid + ", pass=" + pass + ", address=" + address + ", tel=" + tel + ", birth="
+				+ birth + ", type=" + type + ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum="
+				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
+	}
+	
 }
