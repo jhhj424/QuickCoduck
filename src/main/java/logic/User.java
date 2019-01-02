@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 public class User {
 	@Size(min=3, max=10, message="아이디는 3자이상 10자 이하로 입력하세요")
-	private String userId;
+	private String userid;
 	@Size(min=4, max=12, message="비밀번호는 4자이상 12자 이하로 입력하세요")
 	private String pass;
 	private String tel;
@@ -23,10 +23,10 @@ public class User {
 
 	//getter,setter,toString
 	public String getUserId() {
-		return userId;
+		return userid;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(String userid) {
+		this.userid = userid;
 	}
 	public String getPass() {
 		return pass;
@@ -90,7 +90,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
+		return "User [userid=" + userid + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
 				+ ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum=" + creditnum
 				+ ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
 	}	
