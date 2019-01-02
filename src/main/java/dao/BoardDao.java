@@ -29,20 +29,21 @@ public class BoardDao {
 		map.put("num", num);
 		return sqlSession.selectOne(NS + "select",map);
 	}
-	public int count(String searchType, String searchContent) {
-		Map<String, String> map= new HashMap<String, String>();
+	public int count(String searchType, String searchContent,int type) {
+		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
 		map.put("find", searchContent);
+		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
-	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit) {
-		// sql = " order by ref desc, refstep asc limit :startrow, :limit";
+	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,int type) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		int startrow = (pageNum -1) * limit;
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("startrow", startrow);
 		map.put("limit", limit);
+		map.put("type", type);
 		return sqlSession.selectList(NS + "select", map);
 	}
 	public int maxNum() {

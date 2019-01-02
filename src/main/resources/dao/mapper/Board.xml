@@ -5,19 +5,19 @@
 <mapper namespace="dao.mapper.BoardMapper">
 
 	<select id="count" resultType="int" parameterType="map">
-		select count(*) from board
+		select count(*) from board where boardtype = #{type}
 		<if test="column != null and find != null">
-			where ${column} like '%${find}%'
+			and ${column} like '%${find}%'
 		</if>
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1, pic, usetech, price, schedule from board
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1, pic, usetech, price, schedule from board where boardtype = #{type}
 		<if test="num != null">
-			where boardnum = #{boardnum}
+			and boardnum = #{boardnum}
 		</if>
 		<if test="column != null and find != null">
-			where ${column} like '%${find}%'
+			and ${column} like '%${find}%'
 		</if>
 		<if test="startrow != null and limit !=null">
 			limit #{startrow},${limit}

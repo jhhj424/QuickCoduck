@@ -19,16 +19,19 @@ public class BoardController {
 	private DuckService service;
 
 	@RequestMapping(value = "board/list")
-	public ModelAndView list(Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, int type) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		if(type==1)System.out.println("오픈소스게시판");
+		if(type==2)System.out.println("개발자자유게시판");
+		if(type==3)System.out.println("프로젝트공고모집게시판");
 		ModelAndView mav = new ModelAndView();
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent);
+		int listcount = service.boardcount(searchType, searchContent,type);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit);
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
 		int endpage = startpage + 9;

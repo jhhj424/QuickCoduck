@@ -49,12 +49,12 @@ public class DuckService {
 		return boardDao.select(num);
 	}
 
-	public int boardcount(String searchType, String searchContent) {
-		return boardDao.count(searchType, searchContent);
+	public int boardcount(String searchType, String searchContent,int type) {
+		return boardDao.count(searchType, searchContent,type);
 	}
 
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit) {
-		return boardDao.list(searchType, searchContent, pageNum, limit);
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,int type) {
+		return boardDao.list(searchType, searchContent, pageNum, limit,type);
 	}
 
 	public void boardadd(Board board, HttpServletRequest request) {

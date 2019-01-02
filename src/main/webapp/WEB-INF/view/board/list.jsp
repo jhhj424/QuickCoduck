@@ -44,7 +44,16 @@
 	</td></tr>
 	<c:if test="${listcount > 0}"><%-- 게시물이 있는경우 --%>
 		<tr align="center" valign="middle">
-			<td colspan="4">오픈소스 게시판</td><td>글개수:${listcount}</td></tr>
+		<c:if test="${param.type==1}">
+			<td colspan="4">오픈소스게시판</td><td>글개수:${listcount}</td>
+		</c:if>
+		<c:if test="${param.type==2}">
+			<td colspan="4">개발자자유게시판</td><td>글개수:${listcount}</td>
+		</c:if>
+		<c:if test="${param.type==3}">
+			<td colspan="4">프로젝트공고모집게시판 게시판</td><td>글개수:${listcount}</td>
+		</c:if>
+		</tr>			
 		<tr align="center" valign="middle" bordercolor="#212121">
 			<th width="8%" height="26">번호</th><th width="50%" height="26">제목</th>
 			<th width="14%" height="26">글쓴이</th><th width="17%" height="26">날짜</th>
