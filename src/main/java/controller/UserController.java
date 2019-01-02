@@ -1,6 +1,7 @@
 package controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.LoginException;
 import logic.DuckService;
 import logic.User;
 
@@ -33,7 +35,24 @@ public class UserController {
 		mav.addObject(new User());
 		return mav;
 	}
-
+	@RequestMapping("user/userEntry")
+	public ModelAndView userEntry(@Valid User user, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("user/userForm"); //a 입력하면 a.jsp로 이동됨.
+		String pass1 = request.getParameter("pass");
+		String pass2 = request.getParameter("pass2");
+		if(pass1 != pass2) { //비밀번호 불일치
+			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/userForm.duck");
+		}
+		try {
+			System.out.println(user.getType());
+			service.userCreate(user, request);
+			mav.setViewName("user/login");
+			mav.addObject("user",user);
+		}catch(DataIntegrityViolationException e) {
+			return mav;
+		}
+		return mav;
+	}
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");

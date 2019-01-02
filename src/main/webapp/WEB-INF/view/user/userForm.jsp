@@ -6,36 +6,48 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>사용자 등록</title>
+<title>개발자 등록</title>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+ $(function(){
+  $('#pass').keyup(function(){
+   $('font[name=check]').text('');
+  }); //#user_pass.keyup
+
+  $('#pass2').keyup(function(){
+   if($('#pass').val()!=$('#pass2').val()){
+    $('font[name=check]').text('');
+    $('font[name=check]').html("암호틀림");
+   }else{
+    $('font[name=check]').text('');
+    $('font[name=check]').html("암호맞음");
+   }
+  }); //#pass2.keyup
+ });
+
+</script>
 </head>
 <body>
-<h2>사용자 등록</h2>
+<h2>회원가입</h2>
 <%-- modelAttribute="user" : 현재 페이지가 호출 될 때 user객체가 존재해야함 --%>
-<form:form modelAttribute="user" method="post" action="userEntry.shop" >
-	<spring:hasBindErrors name="user">
-		<font color="red">
-			<c:forEach items="${errors.globalErrors }"  var="error" >
-				<spring:message code="${error.code}" />
-			</c:forEach>
-		</font>
-	</spring:hasBindErrors>
+<form:form modelAttribute="user" method="post" action="userEntry.duck">
 	<table>
-		<tr height="40px" ><td>아이디</td><td><form:input path="userId"/>
-		<font color="red"><form:errors path="userId"/></font></td></tr>
-		<tr height="40px" ><td>비밀번호</td><td><form:password path="password"/>
-		<font color="red"><form:errors path="password"/></font></td></tr>
-		<tr height="40px" ><td>이름</td><td><form:input path="userName"/>
-		<font color="red"><form:errors path="userName"/></font></td></tr>
-		<tr height="40px" ><td>전화번호</td><td><form:input path="phoneNo"/>
-		<font color="red"><form:errors path="phoneNo"/></font></td></tr>
-		<tr height="40px" ><td>우편번호</td><td><form:input path="postcode"/>
-		<font color="red"><form:errors path="postcode"/></font></td></tr>
-		<tr height="40px" ><td>주소</td><td><form:input path="address"/>
-		<font color="red"><form:errors path="address"/></font></td></tr>
+		<tr height="40px" ><td>
+		
+		<form:radiobutton path="type" value="1" checked="checked"/>개발자
+		<form:radiobutton path="type" value="2"/>클라이언트
+		
+		</td></tr>
+		<tr height="40px" ><td>아이디</td><td><form:input path="userid"/>
+		</td></tr>
 		<tr height="40px" ><td>이메일</td><td><form:input path="email"/>
-		<font color="red"><form:errors path="email"/></font></td></tr>
-		<tr height="40px" ><td>생년월일</td><td><form:input path="birthDay"/>
-		<font color="red"><form:errors path="birthDay"/></font></td></tr>
+		</td></tr>
+		<tr height="40px" ><td>비밀번호</td><td><form:password path="pass" />
+		</td></tr>
+		<tr height="40px" ><td>비밀번호확인</td><td><input type="password" name="pass2" id="pass2"/>
+		<font name="check" color="red"></font>
+		</td></tr>
+		
 		<tr height="40px"><td colspan="2" align="center">
-		  <input type="submit" value="등록"><input type="reset" value="초기화">
+		  <input id="submit" type="submit" value="등록"><input type="reset" value="초기화">
 		  </td></tr></table></form:form></body></html>

@@ -94,4 +94,8 @@ public class DuckService {
 	public void boarddelete(int num) {
 		boardDao.delete(num);
 	}
+
+	public void userCreate(User user, HttpServletRequest request) {
+		userDao.insert(user);
+	}
 }
