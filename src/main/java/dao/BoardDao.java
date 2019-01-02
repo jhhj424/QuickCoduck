@@ -58,8 +58,6 @@ public class BoardDao {
 	}
 	public void refstep(Board board) {
 		Map<String , Integer> map = new HashMap<String, Integer>();
-		map.put("ref", board.getRef());
-		map.put("refstep", board.getRefstep());
 		sqlSession.getMapper(BoardMapper.class).rsupdate(map);
 	}
 	public void update(Board board) {

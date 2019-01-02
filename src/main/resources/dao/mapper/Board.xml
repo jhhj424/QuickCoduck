@@ -12,14 +12,13 @@
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select num,name,pass,subject,content,file1 fileurl, regdate, readcnt, ref, reflevel, refstep from board
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1, pic, usetech, price, schedule from board
 		<if test="num != null">
-			where num = #{num}
+			where boardnum = #{boardnum}
 		</if>
 		<if test="column != null and find != null">
 			where ${column} like '%${find}%'
 		</if>
-		order by ref desc, refstep asc
 		<if test="startrow != null and limit !=null">
 			limit #{startrow},${limit}
 		</if>

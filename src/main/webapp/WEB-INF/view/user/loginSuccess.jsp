@@ -16,6 +16,6 @@
   <%-- 1.세션 객체 제거.
   	   2.login.duck 페이지 이동   --%>
   <a href="logout.duck">로그아웃</a>
-  <a href="../item/list.duck">상품목록</a>
+  <a href="../board/list.duck?type=1">오픈소스게시판</a>
 </body>
 </html>

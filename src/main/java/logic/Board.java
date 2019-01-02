@@ -6,40 +6,40 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
-	private int num;
+	private int boardnum; //기본값
 	@NotEmpty(message="작성자는 필수 입력사항 입니다.")
-	private String name;
-	@NotEmpty(message="비밀번호는 필수 입력사항 입니다.")
-	private String pass;
+	private String userid; //작성자-아이디
+	private String boardtype; //게시판타입
 	@NotEmpty(message="제목은 필수 입력사항 입니다.")
-	private String subject;
+	private String subject; //제목
 	@NotEmpty(message="내용은 필수 입력사항 입니다.")
-	private String content;
-	private MultipartFile file1;
-	private String fileurl;
-	private Date regdate;
-	private int readcnt;
-	private int ref;
-	private int reflevel;
-	private int refstep;
-	
-	public int getNum() {
-		return num;
+	private String content; //내용
+	private MultipartFile file1; //첨부파일
+	private String fileurl; //파일 주소
+	private String pic; //사진
+	private Date regdate; //작성일
+	private int readcnt; //조회수
+	private int recmd; //추천수
+	private String usetech; //사용기술
+	private int price; //가격
+	private int schedule; //기간 (일)=
+	public int getBoardnum() {
+		return boardnum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setBoardnum(int boardnum) {
+		this.boardnum = boardnum;
 	}
-	public String getName() {
-		return name;
+	public String getUserid() {
+		return userid;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public String getPass() {
-		return pass;
+	public String getBoardtype() {
+		return boardtype;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setBoardtype(String boardtype) {
+		this.boardtype = boardtype;
 	}
 	public String getSubject() {
 		return subject;
@@ -59,6 +59,18 @@ public class Board {
 	public void setFile1(MultipartFile file1) {
 		this.file1 = file1;
 	}
+	public String getFileurl() {
+		return fileurl;
+	}
+	public void setFileurl(String fileurl) {
+		this.fileurl = fileurl;
+	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public Date getRegdate() {
 		return regdate;
 	}
@@ -71,36 +83,35 @@ public class Board {
 	public void setReadcnt(int readcnt) {
 		this.readcnt = readcnt;
 	}
-	public int getRef() {
-		return ref;
+	public int getRecmd() {
+		return recmd;
 	}
-	public void setRef(int ref) {
-		this.ref = ref;
+	public void setRecmd(int recmd) {
+		this.recmd = recmd;
 	}
-	public int getReflevel() {
-		return reflevel;
+	public String getUsetech() {
+		return usetech;
 	}
-	public void setReflevel(int reflevel) {
-		this.reflevel = reflevel;
+	public void setUsetech(String usetech) {
+		this.usetech = usetech;
 	}
-	public int getRefstep() {
-		return refstep;
+	public int getPrice() {
+		return price;
 	}
-	public void setRefstep(int refstep) {
-		this.refstep = refstep;
+	public void setPrice(int price) {
+		this.price = price;
 	}
-	public String getFileurl() {
-		return fileurl;
+	public int getSchedule() {
+		return schedule;
 	}
-	public void setFileurl(String fileurl) {
-		this.fileurl = fileurl;
+	public void setSchedule(int schedule) {
+		this.schedule = schedule;
 	}
 	@Override
 	public String toString() {
-		return "Board [num=" + num + ", name=" + name + ", pass=" + pass + ", subject=" + subject + ", content="
-				+ content + ", file1=" + file1 + ", fileurl=" + fileurl + ", regdate=" + regdate + ", readcnt="
-				+ readcnt + ", ref=" + ref + ", reflevel=" + reflevel + ", refstep=" + refstep + "]";
-	}
-	
-	
+		return "Board [boardnum=" + boardnum + ", userid=" + userid + ", boardtype=" + boardtype + ", subject="
+				+ subject + ", content=" + content + ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic
+				+ ", regdate=" + regdate + ", readcnt=" + readcnt + ", recmd=" + recmd + ", usetech=" + usetech
+				+ ", price=" + price + ", schedule=" + schedule + "]";
+	}	
 }

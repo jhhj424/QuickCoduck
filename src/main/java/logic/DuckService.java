@@ -63,24 +63,12 @@ public class DuckService {
 			board.setFileurl(board.getFile1().getOriginalFilename());
 		}
 		int max = boardDao.maxNum();
-		board.setNum(++max);
-		board.setRef(max);
+		board.setBoardnum(++max);
 		boardDao.insert(board);
 	}
 
 	public void readcntadd(Integer num) {
 		boardDao.readcntadd(num);
-	}
-
-	public void replyadd(Board board) {
-		Board b1 = boardDao.select(board.getNum()); // 원글정보
-		int max = boardDao.maxNum();
-		board.setNum(++max);
-		board.setRef(b1.getRef());
-		board.setReflevel(b1.getReflevel() + 1);
-		board.setRefstep(b1.getRefstep() + 1);
-		boardDao.refstep(b1); // => 작업 전 기존의 원글의 refstep 보다 큰 모든 레코드들을 refstep+1로 수정하기
-		boardDao.insert(board); // 답글 등록
 	}
 
 	public void boardupdate(Board board, HttpServletRequest request) {
