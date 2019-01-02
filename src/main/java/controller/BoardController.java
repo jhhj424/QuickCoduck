@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Board;
-import logic.ShopService;
+import logic.DuckService;
 
 @Controller
 public class BoardController {
 	@Autowired
-	private ShopService service;
+	private DuckService service;
 
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent) {

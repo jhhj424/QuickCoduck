@@ -1,11 +1,6 @@
 package logic;
 
 import java.io.File;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +15,7 @@ import dao.UserDao;
 import util.CipherUtil;
 
 @Service // @Component + Service 기능 (Controller 와 Repository의 사이의 중간 객체)
-public class ShopService {
+public class DuckService {
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -37,45 +32,12 @@ public class ShopService {
 		}
 	}
 
-	public void userCreate(User user) {// 회원가입 - insert() : DB에 등록
-		user.setEmail(CipherUtil.encrypt(user.getEmail(), user.getUserId()));
-		userDao.insert(user);
-	}
-
-	public User userSelect(User user) {
-		User dbuser = userDao.userSelect(user);
-		dbuser.setEmail(CipherUtil.decrypt(dbuser.getEmail(), dbuser.getUserId()));
-		return dbuser;
-	}
-
-	public User userSelect(String id) {
-		User dbuser = userDao.useridSelect(id);
-		dbuser.setEmail(CipherUtil.decrypt(dbuser.getEmail(), dbuser.getUserId()));
-		return dbuser;
-	}
-
 	public void userUpdate(User user) {
 		userDao.userUpdate(user);
 	}
 
 	public void userDelete(String id) {
 		userDao.userDelete(id);
-	}
-
-	public List<User> userList() {
-		List<User> list = userDao.userList();
-		for (User u : list) {
-			u.setEmail(CipherUtil.decrypt(u.getEmail(), u.getUserId()));
-		}
-		return list;
-	}
-
-	public List<User> userList(String[] idchks) {
-		List<User> list = userDao.list(idchks);
-		for (User u : list) {
-			u.setEmail(CipherUtil.decrypt(u.getEmail(), u.getUserId()));
-		}
-		return list;
 	}
 
 	public Board getBoard(Integer num) {
