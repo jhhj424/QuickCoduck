@@ -32,45 +32,12 @@ public class DuckService {
 		}
 	}
 
-	public void userCreate(User user) {// 회원가입 - insert() : DB에 등록
-		user.setEmail(CipherUtil.encrypt(user.getEmail(), user.getUserId()));
-		userDao.insert(user);
-	}
-
-	public User userSelect(User user) {
-		User dbuser = userDao.userSelect(user);
-		dbuser.setEmail(CipherUtil.decrypt(dbuser.getEmail(), dbuser.getUserId()));
-		return dbuser;
-	}
-
-	public User userSelect(String id) {
-		User dbuser = userDao.useridSelect(id);
-		dbuser.setEmail(CipherUtil.decrypt(dbuser.getEmail(), dbuser.getUserId()));
-		return dbuser;
-	}
-
 	public void userUpdate(User user) {
 		userDao.userUpdate(user);
 	}
 
 	public void userDelete(String id) {
 		userDao.userDelete(id);
-	}
-
-	public List<User> userList() {
-		List<User> list = userDao.userList();
-		for (User u : list) {
-			u.setEmail(CipherUtil.decrypt(u.getEmail(), u.getUserId()));
-		}
-		return list;
-	}
-
-	public List<User> userList(String[] idchks) {
-		List<User> list = userDao.list(idchks);
-		for (User u : list) {
-			u.setEmail(CipherUtil.decrypt(u.getEmail(), u.getUserId()));
-		}
-		return list;
 	}
 
 	public Board getBoard(Integer num) {
