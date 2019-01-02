@@ -1,11 +1,6 @@
 package logic;
 
 import java.io.File;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +15,7 @@ import dao.UserDao;
 import util.CipherUtil;
 
 @Service // @Component + Service 기능 (Controller 와 Repository의 사이의 중간 객체)
-public class ShopService {
+public class DuckService {
 	@Autowired
 	private UserDao userDao;
 	@Autowired
