@@ -4,9 +4,6 @@
 <html>
 <body>
 <h2>Hello World!</h2>
-
-
-132
-프로젝트시작!
+Project Start 19/01/02
 </body>
 </html>
