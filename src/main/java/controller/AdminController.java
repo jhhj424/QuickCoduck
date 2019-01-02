@@ -21,12 +21,4 @@ import logic.User;
 public class AdminController {
 	@Autowired
 	private DuckService service;
-	
-	@RequestMapping("admin/list")
-	public ModelAndView list(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		List<User> userlist = service.userList();
-		mav.addObject("userlist",userlist);
-		return mav;
-	}
 }
