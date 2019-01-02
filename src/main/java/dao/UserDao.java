@@ -31,7 +31,7 @@ public class UserDao {
 	}
 	public User userSelect(User user) {
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("userId", user.getUserId());
+		map.put("userId", user.getUserid());
 		return sqlSession.selectOne(NS + "list",map);
 	}
 	public User useridSelect(String id) {
