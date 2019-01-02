@@ -2,81 +2,96 @@ package logic;
 
 import java.util.Date;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 	@Size(min=3, max=10, message="아이디는 3자이상 10자 이하로 입력하세요")
 	private String userId;
 	@Size(min=4, max=12, message="비밀번호는 4자이상 12자 이하로 입력하세요")
-	private String password;
-	@NotEmpty(message="사용자 이름은 필수 입력사항 입니다.")
-	private String userName;
-	private String phoneNo;
-	private String postcode;
-	private String address;
-	private String email;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Past(message="생일은 과거 날짜만 가능합니다")
-	private Date birthDay;
+	private String pass;
+	private String tel;
+	@Past(message="생일은 과거 날짜만 가능합니다.")
+	private Date birth;
+	private String type;
+	private String businessnum;
+	private String usertech;
+	private String creditnum;
+	private String creditpass;
+	private Integer rating;
+	private Integer matching;
+
 	//getter,setter,toString
 	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(String urerId) {
-		this.userId = urerId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPassword() {
-		return password;
+	public String getPass() {
+		return pass;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
-	public String getUserName() {
-		return userName;
+	public String getTel() {
+		return tel;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
-	public String getPhoneNo() {
-		return phoneNo;
+	public Date getBirth() {
+		return birth;
 	}
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
-	public String getPostcode() {
-		return postcode;
+	public String getType() {
+		return type;
 	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setType(String type) {
+		this.type = type;
 	}
-	public String getAddress() {
-		return address;
+	public String getBusinessnum() {
+		return businessnum;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBusinessnum(String businessnum) {
+		this.businessnum = businessnum;
 	}
-	public String getEmail() {
-		return email;
+	public String getUsertech() {
+		return usertech;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsertech(String usertech) {
+		this.usertech = usertech;
 	}
-	public Date getBirthDay() {
-		return birthDay;
+	public String getCreditnum() {
+		return creditnum;
 	}
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
+	public void setCreditnum(String creditnum) {
+		this.creditnum = creditnum;
+	}
+	public String getCreditpass() {
+		return creditpass;
+	}
+	public void setCreditpass(String creditpass) {
+		this.creditpass = creditpass;
+	}
+	public Integer getRating() {
+		return rating;
+	}
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+	public Integer getMatching() {
+		return matching;
+	}
+	public void setMatching(Integer matching) {
+		this.matching = matching;
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", password=" + password + ", userName=" + userName + ", phoneNo=" + phoneNo
-				+ ", postcode=" + postcode + ", address=" + address + ", email=" + email + ", birthDay=" + birthDay
-				+ "]";
+		return "User [userId=" + userId + ", pass=" + pass + ", tel=" + tel + ", birth=" + birth + ", type=" + type
+				+ ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum=" + creditnum
+				+ ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
 	}	
 }
