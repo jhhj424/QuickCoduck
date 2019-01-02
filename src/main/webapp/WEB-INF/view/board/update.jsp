@@ -14,7 +14,7 @@
 </script>
 </head>
 <body>
-<form:form modelAttribute="board" action="update.shop" enctype="multipart/form-data" name="f">
+<form:form modelAttribute="board" action="update.duck" enctype="multipart/form-data" name="f">
 	<input type="hidden" name="num" value="${board.num}">
 	<input type="hidden" name="file2" value="${board.fileurl}">
 	<table border="1" style="border-collapse: collapse; width:100%">
@@ -37,5 +37,5 @@
 		<input type="file" name="file1"></td></tr>
 		<tr><td colspan="2" align="center">
 		<a href="javascript:document.f.submit()">[게시물수정]</a>
-		<a href="list.shop">[게시물목록]</a></td></tr>
+		<a href="list.duck">[게시물목록]</a></td></tr>
 		</table></form:form></body></html>

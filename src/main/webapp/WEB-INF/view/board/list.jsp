@@ -12,7 +12,7 @@
 		if(searchType == null || searchType.length == 0) {
 			document.searchform.searchContent.value="";
 			document.searchform.pageNum.value="1";
-			location.href = "list.shop?pageNum=" + pageNum;
+			location.href = "list.duck?pageNum=" + pageNum +"&type=${param.type}";
 		} else {
 			document.searchform.pageNum.value=pageNum;
 			document.searchform.submit();
@@ -25,7 +25,7 @@
 <body>
 <table border="1" style="border-collapse: collapse; width: 100%" >
 	<tr><td colspan="5" align="center">
-		<form action="list.shop" method="post" name="searchform" onsubmit="return list(1)" >
+		<form action="list.duck" method="post" name="searchform" onsubmit="return list(1)" >
 		<input type="hidden" name="pageNum" value="1">
 		<select name="searchType" id="searchType">
 			<option value="">선택하세요</option>
@@ -51,7 +51,7 @@
 			<td colspan="4">개발자자유게시판</td><td>글개수:${listcount}</td>
 		</c:if>
 		<c:if test="${param.type==3}">
-			<td colspan="4">프로젝트공고모집게시판 게시판</td><td>글개수:${listcount}</td>
+			<td colspan="4">프로젝트공고모집게시판</td><td>글개수:${listcount}</td>
 		</c:if>
 		</tr>			
 		<tr align="center" valign="middle" bordercolor="#212121">
@@ -67,7 +67,7 @@
 			<c:if test="${! empty board.fileurl}">
 				<a href="../file/${board.fileurl}">@</a></c:if>
 			<c:if test="${empty board.fileurl}">&nbsp;&nbsp;&nbsp;</c:if>
-				<a href="detail.shop?num=${board.boardnum}">${board.subject}</a>
+				<a href="detail.duck?num=${board.boardnum}">${board.subject}</a>
 			</td>
 			<td align="left">${board.userid}</td><td align="center">${board.regdate}</td>
 			<td align="right">${board.readcnt}</td></tr>
@@ -88,5 +88,5 @@
 	<c:if test="${listcount == 0}">
 		<tr><td colspan="5">등록된 게시물이 없습니다.</td></tr>
 	</c:if>
-	<tr><td colspan="5" align="right"><a href="write.shop">[글쓰기]</a></td></tr>
+	<tr><td colspan="5" align="right"><a href="write.duck?type=${param.type}">[글쓰기]</a></td></tr>
 	</table></body></html>

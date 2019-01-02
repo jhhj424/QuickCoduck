@@ -3,13 +3,16 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.LoginException;
 import logic.Board;
 import logic.DuckService;
 
@@ -45,6 +48,24 @@ public class BoardController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
+	@RequestMapping(value = "board/write", method = RequestMethod.POST)
+	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request) {
+		System.out.println(board);
+		ModelAndView mav = new ModelAndView();
+		if (br.hasErrors()) {
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		try {
+			service.boardadd(board, request);
+			mav.addObject("board", board);
+			mav.setViewName("redirect:list.duck?type="+board.getBoardtype());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("게시글 등록에 실패하셨습니다", "write.duck?type="+board.getBoardtype());
+		}
 		return mav;
 	}
 

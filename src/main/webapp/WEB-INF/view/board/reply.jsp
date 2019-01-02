@@ -8,7 +8,7 @@
 <title>답글 쓰기</title>
 </head>
 <body>
-<form:form action="reply.shop" method="post" name="f" modelAttribute="board">
+<form:form action="reply.duck" method="post" name="f" modelAttribute="board">
 	<input type="hidden" name="num" value="${board.num}">
 	<input type="hidden" name="ref" value="${board.ref}">
 	<input type="hidden" name="reflevel" value="${board.reflevel}">

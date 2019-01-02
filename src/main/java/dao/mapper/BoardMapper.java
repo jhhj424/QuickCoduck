@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Update;
 import logic.Board;
 public interface BoardMapper  {
 
-	@Select("select ifnull(max(num),0) from board ")
+	@Select("select ifnull(max(boardnum),0) from board ")
 	int maxNum();
 	
-	@Insert("insert into board (num,name,pass,subject,content,file1, regdate, readcnt, ref, reflevel, refstep) "
-			+ " values(#{num},#{name},#{pass},#{subject},#{content},#{fileurl}, now(), 0, #{ref}, #{reflevel}, #{refstep})")
+	@Insert("insert into board (boardnum,userid,boardtype,subject,content,file1,pic, regdate, readcnt, usetech, price, schedule) "
+			+ " values(#{boardnum},#{userid},#{boardtype},#{subject},#{content},#{fileurl},#{pic}, now(), 0, #{usetech}, #{price}, #{schedule})")
 	void insert(Board board);
 
 	@Update("update board set readcnt = readcnt+1 where num=#{num}")

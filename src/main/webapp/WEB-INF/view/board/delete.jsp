@@ -8,7 +8,7 @@
 <title>Spring 게시판 삭제</title>
 </head>
 <body>
-<form action="delete.shop" name="f" method="post">
+<form action="delete.duck" name="f" method="post">
 	<input type="hidden" name="num" value="${param.num}">
 	<table border="2" style="border-collapse: collapse; width: 100%" >
 		<tr><td>게시글 비밀번호</td><td><input type="password" name="pass"></td></tr>

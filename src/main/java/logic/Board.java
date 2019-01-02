@@ -38,8 +38,8 @@ public class Board {
 	public String getBoardtype() {
 		return boardtype;
 	}
-	public void setBoardtype(String boardtype) {
-		this.boardtype = boardtype;
+	public void setBoardtype(String type) {
+		this.boardtype = type;
 	}
 	public String getSubject() {
 		return subject;
