@@ -31,7 +31,7 @@
 		<servlet-name>shop</servlet-name>
 		<url-pattern>*.shop</url-pattern>
 	</servlet-mapping>
-	<!-- CharacterEncodingFilter : request 의 파라미터 정보를 euc-kr로 인코딩해주는 필터 -->
+	<!-- CharacterEncodingFilter : request 의 파라미터 정보를 utf-8로 인코딩해주는 필터 -->
 	<filter>
 		<filter-name>CharacterEncoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
