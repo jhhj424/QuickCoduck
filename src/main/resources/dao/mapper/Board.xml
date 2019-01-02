@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /main/resources/dao/mapper/Board.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.BoardMapper">
+
+	<select id="count" resultType="int" parameterType="map">
+		select count(*) from board
+		<if test="column != null and find != null">
+			where ${column} like '%${find}%'
+		</if>
+	</select>
+	
+	<select id="select" resultType="Board" parameterType="map">
+		select num,name,pass,subject,content,file1 fileurl, regdate, readcnt, ref, reflevel, refstep from board
+		<if test="num != null">
+			where num = #{num}
+		</if>
+		<if test="column != null and find != null">
+			where ${column} like '%${find}%'
+		</if>
+		order by ref desc, refstep asc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
+</mapper>

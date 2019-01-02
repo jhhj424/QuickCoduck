@@ -16,7 +16,7 @@
 		설정되었음. /WEB-INF/shop-2-servlet.xml을 설정파일로 인식함. 기본xml의 이름은 서블릿이름-servlet.xml로 
 		설정함. -->
 	<servlet>
-		<servlet-name>duck</servlet-name>
+		<servlet-name>quickcoduck</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -28,7 +28,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>duck</servlet-name>
+		<servlet-name>quickcoduck</servlet-name>
 		<url-pattern>*.duck</url-pattern>
 	</servlet-mapping>
 	<!-- CharacterEncodingFilter : request 의 파라미터 정보를 utf-8로 인코딩해주는 필터 -->
