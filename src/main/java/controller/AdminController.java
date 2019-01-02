@@ -1,14 +1,8 @@
 package controller;
-
-import java.util.List;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import logic.ShopService;
-import logic.User;
+
+import logic.DuckService;
 
 //AOP 설정 : AdminController 의 모든 메서드는 반드시 admin으로 로그인 해야만 실행 되도록 하기
 //AOP 클래스파일 이름 : AdminAspect
@@ -18,13 +12,5 @@ import logic.User;
 @Controller
 public class AdminController {
 	@Autowired
-	private ShopService service;
-	
-	@RequestMapping("admin/list")
-	public ModelAndView list(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		List<User> userlist = service.userList();
-		mav.addObject("userlist",userlist);
-		return mav;
-	}
+	private DuckService service;
 }

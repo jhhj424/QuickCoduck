@@ -32,8 +32,8 @@ public class AdminAspect {
 		if(loginUser == null) { //로그인이 안된경우
 			throw new LoginException ("로그인 후 이용하세요","../user/loginForm.shop");
 		}else { //로그인이 된경우
-			if(!loginUser.getUserId().equals("admin")) { //관리자가 아닐때
-				throw new LoginException ("관리자만 사용 가능합니다.","../user/mypage.shop?id="+loginUser.getUserId());
+			if(!loginUser.getUserid().equals("admin")) { //관리자가 아닐때
+				throw new LoginException ("관리자만 사용 가능합니다.","../user/mypage.shop?id="+loginUser.getUserid());
 			}
 		}
 		Object ret = joinPoint.proceed();
