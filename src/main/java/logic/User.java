@@ -21,8 +21,10 @@ public class User {
 	private String creditpass;
 	private Integer rating;
 	private Integer matching;
+	
 
 	//getter,setter,toString
+	
 	public String getUserid() {
 		return userid;
 	}
