@@ -2,6 +2,7 @@ package controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -11,7 +12,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
@@ -77,16 +77,16 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/userForm"); //a 입력하면 a.jsp로 이동됨.
 		String pass1 = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
-		if(pass1 != pass2) { //비밀번호 불일치
+		if(pass1.equals(pass2)) { //비밀번호 일치
+			try {
+				service.userCreate(user, request);
+				mav.setViewName("user/login");
+				mav.addObject("user",user);
+			}catch(DataIntegrityViolationException e) {
+				return mav;
+			}
+		}else {
 			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/userForm.duck");
-		}
-		try {
-			System.out.println(user.getType());
-			service.userCreate(user, request);
-			mav.setViewName("user/login");
-			mav.addObject("user",user);
-		}catch(DataIntegrityViolationException e) {
-			return mav;
 		}
 		return mav;
 	}
