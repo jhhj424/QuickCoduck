@@ -5,6 +5,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/jspHeader.jsp" %>
+<%@include file="/WEB-INF/view/style/start_signup.jsp" %>
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
@@ -45,7 +46,7 @@ body, html {
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar">
     <a href="#home" class="w3-bar-item w3-button w3-wide">Quick Coduck</a>
-    <!-- Right-sided navbar links -->
+    <!-- 상단 아이콘-->
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button">이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
@@ -57,7 +58,7 @@ body, html {
       <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i>자유게시판</a>
       <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>Mypage</a>
       <c:if test="${empty sessionScope.loginUser}">
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      <a href="#contact" class="w3-bar-item w3-button"onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-envelope"></i>로그인/회원가입</a>
       </c:if>
       <c:if test="${!empty sessionScope.loginUser}">
       <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그아웃</a>
@@ -68,17 +69,6 @@ body, html {
     </a>
   </div>
 </div>
-
-<!-- 상단 아이콘 버트 -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">이용방법</a>
-  <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">프로젝트 찾기/opensource 찾기</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">자유게시판</a>
-  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">Mypage</a>
-  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">로그인/회원가입</a>
-</nav>
-
 <!-- 상단 이미지 AD-->
 <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
   <div class="w3-display-left" style="padding:48px">
@@ -89,13 +79,16 @@ body, html {
 				outsourcing through big data analysis</span><br>
     <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
   </div> 
-  <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+  <div class="w3-display-bottomleft w3-text-white w3-large" style="padding:24px 48px">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
     <i class="fa fa-snapchat w3-hover-opacity"></i>
     <i class="fa fa-pinterest-p w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <i class="fa fa-android w3-hover-opacity"></i>
+    <i class="fa fa-apple w3-hover-opacity"></i>
+    <i class="fa fa-windows w3-hover-opacity"></i>
   </div>
 </header>
 
@@ -206,8 +199,7 @@ body, html {
   </div>
 </div>
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+<footer class="w3-center w3-black w3-padding-32">
   <div class="w3-xlarge w3-section">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
@@ -215,12 +207,90 @@ body, html {
     <i class="fa fa-pinterest-p w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i><br>
-    <i class="fa fa-map-marker"></i> Chicago, US<br>
-    <i class="fa fa-phone"></i> Phone: +00 151515<br>
-    <i class="fa fa-envelope"></i> Email: mail@mail.com<br>
   </div>
-  <p>Quick Coduck<a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">Quick</a></p>
+  <p>Quick Coduck<a href="#home"class="w3-hover-text-green">  <i class="fa fa-arrow-up w3-margin-right">Up to top</i></a></p>
 </footer>
+
+<!-- Modal -->
+<div id="login" class="w3-modal w3-animate-opacity">
+<section class="container">
+		    <article class="half">
+			        <h1>Quick Coduck</h1>
+			        <div class="tabs">
+				            <span class="tab signin active"><a href="#signin">Login</a></span>
+			        </div>
+			        <div class="content">
+				            <div class="signin-cont cont">
+					                <form action="login.duck" method="post" enctype="multipart/form-data">
+						                    <input type="text" name="userid" id="userid" class="inpt" required="required" placeholder="User ID">
+						                    <label for="text">Your id</label>
+						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
+                						    <label for="password">Your password</label>
+						                    <input type="checkbox" id="remember" class="checkbox" checked>
+						                    <div class="submit-wrap">
+							                        <input type="submit" value="Sign in" class="submit">
+							                        <a href="#" class="more">Forgot your password?</a>
+						                    </div>
+        					        </form>
+    				        </div>
+			        </div>
+		    </article>
+		    <i onclick="document.getElementById('login').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
+		    <div class="half bg"></div>
+	</section>
+</div>
+
+
+<div id="signup" class="w3-modal w3-animate-opacity">
+<section class="container">
+		    <article class="half">
+			        <h1>Quick Coduck</h1>
+			        <div class="tabs">
+				            <span class="tab signin active"><a href="#signin">User</a></span>
+				            <span class="tab signup"><a href="#signup">Client</a></span>
+			        </div>
+			        <div class="content">
+				            <div class="signin-cont cont">
+					                <form action="signup.duck" method="post" enctype="multipart/form-data">
+					                        <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
+						                    <label for="name"></label>
+						                    <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
+						                    <label for="email"></label>
+						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
+                						    <label for="password"></label>
+                						    <input type="password" name="pass2" id="password2" class="inpt" required="required" placeholder="Re Password">
+                						    <label for="password"></label>
+                						    <input type="hidden" name="type" value="1" id="user" class="inpt">
+						                    <div class="submit-wrap">
+							                        <input type="submit" value="Sign up" class="submit">
+							                        <a href="#" class="more">Forgot your password?</a>
+						                    </div>
+        					        </form>
+    				        </div>
+    				        <div class="signup-cont cont">
+                <form action="signup.duck" method="post" enctype="multipart/form-data">
+						                    <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
+						                    <label for="name"></label>
+                                            <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
+						                    <label for="email"></label>
+						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
+                						    <label for="password"></label>
+                						    <input type="password" name="pass2" id="password2" class="inpt" required="required" placeholder="Re Password">
+                						    <label for="password"></label>
+                						    <input type="hidden" name="type" value="2" id="client" class="inpt">
+						                    <div class="submit-wrap">
+							                        <input type="submit" value="Sign up" class="submit">
+							                        <a href="#" class="more">Terms and conditions</a>
+						                    </div>
+        					        </form>
+            </div>
+			        </div>
+		    </article>
+		    <i onclick="document.getElementById('signup').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
+		    <div class="half bg"></div>
+	</section>
+</div>
+<!-- 사진 확대해서 보이는 script -->
 <script>
 // Modal Image Gallery
 function onClick(element) {
@@ -229,11 +299,8 @@ function onClick(element) {
   var captionText = document.getElementById("caption");
   captionText.innerHTML = element.alt;
 }
-
-
 // Toggle between showing and hiding the sidebar when clicking the menu icon
 var mySidebar = document.getElementById("mySidebar");
-
 function w3_open() {
   if (mySidebar.style.display === 'block') {
     mySidebar.style.display = 'none';
@@ -241,11 +308,28 @@ function w3_open() {
     mySidebar.style.display = 'block';
   }
 }
-
 // Close the sidebar with the close button
 function w3_close() {
     mySidebar.style.display = "none";
 }
+</script>
+<!-- 모달 로그인창 스크립트 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script type="text/javascript">
+$('.tabs .tab').click(function(){
+    if ($(this).hasClass('signin')) {
+        $('.tabs .tab').removeClass('active');
+        $(this).addClass('active');
+        $('.cont').hide();
+        $('.signin-cont').show();
+    } 
+    if ($(this).hasClass('signup')) {
+        $('.tabs .tab').removeClass('active');
+        $(this).addClass('active');
+        $('.cont').hide();
+        $('.signup-cont').show();
+    }
+});
 </script>
 </body>
 </html>
