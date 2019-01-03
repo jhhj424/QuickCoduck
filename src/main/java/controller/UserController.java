@@ -1,6 +1,5 @@
 package controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,13 +33,14 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
+
 	@RequestMapping("user/userForm")
 	public ModelAndView userForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject(new User());
 		return mav;
 	}
+
 	@RequestMapping("user/login")
 	public ModelAndView login(@Valid User user, BindingResult bindResult, HttpSession session) {
 		// @Valid : 유효성 검증. Item 클래스에 정의된 내용으로 검증을 함.
@@ -80,22 +80,38 @@ public class UserController {
 
 	@RequestMapping("user/userEntry")
 	public ModelAndView userEntry(@Valid User user, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("user/userForm"); //a 입력하면 a.jsp로 이동됨.
+		ModelAndView mav = new ModelAndView("user/userForm"); // a 입력하면 a.jsp로 이동됨.
 		String pass1 = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
-		if(pass1.equals(pass2)) { //비밀번호 일치
+		if (pass1.equals(pass2)) { // 비밀번호 일치
 			try {
 				service.userCreate(user, request);
-				mav.setViewName("user/loginForm");
-				mav.addObject("user",user);
-			}catch(DataIntegrityViolationException e) {
+				mav.setViewName("user/login");
+				mav.addObject("user", user);
+			} catch (DataIntegrityViolationException e) {
 				return mav;
 			}
-		}else {
+		} else {
 			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/userForm.duck");
 		}
 		return mav;
 	}
+
+	@RequestMapping("user/signup")
+	public ModelAndView signup(@Valid User user, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("user/start");
+		String pass = request.getParameter("pass");
+		String checkpass = request.getParameter("pass2");
+		if(pass.equals(checkpass)) {
+			service.userCreate(user, request);
+			mav.addObject("user",user);
+			mav.setViewName("redirect:start.duck");
+		}else {
+			throw new LoginException("비밀번호가 일치하지 않습니다.","../user/start.duck");
+		}
+		return mav;
+	}
+
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");
@@ -116,12 +132,12 @@ public class UserController {
 		mav.setViewName("redirect:loginForm.duck");
 		return mav;
 	}
-	
+
 	@RequestMapping("user/mypage")
 	public ModelAndView mypage(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
-		mav.addObject("user",user);
+		mav.addObject("user", user);
 		return mav;
 	}
 }

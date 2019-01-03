@@ -86,9 +86,9 @@ img {margin-bottom: -8px;}
 			        </div>
 			        <div class="content">
 				            <div class="signin-cont cont">
-					                <form action="#" method="post" enctype="multipart/form-data">
-						                    <input type="email" name="userid" id="userid" class="inpt" required="required" placeholder="User ID">
-						                    <label for="email">Your id</label>
+					                <form action="login.duck" method="post" enctype="multipart/form-data">
+						                    <input type="text" name="userid" id="userid" class="inpt" required="required" placeholder="User ID">
+						                    <label for="text">Your id</label>
 						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
                 						    <label for="password">Your password</label>
 						                    <input type="checkbox" id="remember" class="checkbox" checked>
@@ -116,7 +116,7 @@ img {margin-bottom: -8px;}
 			        </div>
 			        <div class="content">
 				            <div class="signin-cont cont">
-					                <form action="#" method="post" enctype="multipart/form-data">
+					                <form action="signup.duck" method="post" enctype="multipart/form-data">
 					                        <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
 						                    <label for="name"></label>
 						                    <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
@@ -133,7 +133,7 @@ img {margin-bottom: -8px;}
         					        </form>
     				        </div>
     				        <div class="signup-cont cont">
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="signup.duck" method="post" enctype="multipart/form-data">
 						                    <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
 						                    <label for="name"></label>
                                             <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
