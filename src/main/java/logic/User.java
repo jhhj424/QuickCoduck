@@ -14,9 +14,9 @@ public class User {
 	private String tel;
 	@Past(message="생일은 과거 날짜만 가능합니다.")
 	private Date birth;
-	private String type;
+	private int type;
 	private String businessnum;
-	private String usertech;
+	private String usetech;
 	private String creditnum;
 	private String creditpass;
 	private Integer rating;
@@ -55,10 +55,10 @@ public class User {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public String getBusinessnum() {
@@ -67,11 +67,11 @@ public class User {
 	public void setBusinessnum(String businessnum) {
 		this.businessnum = businessnum;
 	}
-	public String getUsertech() {
-		return usertech;
+	public String getUsetech() {
+		return usetech;
 	}
-	public void setUsertech(String usertech) {
-		this.usertech = usertech;
+	public void setUsetech(String usetech) {
+		this.usetech = usetech;
 	}
 	public String getCreditnum() {
 		return creditnum;
@@ -100,7 +100,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth="
-				+ birth + ", type=" + type + ", businessnum=" + businessnum + ", usertech=" + usertech + ", creditnum="
+				+ birth + ", type=" + type + ", businessnum=" + businessnum + ", usertech=" + usetech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching + "]";
 	}	
 }

@@ -5,14 +5,14 @@
 <mapper namespace="dao.mapper.UserMapper">
 	<select id="list" resultType="User" parameterType="map">
 		select * from user
-		<if test="userId != null">
-			where userid=#{userId}
+		<if test="userid != null">
+			where userid=#{userid}
 		</if>
 		<if test="ids != null">
 			where userid in
-			<foreach collection="ids" item="userId" open="(" close=")"
+			<foreach collection="ids" item="userid" open="(" close=")"
 				separator=",">
-				#{userId}
+				#{userid}
 			</foreach>
 		</if>
 		order by userid

@@ -22,11 +22,11 @@ public class LoginAspect {
 		//1. 로그인 안된 경우
 		User user = (User)session.getAttribute("loginUser");
 		if(user == null) {
-			throw new LoginException ("로그인 후 거래하세요","../user/loginForm.shop");
+			throw new LoginException ("로그인 후 이용해주세요","../user/loginForm.duck");
 		}
 		//2. admin가 아니고, id와 로그인 정보가 다른 경우.
 		if(!id.equals(user.getUserid()) && !user.getUserid().equals("admin")) {
-			throw new LoginException ("본인만 거래 가능합니다.","../user/mypage.shop?id=" + user.getUserid());
+			throw new LoginException ("본인만 확인 가능합니다.","../user/mypage.duck?id=" + user.getUserid());
 		}
 		Object ret = joinPoint.proceed();
 		return ret;
@@ -38,11 +38,11 @@ public class LoginAspect {
 		//1. 로그인 안된 경우
 		User loginuser = (User)session.getAttribute("loginUser");
 		if(loginuser == null) {
-			throw new LoginException ("로그인 후 수정가능합니다.","../user/loginForm.shop");
+			throw new LoginException ("로그인 후 수정가능합니다.","../user/loginForm.duck");
 		}
 		//2. admin가 아니고, id와 로그인 정보가 다른 경우.
 		if(!user.getUserid().equals(loginuser.getUserid()) && !loginuser.getUserid().equals("admin")) {
-			throw new LoginException ("본인 정보만 수정 가능합니다.","../user/mypage.shop?id=" + loginuser.getUserid());
+			throw new LoginException ("본인 정보만 수정 가능합니다.","../user/mypage.duck?id=" + loginuser.getUserid());
 		}
 		Object ret = joinPoint.proceed();
 		return ret;

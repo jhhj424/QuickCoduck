@@ -91,4 +91,8 @@ public class DuckService {
 	public void userCreate(User user, HttpServletRequest request) {
 		userDao.insert(user);
 	}
+
+	public User select(String id) {
+		return userDao.select(id);
+	}
 }
