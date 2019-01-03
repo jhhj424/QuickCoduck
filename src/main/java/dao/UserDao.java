@@ -23,12 +23,12 @@ public class UserDao {
 	}
 	public User userSelect(User user) {
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("userId", user.getUserid());
+		map.put("userid", user.getUserid());
 		return sqlSession.selectOne(NS + "list",map);
 	}
 	public User useridSelect(String id) {
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("userId", id);
+		map.put("userid", id);
 		return sqlSession.selectOne(NS + "list", map);
 	}
 	public void userUpdate(User user) {
@@ -36,7 +36,7 @@ public class UserDao {
 	}
 	public void userDelete(String id) {
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("userId", id);
+		map.put("userid", id);
 		sqlSession.getMapper(UserMapper.class).delete(map);
 	}
 	public List<User> userList() {
@@ -52,5 +52,11 @@ public class UserDao {
 		Map<String,String[]> map = new HashMap<String,String[]>();
 		map.put("ids", idchks);
 		return sqlSession.selectList(NS + "list", map);
+	}
+	//XML¼³Á¤
+	public User select(String id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", id);
+		return sqlSession.selectOne(NS+"list",map);
 	}
 }

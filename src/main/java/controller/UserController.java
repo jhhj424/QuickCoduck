@@ -80,7 +80,7 @@ public class UserController {
 		if(pass1.equals(pass2)) { //비밀번호 일치
 			try {
 				service.userCreate(user, request);
-				mav.setViewName("user/login");
+				mav.setViewName("user/loginForm");
 				mav.addObject("user",user);
 			}catch(DataIntegrityViolationException e) {
 				return mav;
@@ -108,6 +108,14 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		session.invalidate();
 		mav.setViewName("redirect:loginForm.duck");
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage")
+	public ModelAndView mypage(String id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.select(id);
+		mav.addObject("user",user);
 		return mav;
 	}
 }
