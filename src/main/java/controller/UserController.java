@@ -1,16 +1,22 @@
 package controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
@@ -40,7 +46,6 @@ public class UserController {
 		mav.addObject(new User());
 		return mav;
 	}
-
 	@RequestMapping("user/main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
@@ -93,8 +98,8 @@ public class UserController {
 			try {
 				service.userCreate(user, request);
 				mav.setViewName("user/login");
-				mav.addObject("user", user);
-			} catch (DataIntegrityViolationException e) {
+				mav.addObject("user",user);
+			}catch(DataIntegrityViolationException e) {
 				return mav;
 			}
 		} else {
@@ -117,7 +122,6 @@ public class UserController {
 		}
 		return mav;
 	}
-
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");
@@ -145,5 +149,45 @@ public class UserController {
 		User user = service.select(id);
 		mav.addObject("user", user);
 		return mav;
+	}
+	
+	@RequestMapping("user/updateForm")
+	public ModelAndView update(String id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.select(id);
+		mav.addObject("user", user);
+		return mav;
+	}
+	@RequestMapping(value="user/update",method = RequestMethod.POST)
+	public ModelAndView update(HttpSession session, User user) {
+		ModelAndView mav = new ModelAndView("user/updateForm");
+		User dbuser = service.select(user.getUserid());//비밀번호  검증 
+		if(user.getPass().equals(dbuser.getPass())) { //비밀번호가 일치
+			//정보수정
+			try {
+				service.userUpdate(user);
+				//mav.addObject("user",user);
+				mav.setViewName("user/mypage");
+			}catch(Exception e) {
+				e.printStackTrace();
+				//mav.setViewName("user/updateForm");
+			}
+		}else {
+			return mav;
+		}
+		return mav;
+	}
+	
+	@InitBinder // 파라미터 값 형변환을 위한 메서드
+	public void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		/*
+		 * Date.class : 파라미터값을 Date타입으로 형변환 함. User 객체에 Date 과 동일한 타입이어야 함. new
+		 * CustomDateEditor : 파라미터 형변환. 형식은 dateFormat을 따름. true : 비입력 허용. false : 반드시
+		 * 입력.
+		 * 
+		 * 형식이 틀린경우 : typeMismatch.파라미터이름 코드를 오류로 등록함.
+		 */
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // false:필수입력 true:선택입력
 	}
 }
