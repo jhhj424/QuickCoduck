@@ -26,7 +26,7 @@
 			<font color="red"><form:errors path="pass"/></font></td></tr>
 		<tr height="40px"><td colspan="2" align="center">
 			<input type="submit" value="로그인">
-			<input type="button" value="회원가입" onclick="location.href='userEntry.shop'"></td>
+			<input type="button" value="회원가입" onclick="location.href='userForm.duck'"></td>
 		</tr>
 	</table>
 </form:form>
