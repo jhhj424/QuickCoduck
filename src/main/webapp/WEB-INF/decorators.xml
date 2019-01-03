@@ -3,6 +3,9 @@
 	<decorator name="main" page="main_decorator.jsp">
 		<pattern>*.duck</pattern>
 	</decorator>
+	<decorator name="start" page="start.jsp">
+		<pattern>start.duck</pattern>
+	</decorator>
 	<excludes>
 	</excludes>
 </decorators>
