@@ -25,12 +25,12 @@
 <body>
 <table border="1" style="border-collapse: collapse; width: 100%" >
 	<tr><td colspan="5" align="center">
-		<form action="list.duck" method="post" name="searchform" onsubmit="return list(1)" >
+		<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)" >
 		<input type="hidden" name="pageNum" value="1">
 		<select name="searchType" id="searchType">
 			<option value="">선택하세요</option>
 			<option value="subject">제목</option>
-			<option value="name">글쓴이</option>
+			<option value="userid">글쓴이</option>
 			<option value="content">내용</option>
 		</select>&nbsp;
 		<script type="text/javascript">
@@ -90,6 +90,7 @@
 	</c:if>
 	<tr><td colspan="5" align="right"><a href="write.duck?type=${param.type}">[글쓰기]</a></td></tr>
 	</table>
+  		<a href="../user/logout.duck">로그아웃</a>
   		<a href="../board/list.duck?type=1">오픈소스게시판</a>
   		<a href="../board/list.duck?type=2">개발자자유게시판</a>
   		<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></body></html>
