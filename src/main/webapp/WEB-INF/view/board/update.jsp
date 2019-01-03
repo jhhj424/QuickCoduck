@@ -32,7 +32,7 @@
 		</c:if>
 		</tr>
 		<tr><td align="center">글쓴이</td>
-		<td><form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></td></tr>
+		<td><form:input path="userid" value="${board.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></td></tr>
 		<tr><td align="center">비밀번호</td>
 		<td><input type="password" name="pass"></td></tr>
 		<tr><td align="center">제목</td>

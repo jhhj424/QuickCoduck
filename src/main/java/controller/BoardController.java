@@ -88,8 +88,13 @@ public class BoardController {
 		board.setBoardnum(num);
 		board.setBoardtype(type);
 		board = service.getBoard(board);
+		User user = new User();
+		user = service.select(board.getUserid());
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
+		}
 		mav.addObject("board",board);
-		System.out.println(board+"1");
 		return mav;
 	}
 	
@@ -165,9 +170,16 @@ public class BoardController {
 	public ModelAndView getboard(Integer num, HttpServletRequest request , Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
-		if(num!=null)board.setBoardnum(num);
-		if(type!=null)board.setBoardtype(type);
-		if (num != null) {
+		if(num!=null) {
+			board.setBoardnum(num);
+			board.setBoardtype(type);
+			board = service.getBoard(board);
+			User user = new User();
+			user = service.select(board.getUserid());
+			User loginUser = (User)session.getAttribute("loginUser");
+			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
+			}
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
 			}
