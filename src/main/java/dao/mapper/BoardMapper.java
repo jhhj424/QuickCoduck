@@ -17,16 +17,16 @@ public interface BoardMapper  {
 			+ " values(#{boardnum},#{userid},#{boardtype},#{subject},#{content},#{fileurl},#{pic}, now(), 0, #{usetech}, #{price}, #{schedule})")
 	void insert(Board board);
 
-	@Update("update board set readcnt = readcnt+1 where num=#{num}")
+	@Update("update board set readcnt = readcnt+1 where boardnum=#{boardnum}")
 	void readcntadd(Map<String, Integer> map);
 
-	@Update("update board set name=#{name}, subject=#{subject}, content=#{content}, file1=#{fileurl} where num = #{num}")
+	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl} where boardnum = #{boardnum}")
 	void update(Board board);
 
 	@Update("update board set refstep = refstep+1 where ref= #{ref} and refstep > #{refstep}")
 	void rsupdate(Map<String, Integer> map);
 
-	@Delete("delete from board where num=#{num}")
+	@Delete("delete from board where boardnum=#{boardnum}")
 	void delete(Map<String, Integer> map);
 
 }

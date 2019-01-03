@@ -22,9 +22,9 @@
 		</c:if>
 	</td></tr>
 	<tr><td colspan="2" align="center">
-		<a href="reply.duck?num=${board.num}">[답변]</a>
-		<a href="update.duck?num=${board.num}">[수정]</a>
-		<a href="delete.duck?num=${board.num}">[삭제]</a>
+		<a href="reply.duck?num=${board.boardnum}">[답변]</a>
+		<a href="update.duck?num=${board.boardnum}">[수정]</a>
+		<a href="delete.duck?num=${board.boardnum}">[삭제]</a>
 		<a href="list.duck">[목록]</a>
 	</td></tr>
 </table>

@@ -67,7 +67,7 @@
 			<c:if test="${! empty board.fileurl}">
 				<a href="../file/${board.fileurl}">@</a></c:if>
 			<c:if test="${empty board.fileurl}">&nbsp;&nbsp;&nbsp;</c:if>
-				<a href="detail.duck?num=${board.boardnum}">${board.subject}</a>
+				<a href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 			</td>
 			<td align="left">${board.userid}</td><td align="center">${board.regdate}</td>
 			<td align="right">${board.readcnt}</td></tr>

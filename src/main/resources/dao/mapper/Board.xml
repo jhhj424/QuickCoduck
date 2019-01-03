@@ -13,7 +13,7 @@
 	
 	<select id="select" resultType="Board" parameterType="map">
 		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1, pic, usetech, price, schedule from board where boardtype = #{type}
-		<if test="num != null">
+		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 		<if test="column != null and find != null">

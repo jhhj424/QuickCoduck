@@ -44,6 +44,9 @@ public class DuckService {
 	public Board getBoard(Integer num) {
 		return boardDao.select(num);
 	}
+	public Board getBoard(Board board) {
+		return boardDao.select(board);
+	}
 
 	public Board getBoard(Integer num, HttpSession session) {
 		return boardDao.select(num);

@@ -26,7 +26,13 @@ public class BoardDao {
 	
 	public Board select(Integer num) {
 		Map<String, Integer> map= new HashMap<String, Integer>();
-		map.put("num", num);
+		map.put("boardnum", num);
+		return sqlSession.selectOne(NS + "select",map);
+	}
+	public Board select(Board board) {
+		Map<String, Integer> map= new HashMap<String, Integer>();
+		map.put("boardnum", board.getBoardnum());
+		map.put("type", Integer.parseInt(board.getBoardtype()));
 		return sqlSession.selectOne(NS + "select",map);
 	}
 	public int count(String searchType, String searchContent,int type) {

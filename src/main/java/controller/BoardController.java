@@ -68,6 +68,20 @@ public class BoardController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="board/detail")
+	public ModelAndView detail(int num,int type) {
+		System.out.println(num+";;"+type);
+		ModelAndView mav = new ModelAndView();
+		Board bo = new Board();
+		bo.setBoardnum(num);
+		bo.setBoardtype(type+"");
+		Board board = service.getBoard(bo);
+		mav.addObject("board",board);
+		System.out.println(board);
+		return mav;
+	}
+	
 
 	@RequestMapping(value = "board/*", method = RequestMethod.GET)
 	public ModelAndView getboard(Integer num, HttpServletRequest request) {
