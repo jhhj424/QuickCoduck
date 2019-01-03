@@ -24,7 +24,6 @@
    }
   }); //#pass2.keyup
  });
-
 </script>
 </head>
 <body>
@@ -42,12 +41,13 @@
 		</td></tr>
 		<tr height="40px" ><td>이메일</td><td><form:input path="email"/>
 		</td></tr>
-		<tr height="40px" ><td>비밀번호</td><td><form:password path="pass" />
+		<tr height="40px" ><td>비밀번호</td><td><form:password path="pass" name="pass" id="pass"/>
 		</td></tr>
 		<tr height="40px" ><td>비밀번호확인</td><td><input type="password" name="pass2" id="pass2"/>
 		<font name="check" color="red"></font>
 		</td></tr>
 		
 		<tr height="40px"><td colspan="2" align="center">
-		  <input id="submit" type="submit" value="등록"><input type="reset" value="초기화">
+		  <input type="submit" value="등록">
+		  <input type="reset" value="초기화">
 		  </td></tr></table></form:form></body></html>
