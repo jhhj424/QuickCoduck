@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BoardController {
 	private DuckService service;
 
 	@RequestMapping(value = "board/list")
-	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type) {
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -52,7 +53,7 @@ public class BoardController {
 		return mav;
 	}
 	@RequestMapping(value = "board/write", method = RequestMethod.POST)
-	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request) {
+	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session) {
 		System.out.println(board);
 		ModelAndView mav = new ModelAndView();
 		if (br.hasErrors()) {
@@ -71,7 +72,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="board/detail")
-	public ModelAndView detail(Integer num,Integer type) {
+	public ModelAndView detail(Integer num,Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board bo = new Board();
 		bo.setBoardnum(num);
@@ -81,7 +82,7 @@ public class BoardController {
 		return mav;
 	}
 	@RequestMapping(value="board/deleteForm")
-	public ModelAndView deleteForm(Integer num, Integer type) {
+	public ModelAndView deleteForm(Integer num, Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView("board/delete");
 		Board board = new Board();
 		board.setBoardnum(num);
@@ -93,7 +94,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "board/delete", method = RequestMethod.POST)
-	public ModelAndView delete(Integer boardnum,Integer type, String pass) {
+	public ModelAndView delete(Integer boardnum,Integer type, String pass, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board bo = new Board();
 		bo.setBoardnum(boardnum);
@@ -122,7 +123,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "board/update", method = RequestMethod.POST)
-	public ModelAndView update(@Valid Board board, BindingResult br, HttpServletRequest request) {
+	public ModelAndView update(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session) {
 		//System.out.println("매개변수확인:"+board);
 		ModelAndView mav = new ModelAndView();
 		String pass = null;
@@ -161,7 +162,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "board/*", method = RequestMethod.GET)
-	public ModelAndView getboard(Integer num, HttpServletRequest request , Integer type) {
+	public ModelAndView getboard(Integer num, HttpServletRequest request , Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
 		if(num!=null)board.setBoardnum(num);
