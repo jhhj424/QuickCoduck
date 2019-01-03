@@ -1,30 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½Ã¹° »ó¼¼º¸±â</title>
+<meta charset="UTF-8">
+<title>ê²Œì‹œë¬¼ ìƒì„¸ë³´ê¸°</title>
 </head>
 <body>
 <table border="1" style="border-collapse: collapse; width: 100%">
-	<tr><td colspan="2">Spring °Ô½ÃÆÇ</td></tr>
-	<tr><td width="15%">±Û¾´ÀÌ</td><td width="85%">${board.userid}</td></tr>
-	<tr><td>Á¦¸ñ</td><td>${board.subject}</td></tr>
-	<tr><td>³»¿ë</td><td>
+	<tr><td colspan="2">Spring ê²Œì‹œíŒ</td></tr>
+	<tr><td width="15%">ê¸€ì“´ì´</td><td width="85%">${board.userid}</td></tr>
+	<tr><td>ì œëª©</td><td>${board.subject}</td></tr>
+	<tr><td>ë‚´ìš©</td><td>
 		<table width="100%" height="250">
 			<tr><td>${fn:replace(board.content, cn, br)}</td></tr>
 		</table></td></tr>
-	<tr><td>Ã·ºÎÆÄÀÏ</td><td>&nbsp;
+	<tr><td>ì²¨ë¶€íŒŒì¼</td><td>&nbsp;
 		<c:if test="${!empty board.fileurl}">
 			<a href="../file/${board.fileurl}">${board.fileurl}</a>
 		</c:if>
 	</td></tr>
 	<tr><td colspan="2" align="center">
-		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[¼öÁ¤]</a>
-		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[»èÁ¦]</a>
-		<a href="list.duck?type=${board.boardtype}">[¸ñ·Ï]</a>
+		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[ìˆ˜ì •]</a>
+		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[ì‚­ì œ]</a>
+		<a href="list.duck?type=${board.boardtype}">[ëª©ë¡]</a>
 	</td></tr>
 </table>
 </body>

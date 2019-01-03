@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%-- /WEB-INF/view/user/userForm.jsp --%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°³¹ßÀÚ µî·Ï</title>
+<meta charset="UTF-8">
+<title>ê°œë°œì ë“±ë¡</title>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
  $(function(){
@@ -17,37 +17,37 @@
   $('#pass2').keyup(function(){
    if($('#pass').val()!=$('#pass2').val()){
     $('font[name=check]').text('');
-    $('font[name=check]').html("¾ÏÈ£Æ²¸²");
+    $('font[name=check]').html("ì•”í˜¸í‹€ë¦¼");
    }else{
     $('font[name=check]').text('');
-    $('font[name=check]').html("¾ÏÈ£¸ÂÀ½");
+    $('font[name=check]').html("ì•”í˜¸ë§ìŒ");
    }
   }); //#pass2.keyup
  });
 </script>
 </head>
 <body>
-<h2>È¸¿ø°¡ÀÔ</h2>
-<%-- modelAttribute="user" : ÇöÀç ÆäÀÌÁö°¡ È£Ãâ µÉ ¶§ user°´Ã¼°¡ Á¸ÀçÇØ¾ßÇÔ --%>
+<h2>íšŒì›ê°€ì…</h2>
+<%-- modelAttribute="user" : í˜„ì¬ í˜ì´ì§€ê°€ í˜¸ì¶œ ë  ë•Œ userê°ì²´ê°€ ì¡´ì¬í•´ì•¼í•¨ --%>
 <form:form modelAttribute="user" method="post" action="userEntry.duck">
 	<table>
 		<tr height="40px" ><td>
 		
-		<form:radiobutton path="type" value="1" checked="checked"/>°³¹ßÀÚ
-		<form:radiobutton path="type" value="2"/>Å¬¶óÀÌ¾ğÆ®
+		<form:radiobutton path="type" value="1" checked="checked"/>ê°œë°œì
+		<form:radiobutton path="type" value="2"/>í´ë¼ì´ì–¸íŠ¸
 		
 		</td></tr>
-		<tr height="40px" ><td>¾ÆÀÌµğ</td><td><form:input path="userid"/>
+		<tr height="40px" ><td>ì•„ì´ë””</td><td><form:input path="userid"/>
 		</td></tr>
-		<tr height="40px" ><td>ÀÌ¸ŞÀÏ</td><td><form:input path="email"/>
+		<tr height="40px" ><td>ì´ë©”ì¼</td><td><form:input path="email"/>
 		</td></tr>
-		<tr height="40px" ><td>ºñ¹Ğ¹øÈ£</td><td><form:password path="pass" name="pass" id="pass"/>
+		<tr height="40px" ><td>ë¹„ë°€ë²ˆí˜¸</td><td><form:password path="pass" name="pass" id="pass"/>
 		</td></tr>
-		<tr height="40px" ><td>ºñ¹Ğ¹øÈ£È®ÀÎ</td><td><input type="password" name="pass2" id="pass2"/>
+		<tr height="40px" ><td>ë¹„ë°€ë²ˆí˜¸í™•ì¸</td><td><input type="password" name="pass2" id="pass2"/>
 		<font name="check" color="red"></font>
 		</td></tr>
 		
 		<tr height="40px"><td colspan="2" align="center">
-		  <input type="submit" value="µî·Ï">
-		  <input type="reset" value="ÃÊ±âÈ­">
+		  <input type="submit" value="ë“±ë¡">
+		  <input type="reset" value="ì´ˆê¸°í™”">
 		  </td></tr></table></form:form></body></html>

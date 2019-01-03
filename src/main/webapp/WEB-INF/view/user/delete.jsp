@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>È¸¿ø Å»Åğ È®ÀÎ</title>
+<meta charset="UTF-8">
+<title>íšŒì› íƒˆí‡´ í™•ì¸</title>
 </head>
 <body>
 <table border="1" style="border-collapse: collapse;">
-	<tr><td>¾ÆÀÌµğ</td><td>${user.userId}</td></tr>
-	<tr><td>ÀÌ¸§</td><td>${user.userName}</td></tr>
-	<tr><td>»ı³â¿ùÀÏ</td>
+	<tr><td>ì•„ì´ë””</td><td>${user.userId}</td></tr>
+	<tr><td>ì´ë¦„</td><td>${user.userName}</td></tr>
+	<tr><td>ìƒë…„ì›”ì¼</td>
 		<td><fmt:formatDate value="${user.birthDay}" pattern="yyyy-MM-dd"/></td></tr>
 </table>
 <form action="delete.shop" method="post" name="deleteform">
 	<input type="hidden" name="id" value="${param.id}">
-	ºñ¹Ğ¹øÈ£<input type="password" name="password" size="12">
-	<a href="javascript:document.deleteform.submit()">[È¸¿øÅ»Åğ]</a>
+	ë¹„ë°€ë²ˆí˜¸<input type="password" name="password" size="12">
+	<a href="javascript:document.deleteform.submit()">[íšŒì›íƒˆí‡´]</a>
 </form></body></html>

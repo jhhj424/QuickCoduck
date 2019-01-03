@@ -1,23 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>·Î±×ÀÎ ¼º°ø</title>
+<meta charset="UTF-8">
+<title>ë¡œê·¸ì¸ ì„±ê³µ</title>
 </head>
 <body>
-<h2>È¯¿µÇÕ´Ï´Ù. ${sessionScope.loginUser.userid }´ÔÀÌ ·Î±×ÀÎ ÇÏ¼Ì½À´Ï´Ù.</h2>
+<h2>í™˜ì˜í•©ë‹ˆë‹¤. ${sessionScope.loginUser.userid }ë‹˜ì´ ë¡œê·¸ì¸ í•˜ì…¨ìŠµë‹ˆë‹¤.</h2>
 <table border="1" cellspacing="0" cellpadding="0">
-  <tr><td>¾ÆÀÌµð</td><td>${loginUser.userid}</td></tr>
+  <tr><td>ì•„ì´ë””</td><td>${loginUser.userid}</td></tr>
 </table>
   <a href="mypage.duck?id=${loginUser.userid}">mypage</a>
-  <%-- 1.¼¼¼Ç °´Ã¼ Á¦°Å.
-  	   2.login.duck ÆäÀÌÁö ÀÌµ¿   --%>
-  <a href="logout.duck">·Î±×¾Æ¿ô</a>
-  <a href="../board/list.duck?type=1">¿ÀÇÂ¼Ò½º°Ô½ÃÆÇ</a>
-  <a href="../board/list.duck?type=2">°³¹ßÀÚÀÚÀ¯°Ô½ÃÆÇ</a>
-  <a href="../board/list.duck?type=3">ÇÁ·ÎÁ§Æ®°ø°í¸ðÁý°Ô½ÃÆÇ</a>
+  <%-- 1.ì„¸ì…˜ ê°ì²´ ì œê±°.
+  	   2.login.duck íŽ˜ì´ì§€ ì´ë™   --%>
+  <a href="logout.duck">ë¡œê·¸ì•„ì›ƒ</a>
+  <a href="../board/list.duck?type=1">ì˜¤í”ˆì†ŒìŠ¤ê²Œì‹œíŒ</a>
+  <a href="../board/list.duck?type=2">ê°œë°œìžìžìœ ê²Œì‹œíŒ</a>
+  <a href="../board/list.duck?type=3">í”„ë¡œì íŠ¸ê³µê³ ëª¨ì§‘ê²Œì‹œíŒ</a>
 </body>
 </html>

@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½ÃÆÇ ±Û¾²±â</title>
+<meta charset="UTF-8">
+<title>ê²Œì‹œíŒ ê¸€ì“°ê¸°</title>
 </head>
 <body>
 <form:form modelAttribute="board" action="write.duck" enctype="multipart/form-data" name="f">
@@ -13,25 +13,25 @@
 	<form:hidden path="boardtype" value="${param.type}"/>
 		<tr align="center" valign="middle">
 		<c:if test="${param.type==1}">
-			<td colspan="4">¿ÀÇÂ¼Ò½º°Ô½ÃÆÇ ±Û¾²±â</td>
+			<td colspan="4">ì˜¤í”ˆì†ŒìŠ¤ê²Œì‹œíŒ ê¸€ì“°ê¸°</td>
 		</c:if>
 		<c:if test="${param.type==2}">
-			<td colspan="4">°³¹ßÀÚÀÚÀ¯°Ô½ÃÆÇ ±Û¾²±â</td>
+			<td colspan="4">ê°œë°œìžìžìœ ê²Œì‹œíŒ ê¸€ì“°ê¸°</td>
 		</c:if>
 		<c:if test="${param.type==3}">
-			<td colspan="4">ÇÁ·ÎÁ§Æ®°ø°í¸ðÁý°Ô½ÃÆÇ ±Û¾²±â</td>
+			<td colspan="4">í”„ë¡œì íŠ¸ê³µê³ ëª¨ì§‘ê²Œì‹œíŒ ê¸€ì“°ê¸°</td>
 		</c:if>
 		</tr>	
-		<tr><td align="center">±Û¾´ÀÌ</td>
-		<td><form:input path="userid"/><font color="red"><form:errors path="userid" /></font></td></tr>
-		<tr><td align="center">Á¦¸ñ</td>
+		<tr><td align="center">ê¸€ì“´ì´</td>
+		<td><form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></td></tr>
+		<tr><td align="center">ì œëª©</td>
 		<td><form:input path="subject"/><font color="red"><form:errors path="subject" /></font></td></tr>
-		<tr><td align="center">³»¿ë</td>
+		<tr><td align="center">ë‚´ìš©</td>
 		<td><form:textarea path="content" rows="15" cols="80"/>
 			<font color="red"><form:errors path="content" /></font></td></tr>
-		<tr><td align="center">Ã·ºÎÆÄÀÏ</td>
+		<tr><td align="center">ì²¨ë¶€íŒŒì¼</td>
 			<td><input type="file" name="file1"></td></tr>
 		<tr><td colspan="2" align="center">
-		<a href="javascript:document.f.submit()">[°Ô½Ã¹°µî·Ï]</a>
-		<a href="list.duck">[°Ô½Ã¹°¸ñ·Ï]</a></td></tr>
+		<a href="javascript:document.f.submit()">[ê²Œì‹œë¬¼ë“±ë¡]</a>
+		<a href="list.duck">[ê²Œì‹œë¬¼ëª©ë¡]</a></td></tr>
 		</table></form:form></body></html>

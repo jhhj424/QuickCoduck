@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½ÃÆÇ ¸ñ·Ï</title>
+<meta charset="UTF-8">
+<title>ê²Œì‹œíŒ ëª©ë¡</title>
 <script type="text/javascript">
 	function list(pageNum){
 		var searchType = document.searchform.searchType.value;
@@ -28,10 +28,10 @@
 		<form action="list.duck" method="post" name="searchform" onsubmit="return list(1)" >
 		<input type="hidden" name="pageNum" value="1">
 		<select name="searchType" id="searchType">
-			<option value="">¼±ÅÃÇÏ¼¼¿ä</option>
-			<option value="subject">Á¦¸ñ</option>
-			<option value="name">±Û¾´ÀÌ</option>
-			<option value="content">³»¿ë</option>
+			<option value="">ì„ íƒí•˜ì„¸ìš”</option>
+			<option value="subject">ì œëª©</option>
+			<option value="name">ê¸€ì“´ì´</option>
+			<option value="content">ë‚´ìš©</option>
 		</select>&nbsp;
 		<script type="text/javascript">
 			if('${param.searchType}' != '') {
@@ -39,25 +39,25 @@
 			}
 		</script>
 		<input type="text" name="searchContent" value="${param.searchContent}" >
-		<input type="submit" value="°Ë»ö">
+		<input type="submit" value="ê²€ìƒ‰">
 		</form>	
 	</td></tr>
-	<c:if test="${listcount > 0}"><%-- °Ô½Ã¹°ÀÌ ÀÖ´Â°æ¿ì --%>
+	<c:if test="${listcount > 0}"><%-- ê²Œì‹œë¬¼ì´ ìžˆëŠ”ê²½ìš° --%>
 		<tr align="center" valign="middle">
 		<c:if test="${param.type==1}">
-			<td colspan="4">¿ÀÇÂ¼Ò½º°Ô½ÃÆÇ</td><td>±Û°³¼ö:${listcount}</td>
+			<td colspan="4">ì˜¤í”ˆì†ŒìŠ¤ê²Œì‹œíŒ</td><td>ê¸€ê°œìˆ˜:${listcount}</td>
 		</c:if>
 		<c:if test="${param.type==2}">
-			<td colspan="4">°³¹ßÀÚÀÚÀ¯°Ô½ÃÆÇ</td><td>±Û°³¼ö:${listcount}</td>
+			<td colspan="4">ê°œë°œìžìžìœ ê²Œì‹œíŒ</td><td>ê¸€ê°œìˆ˜:${listcount}</td>
 		</c:if>
 		<c:if test="${param.type==3}">
-			<td colspan="4">ÇÁ·ÎÁ§Æ®°ø°í¸ðÁý°Ô½ÃÆÇ</td><td>±Û°³¼ö:${listcount}</td>
+			<td colspan="4">í”„ë¡œì íŠ¸ê³µê³ ëª¨ì§‘ê²Œì‹œíŒ</td><td>ê¸€ê°œìˆ˜:${listcount}</td>
 		</c:if>
 		</tr>			
 		<tr align="center" valign="middle" bordercolor="#212121">
-			<th width="8%" height="26">¹øÈ£</th><th width="50%" height="26">Á¦¸ñ</th>
-			<th width="14%" height="26">±Û¾´ÀÌ</th><th width="17%" height="26">³¯Â¥</th>
-			<th width="11%" height="26">Á¶È¸¼ö</th></tr>
+			<th width="8%" height="26">ë²ˆí˜¸</th><th width="50%" height="26">ì œëª©</th>
+			<th width="14%" height="26">ê¸€ì“´ì´</th><th width="17%" height="26">ë‚ ì§œ</th>
+			<th width="11%" height="26">ì¡°íšŒìˆ˜</th></tr>
 	<c:forEach var="board" items="${boardlist}">
 		<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.backgroundColor='#5CD1E5'"
 			onmouseout="this.style.backgroundColor=''">
@@ -73,23 +73,23 @@
 			<td align="right">${board.readcnt}</td></tr>
 	</c:forEach>
 		<tr align="center" height="26"><td colspan="5">
-		 <c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1})">[ÀÌÀü]</a></c:if>
-		 <c:if test="${pageNum <= 1}">[ÀÌÀü]</c:if>
+		 <c:if test="${pageNum > 1}"><a href="javascript:list(${pageNum -1})">[ì´ì „]</a></c:if>
+		 <c:if test="${pageNum <= 1}">[ì´ì „]</c:if>
 		 <c:forEach var="a" begin="${startpage}" end="${endpage}">
 		 <c:if test="${a==pageNum}">[${a}]</c:if>
 		 <c:if test="${a!=pageNum}"><a href="javascript:list(${a})">[${a}]</a></c:if>
 		 </c:forEach>
 		 <c:if test="${pageNum < maxpage}">
-		 	<a href="javascript:list(${pageNum +1})">[´ÙÀ½]</a>
+		 	<a href="javascript:list(${pageNum +1})">[ë‹¤ìŒ]</a>
 		 </c:if>
-		 <c:if test="${pageNum >= maxpage}">[´ÙÀ½]</c:if>
+		 <c:if test="${pageNum >= maxpage}">[ë‹¤ìŒ]</c:if>
 		</td></tr>
 	</c:if>
 	<c:if test="${listcount == 0}">
-		<tr><td colspan="5">µî·ÏµÈ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr>
+		<tr><td colspan="5">ë“±ë¡ëœ ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>
 	</c:if>
-	<tr><td colspan="5" align="right"><a href="write.duck?type=${param.type}">[±Û¾²±â]</a></td></tr>
+	<tr><td colspan="5" align="right"><a href="write.duck?type=${param.type}">[ê¸€ì“°ê¸°]</a></td></tr>
 	</table>
-  		<a href="../board/list.duck?type=1">¿ÀÇÂ¼Ò½º°Ô½ÃÆÇ</a>
-  		<a href="../board/list.duck?type=2">°³¹ßÀÚÀÚÀ¯°Ô½ÃÆÇ</a>
-  		<a href="../board/list.duck?type=3">ÇÁ·ÎÁ§Æ®°ø°í¸ðÁý°Ô½ÃÆÇ</a></body></html>
+  		<a href="../board/list.duck?type=1">ì˜¤í”ˆì†ŒìŠ¤ê²Œì‹œíŒ</a>
+  		<a href="../board/list.duck?type=2">ê°œë°œìžìžìœ ê²Œì‹œíŒ</a>
+  		<a href="../board/list.duck?type=3">í”„ë¡œì íŠ¸ê³µê³ ëª¨ì§‘ê²Œì‹œíŒ</a></body></html>

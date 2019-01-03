@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" isErrorPage="true" %>
-<%-- isErrorPage="true" : ÇöÀç ÆäÀÌÁö°¡ error ÆäÀÌÁöÀÓ.
-						  exception °´Ã¼°¡ Àü´Þ.
-						  exception °´Ã¼ : exception.CartEmptyException °´Ã¼ÀÓ.
-						  ³»Àå°´Ã¼·Î Àü´Þ
-${exception.message} : exception.CartEmptyException.getMessage() : ¸Þ¼­µå È£Ãâ
-${exception.url} : exception.CartEmptyException.getUrl() : ¸Þ¼­µå È£Ãâ
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isErrorPage="true" %>
+<%-- isErrorPage="true" : í˜„ìž¬ íŽ˜ì´ì§€ê°€ error íŽ˜ì´ì§€ìž„.
+						  exception ê°ì²´ê°€ ì „ë‹¬.
+						  exception ê°ì²´ : exception.CartEmptyException ê°ì²´ìž„.
+						  ë‚´ìž¥ê°ì²´ë¡œ ì „ë‹¬
+${exception.message} : exception.CartEmptyException.getMessage() : ë©”ì„œë“œ í˜¸ì¶œ
+${exception.url} : exception.CartEmptyException.getUrl() : ë©”ì„œë“œ í˜¸ì¶œ
  --%>
 <script>
 	alert("${exception.message}");

@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½Ã¹° ¼öÁ¤</title>
+<meta charset="UTF-8">
+<title>ê²Œì‹œë¬¼ ìˆ˜ì •</title>
 <script type="text/javascript">
 	function file_delete() {
 		document.f.file2.value = "";
@@ -18,24 +18,24 @@
 	<input type="hidden" name="num" value="${board.num}">
 	<input type="hidden" name="file2" value="${board.fileurl}">
 	<table border="1" style="border-collapse: collapse; width:100%">
-		<tr><td colspan="2" align="center">Spring °Ô½ÃÆÇ ¼öÁ¤</td></tr>
-		<tr><td align="center">±Û¾´ÀÌ</td>
+		<tr><td colspan="2" align="center">Spring ê²Œì‹œíŒ ìˆ˜ì •</td></tr>
+		<tr><td align="center">ê¸€ì“´ì´</td>
 		<td><form:input path="name"/><font color="red"><form:errors path="name" /></font></td></tr>
-		<tr><td align="center">ºñ¹Ð¹øÈ£</td>
+		<tr><td align="center">ë¹„ë°€ë²ˆí˜¸</td>
 		<td><form:password path="pass"/><font color="red"><form:errors path="pass" /></font></td></tr>
-		<tr><td align="center">Á¦¸ñ</td>
+		<tr><td align="center">ì œëª©</td>
 		<td><form:input path="subject"/><font color="red"><form:errors path="subject" /></font></td></tr>
-		<tr><td align="center">³»¿ë</td>
+		<tr><td align="center">ë‚´ìš©</td>
 		<td><form:textarea path="content" rows="15" cols="80"/>
 			<font color="red"><form:errors path="content" /></font></td></tr>
-		<tr><td>Ã·ºÎÆÄÀÏ</td><td>&nbsp;
+		<tr><td>ì²¨ë¶€íŒŒì¼</td><td>&nbsp;
 		<c:if test="${!empty board.fileurl}">
 			<div id="file_desc">
 			<a href="../file/${board.fileurl}">${board.fileurl}</a>
-			<a href="javascript:file_delete()">[Ã·ºÎÆÄÀÏ»èÁ¦]</a></div>
+			<a href="javascript:file_delete()">[ì²¨ë¶€íŒŒì¼ì‚­ì œ]</a></div>
 		</c:if>
 		<input type="file" name="file1"></td></tr>
 		<tr><td colspan="2" align="center">
-		<a href="javascript:document.f.submit()">[°Ô½Ã¹°¼öÁ¤]</a>
-		<a href="list.duck">[°Ô½Ã¹°¸ñ·Ï]</a></td></tr>
+		<a href="javascript:document.f.submit()">[ê²Œì‹œë¬¼ìˆ˜ì •]</a>
+		<a href="list.duck">[ê²Œì‹œë¬¼ëª©ë¡]</a></td></tr>
 		</table></form:form></body></html>

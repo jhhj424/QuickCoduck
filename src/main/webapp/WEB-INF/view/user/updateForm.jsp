@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%-- /WEB_INF/view/user/updateForm.jsp --%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>»ç¿ëÀÚ ¼öÁ¤</title>
+<meta charset="UTF-8">
+<title>ì‚¬ìš©ìž ìˆ˜ì •</title>
 </head>
 <body>
 <%--
-	1. AOP ¼³Á¤.
-	2. User °´Ã¼¿¡ id ÆÄ¶ó¹ÌÅÍ¿¡ ÇØ´çÇÏ´Â °í°´Á¤º¸ ÀúÀå.
+	1. AOP ì„¤ì •.
+	2. User ê°ì²´ì— id íŒŒë¼ë¯¸í„°ì— í•´ë‹¹í•˜ëŠ” ê³ ê°ì •ë³´ ì €ìž¥.
  --%>
-<h2>»ç¿ëÀÚ ¼öÁ¤</h2>
-<%-- modelAttribute="user" : ÇöÀç ÆäÀÌÁö°¡ È£Ãâ µÉ ¶§ user°´Ã¼°¡ Á¸ÀçÇØ¾ßÇÔ --%>
+<h2>ì‚¬ìš©ìž ìˆ˜ì •</h2>
+<%-- modelAttribute="user" : í˜„ìž¬ íŽ˜ì´ì§€ê°€ í˜¸ì¶œ ë  ë•Œ userê°ì²´ê°€ ì¡´ìž¬í•´ì•¼í•¨ --%>
 <form:form modelAttribute="user" method="post" action="update.shop" >
 	<spring:hasBindErrors name="user">
 		<font color="red">
@@ -24,23 +24,23 @@
 		</font>
 	</spring:hasBindErrors>
 	<table>
-		<tr height="40px" ><td>¾ÆÀÌµð</td><td><form:input path="userId" readonly="true"/>
+		<tr height="40px" ><td>ì•„ì´ë””</td><td><form:input path="userId" readonly="true"/>
 		<font color="red"><form:errors path="userId"/></font></td></tr>
-		<tr height="40px" ><td>ºñ¹Ð¹øÈ£</td><td><form:password path="password" />
+		<tr height="40px" ><td>ë¹„ë°€ë²ˆí˜¸</td><td><form:password path="password" />
 		<font color="red"><form:errors path="password"/></font></td></tr>
-		<tr height="40px" ><td>ÀÌ¸§</td><td><form:input path="userName"/>
+		<tr height="40px" ><td>ì´ë¦„</td><td><form:input path="userName"/>
 		<font color="red"><form:errors path="userName"/></font></td></tr>
-		<tr height="40px" ><td>ÀüÈ­¹øÈ£</td><td><form:input path="phoneNo"/>
+		<tr height="40px" ><td>ì „í™”ë²ˆí˜¸</td><td><form:input path="phoneNo"/>
 		<font color="red"><form:errors path="phoneNo"/></font></td></tr>
-		<tr height="40px" ><td>¿ìÆí¹øÈ£</td><td><form:input path="postcode"/>
+		<tr height="40px" ><td>ìš°íŽ¸ë²ˆí˜¸</td><td><form:input path="postcode"/>
 		<font color="red"><form:errors path="postcode"/></font></td></tr>
-		<tr height="40px" ><td>ÁÖ¼Ò</td><td><form:input path="address"/>
+		<tr height="40px" ><td>ì£¼ì†Œ</td><td><form:input path="address"/>
 		<font color="red"><form:errors path="address"/></font></td></tr>
-		<tr height="40px" ><td>ÀÌ¸ÞÀÏ</td><td><form:input path="email"/>
+		<tr height="40px" ><td>ì´ë©”ì¼</td><td><form:input path="email"/>
 		<font color="red"><form:errors path="email"/></font></td></tr>
-		<tr height="40px" ><td>»ý³â¿ùÀÏ</td><td><form:input path="birthDay"/>
+		<tr height="40px" ><td>ìƒë…„ì›”ì¼</td><td><form:input path="birthDay"/>
 		<font color="red"><form:errors path="birthDay"/></font></td></tr>
 		<tr height="40px"><td colspan="2" align="center">
-		  <input type="submit" value="¼öÁ¤"><input type="reset" value="ÃÊ±âÈ­">
+		  <input type="submit" value="ìˆ˜ì •"><input type="reset" value="ì´ˆê¸°í™”">
 		  </td></tr></table></form:form></body>
 </html>

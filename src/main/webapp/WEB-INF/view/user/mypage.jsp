@@ -1,61 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>À¯Àú ¸¶ÀÌÆäÀÌÁö</title>
+<meta charset="UTF-8">
+<title>ìœ ì € ë§ˆì´í˜ì´ì§€</title>
 </head>
 <body>
  
  <table border="1" width="100%">
-		 <tr><td colspan="2">È¸¿øÁ¤º¸</td></tr>
-		 <tr><td>¾ÆÀÌµğ</td><td>${user.userid}</td></tr>
-		 <tr><td>ÀÌ¸ŞÀÏ</td><td>${user.email}</td></tr>
-		 <tr><td>ÇÚµåÆù</td><td>${user.tel}</td></tr>
-		 <tr><td>»ı³â¿ùÀÏ</td>
+		 <tr><td colspan="2">íšŒì›ì •ë³´</td></tr>
+		 <tr><td>ì•„ì´ë””</td><td>${user.userid}</td></tr>
+		 <tr><td>ì´ë©”ì¼</td><td>${user.email}</td></tr>
+		 <tr><td>í•¸ë“œí°</td><td>${user.tel}</td></tr>
+		 <tr><td>ìƒë…„ì›”ì¼</td>
 		 	<td><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd"/>
 		 </td></tr>
 		 <c:if test="${user.type==1}">
-		 	<tr><td>»ç¿ë°¡´É±â¼ú</td>
+		 	<tr><td>ì‚¬ìš©ê°€ëŠ¥ê¸°ìˆ </td>
 		 		<td>${user.usetech}</td></tr>
-		 	<tr><td>ÀÎÀçµî·Ï¿©ºÎ</td>
+		 	<tr><td>ì¸ì¬ë“±ë¡ì—¬ë¶€</td>
 		 		<c:if test="${user.rating==0}">
-		 			<td>µî·Ï¾ÈÇÔ</td>
+		 			<td>ë“±ë¡ì•ˆí•¨</td>
 		 		</c:if>
 		 		<c:if test="${user.rating==1}">
-		 			<td>µî·ÏÇÔ</td>
+		 			<td>ë“±ë¡í•¨</td>
 		 		</c:if>
 		 	</tr>
 		 </c:if>
 		 <c:if test="${user.type==2}">
-		 	<tr><td>»ç¾÷ÀÚ¹øÈ£</td>
+		 	<tr><td>ì‚¬ì—…ìë²ˆí˜¸</td>
 		 		<td>${user.businessnum}</td></tr>
-		 	<tr><td>µî·ÏÇÑ °èÁÂ¹øÈ£</td>
+		 	<tr><td>ë“±ë¡í•œ ê³„ì¢Œë²ˆí˜¸</td>
 		 		<td>${user.creditnum}</td></tr>
 		 </c:if>
-		 <tr><td>¸ÅÄª¿©ºÎ</td>
+		 <tr><td>ë§¤ì¹­ì—¬ë¶€</td>
 		 	 <c:if test="${user.matching==0}">
-		 	 	<td>¸ÅÄª¾ÈµÊ</td>
+		 	 	<td>ë§¤ì¹­ì•ˆë¨</td>
 		 	 </c:if>
 		 	 <c:if test="${user.matching==1}">
-		 	 	<td>¸ÅÄªÁøÇàÁß</td>
+		 	 	<td>ë§¤ì¹­ì§„í–‰ì¤‘</td>
 		 	 </c:if>
 		 	 <c:if test="${user.matching==2}">
-		 	 	<td>¸ÅÄªµÊ</td>
+		 	 	<td>ë§¤ì¹­ë¨</td>
 		 	 </c:if>
 		 </tr>
   </table>
   
   
-  <a href="updateForm.shop?id=${user.userid}">[È¸¿øÁ¤º¸¼öÁ¤]</a>&nbsp;
+  <a href="updateForm.shop?id=${user.userid}">[íšŒì›ì •ë³´ìˆ˜ì •]</a>&nbsp;
 		 <c:if test="${loginUser.userid !='admin'}">
-		 	<a href="delete.shop?id=${user.userid}">[È¸¿øÅ»Åğ]</a>&nbsp;
+		 	<a href="delete.shop?id=${user.userid}">[íšŒì›íƒˆí‡´]</a>&nbsp;
 		 </c:if>
 		 <c:if test="${loginUser.userid =='admin'}">
-		 	<a href="../admin/list.duck">[È¸¿ø¸ñ·Ï]</a>&nbsp;
+		 	<a href="../admin/list.duck">[íšŒì›ëª©ë¡]</a>&nbsp;
 		 </c:if>
-		 <a href="logout.shop?id=${user.userid}">[·Î±×¾Æ¿ô]</a>&nbsp;
+		 <a href="logout.shop?id=${user.userid}">[ë¡œê·¸ì•„ì›ƒ]</a>&nbsp;
 </body>
 </html>

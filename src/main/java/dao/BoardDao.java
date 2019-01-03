@@ -70,9 +70,9 @@ public class BoardDao {
 	public void update(Board board) {
 		sqlSession.getMapper(BoardMapper.class).update(board);
 	}
-	public void delete(int num) {
+	public void delete(int boardnum) {
 		Map<String,Integer> map = new HashMap<String,Integer>();
-		map.put("num", num);
+		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).delete(map);
 	}
 }

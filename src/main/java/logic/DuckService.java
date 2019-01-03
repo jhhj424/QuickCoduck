@@ -62,6 +62,7 @@ public class DuckService {
 			board.setFileurl(board.getFile1().getOriginalFilename());
 		}
 		int max = boardDao.maxNum();
+		System.out.println("maxNum:"+max);
 		board.setBoardnum(++max);
 		boardDao.insert(board);
 	}
@@ -78,8 +79,8 @@ public class DuckService {
 		boardDao.update(board);
 	}
 
-	public void boarddelete(int num) {
-		boardDao.delete(num);
+	public void boarddelete(int boardnum) {
+		boardDao.delete(boardnum);
 	}
 
 	public User userSelect(User user) {

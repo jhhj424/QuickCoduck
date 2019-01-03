@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Spring °Ô½ÃÆÇ »èÁ¦</title>
+<meta charset="UTF-8">
+<title>Spring ê²Œì‹œíŒ ì‚­ì œ</title>
 </head>
 <body>
 <form action="delete.duck" name="f" method="post">
 	<input type="hidden" name="boardnum" value="${board.boardnum}">
 	<input type="hidden" name="type" value="${board.boardtype}">
 	<table border="2" style="border-collapse: collapse; width: 100%" >
-		<tr><td>À¯Àú ºñ¹Ð¹øÈ£</td><td><input type="password" name="pass"></td></tr>
-		<tr><td colspan="2"><a href="javascript:document.f.submit();">[»èÁ¦]</a></td></tr>
+		<tr><td>ìœ ì € ë¹„ë°€ë²ˆí˜¸</td><td><input type="password" name="pass"></td></tr>
+		<tr><td colspan="2"><a href="javascript:document.f.submit();">[ì‚­ì œ]</a></td></tr>
 	</table>
 </form>
 </body>

@@ -102,6 +102,9 @@ public class BoardController {
 		User user = new User();
 		user.setUserid(bo.getUserid());
 		user = service.userSelect(user);
+		if(user == null) {
+			throw new LoginException("해당유저없음", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
 		if(!user.getPass().equals(pass)) {
 			throw new LoginException("비밀번호 오류", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
 		}
@@ -122,7 +125,7 @@ public class BoardController {
 	public ModelAndView getboard(Integer num, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
-		board.setBoardnum(num);
+		if(num!=null)board.setBoardnum(num);
 		if (num != null) {
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
