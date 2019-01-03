@@ -33,6 +33,7 @@
 		<servlet-name>duck</servlet-name>
 		<url-pattern>*.duck</url-pattern>
 	</servlet-mapping>
+	
 	<!-- CharacterEncodingFilter : request 의 파라미터 정보를 utf-8로 인코딩해주는 필터 -->
 	<filter>
 		<filter-name>CharacterEncoding</filter-name>
