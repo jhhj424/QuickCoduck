@@ -164,12 +164,13 @@ img {margin-bottom: -8px;}
       <p>비회원으로 접근시 사용이 제한됩니다.</p>
       <i class="fa fa-android w3-large"></i> <i class="fa fa-apple w3-large"></i> <i class="fa fa-windows w3-large"></i>
       <p></p>
-      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('free').style.display='none'">비회원 입장하기</button>
+      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="goReplace('../user/main.duck')">비회원 입장하기</button>
     </div>
   </div>
 </div>
-
-
+<script type="text/javascript">
+function goReplace(str) { location.replace(str); }
+</script>
 <!-- Clarity Section -->
 <div class="w3-padding-64 w3-light-grey">
   <div class="w3-row-padding">

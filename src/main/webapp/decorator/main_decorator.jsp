@@ -4,6 +4,7 @@
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<%@include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
@@ -47,10 +48,20 @@ body, html {
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button">이용방법</a>
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>프로젝트 찾기/opensource 찾기</a>
+      <c:if test="${sessionScope.loginUser.type == '1'}">
+      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>opensource 찾기</a>
+      </c:if>
+      <c:if test="${sessionScope.loginUser.type == '2'}">
+      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>프로젝트 찾기</a>
+      </c:if>
       <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i>자유게시판</a>
       <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>Mypage</a>
+      <c:if test="${empty sessionScope.loginUser}">
       <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      </c:if>
+      <c:if test="${!empty sessionScope.loginUser}">
+      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그아웃</a>
+      </c:if>
     </div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
       <i class="fa fa-bars"></i>

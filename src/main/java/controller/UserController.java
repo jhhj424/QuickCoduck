@@ -41,6 +41,12 @@ public class UserController {
 		return mav;
 	}
 
+	@RequestMapping("user/main")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+
 	@RequestMapping("user/login")
 	public ModelAndView login(@Valid User user, BindingResult bindResult, HttpSession session) {
 		// @Valid : 유효성 검증. Item 클래스에 정의된 내용으로 검증을 함.
@@ -74,7 +80,7 @@ public class UserController {
 			mav.getModel().putAll(bindResult.getModel());
 			return mav;
 		}
-		mav.setViewName("user/loginSuccess");
+		mav.setViewName("user/main");
 		return mav;
 	}
 
@@ -102,12 +108,12 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/start");
 		String pass = request.getParameter("pass");
 		String checkpass = request.getParameter("pass2");
-		if(pass.equals(checkpass)) {
+		if (pass.equals(checkpass)) {
 			service.userCreate(user, request);
-			mav.addObject("user",user);
+			mav.addObject("user", user);
 			mav.setViewName("redirect:start.duck");
-		}else {
-			throw new LoginException("비밀번호가 일치하지 않습니다.","../user/start.duck");
+		} else {
+			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/start.duck");
 		}
 		return mav;
 	}
