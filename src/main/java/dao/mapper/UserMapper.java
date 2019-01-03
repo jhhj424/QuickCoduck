@@ -14,10 +14,11 @@ public interface UserMapper  {
 		 	+ " values(#{userid},#{pass},#{email},#{type})")
 	void insert(User user);
 	
-	@Update("update user set username=#{userName}, phoneno=#{phoneNo}, postcode=#{postcode},"
-			+ " address=#{address}, email=#{email}, birthday=#{birthDay} where userid = #{userId}")
+	@Update("update user set email = #{email}, tel = #{tel}, birth = #{birth}, "
+			+ " usetech = #{usetech}, rating = #{rating}, businessnum = #{businessnum}, "
+			+ " creditnum = #{creditnum} where userid = #{userid}")
 	void update(User user);
 
-	@Delete("delete from user where userid=#{userId}")
+	@Delete("delete from user where userid=#{userid}")
 	void delete(Map<String, String> map);
 }

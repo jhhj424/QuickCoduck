@@ -13,9 +13,9 @@
 		 <tr><td colspan="2">회원정보</td></tr>
 		 <tr><td>아이디</td><td>${user.userid}</td></tr>
 		 <tr><td>이메일</td><td>${user.email}</td></tr>
-		 <tr><td>핸드폰</td><td>${user.tel}</td></tr>
+		 <tr><td>전화번호</td><td>${user.tel}</td></tr>
 		 <tr><td>생년월일</td>
-		 	<td><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd"/>
+		 	<td><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" />
 		 </td></tr>
 		 <c:if test="${user.type==1}">
 		 	<tr><td>사용가능기술</td>
@@ -49,13 +49,13 @@
   </table>
   
   
-  <a href="updateForm.shop?id=${user.userid}">[회원정보수정]</a>&nbsp;
+  <a href="updateForm.duck?id=${user.userid}">[회원정보수정]</a>&nbsp;
 		 <c:if test="${loginUser.userid !='admin'}">
-		 	<a href="delete.shop?id=${user.userid}">[회원탈퇴]</a>&nbsp;
+		 	<a href="delete.duck?id=${user.userid}">[회원탈퇴]</a>&nbsp;
 		 </c:if>
 		 <c:if test="${loginUser.userid =='admin'}">
 		 	<a href="../admin/list.duck">[회원목록]</a>&nbsp;
 		 </c:if>
-		 <a href="logout.shop?id=${user.userid}">[로그아웃]</a>&nbsp;
+		 <a href="logout.duck?id=${user.userid}">[로그아웃]</a>&nbsp;
 </body>
 </html>
