@@ -89,4 +89,7 @@
 		<tr><td colspan="5">등록된 게시물이 없습니다.</td></tr>
 	</c:if>
 	<tr><td colspan="5" align="right"><a href="write.duck?type=${param.type}">[글쓰기]</a></td></tr>
-	</table></body></html>
+	</table>
+  		<a href="../board/list.duck?type=1">오픈소스게시판</a>
+  		<a href="../board/list.duck?type=2">개발자자유게시판</a>
+  		<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></body></html>

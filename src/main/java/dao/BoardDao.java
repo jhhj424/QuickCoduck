@@ -32,17 +32,17 @@ public class BoardDao {
 	public Board select(Board board) {
 		Map<String, Integer> map= new HashMap<String, Integer>();
 		map.put("boardnum", board.getBoardnum());
-		map.put("type", Integer.parseInt(board.getBoardtype()));
+		map.put("type", board.getBoardtype());
 		return sqlSession.selectOne(NS + "select",map);
 	}
-	public int count(String searchType, String searchContent,int type) {
+	public int count(String searchType, String searchContent,Integer type) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
-	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,int type) {
+	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		int startrow = (pageNum -1) * limit;
 		map.put("column", searchType);

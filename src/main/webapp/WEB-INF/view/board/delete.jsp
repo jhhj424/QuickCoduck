@@ -9,9 +9,10 @@
 </head>
 <body>
 <form action="delete.duck" name="f" method="post">
-	<input type="hidden" name="num" value="${param.num}">
+	<input type="hidden" name="boardnum" value="${board.boardnum}">
+	<input type="hidden" name="type" value="${board.boardtype}">
 	<table border="2" style="border-collapse: collapse; width: 100%" >
-		<tr><td>게시글 비밀번호</td><td><input type="password" name="pass"></td></tr>
+		<tr><td>유저 비밀번호</td><td><input type="password" name="pass"></td></tr>
 		<tr><td colspan="2"><a href="javascript:document.f.submit();">[삭제]</a></td></tr>
 	</table>
 </form>

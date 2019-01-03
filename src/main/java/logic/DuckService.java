@@ -40,10 +40,6 @@ public class DuckService {
 	public void userDelete(String id) {
 		userDao.userDelete(id);
 	}
-
-	public Board getBoard(Integer num) {
-		return boardDao.select(num);
-	}
 	public Board getBoard(Board board) {
 		return boardDao.select(board);
 	}
@@ -52,11 +48,11 @@ public class DuckService {
 		return boardDao.select(num);
 	}
 
-	public int boardcount(String searchType, String searchContent,int type) {
+	public int boardcount(String searchType, String searchContent,Integer type) {
 		return boardDao.count(searchType, searchContent,type);
 	}
 
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,int type) {
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
 		return boardDao.list(searchType, searchContent, pageNum, limit,type);
 	}
 

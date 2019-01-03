@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import exception.LoginException;
 import logic.Board;
 import logic.DuckService;
+import logic.User;
 
 @Controller
 public class BoardController {
@@ -22,7 +23,7 @@ public class BoardController {
 	private DuckService service;
 
 	@RequestMapping(value = "board/list")
-	public ModelAndView list(Integer pageNum, String searchType, String searchContent, int type) {
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -70,28 +71,63 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="board/detail")
-	public ModelAndView detail(int num,int type) {
-		System.out.println(num+";;"+type);
+	public ModelAndView detail(Integer num,Integer type) {
 		ModelAndView mav = new ModelAndView();
 		Board bo = new Board();
 		bo.setBoardnum(num);
-		bo.setBoardtype(type+"");
+		bo.setBoardtype(type);
 		Board board = service.getBoard(bo);
 		mav.addObject("board",board);
-		System.out.println(board);
+		return mav;
+	}
+	@RequestMapping(value="board/deleteForm")
+	public ModelAndView deleteForm(Integer num, Integer type) {
+		ModelAndView mav = new ModelAndView("board/delete");
+		Board board = new Board();
+		board.setBoardnum(num);
+		board.setBoardtype(type);
+		board = service.getBoard(board);
+		mav.addObject("board",board);
+		System.out.println(board+"1");
 		return mav;
 	}
 	
-
+	@RequestMapping(value = "board/delete", method = RequestMethod.POST)
+	public ModelAndView delete(Integer boardnum,Integer type, String pass) {
+		ModelAndView mav = new ModelAndView();
+		Board bo = new Board();
+		bo.setBoardnum(boardnum);
+		bo.setBoardtype(type);
+		bo = service.getBoard(bo); //현재 게시물 객체
+		User user = new User();
+		user.setUserid(bo.getUserid());
+		user = service.userSelect(user);
+		if(!user.getPass().equals(pass)) {
+			throw new LoginException("비밀번호 오류", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
+		//비밀번호 확인 성공
+		try {
+			service.boarddelete(bo.getBoardnum());
+			mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());
+			Board board = new Board();
+			mav.addObject("board",board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("게시글 삭제에 실패했습니다", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
+		return mav;
+	}
+	
 	@RequestMapping(value = "board/*", method = RequestMethod.GET)
 	public ModelAndView getboard(Integer num, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
+		board.setBoardnum(num);
 		if (num != null) {
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
 			}
-			board = service.getBoard(num);
+			board = service.getBoard(board);
 		}
 		mav.addObject("board", board);
 		return mav;

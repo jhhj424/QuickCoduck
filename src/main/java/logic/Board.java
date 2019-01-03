@@ -9,7 +9,7 @@ public class Board {
 	private int boardnum; //기본값
 	@NotEmpty(message="작성자는 필수 입력사항 입니다.")
 	private String userid; //작성자-아이디
-	private String boardtype; //게시판타입
+	private int boardtype; //게시판타입
 	@NotEmpty(message="제목은 필수 입력사항 입니다.")
 	private String subject; //제목
 	@NotEmpty(message="내용은 필수 입력사항 입니다.")
@@ -35,10 +35,10 @@ public class Board {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getBoardtype() {
+	public int getBoardtype() {
 		return boardtype;
 	}
-	public void setBoardtype(String type) {
+	public void setBoardtype(int type) {
 		this.boardtype = type;
 	}
 	public String getSubject() {
