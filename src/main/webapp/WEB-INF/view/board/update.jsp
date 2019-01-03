@@ -15,14 +15,26 @@
 </head>
 <body>
 <form:form modelAttribute="board" action="update.duck" enctype="multipart/form-data" name="f">
-	<input type="hidden" name="num" value="${board.num}">
+	<input type="hidden" name="boardnum" value="${board.boardnum}">
+	<form:hidden path="boardnum" value="${board.boardnum}"/>
+	<form:hidden path="boardtype" value="${board.boardtype}"/>
 	<input type="hidden" name="file2" value="${board.fileurl}">
 	<table border="1" style="border-collapse: collapse; width:100%">
-		<tr><td colspan="2" align="center">Spring 게시판 수정</td></tr>
+		<tr align="center" valign="middle">
+		<c:if test="${param.type==1}">
+			<td colspan="4">오픈소스게시판 글수정</td>
+		</c:if>
+		<c:if test="${param.type==2}">
+			<td colspan="4">개발자자유게시판 글수정</td>
+		</c:if>
+		<c:if test="${param.type==3}">
+			<td colspan="4">프로젝트공고모집게시판 글수정</td>
+		</c:if>
+		</tr>
 		<tr><td align="center">글쓴이</td>
-		<td><form:input path="name"/><font color="red"><form:errors path="name" /></font></td></tr>
+		<td><form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></td></tr>
 		<tr><td align="center">비밀번호</td>
-		<td><form:password path="pass"/><font color="red"><form:errors path="pass" /></font></td></tr>
+		<td><input type="password" name="pass"></td></tr>
 		<tr><td align="center">제목</td>
 		<td><form:input path="subject"/><font color="red"><form:errors path="subject" /></font></td></tr>
 		<tr><td align="center">내용</td>

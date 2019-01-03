@@ -121,11 +121,51 @@ public class BoardController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "board/update", method = RequestMethod.POST)
+	public ModelAndView update(@Valid Board board, BindingResult br, HttpServletRequest request) {
+		//System.out.println("매개변수확인:"+board);
+		ModelAndView mav = new ModelAndView();
+		String pass = null;
+		if(request.getParameter("pass")!=null) {
+			pass = request.getParameter("pass");
+		}
+		//System.out.println("비번확인:"+pass);
+		int num = Integer.parseInt(request.getParameter("boardnum"));
+		Board b1 = new Board();
+		b1.setBoardnum(num);
+		b1.setBoardtype(board.getBoardtype());
+		b1 = service.getBoard(b1); // 기존의 board
+		//System.out.println("기존의 게시물:"+b1);
+		User user = new User();
+		user = service.select(b1.getUserid());
+		//System.out.println("유저확인:"+user);
+		if (br.hasErrors()) { // 유효성 검사
+			mav.getModel().putAll(br.getModel());
+			mav.addObject("board", b1);
+			return mav;
+		}
+		if (pass==null || !pass.equals(user.getPass())) {// 비밀번호 오류
+			throw new LoginException("비밀번호를 확인하세요", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
+		} else { // 비번통과
+			board.setFileurl(request.getParameter("file2")); //기존의 파일로 url 넣어놓기
+			try { // 수정
+				service.boardupdate(board,request);
+				mav.addObject("board",board);
+			} catch (Exception e) { // 수정시 오류 발생
+				e.printStackTrace();
+				throw new LoginException("게시글 수정에 실패했습니다", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
+			}
+		}
+		mav.setViewName("redirect:list.duck?type="+board.getBoardtype());
+		return mav;
+	}
+	
 	@RequestMapping(value = "board/*", method = RequestMethod.GET)
-	public ModelAndView getboard(Integer num, HttpServletRequest request) {
+	public ModelAndView getboard(Integer num, HttpServletRequest request , Integer type) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
 		if(num!=null)board.setBoardnum(num);
+		if(type!=null)board.setBoardtype(type);
 		if (num != null) {
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
