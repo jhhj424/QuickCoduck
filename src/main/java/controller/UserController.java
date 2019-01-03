@@ -29,6 +29,12 @@ public class UserController {
 	@Autowired
 	private DuckService service;
 
+	@RequestMapping("user/start")
+	public ModelAndView start() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+	
 	@RequestMapping("user/userForm")
 	public ModelAndView userForm() {
 		ModelAndView mav = new ModelAndView();
