@@ -16,26 +16,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-
+body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif}
 body, html {
   height: 100%;
   line-height: 1.8;
 }
-
 /* Full height image header */
 .bgimg-1 {
   background-position: center;
   background-size: cover;
   background-image: url("../workpic/d4.png");
-  min-height: 60%;
+  min-height: 55%;
 }
 .project {
  border-color: 1px solid gray;
 }
 
 .w3-bar .w3-button {
-  padding: 16px;
+  padding: 12px;
+  margin:0px 15px 0px 15px;
 }
 </style>
 <decorator:head/>
@@ -44,24 +43,26 @@ body, html {
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="#home" class="w3-bar-item w3-button w3-wide">Quick Coduck</a>
+  <div class="w3-bar w3-card" id="myNavbar" style="background-color:rgba(255, 255, 255, 0.7);height:50%">
     <!-- 상단 아이콘-->
+    <div class="w3-hide-small">
+    <a href="../user/main.duck" class="w3-left w3-bar-item w3-button w3-wide"><i class="fa fa-user"></i>Quick Coduck</a>
+    </div>
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button">이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>opensource 찾기</a>
+      <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-user"></i>opensource 찾기</a>
       </c:if>
       <c:if test="${sessionScope.loginUser.type == '2'}">
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>프로젝트 찾기</a>
+      <a href="../board/list.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-user"></i>프로젝트 찾기</a>
       </c:if>
-      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i>자유게시판</a>
+      <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-th"></i>자유게시판</a>
       <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>Mypage</a>
       <c:if test="${empty sessionScope.loginUser}">
       <a href="#contact" class="w3-bar-item w3-button"onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-envelope"></i>로그인/회원가입</a>
       </c:if>
       <c:if test="${!empty sessionScope.loginUser}">
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그아웃</a>
+      <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그아웃</a>
       </c:if>
     </div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
@@ -71,13 +72,13 @@ body, html {
 </div>
 <!-- 상단 이미지 AD-->
 <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-  <div class="w3-display-left" style="padding:48px">
+  <div class="w3-display-left" style="padding:48px; top:55%;">
     <span class="w3-jumbo w3-hide-small w3-text-white">Welcome to Quick Coduck</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium w3-text-white"></span><br>
     <span class="w3-large w3-text-white">Provide developers with
 				OpenSource space and based on your data Platform that provides
 				outsourcing through big data analysis</span><br>
-    <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
+    <p></p>
   </div> 
   <div class="w3-display-bottomleft w3-text-white w3-large" style="padding:24px 48px">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
@@ -93,19 +94,18 @@ body, html {
 </header>
 
 <!-- 공고 글 수 보여주는 영역 -->
-<div class="project w3-container w3-row w3-center w3-padding-32"style="margin-bottom:40px;">
- <h3  style="margin-bottom:45px;text-align:center">OUR WORK<br></h3>
- <div class="w3-col s4 w3-center">
-     등록된 프로젝트<br>
-    <span class="w3-xxlarge">15.400 개</span>
+<div class="project w3-container w3-row w3-center"style="margin-bottom:40px;border-bottom:1px solid grey;background-color:#ffffff;padding:10px;">
+ <div class="w3-col s4 w3-center"style="border-right:1px solid grey">
+ <span class="w3-large">등록된 프로젝트</span><br>
+    <span class="w3-xlarge"style="font-weight:bold;">15,400 개</span>
   </div>
-  <div class="w3-col s4 w3-center">
-   프로젝트 등록금액<br>
-    <span class="w3-xxlarge">157,096,566 원</span>
+  <div class="w3-col s4 w3-center" style="border-right:1px solid grey">
+  <span class="w3-large"> 프로젝트 등록금액</span><br>
+    <span class="w3-xlarge"style="font-weight:bold;">157,096,566 원</span>
   </div>
  <div class="w3-col s4 w3-center">
-  개발회사 & 프리랜서<br>
-    <span class="w3-xxlarge">57,603 명</span>
+ <span class="w3-large">Client & 개발자</span><br>
+    <span class="w3-xlarge"style="font-weight:bold;">57,603 명</span>
   </div>
 </div>
 <decorator:body />
