@@ -118,4 +118,11 @@ public class DuckService {
 	public void boardduck(Board board, String userid) {
 		boardDao.duckinsert(board,userid);
 	}
+		
+	public List<User> userList() {
+		return userDao.userList();
+	}
+	public List<User> userList(String[] idchks) {
+		return userDao.list(idchks);
+	}
 }
