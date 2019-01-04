@@ -167,7 +167,7 @@ public class UserController {
 			try {
 				service.userUpdate(user);
 				//mav.addObject("user",user);
-				mav.setViewName("user/mypage");
+				mav.setViewName("redirect:mypage.duck?id="+user.getUserid());
 			}catch(Exception e) {
 				e.printStackTrace();
 				//mav.setViewName("user/updateForm");
