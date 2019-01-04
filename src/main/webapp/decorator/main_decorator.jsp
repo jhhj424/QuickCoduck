@@ -104,7 +104,7 @@ body, html {
     <a href="../user/main.duck" class="w3-left w3-bar-item w3-button w3-wide"><i class="fa fa-user"></i>Quick Coduck</a>
     </div>
     <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">이용방법</a>
+      <a href="../board/find.duck" class="w3-bar-item w3-button">이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
       <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-user"></i>opensource 찾기</a>
       </c:if>

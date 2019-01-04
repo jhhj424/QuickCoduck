@@ -22,6 +22,7 @@ import logic.User;
 public class BoardController {
 	@Autowired
 	private DuckService service;
+	
 
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
