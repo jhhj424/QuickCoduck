@@ -18,6 +18,8 @@
 				http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd">
 <!-- controller,logic,dao 패키지들에 속한 클래스가 @Component가 있는 경우 객체화 -->
 <context:component-scan base-package="controller,logic,dao,aop"/>
+ <mvc:resources mapping="/resources/**" location="/resources/"  
+	cache-period="31556926"/>
 <!-- 유효성 검증을 어노테이션으로 처리하도록 설정 -->
 <mvc:annotation-driven />
 <!-- Aspect가 활동가능하게해줌 -->
