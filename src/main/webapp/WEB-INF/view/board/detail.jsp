@@ -9,27 +9,26 @@
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-	/* function comment_submit() {
-		if (document.f.comment.value == '') {
-			alert("댓글을 입력하세요");
-			document.f.comment.focus();
-			return;
-		}
-		document.f.submit();
-	}
-
 	$(document).ready(
 			function() {
 				$("#rec").click(
 						function() {
-							var data = "num=" + $("#num").val();
+							var num = ${board.boardnum}
+							var type = ${board.boardtype}
+							var userid = "${loginUser.userid}"
+							var data = {
+								"num" : num,
+								"type" : type,
+								"userid" : userid
+								}
 							$.ajax({
-								url : "recmd.jsp",
+								url : "recmd.duck",
 								type : "post",
 								data : data,
+								dataType : "json", // ajax 통신으로 받는 타입
 								success : function(data) {
-									alert("추천이 완료되었습니다!");
-									$(".recview").val("추천수 : " + data);
+									alert(data.msg);
+									$(".recview").val("추천수 : " + data.recmd);
 								},
 								error : function(xhr, status, error) { //서버응답 실패
 									alert("서버오류 : " + xhr.status + ", error : "
@@ -37,7 +36,31 @@
 								}
 							})
 						})
-			}) */
+				$("#duck").click(
+						function() {
+							var num = ${board.boardnum}
+							var type = ${board.boardtype}
+							var userid = "${loginUser.userid}"
+							var data = {
+								"num" : num,
+								"type" : type,
+								"userid" : userid
+							}
+							$.ajax({
+								url : "duck.duck",
+								type : "post",
+								data : data,
+								dataType : "json", // ajax 통신으로 받는 타입
+								success : function(data) {
+									alert(data.msg);
+								},
+								error : function(xhr, status, error) { //서버응답 실패
+									alert("서버오류 : " + xhr.status + ", error : "
+											+ error + ", status : " + status);
+								}
+							})
+						})
+			})
 </script>
 
 </head>
@@ -46,7 +69,13 @@
 		<div class="w3-ul w3-card-4">
 			<table class="table14_10" style="width: 100%">
 				<tr>
-					<td colspan="2">Spring 게시판</td>
+					<td>
+					<c:if test="${board.boardtype==1}">오픈소스게시판</c:if>
+					<c:if test="${board.boardtype==2}">개발자자유게시판</c:if>
+					<c:if test="${board.boardtype==3}">프로젝트공고모집게시판</c:if>
+					</td>
+					<td align="center"><input class="recview"
+						style="text-align: center;" readonly value="추천수 : ${board.recmd}"></td>
 				</tr>
 				<tr>
 					<td width="15%">글쓴이</td>
@@ -78,7 +107,11 @@
 						href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[수정]</a>
 						<a
 						href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[삭제]</a>
-						<a href="list.duck?type=${board.boardtype}">[목록]</a></td>
+						<a href="list.duck?type=${board.boardtype}">[목록]</a>
+						<c:if test="${board.boardtype==1}">
+						<button type="button" class="myButton" id="rec">추천</button>
+						<button type="button" class="myButton" id="duck">DUCK</button></c:if>
+						</td>
 				</tr>
 			</table>
 		</div>

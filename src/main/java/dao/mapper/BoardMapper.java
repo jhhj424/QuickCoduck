@@ -20,7 +20,7 @@ public interface BoardMapper  {
 	@Update("update board set readcnt = readcnt+1 where boardnum=#{boardnum}")
 	void readcntadd(Map<String, Integer> map);
 
-	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl} where boardnum = #{boardnum}")
+	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl}, recmd=#{recmd} where boardnum = #{boardnum}")
 	void update(Board board);
 
 	@Update("update board set refstep = refstep+1 where ref= #{ref} and refstep > #{refstep}")
@@ -28,5 +28,17 @@ public interface BoardMapper  {
 
 	@Delete("delete from board where boardnum=#{boardnum}")
 	void delete(Map<String, Integer> map);
+	
+	@Insert("insert into recmd (boardnum,userid) values(#{boardnum},#{userid})")
+	void recmdinsert(Map<String, Object> map);
+	
+	@Select("select boardnum from recmd where userid=#{userid} and boardnum=#{boardnum}")
+	String recmdselect(Map<String, Object> map);
+
+	@Select("select boardnum from duck where userid=#{userid} and boardnum=#{boardnum}")
+	String duckselect(Map<String, Object> map);
+
+	@Insert("insert into duck (boardnum,userid) values(#{boardnum},#{userid})")
+	void duckinsert(Map<String, Object> map);
 
 }

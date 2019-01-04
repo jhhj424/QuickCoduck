@@ -75,4 +75,45 @@ public class BoardDao {
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).delete(map);
 	}
+	public void recmd(Board board) {
+		sqlSession.getMapper(BoardMapper.class).update(board);
+	}
+	public void recmdchk(Board board, String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", board.getBoardnum());
+		map.put("userid", userid);
+		sqlSession.getMapper(BoardMapper.class).recmdinsert(map);
+	}
+	public int recmdselect(String userid, Integer boardnum) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		String select = sqlSession.getMapper(BoardMapper.class).recmdselect(map);
+		int num = 0;
+		if(select == null) {
+			num = 0;
+		}else {
+			num = 1;
+		}
+		return num; 
+	}
+	public int duckselect(String userid, Integer boardnum) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		String select = sqlSession.getMapper(BoardMapper.class).duckselect(map);
+		int num = 0;
+		if(select == null) {
+			num = 0;
+		}else {
+			num = 1;
+		}
+		return num; 
+	}
+	public void duckinsert(Board board, String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", board.getBoardnum());
+		map.put("userid", userid);
+		sqlSession.getMapper(BoardMapper.class).duckinsert(map);
+	}
 }

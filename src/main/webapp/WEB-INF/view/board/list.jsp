@@ -81,7 +81,7 @@
 							<td align="left"><c:if test="${! empty board.fileurl}">
 									<a href="../file/${board.fileurl}">@</a>
 								</c:if> <c:if test="${empty board.fileurl}">&nbsp;&nbsp;&nbsp;</c:if> <a
-								href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
+								href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}<c:if test="${board.boardtype==1}"> 추천 - ${board.recmd}</c:if></a>
 							</td>
 							<td align="left">${board.userid}</td>
 							<td align="center">${board.regdate}</td>
