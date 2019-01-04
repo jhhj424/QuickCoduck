@@ -74,6 +74,7 @@ public class UserController {
 			}
 			if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
 				session.setAttribute("loginUser", dbuser); // 로그인 성공
+				mav.setViewName("redirect:main.duck");
 			} else { // 비밀번호가 불일치
 				bindResult.reject("error.login.password");
 				mav.getModel().putAll(bindResult.getModel());
@@ -85,21 +86,27 @@ public class UserController {
 			mav.getModel().putAll(bindResult.getModel());
 			return mav;
 		}
-		mav.setViewName("user/main");
+		//mav.setViewName("user/main"); <-쓰면 로그인성공시 main.duck안나오고 login.duck이라고 뜸.
 		return mav;
 	}
 
 	@RequestMapping("user/userEntry")
-	public ModelAndView userEntry(@Valid User user, HttpServletRequest request) {
+	public ModelAndView userEntry(@Valid User user, BindingResult bindResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/userForm"); // a 입력하면 a.jsp로 이동됨.
+		if(bindResult.hasErrors()) { //입력오류가 발생한 경우
+			mav.getModel().putAll(bindResult.getModel()); //
+			return mav;
+		}
 		String pass1 = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
 		if (pass1.equals(pass2)) { // 비밀번호 일치
 			try {
 				service.userCreate(user, request);
-				mav.setViewName("user/login");
+				mav.setViewName("redirect:start.duck");
 				mav.addObject("user",user);
 			}catch(DataIntegrityViolationException e) {
+				bindResult.reject("error.duplicate.user");
+				mav.getModel().putAll(bindResult.getModel());
 				return mav;
 			}
 		} else {
