@@ -115,7 +115,9 @@ body, html {
     <span class="w3-xxlarge">57,603 명</span>
   </div>
 </div>
+<div class="w3-content w3-center">
 <decorator:body />
+</div>
 
 <!-- 아이콘 보여주면서 회사 설명 파트-->
 <div class="w3-container" style="padding:128px 16px;border:1px solid grey;" id="about">
