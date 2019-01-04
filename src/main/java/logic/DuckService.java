@@ -95,4 +95,11 @@ public class DuckService {
 	public User select(String id) {
 		return userDao.select(id);
 	}
+
+	public List<User> userList() {
+		return userDao.userList();
+	}
+	public List<User> userList(String[] idchks) {
+		return userDao.list(idchks);
+	}
 }

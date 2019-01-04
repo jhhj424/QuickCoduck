@@ -197,4 +197,34 @@ public class UserController {
 		 */
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // false:필수입력 true:선택입력
 	}
+	@RequestMapping(value="user/delete", method=RequestMethod.GET)
+	public ModelAndView delete(String id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.select(id);
+		mav.addObject("user",user);
+		return mav;
+	}
+	
+	@RequestMapping(value="user/delete", method=RequestMethod.POST)
+	public ModelAndView delete(String id, HttpSession session, String password) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User) session.getAttribute("loginUser");//현재로그인된유저
+		if(loginUser.getPass().equals(password)) {
+			try {
+				service.userDelete(id);
+				if(!loginUser.getUserid().equals("admin")) {
+					session.invalidate();
+					mav.setViewName("redirect:loginForm.duck");
+				}else {//관리자
+					mav.setViewName("redirect:../admin/list.duck");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+				throw new LoginException("탈퇴실패","../user/delete.duck?id=" + id);
+			}
+		}else {//버번틀림
+			throw new LoginException("비밀번호오류","../user/delete.duck?id="+id);
+		}
+		return mav;
+	}
 }

@@ -54,7 +54,10 @@
 	<property name="exceptionMappings" >
 	<!-- CartEmptyException 라는 exception이 발생되면 exception.jsp로 제어를 넘김 -->
 	<!-- exception.CartEmptyException 예외 발생시 /WEB-INF/view/exception.jsp 페이지 가 예외페이지로 설정 -->
-		<value> exception.LoginException=exception</value> 
+		<value>
+		exception.LoginException=exception
+		exception.DuckException=exception
+		</value> 
 	</property>
 </bean>
 
