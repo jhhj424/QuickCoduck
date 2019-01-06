@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@include file="/WEB-INF/view/style/start_signup.jsp" %>
+<%@include file="/WEB-INF/view/style/user_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
@@ -15,83 +16,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
-<style type="text/css">
-html, body.b1 {
-	font-family: Verdana, sans-serif;
-	font-size: 11px;
-	line-height: 1.5;
-}
 
-.table14_11 table {
-	width: 100%;
-	margin: 15px 0;
-	border: 0;
-}
-
-.table14_11 th {
-	font-weight: bold;
-	background-color: #cde6fe;
-	color: #2052fe;
-	font-size: large;
-}
-
-.table14_10, .table14_10 th, .table14_10 td {
-	font-size: 0.99em;
-	text-align: center;
-	padding: 4px;
-	border-collapse: collapse;
-	font-style: normal;
-}
-
-.table14_10 th, .table14_10 td {
-	border: 1px solid #ffffff;
-	border-width: 1px
-}
-
-.table14_10 th {
-	border: 1px solid #cde6fe;
-	border-width: 1px 0 1px 0
-}
-
-.table14_10 tr {
-	border: 1px solid #ffffff;
-}
-
-.table14_10 tr:nth-child(odd) {
-	background-color: #f7f7f7;
-}
-
-.table14_10 tr:nth-child(even) {
-	background-color: #ffffff;
-}
-
-.table14_10 td {
-	border: 1px solid #eeeeee;
-	border-width: 2px 2px 2px 2px;
-}
-</style>
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif}
-body, html {
-  height: 100%;
-  line-height: 1.8;
-}
-/* Full height image header */
-.bgimg-1 {
-  background-position: center;
-  background-size: cover;
-  background-image: url("../workpic/d4.png");
-  min-height: 55%;
-}
-.project {
- border-color: 1px solid gray;
-}
-
-.w3-bar .w3-button {
-  padding: 12px;
-  margin:0px 15px 0px 15px;
-}
-</style>
 <decorator:head/>
 <!-- decorator head 삽입 부분 -->
 <body><!-- body 시작부분 -->
@@ -101,23 +26,24 @@ body, html {
   <div class="w3-bar w3-card" id="myNavbar" style="background-color:rgba(255, 255, 255, 0.7);height:50%">
     <!-- 상단 아이콘-->
     <div class="w3-hide-small">
-    <a href="../user/main.duck" class="w3-left w3-bar-item w3-button w3-wide"><i class="fa fa-user"></i>Quick Coduck</a>
+    <a href="../user/main.duck" class="w3-left w3-bar-item w3-button w3-wide"> Quick Coduck
+    <img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar"></a>
     </div>
     <div class="w3-right w3-hide-small">
-      <a href="../board/find.duck" class="w3-bar-item w3-button">이용방법</a>
+      <a href="../board/find.duck" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
-      <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-user"></i>opensource 찾기</a>
+      <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
       </c:if>
       <c:if test="${sessionScope.loginUser.type == '2'}">
-      <a href="../board/list.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-user"></i>프로젝트 찾기</a>
+      <a href="../board/list.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
       </c:if>
-      <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-th"></i>자유게시판</a>
-      <a href="../user/mypage.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>Mypage</a>
+      <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-newspaper-o"></i> 자유게시판</a>
+      <a href="../user/mypage_test.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
       <c:if test="${empty sessionScope.loginUser}">
       <a href="#contact" class="w3-bar-item w3-button"onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-envelope"></i>로그인/회원가입</a>
       </c:if>
       <c:if test="${!empty sessionScope.loginUser}">
-      <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그아웃</a>
+      <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-unlock-alt"></i> 로그아웃</a>
       </c:if>
     </div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
@@ -168,7 +94,7 @@ body, html {
 </div>
 
 <!-- 아이콘 보여주면서 회사 설명 파트-->
-<div class="w3-container" style="padding:128px 16px;border:1px solid grey;" id="about">
+<div class="w3-container" style="padding:100px 16px;border:1px solid grey;" id="about">
   <h3 class="w3-center">ABOUT THE COMPANY</h3>
   <p class="w3-center w3-large">Key features of our company</p>
   <div class="w3-row-padding w3-center" style="margin-top:64px">

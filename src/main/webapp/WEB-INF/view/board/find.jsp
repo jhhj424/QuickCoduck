@@ -21,6 +21,10 @@
  
 <style>
 html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+.w3-bar .w3-button {
+  padding: 12px;
+  margin:5px 15px 5px 15px;
+}
 </style>
 </head>
 <body class="w3-light-grey">
@@ -76,6 +80,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 								</ul>
 					</div>
       </div><br>
+
       
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
@@ -109,7 +114,8 @@ $(document).ready(function(){
 	--%>
 })
 </script>
-    <!-- End Left Column -->
+
+				<!-- End Left Column -->
     </div>
 
     <!-- Right Column -->

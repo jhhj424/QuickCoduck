@@ -157,6 +157,13 @@ public class UserController {
 		mav.addObject("user", user);
 		return mav;
 	}
+	@RequestMapping("user/mypage_test")
+	public ModelAndView mypagetest(String id,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.select(id);
+		mav.addObject("user",user);
+		return mav;
+	}
 	
 	@RequestMapping("user/updateForm")
 	public ModelAndView update(String id, HttpSession session) {
