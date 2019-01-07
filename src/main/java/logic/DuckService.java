@@ -125,4 +125,8 @@ public class DuckService {
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
+
+	public int idchk(String userid) {
+		return userDao.idchk(userid);
+	}
 }

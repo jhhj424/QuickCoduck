@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>    
+<%@include file="/WEB-INF/view/jspHeader.jsp" %>
+<%@include file="/WEB-INF/view/style/user_main.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +27,43 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   margin:5px 15px 5px 15px;
 }
 </style>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 </head>
-<body class="w3-light-grey">
+<body class="w3-light-grey"id="home">
+
+<div class="w3-top">
+
+ <div class="w3-bar w3-card" id="myNavbar" style="background-color:rgba(255, 255, 255, 0.7);height:50%">
+    <!-- 상단 아이콘-->
+    <div class="w3-hide-small">
+    <a href="../user/main.duck" class="w3-left w3-bar-item w3-button w3-wide"> Quick Coduck
+    <img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar"></a>
+    </div>
+    <div class="w3-right w3-hide-small">
+      <a href="../board/find.duck" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
+      <c:if test="${sessionScope.loginUser.type == '1'}">
+      <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
+      </c:if>
+      <c:if test="${sessionScope.loginUser.type == '2'}">
+      <a href="../board/list.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
+      </c:if>
+      <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-newspaper-o"></i> 자유게시판</a>
+      <a href="../user/mypage_test.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
+      <c:if test="${empty sessionScope.loginUser}">
+      <a href="#contact" class="w3-bar-item w3-button"onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      </c:if>
+      <c:if test="${!empty sessionScope.loginUser}">
+      <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-unlock-alt"></i> 로그아웃</a>
+      </c:if>
+    </div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
 <div class="w3-opacity"><br>
 <div class="w3-clear"></div>
-<header class="w3-center w3-margin-bottom">
+<header class="w3-center w3-margin-bottom" style="margin-top:60px;">
   <h1><b>프로젝트 찾기/opensource 찾기</b></h1>
   <p><b>Quick Coduck</b></p>
 </header>
@@ -39,7 +72,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
 
   <!-- The Grid -->
-  <div class="w3-row-padding">
+  <div class="w3-row-padding" style="margin-bottom:50px">
   
     <!-- Left Column -->
     <div class="w3-third"style="padding-right:50px;padding-left:50px;">
@@ -48,7 +81,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         <div class="w3-container"style="padding-left:10px;">
           <br>
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-						<ul class="tree">
+          <ul class="tree">
 									<li><a>Development<input type="checkbox" id="checkall_develop"></a>
 										<ul>
 											<li><a>C<input type="checkbox" name="usetech_develop"value="C"></a></li>
@@ -78,11 +111,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 										</ul></li>
 
 								</ul>
+        
+						
 					</div>
       </div><br>
 
       
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
 $(document).ready(function(){
     $("#checkall_develop").click(function(){
@@ -169,6 +203,19 @@ $(document).ready(function(){
   
   <!-- End Page Container -->
 </div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-32">
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i><br>
+  </div>
+  <p>Quick Coduck<a href="#home"class="w3-hover-text-green">  <i class="fa fa-arrow-up w3-margin-right">Up to top</i></a></p>
+</footer>
 
 
 </body>

@@ -9,8 +9,8 @@
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
-<body class="w3-theme-l5">
-<div class="w3-top">
+<body class="w3-theme-l5"id="home">
+<div class="w3-top" >
  <div class="w3-bar w3-card" id="myNavbar" style="background-color:rgba(255, 255, 255, 0.7);height:50%">
     <!-- 상단 아이콘-->
     <div class="w3-hide-small">
@@ -42,7 +42,7 @@
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
   <!-- The Grid -->
-  <div class="w3-row">
+  <div class="w3-row"style="margin-bottom:50px;margin-top:50px;">
     <!-- Left Column -->
     <div class="w3-col m3">
       <!-- Profile -->
@@ -133,7 +133,7 @@
     <!-- Middle Column -->
     <div class="w3-col m7">
     
-      <div class="w3-row-padding">
+      <div class="w3-row-padding" >
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
@@ -235,6 +235,18 @@
   
 <!-- End Page Container -->
 </div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-32">
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i><br>
+  </div>
+  <p>Quick Coduck<a href="#home"class="w3-hover-text-green">  <i class="fa fa-arrow-up w3-margin-right">Up to top</i></a></p>
+</footer>
 <script>
 // Accordion
 function myFunction(id) {
