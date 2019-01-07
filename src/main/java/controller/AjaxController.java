@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import logic.Board;
 import logic.DuckService;
+import logic.User;
 
 @Controller
 public class AjaxController {
@@ -45,6 +46,7 @@ public class AjaxController {
 		}
 		return map;
 	}
+	//user_signup
 	@ResponseBody
 	@RequestMapping("board/duck")
 	public Map<Object, Object> duck(Integer num, Integer type, String userid) {
@@ -105,5 +107,30 @@ public class AjaxController {
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
 		return "ajax/ajax_content";
+	}
+	
+	@RequestMapping("user/signup_test")
+	public Map<Object, Object> signup_test(String userid, String userEmail, String pass, String pass2) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		int count = 0;
+		count = service.idchk(userid);
+		
+		if(count == 0) {
+			map.put("id_chk", "사용가능한 id");
+			map.put("id_color", "green");
+		}else {
+			map.put("id_chk", "중복");
+			map.put("id_color", "red");
+		}
+		if(pass.equals(pass2)) {
+			map.put("pass",pass);
+			map.put("corpass_chk","암호일치");
+			map.put("pass_color", "green");
+		}else {
+			map.put("corpass_chk","암호가 일치하지 않음");
+			map.put("pass_color", "red");
+		}
+		
+		return map;
 	}
 }

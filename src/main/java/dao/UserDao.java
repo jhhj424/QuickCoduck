@@ -60,4 +60,8 @@ public class UserDao {
 		map.put("userid", id);
 		return sqlSession.selectOne(NS+"list",map);
 	}
+	public int idchk(String userid) {
+		int result = sqlSession.getMapper(UserMapper.class).idchk(userid);
+		return result;
+	}
 }

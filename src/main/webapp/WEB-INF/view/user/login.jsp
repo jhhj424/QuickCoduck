@@ -10,7 +10,6 @@
 <body>
 <%-- /mavenduck3/user/loginForm.duck 요청시 login.jsp가 화면에 출력하기 --%>
 <form:form modelAttribute="user" method="post" action="login.duck">
-	<input type="hidden" name="userName" value="유효성검증을 회피하기위한 의미없는 Name값">
 	<spring:hasBindErrors name="user">
 		<font color="red">
 			<c:forEach items="${errors.globalErrors}" var="error">

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.User;
@@ -21,4 +22,7 @@ public interface UserMapper  {
 
 	@Delete("delete from user where userid=#{userid}")
 	void delete(Map<String, String> map);
+
+	@Select("SELECT COUNT(*) FROM user WHERE userid = #{userid}")
+	int idchk(String userid);
 }

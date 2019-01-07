@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/style/start_middle.jsp" %>
 <%@include file="/WEB-INF/view/style/start_signup.jsp" %>
+<%@include file="/WEB-INF/view/style/register.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
@@ -30,8 +31,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size: 16px;}
 img {margin-bottom: -8px;}
 .mySlides {display: none;}
+span{
+text-color:red;
+}
 </style>
-
 </head>
 <body class="w3-content" style="max-width:100%;">
 <!-- Header with Slideshow -->
@@ -229,14 +232,16 @@ img {margin-bottom: -8px;}
 			        <div class="content">
 				            <div class="signin-cont cont">
 					                <form action="signup.duck" method="post" enctype="multipart/form-data">
-					                        <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
+					                        <input type="text" name="userid" id="user_id" class="inpt" required="required" placeholder="User Id">
+					                        <span class="id_chk"style="color:red;"></span>
 						                    <label for="name"></label>
-						                    <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
+						                    <input type="email" name="email" id="user_email" class="inpt" required="required" placeholder="User Email">
 						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
+						                    <input type="password" name="pass" id="user_password" class="inpt" required="required" placeholder="Password">
                 						    <label for="password"></label>
-                						    <input type="password" name="pass2" id="password2" class="inpt" required="required" placeholder="Re Password">
+                						    <input type="password" name="pass2" id="user_password2" class="inpt" required="required" placeholder="Re Password">
                 						    <label for="password"></label>
+                						    <span class="corpass_chk"style="color:red;"></span>
                 						    <input type="hidden" name="type" value="1" id="user" class="inpt">
 						                    <div class="submit-wrap">
 							                        <input type="submit" value="Sign up" class="submit">
@@ -246,17 +251,19 @@ img {margin-bottom: -8px;}
     				        </div>
     				        <div class="signup-cont cont">
                 <form action="signup.duck" method="post" enctype="multipart/form-data">
-						                    <input type="text" name="userid" id="id" class="inpt" required="required" placeholder="User Id">
+						                    <input type="text" name="userid" id="client_id" class="inpt" required="required" placeholder="User Id">
+						                    <span class="cid_chk"style="color:red;"></span>
 						                    <label for="name"></label>
-                                            <input type="email" name="email" id="email" class="inpt" required="required" placeholder="User Email">
+                                            <input type="email" name="email" id="client_email" class="inpt" required="required" placeholder="User Email">
 						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
+						                    <input type="password" name="pass" id="client_password" class="inpt" required="required" placeholder="Password">
                 						    <label for="password"></label>
-                						    <input type="password" name="pass2" id="password2" class="inpt" required="required" placeholder="Re Password">
+                						    <input type="password" name="pass2" id="client_password2" class="inpt" required="required" placeholder="Re Password">
                 						    <label for="password"></label>
+                						    <span class="pass_chk"style="color:red;"></span>
                 						    <input type="hidden" name="type" value="2" id="client" class="inpt">
 						                    <div class="submit-wrap">
-							                        <input type="submit" value="Sign up" class="submit">
+							                        <input type="submit" value="Sign up" class="submit"id="client_signup">
 							                        <a href="#" class="more">Terms and conditions</a>
 						                    </div>
         					        </form>
@@ -264,7 +271,8 @@ img {margin-bottom: -8px;}
 			        </div>
 		    </article>
 		    <i onclick="document.getElementById('signup').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
-		    <div class="half bg"></div>
+		    <div class="half bg">
+		    </div>
 	</section>
 </div>
 <!-- 비회원 입장용 모달 -->
