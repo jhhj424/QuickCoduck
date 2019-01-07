@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.DuckDao;
 import dao.UserDao;
 import util.CipherUtil;
 
@@ -24,6 +25,8 @@ public class DuckService {
 	private UserDao userDao;
 	@Autowired
 	private BoardDao boardDao;
+	@Autowired
+	private DuckDao duckDao;
 	
 	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String uploadPath = request.getServletContext().getRealPath("/") + "/" + path + "/";
@@ -124,5 +127,13 @@ public class DuckService {
 	}
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
+	}
+	//ÃÑ ³» ´ö°Ô½Ã¹°¼ö
+	public int duckcount(String searchType, String searchContent, Integer type) {
+		return duckDao.count(searchType, searchContent,type);
+	}
+
+	public List<Duck> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type) {
+		return duckDao.list(searchType, searchContent, pageNum, limit,type);
 	}
 }

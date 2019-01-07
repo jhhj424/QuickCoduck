@@ -6,9 +6,11 @@
 	<typeAliases>
 		<typeAlias type="logic.User" alias="User"/>
 		<typeAlias type="logic.Board" alias="Board"/>
+		<typeAlias type="logic.Duck" alias="Duck"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
 		<mapper resource="dao/mapper/Board.xml"/>
+		<mapper resource="dao/mapper/Duck.xml"/>
 	</mappers>
 </configuration>
