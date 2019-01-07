@@ -8,8 +8,8 @@
 <title>게시판 목록</title>
 <script type="text/javascript">
 	function list(pageNum) {
-		var searchType = document.searchform.searchType.value;
-		if (searchType == null || searchType.length == 0) {
+		var type = document.searchform.type.value;
+		if (type == null || type.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
 			location.href = "list.duck?pageNum=" + pageNum
@@ -32,15 +32,15 @@
 						<form action="list.duck?type=${param.type}" method="post"
 							name="searchform" onsubmit="return list(1)">
 							<input type="hidden" name="pageNum" value="1"> <select
-								name="searchType" id="searchType">
+								name="type" id="type">
 								<option value="">선택하세요</option>
 								<option value="subject">제목</option>
 								<option value="userid">글쓴이</option>
 								<option value="content">내용</option>
 							</select>&nbsp;
 							<script type="text/javascript">
-								if ('${param.searchType}' != '') {
-									document.getElementById("searchType").value = '${param.searchType}';
+								if ('${param.type}' != '') {
+									document.getElementById("type").value = '${param.type}';
 								}
 							</script>
 							<input type="text" name="searchContent"
@@ -112,7 +112,8 @@
 						href="write.duck?type=${param.type}">[글쓰기]</a></td>
 				</tr>
 			</table>
-			<a href="../user/logout.duck">로그아웃</a> <a
+			<a href="../user/logout.duck">로그아웃</a><a
+				href="../board/find.duck?type=1">이용방법[게시판테스트중]</a> <a
 				href="../board/list.duck?type=1">오픈소스게시판</a> <a
 				href="../board/list.duck?type=2">개발자자유게시판</a> <a
 				href="../board/list.duck?type=3">프로젝트공고모집게시판</a>

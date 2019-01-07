@@ -53,6 +53,36 @@ public class BoardController {
 		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
+	@RequestMapping(value = "board/find")
+	public ModelAndView find(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if(type != null) {
+			if(type==1)System.out.println("오픈소스게시판");
+			if(type==3)System.out.println("프로젝트공고모집게시판");
+		}
+		ModelAndView mav = new ModelAndView();
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		int listcount = service.boardcount(searchType, searchContent,type);
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = listcount - (pageNum - 1) * limit;
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", listcount);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
 	@RequestMapping(value = "board/write", method = RequestMethod.POST)
 	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session) {
 		System.out.println(board);
