@@ -40,7 +40,7 @@
                            </property>
                   </bean>
          </mvc:message-converters>
-</mvc:annotation-driven>
+	</mvc:annotation-driven>
 	<!-- Aspect가 활동가능하게해줌 -->
 	<aop:aspectj-autoproxy />
 	<!-- http://localhost:8080/mavenduck3/item/list.duck item : ItemController 
