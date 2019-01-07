@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -81,16 +83,24 @@ public class AjaxController {
 	}
 	
 	@RequestMapping("board/ajax_content")
-	public String list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
+	public String list(String chk,Integer pageNum, Integer type, HttpSession session, Model model) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-		if(type==1)System.out.println("오픈소스게시판");
-		if(type==3)System.out.println("프로젝트공고모집게시판");
-		ModelAndView mav = new ModelAndView();
+		String tech[] = null; //사용기술목록 배열
+		List<Board> boardlist = new ArrayList<Board>(); //기술에맞는 board리스트
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		if(chk=="") {
+			boardlist = service.boardlist(pageNum, limit,type);
+		}else {
+			tech = chk.split("/"); //넘어온 기술목록을 / 기준으로 split
+			for(int i=0; i<tech.length;i++) {
+				System.out.println(tech[i]); //기술목록
+				boardlist.addAll(service.boardlist(pageNum, limit,type,tech[i]));
+			}
+		}
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent,type);
+		/*int listcount = service.boardcount(searchType, searchContent,type);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
@@ -98,14 +108,9 @@ public class AjaxController {
 		int endpage = startpage + 9;
 		if (endpage > maxpage)
 			endpage = maxpage;
-		int boardcnt = listcount - (pageNum - 1) * limit;
-		mav.addObject("pageNum", pageNum);
-		mav.addObject("maxpage", maxpage);
-		mav.addObject("startpage", startpage);
-		mav.addObject("endpage", endpage);
-		mav.addObject("listcount", listcount);
-		mav.addObject("boardlist", boardlist);
-		mav.addObject("boardcnt", boardcnt);
+		int boardcnt = listcount - (pageNum - 1) * limit;*/
+		model.addAttribute("boardlist", boardlist);
+		model.addAttribute("tech",chk);
 		return "ajax/ajax_content";
 	}
 	
