@@ -16,7 +16,7 @@ public class AjaxController {
 	@Autowired
 	private DuckService service;
 	
-	@ResponseBody
+	@ResponseBody //뷰없이 값만 리턴
 	@RequestMapping("board/recmd")
 	public Map<Object, Object> recmd(Integer num, Integer type, String userid) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
