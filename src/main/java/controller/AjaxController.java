@@ -110,9 +110,11 @@ public class AjaxController {
 	}
 	
 	@RequestMapping("user/signup_test")
-	public Map<Object, Object> signup_test(String userid, String userEmail, String pass, String pass2) {
+	public Map<Object, Object> signup_test(String userid, String email, String pass, String pass2) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		int count = 0;
+		System.out.println("에이작나와라");
+		System.out.println("시이이바바아아아알");
 		count = service.idchk(userid);
 		
 		if(count == 0) {
