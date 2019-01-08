@@ -96,9 +96,8 @@ public class AjaxController {
 		List<Integer> bonum = new ArrayList<Integer>();
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		if (chk == "") {
-			System.out.println("체크박스선택안함");
-			boardlist.addAll(service.boardlist(pageNum, limit, type));
-			System.out.println("노체크보드:"+boardlist);
+			boardlist = service.boardlist(pageNum, limit, type);
+			techlistcnt = service.boardcount(type);
 		} else { // 체크박스에 항목이 있는 경우
 			tech = chk.split(","); // 넘어온 기술목록을 / 기준으로 split
 			System.out.println("기술목록 : " + chk);
