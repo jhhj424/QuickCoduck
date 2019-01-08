@@ -50,7 +50,7 @@
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
-		order by regdate desc
+		order by boardnum desc
 		<if test="startrow != null and limit !=null">
 			limit #{startrow},${limit}
 		</if>
