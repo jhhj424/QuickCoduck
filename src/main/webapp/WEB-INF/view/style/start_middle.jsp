@@ -3,6 +3,7 @@
 <link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
 <head>
 <style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 body {
   font-family: "Squada One",sans-serif;
   background: #000e12;
