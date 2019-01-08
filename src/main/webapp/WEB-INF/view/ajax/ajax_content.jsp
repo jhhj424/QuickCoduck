@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
+<script type="text/javascript">
+function list(pageNum) {
+	var type = document.searchform.type.value;
+	if (type == null || type.length == 0) {
+		document.searchform.searchContent.value = "";
+		document.searchform.pageNum.value = "1";
+		location.href = "find.duck?pageNum=" + pageNum
+				+ "&type=${param.type}";
+	} else {
+		document.searchform.pageNum.value = pageNum;
+		document.searchform.submit();
+		return true;
+	}
+	return false;
+}
+</script>
 <c:if test="${ON != 1}">
 	<c:forEach var="board" items="${boardlist}">
 		<div align="center" onmouseover="this.style.backgroundColor='#5CD1E5'"

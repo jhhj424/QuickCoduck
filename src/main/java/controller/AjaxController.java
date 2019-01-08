@@ -89,6 +89,7 @@ public class AjaxController {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		int techlistcnt = 0;
 		String tech[] = null; // 사용기술목록 배열
 		List<Board> boardlist = new ArrayList<Board>(); // 기술에맞는 board리스트
 		List<Integer> bonum = new ArrayList<Integer>();
@@ -114,6 +115,7 @@ public class AjaxController {
 				ArrayList<Integer> arr2 = new ArrayList<Integer>(arr1);
 				System.out.println("중복제거:" + arr2);
 				String num = arr2.get(0) + "";
+				techlistcnt = arr2.size();
 				for (int i = 1; i < arr2.size(); i++) {
 					num += "," + arr2.get(i);
 				}
@@ -126,6 +128,7 @@ public class AjaxController {
 		} // 중복제거
 		model.addAttribute("boardlist", boardlist);
 		model.addAttribute("tech", chk);
+		model.addAttribute("listcount", techlistcnt);
 		return "ajax/ajax_content";
 	}
 
