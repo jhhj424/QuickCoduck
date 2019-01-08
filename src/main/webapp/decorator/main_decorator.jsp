@@ -40,7 +40,7 @@
       <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-newspaper-o"></i> 자유게시판</a>
       <a href="../user/mypage_test.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
       <c:if test="${empty sessionScope.loginUser}">
-      <a href="#contact" class="w3-bar-item w3-button"onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      <a href="../user/login.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
       </c:if>
       <c:if test="${!empty sessionScope.loginUser}">
       <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-unlock-alt"></i> 로그아웃</a>

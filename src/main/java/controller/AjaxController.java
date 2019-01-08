@@ -131,40 +131,32 @@ public class AjaxController {
 		model.addAttribute("listcount", techlistcnt);
 		return "ajax/ajax_content";
 	}
-
-	// 총 게시물 건수
-	/*
-	 * int listcount = service.boardcount(searchType, searchContent,type); //
-	 * boardlist : 한페이지에 출력할 게시물 정보 저장 List<Board> boardlist =
-	 * service.boardlist(searchType, searchContent, pageNum, limit,type); int
-	 * maxpage = (int) ((double) listcount / limit + 0.95); int startpage = ((int)
-	 * ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1; int endpage = startpage + 9; if
-	 * (endpage > maxpage) endpage = maxpage; int boardcnt = listcount - (pageNum -
-	 * 1) * limit;
-	 */
-
-	@RequestMapping("user/signup_test")
-	public Map<Object, Object> signup_test(String userid, String userEmail, String pass, String pass2) {
+	
+	@ResponseBody
+	@RequestMapping("user/user_idchk")
+	public Map<Object, Object> user_idchk(String userid) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		int count = 0;
 		count = service.idchk(userid);
-
-		if (count == 0) {
-			map.put("id_chk", "사용가능한 id");
-			map.put("id_color", "green");
-		} else {
-			map.put("id_chk", "중복");
-			map.put("id_color", "red");
+		/*
+		 * count == 0  아이디 중복값 없고, 3자 이상 10자 이하인 경우
+		 * count == 1  아이디 중복값인 경우
+		 * count == 2 아이디 중복은 없는데 3자 이상 10자 이하를 충족 X
+		 * count == 3 아이디 값이 null이 거나 빈칸인 경우
+		 */
+		
+		if(count == 0) {
+			if(userid.length() >=3 && userid.length() <11) {
+				map.put("id_chk",0);
+			}else if(userid.length() == 0 && userid.equals("")) {
+				map.put("id_chk",3);
+			}else {
+				map.put("id_chk",2);
+			}
+			
+		}else {
+			map.put("id_chk", 1);
 		}
-		if (pass.equals(pass2)) {
-			map.put("pass", pass);
-			map.put("corpass_chk", "암호일치");
-			map.put("pass_color", "green");
-		} else {
-			map.put("corpass_chk", "암호가 일치하지 않음");
-			map.put("pass_color", "red");
-		}
-
 		return map;
 	}
 }
