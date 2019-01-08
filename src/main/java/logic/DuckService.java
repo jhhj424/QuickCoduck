@@ -55,7 +55,11 @@ public class DuckService {
 	public int boardcount(String searchType, String searchContent,Integer type) {
 		return boardDao.count(searchType, searchContent,type);
 	}
-
+	
+	public int boardcount(String searchType, String searchContent,Integer type, String id) {
+		return boardDao.count(searchType, searchContent,type,id);
+	}
+	
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
 		return boardDao.list(searchType, searchContent, pageNum, limit,type);
 	}

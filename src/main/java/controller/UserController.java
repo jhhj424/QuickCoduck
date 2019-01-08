@@ -241,7 +241,7 @@ public class UserController {
 		
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent, type);
+		int listcount = service.boardcount(searchType, searchContent, type, id);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id);
 		System.out.println("boardlist:"+boardlist);
