@@ -122,15 +122,24 @@ public class UserController {
 	public ModelAndView signup(@Valid User user, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/start");
 		String pass = request.getParameter("pass");
-		String checkpass = request.getParameter("pass2");
-		if (pass.equals(checkpass)) {
-			service.userCreate(user, request);
-			mav.addObject("user", user);
-			mav.setViewName("redirect:start.duck");
-		} else {
-			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/start.duck");
+		String pass2 = request.getParameter("pass2");
+		String userid = request.getParameter("userid");
+		
+		int count = service.idchk(userid);
+		if(count != 0) {
+			throw new LoginException("아이디 중복입니다","../user/start.duck");
+		}else {
+			if(pass.equals(pass2)) {
+				service.userCreate(user, request);
+				mav.addObject("user",user);
+				mav.setViewName("redirect:start.duck");
+			}else {
+				throw new LoginException("비밀번호 오류입니다","../user/start.duck");
+			}
 		}
 		return mav;
+		
+		
 	}
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {

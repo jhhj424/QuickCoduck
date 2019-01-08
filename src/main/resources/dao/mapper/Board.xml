@@ -22,6 +22,9 @@
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
+		<if test="tech != null">
+			and usetech like '%${tech}%'
+		</if>
 		order by regdate desc
 		<if test="startrow != null and limit !=null">
 			limit #{startrow},${limit}

@@ -30,7 +30,7 @@
     <img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar"></a>
     </div>
     <div class="w3-right w3-hide-small">
-      <a href="../board/find.duck" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
+      <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
       <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
       </c:if>
@@ -89,7 +89,7 @@
     <span class="w3-xlarge"style="font-weight:bold;">57,603 명</span>
   </div>
 </div>
-<div class="w3-content w3-center">
+<div class="w3-center">
 <decorator:body />
 </div>
 

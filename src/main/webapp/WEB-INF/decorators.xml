@@ -6,5 +6,7 @@
 	<excludes>
 		<pattern>/user/start*</pattern>
 		<pattern>/user/mypage_test*</pattern>
+		<pattern>*ajax_content*</pattern>
+		<pattern>/board/find.*</pattern>
 	</excludes>
 </decorators>

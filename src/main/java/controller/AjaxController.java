@@ -1,10 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +46,7 @@ public class AjaxController {
 		}
 		return map;
 	}
+	//user_signup
 	@ResponseBody
 	@RequestMapping("board/duck")
 	public Map<Object, Object> duck(Integer num, Integer type, String userid) {
@@ -64,6 +70,71 @@ public class AjaxController {
 		}else {//해당 게시글에 해당 아이디의 Duck이 있을때
 			map.put("msg", "이미 Duck한 게시물입니다!");			
 		}
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("board/techchk")
+	public Map<Object, Object> techchk(String data) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("tech", data);
+		return map;
+	}
+	
+	@RequestMapping("board/ajax_content")
+	public String list(String chk,Integer pageNum, Integer type, HttpSession session, Model model) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		String tech[] = null; //사용기술목록 배열
+		List<Board> boardlist = new ArrayList<Board>(); //기술에맞는 board리스트
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		if(chk=="") {
+			boardlist = service.boardlist(pageNum, limit,type);
+		}else {
+			tech = chk.split("/"); //넘어온 기술목록을 / 기준으로 split
+			for(int i=0; i<tech.length;i++) {
+				
+				System.out.println(tech[i]); //기술목록
+				boardlist.addAll(service.boardlist(pageNum, limit,type,tech[i]));
+			}
+		}
+		// 총 게시물 건수
+		/*int listcount = service.boardcount(searchType, searchContent,type);
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = listcount - (pageNum - 1) * limit;*/
+		model.addAttribute("boardlist", boardlist);
+		model.addAttribute("tech",chk);
+		return "ajax/ajax_content";
+	}
+	
+	@RequestMapping("user/signup_test")
+	public Map<Object, Object> signup_test(String userid, String userEmail, String pass, String pass2) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		int count = 0;
+		count = service.idchk(userid);
+		
+		if(count == 0) {
+			map.put("id_chk", "사용가능한 id");
+			map.put("id_color", "green");
+		}else {
+			map.put("id_chk", "중복");
+			map.put("id_color", "red");
+		}
+		if(pass.equals(pass2)) {
+			map.put("pass",pass);
+			map.put("corpass_chk","암호일치");
+			map.put("pass_color", "green");
+		}else {
+			map.put("corpass_chk","암호가 일치하지 않음");
+			map.put("pass_color", "red");
+		}
+		
 		return map;
 	}
 }
