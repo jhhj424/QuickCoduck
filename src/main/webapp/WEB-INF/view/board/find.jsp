@@ -154,7 +154,7 @@ $(document).ready(function(){
 	$(".tree").click(function() {
 		// 이미 체크박스 선택한 상태에서 체크박스 다시 선택시에 데이터 초기화하고 현재선택되있는값들로 변경
 		$("input[name=usetech]:checked").each(function() {
-			chk += $(this).val()+"/";
+			chk += $(this).val()+"./";
 		});
 		data = {
 				"chk" : chk,

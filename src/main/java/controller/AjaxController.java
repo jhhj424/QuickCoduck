@@ -12,11 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import logic.Board;
 import logic.DuckService;
-import logic.User;
 
 @Controller
 public class AjaxController {
@@ -95,6 +93,7 @@ public class AjaxController {
 		}else {
 			tech = chk.split("/"); //넘어온 기술목록을 / 기준으로 split
 			for(int i=0; i<tech.length;i++) {
+				
 				System.out.println(tech[i]); //기술목록
 				boardlist.addAll(service.boardlist(pageNum, limit,type,tech[i]));
 			}
