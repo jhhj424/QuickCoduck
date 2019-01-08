@@ -9,6 +9,10 @@
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
 <decorator:head/>
 <body class="w3-theme-l5"id="home">
 <div class="w3-top" >
