@@ -148,4 +148,8 @@ public class DuckService {
 	public List<Board> boardlist(Integer pageNum, int limit,String num) {
 		return boardDao.list(pageNum,limit,num);
 	}
+
+	public void duckcntadd(Integer num) {
+		boardDao.duckcntadd(num);
+	}
 }

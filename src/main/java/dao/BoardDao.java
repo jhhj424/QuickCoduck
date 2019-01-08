@@ -156,4 +156,9 @@ public class BoardDao {
 		map.put("num", num);
 		return sqlSession.selectList(NS + "techboardlist", map);
 	}
+	public void duckcntadd(Integer num) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("num", num);
+		sqlSession.getMapper(BoardMapper.class).duckcntadd(map);
+	}
 }
