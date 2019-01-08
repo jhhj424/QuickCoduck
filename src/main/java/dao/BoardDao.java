@@ -4,19 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.BoardMapper;
 import logic.Board;
+import logic.Duck;
 
 @Repository
 public class BoardDao {
@@ -133,5 +127,18 @@ public class BoardDao {
 		map.put("limit", limit);
 		map.put("type", type);
 		return sqlSession.selectList(NS + "select", map);
+	}
+	
+	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
+			String id) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("type", type);
+		map.put("userid", id);
+		return sqlSession.selectList(NS + "ducklist", map);
 	}
 }
