@@ -149,22 +149,26 @@ $(document).ready(function(){
 		var chk = ""
 		var data = ""
 		var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+		var pageNum = $("input[name=pageNum]").val(); //pageNum값
+		var type = ${param.type}; //게시판type
 	$(".tree").click(function() {
 		// 이미 체크박스 선택한 상태에서 체크박스 다시 선택시에 데이터 초기화하고 현재선택되있는값들로 변경
 		$("input[name=usetech]:checked").each(function() {
 			chk += $(this).val()+"/";
 		});
 		data = {
-				"data" : chk
+				"chk" : chk,
+				"pageNum": pageNum,
+				"type": type
 		}
 		chk = ""
 		$.ajax({
-			url : "techchk.duck",
+			url : "ajax_content.duck",
 			type : "post",
 			data : data,
-			dataType : "json", // ajax 통신으로 받는 타입
+			dataType : "html", // ajax 통신으로 받는 타입
 			success : function(data) {
-				alert("서버통신완료:"+data.tech);
+	            $("#ajax_content").html(data);
 			},
 			error : function(xhr, status, error) { //서버응답 실패
 				alert("서버오류 : " + xhr.status + ", error : "
@@ -172,24 +176,27 @@ $(document).ready(function(){
 			}
 		})
 	});
-})
-$(function(){ 
-	$("#test1").click(function(){ 
-		$.ajax(
-				{ type: 'post' , 
-					url: 'ajax_content.duck' ,
-					data : '1234',
-					dataType : 'html' , 
-					success: function(result) { 
-						alert(result)
-						$("#ajax_content").html(result);
-						},
-						error : function(xhr, status, error) { //서버응답 실패
-							alert("서버오류 : " + xhr.status + ", error : "
-									+ error + ", status : " + status);
-						}
-				});	
-		})	
+		//테스트에이작
+		$("#test1").click(function(){ 
+			var data = {
+					"pageNum": pageNum,
+					"type": type
+			}
+			$.ajax({
+				url : "ajax_content.duck",
+				type : "post",
+				data : data,
+				dataType : "html", // ajax 통신으로 받는 타입
+				success : function(result) {
+					alert("서버통신완료:"+result);
+		            $("#ajax_content").html(result);
+				},
+				error : function(xhr, status, error) { //서버응답 실패
+					alert("서버오류 : " + xhr.status + ", error : "
+							+ error + ", status : " + status);
+				}
+			})
+			})	
 })
 
 </script>
@@ -236,16 +243,17 @@ function list(pageNum) {
 					<div align="center">
 						<form action="find.duck?type=${param.type}" method="post"
 							name="searchform" onsubmit="return list(1)">
+							게시글 검색
 							<input type="hidden" name="pageNum" value="1"> <select
 								name="type" id="type">
-								<option value="">선택하세요</option>
+								<option value=" ">선택하세요</option>
 								<option value="subject">제목</option>
 								<option value="userid">글쓴이</option>
 								<option value="content">내용</option>
 							</select>&nbsp;
 							<script type="text/javascript">
-								if ('${param.type}' != '') {
-									document.getElementById("type").value = '${param.type}';
+								if (${param.type!= ''}) {
+									document.getElementById("type").value=${param.type};
 								}
 							</script>
 							<input type="text" name="searchContent"

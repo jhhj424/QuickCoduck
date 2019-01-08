@@ -116,4 +116,22 @@ public class BoardDao {
 		map.put("userid", userid);
 		sqlSession.getMapper(BoardMapper.class).duckinsert(map);
 	}
+	public List<Board> list(Integer pageNum, int limit, Integer type, String tech) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("type", type);
+		map.put("tech", tech);
+		System.out.println("tech:"+tech);
+		return sqlSession.selectList(NS + "select", map);
+	}
+	public List<Board> list(Integer pageNum, int limit, Integer type) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("type", type);
+		return sqlSession.selectList(NS + "select", map);
+	}
 }

@@ -129,4 +129,12 @@ public class DuckService {
 	public int idchk(String userid) {
 		return userDao.idchk(userid);
 	}
+
+	public List<Board> boardlist(Integer pageNum, int limit, Integer type, String tech) {
+		return boardDao.list(pageNum, limit,type,tech);
+	}
+
+	public List<Board> boardlist(Integer pageNum, int limit, Integer type) {
+		return boardDao.list(pageNum, limit,type);
+	}
 }
