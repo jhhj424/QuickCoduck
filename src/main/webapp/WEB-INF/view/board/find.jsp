@@ -64,13 +64,15 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 </div>
 <div class="w3-opacity"><br>
 <div class="w3-clear"></div>
+<header class="w3-center w3-margin-bottom" style="margin-top:60px;">
+  <p><b>Quick Coduck</b></p>
 <c:if test="${param.type==1}">
   <h1><b>오픈소스 </b></h1>
  </c:if>
  <c:if test="${param.type==3}">
   <h1><b>프로젝트 공고 </b></h1>
  </c:if>
-  <p><b>Quick Coduck</b></p>
+</header>
 </div>
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
