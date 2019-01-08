@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
+import logic.Board;
+import logic.Duck;
 import logic.DuckService;
 import logic.User;
 
@@ -166,13 +169,6 @@ public class UserController {
 		mav.addObject("user", user);
 		return mav;
 	}
-	@RequestMapping("user/mypage_test")
-	public ModelAndView mypagetest(String id,HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user = service.select(id);
-		mav.addObject("user",user);
-		return mav;
-	}
 	
 	@RequestMapping("user/updateForm")
 	public ModelAndView update(String id, HttpSession session) {
@@ -241,6 +237,37 @@ public class UserController {
 		}else {//버번틀림
 			throw new LoginException("비밀번호오류","../user/delete.duck?id="+id);
 		}
+		return mav;
+	}
+	@RequestMapping(value = "user/myduck")
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session, String id, Integer boardnum) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		ModelAndView mav = new ModelAndView();
+		User user = service.select(id);
+		mav.addObject("user", user);
+		
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		int listcount = service.boardcount(searchType, searchContent, type);
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id);
+		System.out.println("boardlist:"+boardlist);
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = listcount - (pageNum - 1) * limit;
+		mav.addObject("id",id);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", listcount);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
 }

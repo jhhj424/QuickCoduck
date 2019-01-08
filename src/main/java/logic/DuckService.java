@@ -137,4 +137,7 @@ public class DuckService {
 	public List<Board> boardlist(Integer pageNum, int limit, Integer type) {
 		return boardDao.list(pageNum, limit,type);
 	}
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String id) {
+		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id);
+	}
 }

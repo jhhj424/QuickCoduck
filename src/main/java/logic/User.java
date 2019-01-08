@@ -22,7 +22,6 @@ public class User {
 	private Integer rating;
 	private Integer matching;
 	
-
 	//getter,setter,toString
 	
 	public String getUserid() {
