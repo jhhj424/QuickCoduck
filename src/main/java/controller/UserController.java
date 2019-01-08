@@ -43,12 +43,6 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("user/userForm")
-	public ModelAndView userForm() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(new User());
-		return mav;
-	}
 	@RequestMapping("user/main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
@@ -95,7 +89,7 @@ public class UserController {
 
 	@RequestMapping("user/userEntry")
 	public ModelAndView userEntry(@Valid User user, BindingResult bindResult, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("user/userForm"); // a 입력하면 a.jsp로 이동됨.
+		ModelAndView mav = new ModelAndView(); // a 입력하면 a.jsp로 이동됨.
 		if(bindResult.hasErrors()) { //입력오류가 발생한 경우
 			mav.getModel().putAll(bindResult.getModel()); //
 			return mav;
@@ -105,15 +99,15 @@ public class UserController {
 		if (pass1.equals(pass2)) { // 비밀번호 일치
 			try {
 				service.userCreate(user, request);
-				mav.setViewName("redirect:start.duck");
 				mav.addObject("user",user);
+				mav.setViewName("redirect:login.duck");
 			}catch(DataIntegrityViolationException e) {
 				bindResult.reject("error.duplicate.user");
 				mav.getModel().putAll(bindResult.getModel());
 				return mav;
 			}
 		} else {
-			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/userForm.duck");
+			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/login.duck");
 		}
 		return mav;
 	}
@@ -145,12 +139,6 @@ public class UserController {
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");
 		mav.addObject(new User());
-		return mav;
-	}
-
-	@RequestMapping("user/loginSuccess")
-	public ModelAndView loginSuccess() {
-		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 
