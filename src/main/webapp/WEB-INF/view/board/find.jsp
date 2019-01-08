@@ -61,18 +61,13 @@ html, body, h1, h2, h3, h4, h5, h6 {
 						class="fa fa-search"></i> 프로젝트 찾기</a>
 				</c:if>
 				<a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i
-					class="fa fa-newspaper-o"></i> 자유게시판</a> <a
-					href="../user/mypage_test.duck?id=${sessionScope.loginUser.userid}"
-					class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
-				<c:if test="${empty sessionScope.loginUser}">
-					<a href="#contact" class="w3-bar-item w3-button"
-						onclick="document.getElementById('signup').style.display='block'"><i
-						class="fa fa-envelope"></i>로그인/회원가입</a>
-				</c:if>
-				<c:if test="${!empty sessionScope.loginUser}">
-					<a href="../user/logout.duck" class="w3-bar-item w3-button"><i
-						class="fa fa-unlock-alt"></i> 로그아웃</a>
-				</c:if>
+					class="fa fa-newspaper-o"></i> 자유게시판</a> <a href="../user/mypage_main.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
+      <c:if test="${empty sessionScope.loginUser}">
+      <a href="../user/login.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      </c:if>
+      <c:if test="${!empty sessionScope.loginUser}">
+      <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-unlock-alt"></i> 로그아웃</a>
+      </c:if>
 			</div>
 			<a href="javascript:void(0)"
 				class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
@@ -310,7 +305,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
           <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
           <hr>
         </div> -->
-					<div class="w3-container">
+					<div class="w3-container" style="padding-bottom:77px;">
 						<div class="w3-ul w3-card-4">
 							<div id="ajax_content">
 								<div class="table14_10" style="width: 100%">
@@ -348,7 +343,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 												<div align="center"
 													onmouseover="this.style.backgroundColor='#5CD1E5'"
 													onmouseout="this.style.backgroundColor=''"
-													style="border: 1px solid; border-color: grey; margin-bottom: 3px;">
+													style="border: 1px solid; border-color: grey; margin-bottom: 5px;">
 													<%-- <div height="23">${boardcnt}</div> --%>
 													<c:set var="boardcnt" value="${boardcnt - 1}" />
 													<div align="left">
@@ -398,11 +393,6 @@ html, body, h1, h2, h3, h4, h5, h6 {
 									</div>
 								</div>
 							</div>
-							<a href="../user/logout.duck">로그아웃</a><a
-								href="../board/find.duck?type=1">이용방법[게시판테스트중]</a> <a
-								href="../board/list.duck?type=1">오픈소스게시판</a> <a
-								href="../board/list.duck?type=2">개발자자유게시판</a> <a
-								href="../board/list.duck?type=3">프로젝트공고모집게시판</a>
 						</div>
 					</div>
 				</div>

@@ -150,8 +150,8 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("user/mypage")
-	public ModelAndView mypage(String id, HttpSession session) {
+	@RequestMapping("user/mypage_main")
+	public ModelAndView mypage_main(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);

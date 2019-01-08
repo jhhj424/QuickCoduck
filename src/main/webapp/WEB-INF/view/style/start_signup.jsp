@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f8f8f8;
 }
 body .container {

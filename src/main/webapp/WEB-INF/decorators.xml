@@ -5,8 +5,10 @@
 	</decorator>
 	<excludes>
 		<pattern>/user/start*</pattern>
-		<pattern>/user/mypage_test*</pattern>
 		<pattern>*ajax_content*</pattern>
 		<pattern>/board/find.*</pattern>
 	</excludes>
+	<decorator name="mypage" page="mypage_decorator.jsp">
+		<pattern>/user/mypage*</pattern>
+	</decorator>
 </decorators>
