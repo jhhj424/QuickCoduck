@@ -6,7 +6,7 @@
 
 	<select id="count" resultType="int" parameterType="map">
 		select count(*) from board where boardtype = #{type}
-		<if test="userid != userid">
+		<if test="userid != null">
 			and boardnum in (select boardnum from duck where userid=#{userid})
 		</if>
 		<if test="column != null and find != null">

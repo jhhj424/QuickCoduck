@@ -49,9 +49,14 @@
 <tr align="center" valign="middle" bordercolor="#212121">
 	<th width="8%" height="26">번호</th>
 	<th width="14%" height="26">글쓴이</th>
-	<th width="48%" height="26">제목</th>
+	<th width="45%" height="26">제목</th>
 	<th width="10%" height="26">추천수</th>
-	<th width="10%" height="26">DUCK수</th>
+	<c:if test="${type==1}">
+	<th width="13%" height="26">DUCK수</th>
+	</c:if>
+	<c:if test="${type==3}">
+	<th width="13%" height="26">관심등록수</th>
+	</c:if>
 	<th width="10%" height="26">조회수</th>
 </tr>
 
@@ -59,7 +64,7 @@
 	<tr align="center" valign="middle" bordercolor="#333333"
 		onmouseover="this.style.backgroundColor='#5CD1E5'"
 		onmouseout="this.style.backgroundColor=''">
-		<td height="23"> ${boardcnt - 1} </td> <%--duck개시물번호 --%>
+		<td height="23"> ${boardcnt} </td> <%--duck개시물번호 --%>
 	<c:set var="boardcnt" value="${boardcnt-1}" />
 		<td align="left">${board.userid}</td>
 		<td align="left">

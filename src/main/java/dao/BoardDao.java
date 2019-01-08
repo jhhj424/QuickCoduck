@@ -36,12 +36,12 @@ public class BoardDao {
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
-	public int count(String searchType, String searchContent,Integer type, String userid) {
+	public int count(String searchType, String searchContent,Integer type, String id) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("userid", userid);
+		map.put("userid", id);
 		return sqlSession.selectOne(NS + "count", map);
 	}
 	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {

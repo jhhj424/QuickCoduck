@@ -51,6 +51,7 @@
   
   <a href="updateForm.duck?id=${user.userid}">[회원정보수정]</a>&nbsp;
   <a href="myduck.duck?id=${user.userid}&type=1">[DUCK목록]</a>&nbsp;
+  <a href="myduck.duck?id=${user.userid}&type=3">[관심프로젝트목록]</a>&nbsp;
        <c:if test="${loginUser.userid !='admin'}">
           <a href="delete.duck?id=${user.userid}">[회원탈퇴]</a>&nbsp;
        </c:if>

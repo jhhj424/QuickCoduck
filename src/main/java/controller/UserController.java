@@ -268,6 +268,7 @@ public class UserController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
+		mav.addObject("type",type);
 		return mav;
 	}
 }
