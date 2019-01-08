@@ -6,7 +6,6 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/style/start_middle.jsp" %>
 <%@include file="/WEB-INF/view/style/start_signup.jsp" %>
-<%@include file="/WEB-INF/view/style/register.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
