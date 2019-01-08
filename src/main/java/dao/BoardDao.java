@@ -117,7 +117,6 @@ public class BoardDao {
 		map.put("limit", limit);
 		map.put("type", type);
 		map.put("tech", tech);
-		System.out.println("tech:"+tech);
 		return sqlSession.selectList(NS + "select", map);
 	}
 	public List<Board> list(Integer pageNum, int limit, Integer type) {
@@ -140,5 +139,13 @@ public class BoardDao {
 		map.put("type", type);
 		map.put("userid", id);
 		return sqlSession.selectList(NS + "ducklist", map);
+	}
+	public List<Board> list(Integer pageNum, int limit, String num) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("num", num);
+		return sqlSession.selectList(NS + "techboardlist", map);
 	}
 }

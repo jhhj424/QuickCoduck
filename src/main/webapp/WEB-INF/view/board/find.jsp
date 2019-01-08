@@ -41,12 +41,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     <img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar"></a>
     </div>
     <div class="w3-right w3-hide-small">
-      <a href="../board/find.duck" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
+      <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
-      <a href="../board/list.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
+      <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
       </c:if>
       <c:if test="${sessionScope.loginUser.type == '2'}">
-      <a href="../board/list.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
+      <a href="../board/find.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
       </c:if>
       <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-newspaper-o"></i> 자유게시판</a>
       <a href="../user/mypage_test.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
@@ -64,19 +64,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 </div>
 <div class="w3-opacity"><br>
 <div class="w3-clear"></div>
-<<<<<<< HEAD
-<header class="w3-center w3-margin-bottom">
+<header class="w3-center w3-margin-bottom" style="margin-top:60px;">
+  <p><b>Quick Coduck</b></p>
 <c:if test="${param.type==1}">
   <h1><b>오픈소스 </b></h1>
  </c:if>
  <c:if test="${param.type==3}">
   <h1><b>프로젝트 공고 </b></h1>
  </c:if>
-=======
-<header class="w3-center w3-margin-bottom" style="margin-top:60px;">
-  <h1><b>프로젝트 찾기/opensource 찾기</b></h1>
->>>>>>> branch 'doorong' of https://github.com/jhhj424/QuickCoduck.git
-  <p><b>Quick Coduck</b></p>
 </header>
 </div>
 <!-- Page Container -->
@@ -93,32 +88,32 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
           <br>
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
 						<ul class="tree">
-									<li><a>Development<input type="checkbox" id="checkall_develop" name="usetech"  value=""></a>
+									<li><a>Development<input type="checkbox" id="checkall_develop" ></a>
 										<ul>
-											<li><a>C<input type="checkbox" name="usetech" value="C" class="usetech_develop"></a></li>
-											<li><a>C++<input type="checkbox" name="usetech" value="C++" class="usetech_develop"></a></li>
-											<li><a>Java<input type="checkbox" name="usetech" value="Java" class="usetech_develop"></a></li>
-											<li><a>JSP<input type="checkbox" name="usetech" value="JSP" class="usetech_develop"></a></li>
-											<li><a>Python<input type="checkbox" name="usetech" value="Python" class="usetech_develop"></a></li>
-											<li><a>Ajax<input type="checkbox" name="usetech" value="Ajax" class="usetech_develop"></a></li>
-											<li><a>jQuery<input type="checkbox" name="usetech" value="jQuery" class="usetech_develop"></a></li>
-											<li><a>Ruby<input type="checkbox" name="usetech" value="Ruby" class="usetech_develop"></a></li>
-											<li><a>Android<input type="checkbox" name="usetech" value="Android" class="usetech_develop"></a></li>
-											<li><a>Unity<input type="checkbox" name="usetech" value="Unity" class="usetech_develop"></a></li>
+											<li><a>C<input type="checkbox" name="usetech" value="C." class="usetech_develop"></a></li>
+											<li><a>C++<input type="checkbox" name="usetech" value="C++." class="usetech_develop"></a></li>
+											<li><a>Java<input type="checkbox" name="usetech" value="Java." class="usetech_develop"></a></li>
+											<li><a>JSP<input type="checkbox" name="usetech" value="JSP." class="usetech_develop"></a></li>
+											<li><a>Python<input type="checkbox" name="usetech" value="Python." class="usetech_develop"></a></li>
+											<li><a>Ajax<input type="checkbox" name="usetech" value="Ajax." class="usetech_develop"></a></li>
+											<li><a>jQuery<input type="checkbox" name="usetech" value="jQuery." class="usetech_develop"></a></li>
+											<li><a>Ruby<input type="checkbox" name="usetech" value="Ruby." class="usetech_develop"></a></li>
+											<li><a>Android<input type="checkbox" name="usetech" value="Android." class="usetech_develop"></a></li>
+											<li><a>Unity<input type="checkbox" name="usetech" value="Unity." class="usetech_develop"></a></li>
 										</ul></li>
 
-									<li><a>Design<input type="checkbox" id="checkall_design" name="usetech"  value=""></a>
+									<li><a>Design<input type="checkbox" id="checkall_design" ></a>
 										<ul>
-											<li><a>HTMl<input type="checkbox" name="usetech" value="HTMl" class="usetech_design"></a></li>
-											<li><a>CSS<input type="checkbox" name="usetech" value="CSS" class="usetech_design"></a></li>
-											<li><a>BootStrap<input type="checkbox" name="usetech" value="BootStrap" class="usetech_design"></a></li>
-											<li><a>DreamWeaver<input type="checkbox" name="usetech" value="DreamWeaver" class="usetech_design"></a></li>
-											<li><a>PhotoShop<input type="checkbox" name="usetech" value="PhotoShop" class="usetech_design"></a></li>
-											<li><a>XML<input type="checkbox" name="usetech" value="XML" class="usetech_design"></a></li>
-											<li><a>Sketch<input type="checkbox" name="usetech" value="Sketch" class="usetech_design"></a></li>
-											<li><a>JavaScript<input type="checkbox" name="usetech" value="JavaScript" class="usetech_design"></a></li>
-											<li><a>Unity3d<input type="checkbox" name="usetech" value="Unity3d" class="usetech_design"></a></li>
-											<li><a>iOS<input type="checkbox" name="usetech" value="iOS" class="usetech_design"></a></li>
+											<li><a>HTMl<input type="checkbox" name="usetech" value="HTMl." class="usetech_design"></a></li>
+											<li><a>CSS<input type="checkbox" name="usetech" value="CSS." class="usetech_design"></a></li>
+											<li><a>BootStrap<input type="checkbox" name="usetech" value="BootStrap." class="usetech_design"></a></li>
+											<li><a>DreamWeaver<input type="checkbox" name="usetech" value="DreamWeaver." class="usetech_design"></a></li>
+											<li><a>PhotoShop<input type="checkbox" name="usetech" value="PhotoShop." class="usetech_design"></a></li>
+											<li><a>XML<input type="checkbox" name="usetech" value="XML." class="usetech_design"></a></li>
+											<li><a>Sketch<input type="checkbox" name="usetech" value="Sketch." class="usetech_design"></a></li>
+											<li><a>JavaScript<input type="checkbox" name="usetech" value="JavaScript." class="usetech_design"></a></li>
+											<li><a>Unity3d<input type="checkbox" name="usetech" value="Unity3d." class="usetech_design"></a></li>
+											<li><a>iOS<input type="checkbox" name="usetech" value="iOS." class="usetech_design"></a></li>
 										</ul></li>
 
 								</ul>
@@ -154,7 +149,7 @@ $(document).ready(function(){
 	$(".tree").click(function() {
 		// 이미 체크박스 선택한 상태에서 체크박스 다시 선택시에 데이터 초기화하고 현재선택되있는값들로 변경
 		$("input[name=usetech]:checked").each(function() {
-			chk += $(this).val()+"./";
+			chk += $(this).val()+",";
 		});
 		data = {
 				"chk" : chk,
