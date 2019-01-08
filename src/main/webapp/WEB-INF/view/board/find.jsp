@@ -217,8 +217,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 												data : data,
 												dataType : "html", // ajax 통신으로 받는 타입
 												success : function(data) {
-													$("#ajax_content").html(
-															data);
+													$("#ajax_content").html(data);
 												},
 												error : function(xhr, status,
 														error) { //서버응답 실패
@@ -247,6 +246,41 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							return true;
 						}
 						return false;
+					}
+					
+					function find(pageNum) {
+						var chk = ""
+							var data = ""
+							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+							var type = ${param.type}; //게시판type
+										// 이미 체크박스 선택한 상태에서 체크박스 다시 선택시에 데이터 초기화하고 현재선택되있는값들로 변경
+										$("input[name=usetech]:checked")
+												.each(function() {
+															chk += $(this).val()+ ",";});
+										data = {
+											"chk" : chk,
+											"pageNum" : pageNum,
+											"type" : type
+										}
+										chk = ""
+										$.ajax({
+											url : "ajax_content.duck",
+											type : "post",
+											data : data,
+											dataType : "html", // ajax 통신으로 받는 타입
+											success : function(data) {
+												$("#ajax_content").html(data);
+											},
+											error : function(xhr, status,
+													error) { //서버응답 실패
+												alert("서버오류 : "
+														+ xhr.status
+														+ ", error : "
+														+ error
+														+ ", status : "
+														+ status);
+											}
+										});
 					}
 				</script>
 

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -104,7 +105,8 @@ public class AjaxController {
 			System.out.println("기술개수 : " + tech.length);
 			try {
 				for (int i = 0; i < tech.length; i++) {
-					boardlist.addAll(service.boardlist(pageNum, limit, type, tech[i]));// 이미 중복으로 쿼리결과가 들어가있는상태
+					//테스트용 - pageNum : 1 , limit를 100으로 설정해놨음 <<밑에줄<<
+					boardlist.addAll(service.boardlist(1, 100, type, tech[i]));// 이미 중복으로 쿼리결과가 들어가있는상태
 				}
 				for (int i = 0; i < boardlist.size(); i++) { // 여러개의 tech가 들어올시 중복값이 있는 list
 					bonum.add(boardlist.get(i).getBoardnum()); // 게시글번호만 저장
@@ -114,21 +116,44 @@ public class AjaxController {
 				TreeSet<Integer> arr1 = new TreeSet<Integer>(bonum);
 				ArrayList<Integer> arr2 = new ArrayList<Integer>(arr1);
 				System.out.println("중복제거:" + arr2);
-				String num = arr2.get(0) + "";
+				Collections.reverse(arr2);
+				System.out.println("중복제거후내림차순:"+arr2);
+				int startpage = pageNum * 10 -9;
+				int endpage = startpage + 9;
+				String num = arr2.get(startpage-1) + "";
 				techlistcnt = arr2.size();
-				for (int i = 1; i < arr2.size(); i++) {
+				if(techlistcnt < endpage) {
+					endpage = arr2.size();
+				}
+				System.out.println("시작:"+startpage);
+				System.out.println("끝:"+endpage);
+				for (int i = startpage; i < endpage; i++) {
 					num += "," + arr2.get(i);
 				}
-				boardlist = service.boardlist(pageNum, limit, num);
+				System.out.println("가져올게시글번호문자열:"+num);
+				System.out.println("페이지번호:"+pageNum);
+				boardlist = service.boardlist(num);//넘겨줄 게시물리스트<<
 			} catch (Exception e) {// 기술목록에 맞는 게시글이 없을경우
 				System.out.println("기술목록에 해당하는 게시물이 없음");
 				boardlist.add(new Board());
 				model.addAttribute("ON", 1);
 			}
 		} // 중복제거
+		int listcount = techlistcnt;
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = listcount - (pageNum - 1) * limit;
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
 		model.addAttribute("boardlist", boardlist);
 		model.addAttribute("tech", chk);
 		model.addAttribute("listcount", techlistcnt);
+		model.addAttribute("boardcnt", boardcnt);
 		return "ajax/ajax_content";
 	}
 	
