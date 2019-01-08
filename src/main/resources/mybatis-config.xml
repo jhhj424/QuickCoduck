@@ -11,6 +11,5 @@
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
 		<mapper resource="dao/mapper/Board.xml"/>
-		<mapper resource="dao/mapper/Duck.xml"/>
 	</mappers>
 </configuration>
