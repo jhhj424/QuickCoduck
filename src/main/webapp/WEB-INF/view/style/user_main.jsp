@@ -9,7 +9,7 @@
 <link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
 <style type="text/css">
 html, body.b1 {
-	font-family: Verdana, sans-serif;
+	font-family: "Roboto", sans-serif;
 	font-size: 11px;
 	line-height: 1.5;
 }
