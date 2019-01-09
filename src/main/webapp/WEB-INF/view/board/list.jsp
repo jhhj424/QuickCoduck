@@ -28,9 +28,15 @@
 <div id="wrap">
 <div class="table-users">
 <div class="header">
-<c:if test="${param.type==1}">오픈소스 게시판</c:if>
-<c:if test="${param.type==2}">개발자 자유게시판</c:if>
-<c:if test="${param.type==3}">프로젝트 공고모집 게시판</c:if>
+<c:if test="${param.type==1}">
+오픈소스 게시판
+</c:if>
+<c:if test="${param.type==2}">
+개발자 자유게시판
+</c:if>
+<c:if test="${param.type==3}">
+프로젝트 공고모집 게시판
+</c:if>
 </div>
 <!-- header -->
 <table>
@@ -46,6 +52,9 @@
 글쓰기</font>
 </a></td>
 </tr>
+<tr><td colspan="6"><a href="../board/list.duck?type=1">오픈소스게시판</a>
+<a href="../board/list.duck?type=2">개발자자유게시판</a>
+<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></td></tr>
 </c:if>
 <!-- 게시글 존재 할시 -->			
 <c:if test="${listcount > 0}">
@@ -186,6 +195,9 @@ ${board.readcnt}</font>
 글쓰기</font>
 </a></td>
 </tr>
+<tr><td colspan="6"><a href="../board/list.duck?type=1">오픈소스게시판</a>
+<a href="../board/list.duck?type=2">개발자자유게시판</a>
+<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></td></tr>
 </c:if>
 </table>
 </div>
