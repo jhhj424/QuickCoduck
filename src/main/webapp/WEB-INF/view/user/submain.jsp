@@ -380,11 +380,6 @@ h2 {
 	font-weight: bold;
 }
 
-form {
-	display: block;
-	margin-top: 0em;
-}
-
 fieldset {
 	display: block;
 	margin-inline-start: 2px;
@@ -442,7 +437,6 @@ a:-webkit-any-link {
 }
 </style>
 
-
 <!-- 클래스 스타일 -->
 <style>
 .clear {
@@ -468,54 +462,9 @@ a.skipToContent {
 	text-align: center;
 }
 
-.tg_cnt {
-	display: none;
-	position: absolute;
-	top: 26px;
-	right: 6px;
-	background-color: #FFF;
-	white-space: nowrap;
-}
-
-.tg_blur {
-	position: absolute;
-	top: 0;
-	right: 0;
-	border: 0;
-	background: none;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-}
-
-.tg_close {
-	position: absolute;
-	cursor: pointer;
-	border: 0;
-	top: 0;
-	right: 0;
-	width: 24px;
-	height: 24px;
-	font: 18px/24px Tahoma;
-	color: #888;
-	background: transparent;
-}
-
 .ui_font {
 	font-family: 'Segoe UI', Meiryo, 'Trebuchet MS', '나눔고딕', NanumGothic, ng,
 		'맑은 고딕', 'Malgun Gothic';
-}
-
-.slider-container {
-	margin: 0 auto;
-	position: relative;
-	overflow: hidden;
-	list-style: none;
-	padding: 0;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	line-height: 1.5
 }
 
 .hp-container {
@@ -527,11 +476,6 @@ a.skipToContent {
 
 .c #content {
 	float: none !important;
-}
-
-.ba_b {
-	width: 100%;
-	margin-top: 20px !important;
 }
 
 .mline {
@@ -880,7 +824,6 @@ a.skipToContent {
 	color: #666;
 	text-align: center;
 }
-
 .row-fluid [class*="span"] {
 	-moz-box-sizing: border-box;
 	display: block;
@@ -889,195 +832,12 @@ a.skipToContent {
 }
 </style>
 
-
 <!-- 아이디 스타일 -->
 <style>
 #all {
 	font-family: "Noto Sans KR", sans-serif;
 	position: relative;
 	padding: 0px;
-}
-
-#hd1 {
-	width: 100%;
-	min-width: 1208px;
-	max-width: 1552px;
-	box-sizing: border-box;
-	height: auto;
-	max-height: calc(100vh - 280px);
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-#top_h_left {
-	position: absolute;
-	z-index: 9999;
-	list-style: none;
-	margin: 0;
-	padding: 3px 0px;
-	border-top: 0px solid #444;
-	left: 0px;
-	top: 8px;
-}
-
-#top_h_left .item {
-	display: inline-block;
-	margin: 0 -1px;
-}
-
-#top_h {
-	position: absolute;
-	z-index: 999;
-	list-style: none;
-	margin: 0;
-	padding: 3px 0px;
-	border-top: 0px solid #444;
-	right: 0px;
-	top: 13px;
-}
-
-#top_h .item {
-	display: inline-block;
-	margin: 0 -1px;
-	*display: inline;
-    *zoom: 1;
-}
-
-#site_login {
-	padding: 25px;
-	border: 2px solid #444;
-	box-shadow: 0 0 6px rgba(0, 0, 0, .1);
-	width: 250px;
-}
-
-#top_h h2 {
-	margin: 0 0 16px;
-	font-size: 15px;
-	line-height: 1em;
-}
-
-#site_login fieldset {
-	position: relative;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	*margin: -15px 0;
-}
-#site_login {
-    width: 286px;
-}
-#site_login .itx {
-	width: 224px;
-	/* height: 20px; */
-	padding: 8px;
-	font-size: 16px;
-	background: #F6F6F6;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #AAA #CCC #CCC #AAA;
-	border-radius: 3px;
-	-webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, .1);
-	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, .1);
-	filter: alpha(opacity : 60);
-	opacity: .6;
-	-ms-transition: all .5s;
-	-moz-transition: all .5s;
-	-webkit-transition: all .5s;
-	transition: all .5s;
-}
-
-#site_login .itx_wrp {
-	position: relative;
-	display: block;
-	margin: 12px 0;
-	line-height: 20px;
-}
-
-#site_login .itx_wrp label {
-	position: absolute;
-	top: 8px;
-	left: 8px;
-	font-size: 13px;
-}
-
-#site_login .btn_area {
-	text-align: right;
-}
-
-#top_h .tg_btn, #top_h .login_btn, #top_h .sitemap {
-	padding: 0 0 0 18px;
-}
-
-#install_ng a, #site_login .login_btn, .close_ul2 {
-	width: 80px;
-	height: 30px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #DDD #CCC #BBB #D6D6D6;
-	border-radius: 3px;
-	background: #F9F9F9 url(../img/bg_f_f9.gif) repeat-x;
-	background: -moz-linear-gradient(top, #FFF, #F9F9F9);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF),
-		to(#F9F9F9));
-	font-weight: bold;
-	line-height: 30px;
-	cursor: pointer;
-	letter-spacing: -1px;
-	text-align: center;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-	color: #000;
-}
-
-#top_h .tg_btn, #top_h .login_btn, #top_h .sitemap {
-	background: 0;
-	color: #C0C0C0;
-	font-size: 13px;
-	letter-spacing: 0;
-	line-height: 17px;
-	padding: 0px 9px;
-	font-family: 'HelveticaNeue', sans-serif !important;
-	font-weight: 600;
-	border-width: 0;
-}
-
-#site_login .help {
-	clear: both;
-	margin: 15px -15px -5px;
-	text-align: center;
-	letter-spacing: -1px;
-	color: #DDD;
-}
-
-#logo {
-	text-align: center;
-	min-height: 38px;
-	padding: 65px 248px 40px 270px;
-	background-color: #FFF;
-	position: relative;
-	margin: 0 auto;
-	top: -1px
-}
-
-#main_logo {
-	width: 450px;
-}
-
-#gnb_wrp {
-	z-index: 10;
-	height: 32px;
-	border-top: 0px solid #444;
-	border-bottom: 0px solid #444;
-	background: url(../img/gnb_wrp.png) \9;
-	background: 0;
-	margin: 0 27px 5px;
-	text-align: center;
-}
-#gnb {
-	float: left;
-	margin: 0 10px;
-	padding: 0;
 }
 #hd .hgroup {
     text-align: center;
@@ -1086,76 +846,6 @@ a.skipToContent {
     min-height: 38px;
     padding: 65px 248px 40px 270px;
     background-color: #FFF;
-}
-#menu {
-    font-family: 'Economica', sans-serif !important;
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    color: #727171;
-    line-height: 1;
-    display: inline-block;
-    z-index: 10;
-}
-#menu > li {
-    font-family: 'HelveticaNeue', sans-serif !important;
-    background: 0;
-    cursor: pointer;
-    float: none;
-    position: relative;
-    padding: 1px 16px 30px;
-    display: inline;
-    font-size: 22px;
-}
-
-#menu a {
-    color: #717171;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-#menu ul {
-	padding: 0px;
-	margin: 0px;
-	display: block;
-	display: inline;
-	text-align: left;
-}
-
-#menu li ul {
-	position: absolute;
-	left: 0px;
-	top: 2px;
-	margin-top: 33px;
-	width: 140px;
-	line-height: 16px;
-	background-color: #fff;
-	color: #0395CC;
-	display: none;
-	letter-spacing: 0.1px;
-	border: 0px solid #908F83;
-}
-
-#menu li ul li:first-child {
-	border-top: none;
-}
-	
-#menu li ul li {
-	display: block;
-	margin: 10px 15px;
-	padding: 7px 0 2px;
-	border-top: dotted 0px #606060;
-	list-style-type: none;
-	font-size: 13px;
-}
-
-#menu li ul li a {
-	display: block;
-	color: #505050;
-	font-family: 'Noto Sans KR';
-	font-weight: 400;
-	font-size: 12.5px;
 }
 
 #mainslider {
@@ -1201,161 +891,15 @@ a.skipToContent {
 	cursor: pointer;
 }
 
-#main_poster {
-	margin: 30px 0;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-}
-
-#main_poster .poster_box {
-	width: 20%;
-	box-sizing: border-box;
-	padding: 7px;
-	display: inline-block;
-}
-
-#main_poster .poster_box img {
-	width: 100%;
-}
-
-#footer {
-	border: 0;
-	margin-top: 100px;
-	padding: 100px 36px 0;
-	height: 260px;
-}
-
-#footer {
-	background: #1C1C1C;
-	border-top: 2px solid #999;
-	bottom: 0;
-	color: #4E4E4E;
-	font-family: 'proxima-nova-n4', 'proxima-nova', sans-serif;
-	font-style: normal;
-	font-size: 11px;
-	left: 0;
-	height: 240px;
-	text-align: center;
-	margin: 0 auto;
-	padding: 60px 36px 0;
-	margin-top: 50px;
-	max-width: 928px;
-	min-width: 928px;
-}
-
-#footer_w {
-	margin: 0 auto;
-}
-
-#footer_link {
-	font-family: 'noto sans kr', sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-}
-
-#footer_link a {
-	color: #8A8A8A;
-}
-
-#footer_copy {
-	margin-top: 15px;
-}
-
-#footer_copy {
-	margin-top: 15px;
-	font-weight: bold;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color: #666;
-	letter-spacing: 0.1px;
-	text-align: center;
-}
-
 .copyright_name {
 	color: #CCC;
 	font-weight: bold;
 	letter-spacing: 0.1px;
 }
-
-
 </style>
-
 
 <!-- 그외 -->
 <style type="text/css">
-@media screen and (max-width: 1440px) {
-	#hd1 {
-		max-width: 1300px;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#hd2 {
-		padding-top: 0 !important;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#top_h {
-		float: none;
-		border-bottom: 1px solid #DDD;
-		background: #F9F9F9 url(../img/bg_f_f9.gif) repeat-x;
-		background: -moz-linear-gradient(top, #FFF, #F9F9F9);
-		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF),
-			to(#F9F9F9));
-		text-align: center;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#top_h .item {
-		margin: 2px 0;
-		width: 24%;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#top_h .tg_btn, #top_h .login_btn, #top_h .sitemap {
-		font-size: 12px;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#logo {
-		height: auto !important;
-		padding: 15px 2%;
-	}
-}
-
-@media screen and (max-width: 1440px) {
-	#main_logo {
-		width: 380px;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#gnb_wrp {
-		position: relative !important;
-		width: auto !important;
-		height: auto;
-		max-height: 46px;
-		margin-bottom: 10px;
-	}
-}
-
-@media screen and (max-width: 533px) {
-	#gnb {
-		float: none;
-	}
-}
-
-@media only screen and (max-width: 1440px) {
-	#mainslider {
-		max-width: 1300px;
-	}
-}
 
 @media screen and (max-width: 533px) {
 	#container {
@@ -1450,7 +994,19 @@ a.skipToContent {
 																<!-- 보드타입 -->
 																<c:if test="${board.boardtype==1}">OpenSource</c:if></span>
 																</span>
-																<span class="regdate">${board.regdate}<!-- 작성일 --></span>
+																<span class="regdate">
+																<!-- 작성일 -->
+																<!-- 오늘올린 게시물이면 HH:mm  //  과거에 올렸던건 yy/MM/dd -->
+																<jsp:useBean id ="day" class="java.util.Date"/>
+																<fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today"/>
+                  												<fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
+                  													<c:if test="${today == rdate }">
+                     													<fmt:formatDate value="${board.regdate}" pattern="HH:mm"/>
+                  													</c:if>
+              														<c:if test="${today != rdate }">
+                     													<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd"/>
+                  													</c:if>
+																</span>
 															</a></li>
 															</c:forEach>
 															
@@ -1475,7 +1031,19 @@ a.skipToContent {
 																</span> <span class="browsertitle">
 																<!-- 보드타입 -->
 																<c:if test="${board.boardtype==3}">Project</c:if></span>
-																<span class="regdate">${board.regdate}<!-- 작성일 --></span>
+																<span class="regdate">
+																<!-- 작성일 -->
+																<!-- 오늘올린 게시물이면 HH:mm  //  과거에 올렸던건 yy/MM/dd -->
+																<fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today"/>
+                  												<fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
+                  													<c:if test="${today == rdate }">
+                     													<fmt:formatDate value="${board.regdate}" pattern="HH:mm"/>
+                  													</c:if>
+              														<c:if test="${today != rdate }">
+                     													<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd"/>
+                  													</c:if>
+																</span>
+																</span>
 															</a></li>
 															</c:forEach>
 														</ul> <!-- contents more --->
@@ -1497,7 +1065,6 @@ a.skipToContent {
 								</div>
 							</div>
 						</div>
-						<!------------------------------------------ 추천 bar ----------------------------------------------->
 					</div>
 				</div>
 			</div>
