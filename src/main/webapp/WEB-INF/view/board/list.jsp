@@ -84,7 +84,19 @@
 								href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}<c:if test="${board.boardtype==1}"> 추천 - ${board.recmd}</c:if></a>
 							</td>
 							<td align="left">${board.userid}</td>
-							<td align="center">${board.regdate}</td>
+							<td align="center">
+							<!-- 오늘올린 게시물이면 HH:mm
+								 과거에 올렸던건 yy/MM/dd -->
+								<jsp:useBean id ="day" class="java.util.Date"/>
+								<fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today"/>
+                  				<fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
+                  				<c:if test="${today == rdate }">
+                     				<fmt:formatDate value="${board.regdate}" pattern="HH:mm"/>
+                  				</c:if>
+              					<c:if test="${today != rdate }">
+                    				<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd"/>
+                  				</c:if>
+							</td>
 							<td align="right">${board.readcnt}</td>
 						</tr>
 					</c:forEach>
