@@ -23,18 +23,11 @@ public class User {
 	private String creditpass;
 	private Integer rating;
 	private Integer matching;
-	private String picturlUrl;
-	private MultipartFile picture;// <input type="file" name="picture"> 인 파일의 내용 저장
+	private MultipartFile file1;// 첨부파일
+	private String fileurl;// 파일주소
+	private String pic;// 사진
 
 	// getter,setter,toString
-
-	public String getPicturlUrl() {
-		return picturlUrl;
-	}
-
-	public void setPicturlUrl(String picturlUrl) {
-		this.picturlUrl = picturlUrl;
-	}
 
 	public String getUserid() {
 		return userid;
@@ -132,12 +125,28 @@ public class User {
 		this.matching = matching;
 	}
 
-	public MultipartFile getPicture() {
-		return picture;
+	public MultipartFile getFile1() {
+		return file1;
 	}
 
-	public void setPicture(MultipartFile picture) {
-		this.picture = picture;
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
+	}
+
+	public String getFileurl() {
+		return fileurl;
+	}
+
+	public void setFileurl(String fileurl) {
+		this.fileurl = fileurl;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
 	}
 
 	@Override
@@ -145,7 +154,7 @@ public class User {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth=" + birth
 				+ ", type=" + type + ", businessnum=" + businessnum + ", usetech=" + usetech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching
-				+ ", picturlUrl=" + picturlUrl + "]";
+				+ ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic + "]";
 	}
 
 }

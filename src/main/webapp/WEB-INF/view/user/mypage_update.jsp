@@ -44,7 +44,7 @@
           <div class="filebox preview-image">
 			<input class="upload-name" value="Choose Photo!"disabled="disabled">
 			  <label for="input-file">Upload</label>
-			    <input type="file" id="input-file" class="upload-hidden" name="picture">
+			    <input type="file" id="input-file" class="upload-hidden" name="file1">
 		  </div>
           <hr>
        </div>

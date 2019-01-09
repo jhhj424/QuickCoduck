@@ -160,7 +160,7 @@ public class UserController {
 	}
 
 	@RequestMapping("user/updateForm")
-	public ModelAndView update(String id, HttpSession session) {
+	public ModelAndView update11(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
@@ -169,13 +169,9 @@ public class UserController {
 
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println("실행은 되냐...?");
-		System.out.println(request);
-		System.out.println(user.getPicture());
+		ModelAndView mav = new ModelAndView("user/mypage_update");
 		service.userUpdate(user, request);
-		mav.setViewName("redirect:mypage.duck?id=" + user.getUserid());
-
+		mav.setViewName("redirect:mypage_main.duck?id=" + user.getUserid());
 		return mav;
 	}
 
