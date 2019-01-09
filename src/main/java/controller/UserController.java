@@ -245,4 +245,16 @@ public class UserController {
 		mav.addObject("type",type);
 		return mav;
 	}
+	@RequestMapping(value = "user/submain")
+	public ModelAndView submain(HttpSession session, Integer boardnum) {
+		ModelAndView mav = new ModelAndView();
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.boardlist(boardnum);
+		List<Board> boardlist2 = service.boardlist2(boardnum);
+		System.out.println("boardlist:"+boardlist);
+		System.out.println("boardlist2:"+boardlist2);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardlist2", boardlist2);
+		return mav;
+	}
 }

@@ -64,15 +64,24 @@ public class AjaxController {
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
 					service.boardduck(board, userid);
-					map.put("msg", "Duck 완료!");
+					service.duckcntadd(num);
+					if(type==1) {
+						map.put("msg", "Duck 완료!");						
+					}else if(type==3) {
+						map.put("msg", "스크랩 완료!");
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {// 자신의 게시물일때
 				map.put("msg", "본인 게시물입니다!");
 			}
-		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
-			map.put("msg", "이미 Duck한 게시물입니다!");
+		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때			
+			if(type==1) {
+				map.put("msg", "이미 Duck한 게시물입니다!");						
+			}else if(type==3) {
+				map.put("msg", "이미 스크랩한 게시물입니다!");
+			}
 		}
 		return map;
 	}

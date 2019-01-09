@@ -17,7 +17,7 @@ public interface BoardMapper  {
 			+ " values(#{boardnum},#{userid},#{boardtype},#{subject},#{content},#{fileurl},#{pic}, now(), 0, #{usetech}, #{price}, #{schedule})")
 	void insert(Board board);
 
-	@Update("update board set readcnt = readcnt+1 where boardnum=#{boardnum}")
+	@Update("update board set readcnt = readcnt+1 where boardnum = #{boardnum}")
 	void readcntadd(Map<String, Integer> map);
 
 	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl}, recmd=#{recmd} where boardnum = #{boardnum}")
@@ -40,5 +40,8 @@ public interface BoardMapper  {
 
 	@Insert("insert into duck (boardnum,userid) values(#{boardnum},#{userid})")
 	void duckinsert(Map<String, Object> map);
+
+	@Update("update board set duckcnt = duckcnt+1 where boardnum = #{num}")
+	void duckcntadd(Map<String, Integer> map);
 
 }

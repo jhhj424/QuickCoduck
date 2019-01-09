@@ -143,7 +143,9 @@ public class BoardController {
 		bo.setBoardnum(num);
 		bo.setBoardtype(type);
 		Board board = service.getBoard(bo);
+		service.readcntadd(num); // 조회수 증가
 		mav.addObject("board",board);
+		System.out.println("디테일1");
 		return mav;
 	}
 	@RequestMapping(value="board/deleteForm")
@@ -244,10 +246,10 @@ public class BoardController {
 			User loginUser = (User)session.getAttribute("loginUser");
 			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
-			}
+			}/*
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
-			}
+			}*/
 			board = service.getBoard(board);
 		}
 		mav.addObject("board", board);

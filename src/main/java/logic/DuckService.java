@@ -152,4 +152,16 @@ public class DuckService {
 	public List<Board> boardlist(String num) {
 		return boardDao.list(num);
 	}
+
+	public void duckcntadd(Integer num) {
+		boardDao.duckcntadd(num);
+	}
+
+	public List<Board> boardlist(Integer boardnum) {
+		return boardDao.mainlist(boardnum);
+	}
+
+	public List<Board> boardlist2(Integer boardnum) {
+		return boardDao.mainlist2(boardnum);
+	}
 }
