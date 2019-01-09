@@ -7,13 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,79 +45,90 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("user/login")
-	public ModelAndView login(@Valid User user, BindingResult bindResult, HttpSession session) {
-		// @Valid : 유효성 검증. Item 클래스에 정의된 내용으로 검증을 함.
-		ModelAndView mav = new ModelAndView();
-		if (bindResult.hasErrors()) {
-			mav.getModel().putAll(bindResult.getModel());
-			return mav;
-		}
-		// db에서 아이디의 회원정보 조회하고 비밀번호 검증하여 session에 등록
-		// 로그인 성공시 loginSucess.jsp 페이지 출력하기
-		// 아이디, 패스워드 모두 입력된 경우
-			User dbuser = service.userSelect(user);
-			// 아이디 존재하는 경우
-			if (dbuser == null) {
-				throw new LoginException("아이디 존재 X", "../user/loginForm.duck");
-			}
-			if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
-				session.setAttribute("loginUser", dbuser); // 로그인 성공
-				mav.setViewName("redirect:main.duck");
-			} else { 
-				throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/loginForm.duck");
-			}
-		return mav;
-	}
-
-	@RequestMapping("user/userEntry")
-	public ModelAndView userEntry(@Valid User user, BindingResult bindResult, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView(); // a 입력하면 a.jsp로 이동됨.
-		if(bindResult.hasErrors()) { //입력오류가 발생한 경우
-			mav.getModel().putAll(bindResult.getModel()); //
-			return mav;
-		}
-		String pass1 = request.getParameter("pass");
-		String pass2 = request.getParameter("pass2");
-		if (pass1.equals(pass2)) { // 비밀번호 일치
-			try {
-				service.userCreate(user, request);
-				mav.addObject("user",user);
-				mav.setViewName("redirect:loginForm.duck");
-			}catch(DataIntegrityViolationException e) {
-				bindResult.reject("error.duplicate.user");
-				mav.getModel().putAll(bindResult.getModel());
-				return mav;
-			}
-		} else {
-			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/loginForm.duck");
-		}
-		return mav;
-	}
-
 	@RequestMapping("user/signup")
-	public ModelAndView signup(@Valid User user, HttpServletRequest request) {
+	public ModelAndView signup(User user, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/start");
 		String pass = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
 		String userid = request.getParameter("userid");
-		
+
 		int count = service.idchk(userid);
-		if(count != 0) {
-			throw new LoginException("아이디 중복입니다","../user/start.duck");
-		}else {
-			if(pass.equals(pass2)) {
+		if (count != 0) {
+			throw new LoginException("아이디 중복입니다", "../user/start.duck");
+		} else {
+			if (pass.equals(pass2) && !(pass.length() < 4 || pass.length() > 12)) {
 				service.userCreate(user, request);
-				mav.addObject("user",user);
+				mav.addObject("user", user);
 				mav.setViewName("redirect:start.duck");
-			}else {
-				throw new LoginException("비밀번호 오류입니다","../user/start.duck");
+			} else {
+
+				throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/start.duck");
+
 			}
 		}
 		return mav;
-		
-		
 	}
+
+	@RequestMapping("user/start_login")
+	public ModelAndView start_login(User user, HttpSession session) {
+		// @Valid : 유효성 검증. Item 클래스에 정의된 내용으로 검증을 함.
+		ModelAndView mav = new ModelAndView();
+
+		User dbuser = service.userSelect(user);
+		if (dbuser == null) {// 아이디 존재하지 않는경우
+			throw new LoginException("아이디 존재 X", "../user/start.duck");
+		}
+		if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
+			session.setAttribute("loginUser", dbuser);
+			mav.setViewName("redirect:main.duck");
+
+		} else {// 비밀번호 불일치
+			if (user.getPass().length() < 4 || user.getPass().length() > 12) { // 비밀번호 자리수 오류
+				throw new LoginException("비밀번호는 4~12자리 만 가능", "../user/start.duck");
+			} else {
+				throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/start.duck");
+			}
+		}
+
+		return mav;
+	}
+
+	@RequestMapping("user/login")
+	public ModelAndView login(User user, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User dbuser = service.userSelect(user);
+		if (dbuser == null) {// 아이디 존재하지 않는경우
+			throw new LoginException("아이디 존재 X", "../user/loginForm.duck");
+		}
+		if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
+			session.setAttribute("loginUser", dbuser);
+			mav.setViewName("redirect:main.duck");
+		} else {// 비밀번호 불일치
+			if (user.getPass().length() < 4 || user.getPass().length() > 12) { // 비밀번호 자리수 오류
+				throw new LoginException("비밀번호는 4~12자리 만 가능", "../user/loginForm.duck");
+			} else {
+				throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/loginForm.duck");
+			}
+		}
+		return mav;
+	}
+
+	@RequestMapping("user/userEntry")
+	public ModelAndView userEntry(User user, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(); // a 입력하면 a.jsp로 이동됨.
+		String pass1 = request.getParameter("pass");
+		String pass2 = request.getParameter("pass2");
+
+		if (pass1.equals(pass2) && !(pass1.length() < 4 || pass1.length() > 12)) { // 비밀번호 일치
+			service.userCreate(user, request);
+			mav.addObject("user", user);
+			mav.setViewName("redirect:loginForm.duck");
+		} else {
+			throw new LoginException("비밀번호를 확인해주세여", "../user/loginForm.duck");
+		}
+		return mav;
+	}
+
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");
@@ -143,7 +151,7 @@ public class UserController {
 		mav.addObject("user", user);
 		return mav;
 	}
-	
+
 	@RequestMapping("user/updateForm")
 	public ModelAndView update(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -151,26 +159,27 @@ public class UserController {
 		mav.addObject("user", user);
 		return mav;
 	}
-	@RequestMapping(value="user/update",method = RequestMethod.POST)
+
+	@RequestMapping(value = "user/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session, User user) {
 		ModelAndView mav = new ModelAndView("user/updateForm");
-		User dbuser = service.select(user.getUserid());//비밀번호  검증 
-		if(user.getPass().equals(dbuser.getPass())) { //비밀번호가 일치
-			//정보수정
+		User dbuser = service.select(user.getUserid());// 비밀번호 검증
+		if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
+			// 정보수정
 			try {
 				service.userUpdate(user);
-				//mav.addObject("user",user);
-				mav.setViewName("redirect:mypage.duck?id="+user.getUserid());
-			}catch(Exception e) {
+				// mav.addObject("user",user);
+				mav.setViewName("redirect:mypage.duck?id=" + user.getUserid());
+			} catch (Exception e) {
 				e.printStackTrace();
-				//mav.setViewName("user/updateForm");
+				// mav.setViewName("user/updateForm");
 			}
-		}else {
+		} else {
 			return mav;
 		}
 		return mav;
 	}
-	
+
 	@InitBinder // 파라미터 값 형변환을 위한 메서드
 	public void initBinder(WebDataBinder binder) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -183,58 +192,61 @@ public class UserController {
 		 */
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // false:필수입력 true:선택입력
 	}
-	@RequestMapping(value="user/delete", method=RequestMethod.GET)
+
+	@RequestMapping(value = "user/delete", method = RequestMethod.GET)
 	public ModelAndView delete(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
-		mav.addObject("user",user);
+		mav.addObject("user", user);
 		return mav;
 	}
-	
-	@RequestMapping(value="user/delete", method=RequestMethod.POST)
+
+	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
 	public ModelAndView delete(String id, HttpSession session, String password) {
 		ModelAndView mav = new ModelAndView();
-		User loginUser = (User) session.getAttribute("loginUser");//현재로그인된유저
-		if(loginUser.getPass().equals(password)) {
+		User loginUser = (User) session.getAttribute("loginUser");// 현재로그인된유저
+		if (loginUser.getPass().equals(password)) {
 			try {
 				service.userDelete(id);
-				if(!loginUser.getUserid().equals("admin")) {
+				if (!loginUser.getUserid().equals("admin")) {
 					session.invalidate();
 					mav.setViewName("redirect:loginForm.duck");
-				}else {//관리자
+				} else {// 관리자
 					mav.setViewName("redirect:../admin/list.duck");
 				}
-			}catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				throw new LoginException("탈퇴실패","../user/delete.duck?id=" + id);
+				throw new LoginException("탈퇴실패", "../user/delete.duck?id=" + id);
 			}
-		}else {//버번틀림
-			throw new LoginException("비밀번호오류","../user/delete.duck?id="+id);
+		} else {// 버번틀림
+			throw new LoginException("비밀번호오류", "../user/delete.duck?id=" + id);
 		}
 		return mav;
 	}
+
 	@RequestMapping(value = "user/myduck")
-	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session, String id, Integer boardnum) {
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type,
+			HttpSession session, String id, Integer boardnum) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
-		
+
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
 		int listcount = service.boardcount(searchType, searchContent, type, id);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id);
-		System.out.println("boardlist:"+boardlist);
+		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
 		int endpage = startpage + 9;
 		if (endpage > maxpage)
 			endpage = maxpage;
 		int boardcnt = listcount - (pageNum - 1) * limit;
-		mav.addObject("id",id);
+		mav.addObject("id", id);
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
@@ -242,7 +254,7 @@ public class UserController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
-		mav.addObject("type",type);
+		mav.addObject("type", type);
 		return mav;
 	}
 }
