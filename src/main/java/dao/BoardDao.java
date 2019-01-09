@@ -27,6 +27,8 @@ public class BoardDao {
 		Map<String, Integer> map= new HashMap<String, Integer>();
 		map.put("boardnum", board.getBoardnum());
 		map.put("type", board.getBoardtype());
+		Board bo = sqlSession.selectOne(NS + "select",map);
+		System.out.println("bobo:"+bo);
 		return sqlSession.selectOne(NS + "select",map);
 	}
 	public int count(String searchType, String searchContent,Integer type) {

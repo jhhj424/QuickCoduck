@@ -143,6 +143,7 @@ public class BoardController {
 		bo.setBoardnum(num);
 		bo.setBoardtype(type);
 		Board board = service.getBoard(bo);
+		System.out.println(board);
 		service.readcntadd(num); // 조회수 증가
 		mav.addObject("board",board);
 		System.out.println("디테일1");
