@@ -36,6 +36,11 @@ public class BoardDao {
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
+	public int count(Integer type) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("type", type);
+		return sqlSession.selectOne(NS + "count", map);
+	}
 	public int count(String searchType, String searchContent,Integer type, String id) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
