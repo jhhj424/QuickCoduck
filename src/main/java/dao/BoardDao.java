@@ -160,7 +160,7 @@ public class BoardDao {
 	}
 	public void duckcntadd(Integer num) {
 		Map<String,Integer> map = new HashMap<String,Integer>();
-		map.put("num", num);
+		map.put("boardnum", num);
 		sqlSession.getMapper(BoardMapper.class).duckcntadd(map);
 	}
 	public List<Board> mainlist(Integer boardnum) {
