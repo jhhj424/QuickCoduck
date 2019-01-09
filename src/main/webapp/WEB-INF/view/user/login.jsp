@@ -32,7 +32,7 @@
                   </div>
 
                   <div class="CTA">
-                     <input type="submit" value="Login">
+                     <input type="submit" value="Login" class="login">
                      <a href="#" class="switch">SignUp</a>
                   </div>
                </form>
@@ -74,7 +74,7 @@
                      <span class="error"></span>
                   </div>
                   <div class="CTA">
-                     <input type="submit" value="Signup Now">
+                     <input type="submit" value="Signup Now" class="signup">
                      <a href="#" class="switch">Login</a>
                   </div>
                </form>

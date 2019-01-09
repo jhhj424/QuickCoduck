@@ -63,7 +63,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				<a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i
 					class="fa fa-newspaper-o"></i> 자유게시판</a> <a href="../user/mypage_main.duck?id=${sessionScope.loginUser.userid}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Mypage</a>
       <c:if test="${empty sessionScope.loginUser}">
-      <a href="../user/login.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
+      <a href="../user/loginForm.duck" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i>로그인/회원가입</a>
       </c:if>
       <c:if test="${!empty sessionScope.loginUser}">
       <a href="../user/logout.duck" class="w3-bar-item w3-button"><i class="fa fa-unlock-alt"></i> 로그아웃</a>

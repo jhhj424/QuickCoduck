@@ -232,7 +232,7 @@ text-color:red;
 			        </div>
 			        <div class="content">
 				            <div class="signin-cont cont">
-					                <form action="signup.duck" method="post" enctype="multipart/form-data">
+					                <form action="userEntry.duck" method="post" enctype="multipart/form-data">
 					                        <input type="text" name="userid" id="user_id" class="inpt" required="required" placeholder="User Id">
 					                        <span class="id_chk"style="color:red;"></span>
 						                    <label for="name"></label>

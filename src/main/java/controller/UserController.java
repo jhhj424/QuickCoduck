@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.Board;
-import logic.Duck;
 import logic.DuckService;
 import logic.User;
 
@@ -60,30 +59,17 @@ public class UserController {
 		// db에서 아이디의 회원정보 조회하고 비밀번호 검증하여 session에 등록
 		// 로그인 성공시 loginSucess.jsp 페이지 출력하기
 		// 아이디, 패스워드 모두 입력된 경우
-		try {
-			// dbuser : 아이디에 해당하는 db의 사용자 정보 저장
 			User dbuser = service.userSelect(user);
 			// 아이디 존재하는 경우
 			if (dbuser == null) {
-				bindResult.reject("error.login.id");
-				mav.getModel().putAll(bindResult.getModel());
-				return mav;
+				throw new LoginException("아이디 존재 X", "../user/loginForm.duck");
 			}
 			if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
 				session.setAttribute("loginUser", dbuser); // 로그인 성공
 				mav.setViewName("redirect:main.duck");
-			} else { // 비밀번호가 불일치
-				bindResult.reject("error.login.password");
-				mav.getModel().putAll(bindResult.getModel());
-				return mav;
+			} else { 
+				throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/loginForm.duck");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			bindResult.reject("error.user.login");
-			mav.getModel().putAll(bindResult.getModel());
-			return mav;
-		}
-		//mav.setViewName("user/main"); <-쓰면 로그인성공시 main.duck안나오고 login.duck이라고 뜸.
 		return mav;
 	}
 
@@ -100,14 +86,14 @@ public class UserController {
 			try {
 				service.userCreate(user, request);
 				mav.addObject("user",user);
-				mav.setViewName("redirect:login.duck");
+				mav.setViewName("redirect:loginForm.duck");
 			}catch(DataIntegrityViolationException e) {
 				bindResult.reject("error.duplicate.user");
 				mav.getModel().putAll(bindResult.getModel());
 				return mav;
 			}
 		} else {
-			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/login.duck");
+			throw new LoginException("비밀번호가 일치하지 않습니다.", "../user/loginForm.duck");
 		}
 		return mav;
 	}

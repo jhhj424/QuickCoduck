@@ -52,7 +52,7 @@ $(document).ready(function () {
     				$(".name").siblings('span.error').text('필수입력 입니다').fadeIn().parent('.form-group').addClass('hasError');
 				        usernameError = true;
 				        alert(data.id_chk);
-			}
+			    }
     				
     			},
     			error: function(xhr,status,error){
@@ -60,7 +60,6 @@ $(document).ready(function () {
     			}
     		})
     });
-
     // Form validation
     $('input').blur(function () {
 
@@ -138,6 +137,8 @@ $(document).ready(function () {
         if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
             $('.name, .email, .pass, .passConfirm').blur();
             return event.preventDefault();
+            
+            
         }else if(usernameError == false && emailError == false && passwordError == false && passConfirm == false){
         	return event;
         }

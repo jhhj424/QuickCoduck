@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import logic.Board;
 import logic.DuckService;
+import logic.User;
 
 @Controller
 public class AjaxController {
