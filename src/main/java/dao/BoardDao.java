@@ -62,7 +62,7 @@ public class BoardDao {
 	}
 	public void readcntadd(Integer num) {
 		Map<String , Integer> map = new HashMap<String, Integer>();
-		map.put("num", num);
+		map.put("boardnum", num);
 		sqlSession.getMapper(BoardMapper.class).readcntadd(map);
 	}
 	public void refstep(Board board) {
@@ -160,5 +160,15 @@ public class BoardDao {
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		map.put("num", num);
 		sqlSession.getMapper(BoardMapper.class).duckcntadd(map);
+	}
+	public List<Board> mainlist(Integer boardnum) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("boardnum", boardnum);
+		return sqlSession.selectList(NS + "mainlist", map);
+	}
+	public List<Board> mainlist2(Integer boardnum) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("boardnum", boardnum);
+		return sqlSession.selectList(NS + "mainlist2", map);
 	}
 }
