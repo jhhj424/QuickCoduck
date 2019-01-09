@@ -152,6 +152,19 @@ public class UserController {
 		return mav;
 	}
 
+	@RequestMapping(value = "user/mypage_*")
+	public ModelAndView mypage(String id,HttpSession session, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User dbuser = (User)session.getAttribute("loginUser");
+		System.out.println(dbuser.getUserid());
+		System.out.println(dbuser.getPass());
+		System.out.println(dbuser.getEmail());
+		System.out.println(dbuser.getType());
+		System.out.println("========================");
+		mav.addObject("user",dbuser);
+		return mav;
+	}
+
 	@RequestMapping("user/updateForm")
 	public ModelAndView update(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
