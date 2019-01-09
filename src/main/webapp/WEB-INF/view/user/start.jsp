@@ -204,7 +204,7 @@ text-color:red;
 			        </div>
 			        <div class="content">
 				            <div class="signin-cont cont">
-					                <form action="login.duck" method="post" enctype="multipart/form-data">
+					                <form action="start_login.duck" method="post" enctype="multipart/form-data">
 						                    <input type="text" name="userid" id="userid" class="inpt" required="required" placeholder="User ID">
 						                    <label for="text">Your id</label>
 						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
@@ -232,13 +232,13 @@ text-color:red;
 			        </div>
 			        <div class="content">
 				            <div class="signin-cont cont">
-					                <form action="userEntry.duck" method="post" enctype="multipart/form-data">
+					                <form action="signup.duck" method="post" enctype="multipart/form-data">
 					                        <input type="text" name="userid" id="user_id" class="inpt" required="required" placeholder="User Id">
 					                        <span class="id_chk"style="color:red;"></span>
 						                    <label for="name"></label>
 						                    <input type="email" name="email" id="user_email" class="inpt" required="required" placeholder="User Email">
 						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="user_password" class="inpt" required="required" placeholder="Password">
+						                    <input type="password" name="pass" id="user_password" class="inpt" required="required" placeholder="Password(4~12자리)">
                 						    <label for="password"></label>
                 						    <input type="password" name="pass2" id="user_password2" class="inpt" required="required" placeholder="Re Password">
                 						    <label for="password"></label>
@@ -257,7 +257,7 @@ text-color:red;
 						                    <label for="name"></label>
                                             <input type="email" name="email" id="client_email" class="inpt" required="required" placeholder="User Email">
 						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="client_password" class="inpt" required="required" placeholder="Password">
+						                    <input type="password" name="pass" id="client_password" class="inpt" required="required" placeholder="Password(4~12자리)">
                 						    <label for="password"></label>
                 						    <input type="password" name="pass2" id="client_password2" class="inpt" required="required" placeholder="Re Password">
                 						    <label for="password"></label>
