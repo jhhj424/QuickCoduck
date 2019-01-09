@@ -117,5 +117,5 @@
 		<input type="button" id="tech_reset" value="reset"><div><div align="center">
 		</div></div>
 		<a href="javascript:document.f.submit()">[게시물등록]</a>
-		<a href="list.duck">[게시물목록]</a></div></div>
+		<a href="list.duck?type=${param.type}">[게시물목록]</a></div></div>
 		</div></form:form></body></html>

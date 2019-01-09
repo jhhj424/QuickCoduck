@@ -171,7 +171,10 @@ public class UserController {
 	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/mypage_update");
 		service.userUpdate(user, request);
-		mav.setViewName("redirect:mypage_main.duck?id=" + user.getUserid());
+		User user1 = service.select(user.getUserid());
+		System.out.println("À¯Àú:"+user1);
+		session.setAttribute("loginUser", user1);
+		mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
 		return mav;
 	}
 

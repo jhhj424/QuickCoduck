@@ -52,33 +52,33 @@
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>생년월일</b></h5>
           <h6 class="w3-text-teal">
-          <c:if test="${empty loginUser.tel }">
+          <c:if test="${empty loginUser.birth }">
           <button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-pencil"></i> 추가하기</button>
           </c:if>
-          <c:if test="${!empty loginUser.tel }">
-          ${loginUser.tel }
+          <c:if test="${!empty loginUser.birth }">
+           <fmt:formatDate value="${loginUser.birth}" pattern="yyyy-MM-dd" />
           </c:if></h6>
           <hr>
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>보유기술</b></h5>
           <h6 class="w3-text-teal">
-          <c:if test="${empty loginUser.tel }">
+          <c:if test="${empty loginUser.usetech }">
           <button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-pencil"></i> 추가하기</button>
           </c:if>
-          <c:if test="${!empty loginUser.tel }">
-          ${loginUser.tel }
+          <c:if test="${!empty loginUser.usetech }">
+          ${loginUser.usetech }
           </c:if></h6>
           <hr>
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>프로필 사진</b></h5>
           <h6 class="w3-text-teal">
-          <c:if test="${empty loginUser.tel }">
+          <c:if test="${empty loginUser.fileurl }">
           <button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-pencil"></i> 추가하기</button>
           </c:if>
-          <c:if test="${!empty loginUser.tel }">
-          ${loginUser.tel }
+          <c:if test="${!empty loginUser.fileurl }">
+          ${loginUser.fileurl }
           </c:if></h6>
           <hr>
        </div>
