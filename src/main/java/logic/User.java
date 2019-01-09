@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class User {
 	@Size(min = 3, max = 10, message = "아이디는 3자이상 10자 이하로 입력하세요")
 	private String userid;
@@ -21,16 +23,17 @@ public class User {
 	private String creditpass;
 	private Integer rating;
 	private Integer matching;
-	private String file1;
+	private String picturlUrl;
+	private MultipartFile picture;// <input type="file" name="picture"> 인 파일의 내용 저장
 
 	// getter,setter,toString
 
-	public String getFile1() {
-		return file1;
+	public String getPicturlUrl() {
+		return picturlUrl;
 	}
 
-	public void setFile1(String file1) {
-		this.file1 = file1;
+	public void setPicturlUrl(String picturlUrl) {
+		this.picturlUrl = picturlUrl;
 	}
 
 	public String getUserid() {
@@ -129,12 +132,20 @@ public class User {
 		this.matching = matching;
 	}
 
+	public MultipartFile getPicture() {
+		return picture;
+	}
+
+	public void setPicture(MultipartFile picture) {
+		this.picture = picture;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth=" + birth
 				+ ", type=" + type + ", businessnum=" + businessnum + ", usetech=" + usetech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching
-				+ ", file1=" + file1 + "]";
+				+ ", picturlUrl=" + picturlUrl + "]";
 	}
 
 }

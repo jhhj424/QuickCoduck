@@ -37,7 +37,11 @@ public class DuckService {
 		}
 	}
 
-	public void userUpdate(User user) {
+	public void userUpdate(User user, HttpServletRequest request) {
+		if(user.getPicturlUrl() != null && user.getPicture().isEmpty()) {
+			uploadFileCreate(user.getPicture(), request,"file");
+			user.setPicturlUrl(user.getPicture().getOriginalFilename());
+		}
 		userDao.userUpdate(user);
 	}
 

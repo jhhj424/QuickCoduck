@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -153,15 +152,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/mypage_*")
-	public ModelAndView mypage(String id,HttpSession session, HttpServletRequest request) {
+	public ModelAndView mypage(String id, HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		User dbuser = (User)session.getAttribute("loginUser");
-		System.out.println(dbuser.getUserid());
-		System.out.println(dbuser.getPass());
-		System.out.println(dbuser.getEmail());
-		System.out.println(dbuser.getType());
-		System.out.println("========================");
-		mav.addObject("user",dbuser);
+		User dbuser = (User) session.getAttribute("loginUser");
+		mav.addObject("user", dbuser);
 		return mav;
 	}
 
@@ -174,22 +168,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
-	public ModelAndView update(HttpSession session, User user) {
-		ModelAndView mav = new ModelAndView("user/updateForm");
-		User dbuser = service.select(user.getUserid());// 비밀번호 검증
-		if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
-			// 정보수정
-			try {
-				service.userUpdate(user);
-				// mav.addObject("user",user);
-				mav.setViewName("redirect:mypage.duck?id=" + user.getUserid());
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mav.setViewName("user/updateForm");
-			}
-		} else {
-			return mav;
-		}
+	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("실행은 되냐...?");
+		System.out.println(request);
+		System.out.println(user.getPicture());
+		service.userUpdate(user, request);
+		mav.setViewName("redirect:mypage.duck?id=" + user.getUserid());
+
 		return mav;
 	}
 
@@ -270,14 +256,15 @@ public class UserController {
 		mav.addObject("type", type);
 		return mav;
 	}
+
 	@RequestMapping(value = "user/submain")
 	public ModelAndView submain(HttpSession session, Integer boardnum) {
 		ModelAndView mav = new ModelAndView();
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(boardnum);
 		List<Board> boardlist2 = service.boardlist2(boardnum);
-		System.out.println("boardlist:"+boardlist);
-		System.out.println("boardlist2:"+boardlist2);
+		System.out.println("boardlist:" + boardlist);
+		System.out.println("boardlist2:" + boardlist2);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardlist2", boardlist2);
 		return mav;
