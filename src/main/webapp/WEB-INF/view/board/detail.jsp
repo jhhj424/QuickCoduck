@@ -19,6 +19,7 @@
 							var data = {
 								"num" : num,
 								"type" : type,
+								"ducktype" : ducktype,
 								"userid" : userid
 								}
 							$.ajax({
@@ -40,10 +41,39 @@
 						function() {
 							var num = ${board.boardnum}
 							var type = ${board.boardtype}
+							var ducktype = 1
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
 							var data = {
 								"num" : num,
 								"type" : type,
+								"ducktype" : ducktype,
+								"userid" : userid
+							}
+							$.ajax({
+								url : "duck.duck",
+								type : "post",
+								data : data,
+								dataType : "json", // ajax 통신으로 받는 타입
+								success : function(data) {
+									alert(data.msg);
+								},
+								error : function(xhr, status, error) { //서버응답 실패
+									alert("서버오류 : " + xhr.status + ", error : "
+											+ error + ", status : " + status);
+								}
+							})
+						})
+			})
+			$("#pro").click(
+						function() {
+							var num = ${board.boardnum}
+							var type = ${board.boardtype}
+							var ducktype = 2
+							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+							var data = {
+								"num" : num,
+								"type" : type,
+								"ducktype" : ducktype,
 								"userid" : userid
 							}
 							$.ajax({
@@ -110,9 +140,12 @@
 						<a href="list.duck?type=${board.boardtype}">[목록]</a>
 						<c:if test="${board.boardtype==1}">
 						<button type="button" class="myButton" id="rec">추천</button>
-						<button type="button" class="myButton" id="duck">DUCK</button></c:if>
+						<button type="button" class="myButton" id="duck">DUCK</button>
+						</c:if>
 						<c:if test="${board.boardtype==3}">
-						<button type="button" class="myButton" id="duck">스크랩</button></c:if>
+						<button type="button" class="myButton" id="duck">스크랩</button>
+						<button type="button" class="myButton" id="pro">참여신청</button>
+						</c:if>
 						</td>
 				</tr>
 			</table>

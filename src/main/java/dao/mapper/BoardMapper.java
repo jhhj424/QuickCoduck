@@ -35,10 +35,10 @@ public interface BoardMapper  {
 	@Select("select boardnum from recmd where userid=#{userid} and boardnum=#{boardnum}")
 	String recmdselect(Map<String, Object> map);
 
-	@Select("select boardnum from duck where userid=#{userid} and boardnum=#{boardnum}")
+	@Select("select boardnum from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=#{ducktype}")
 	String duckselect(Map<String, Object> map);
 
-	@Insert("insert into duck (boardnum,userid) values(#{boardnum},#{userid})")
+	@Insert("insert into duck (boardnum,userid,ducktype) values(#{boardnum},#{userid},#{ducktype})")
 	void duckinsert(Map<String, Object> map);
 
 	@Update("update board set duckcnt = duckcnt+1 where boardnum = #{boardnum}")
