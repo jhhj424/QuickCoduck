@@ -97,7 +97,7 @@
 				</tr>
 				<tr>
 					<td>첨부파일</td>
-					<td>&nbsp; <c:if test="${!empty board.fileurl}">
+					<td>&nbsp; <c:if test="${!empty board.fileurl}">테스트
 							<a href="../file/${board.fileurl}">${board.fileurl}</a>
 						</c:if>
 					</td>

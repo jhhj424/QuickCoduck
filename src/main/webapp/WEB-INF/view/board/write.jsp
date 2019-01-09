@@ -18,7 +18,6 @@
 				data : data,
 				dataType : "json", // ajax 통신으로 받는 타입
 				success : function(data) {
-					alert(data.tech)
 					$("#tech_box").val(data.tech);
 				},
 				error : function(xhr, status,
@@ -42,7 +41,6 @@
 				data : data,
 				dataType : "json", // ajax 통신으로 받는 타입
 				success : function(data) {
-					alert(data.tech)
 					$("#tech_box").val(data.tech);
 				},
 				error : function(xhr, status,
@@ -115,7 +113,7 @@
 		<div><form:textarea path="content" rows="15" cols="80"/>
 			<font color="red"><form:errors path="content" /></font></div></div>
 		<div><div align="center"><b>첨부파일 : </b><input type="file" name="file1"></div></div>
-		<div><div align="center"><b>사용기술 : </b><input readonly type="text" id="tech_box" value="">
+		<div><div align="center"><b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
 		<input type="button" id="tech_reset" value="reset"><div><div align="center">
 		</div></div>
 		<a href="javascript:document.f.submit()">[게시물등록]</a>

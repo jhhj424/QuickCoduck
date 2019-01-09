@@ -73,8 +73,8 @@ public class DuckService {
 			uploadFileCreate(board.getFile1(), request, "file");
 			board.setFileurl(board.getFile1().getOriginalFilename());
 		}
+		System.out.println("글쓰기/덕서비스"+board);
 		int max = boardDao.maxNum();
-		System.out.println("maxNum:"+max);
 		board.setBoardnum(++max);
 		boardDao.insert(board);
 	}
