@@ -36,11 +36,7 @@ public class DuckService {
 			e.printStackTrace();
 		}
 	}
-
-	public void userUpdate(User user) {
-		userDao.userUpdate(user);
-	}
-
+	
 	public void userDelete(String id) {
 		userDao.userDelete(id);
 	}
@@ -90,6 +86,19 @@ public class DuckService {
 		}
 		boardDao.update(board);
 	}
+	public void userUpdate(User user, HttpServletRequest request) {
+		System.out.println("userfget"+user.getFile1());
+		System.out.println(user.getFile1().getOriginalFilename());
+		
+		if(user.getFile1() != null && !user.getFile1().isEmpty()) {
+			uploadFileCreate(user.getFile1(), request,"file");
+			System.out.println("userfget"+user.getFile1());
+			System.out.println(user.getFile1().getOriginalFilename());
+			user.setFileurl(user.getFile1().getOriginalFilename());
+		}
+		userDao.userUpdate(user);
+	}
+
 
 	public void boarddelete(int boardnum) {
 		boardDao.delete(boardnum);
