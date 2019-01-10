@@ -106,10 +106,8 @@ document.getElementById("type").value = '${param.type}';
 글개수 : ${listcount}</font>
 </td>
 </c:if>
-
 </tr>
 
-<!-- 중간저장 -->
 <tr>
 <th width="13%" scope="row"><font style="font-weight: bold;">글번호</font></th>
 <th width="10%" scope="row"><font style="font-weight: bold;">사진</font></th>
@@ -148,7 +146,17 @@ ${board.userid}</font>
 </td>
 <!-- 작성자 -->
 <td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
-${board.regdate}</font>
+<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
+ <jsp:useBean id="day" class="java.util.Date" />
+  <fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today" />
+   <fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
+    <c:if test="${today == rdate }">
+    <fmt:formatDate value="${board.regdate}" pattern="HH:mm" />
+    </c:if>
+     <c:if test="${today != rdate }">
+     <fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd" />
+     </c:if>
+     </font>
 </td>
 <!-- 작성일 -->
 <td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
