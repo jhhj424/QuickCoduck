@@ -65,8 +65,8 @@
 </head>
 <body>
 <form:form modelAttribute="board" action="write.duck" enctype="multipart/form-data" name="f">
-	<div>
 	<form:hidden path="boardtype" value="${param.type}"/>
+	<div>
 		<div align="center">
 		<c:if test="${param.type==1}">
 			<div><h3>오픈소스게시판 글쓰기</h3></div>

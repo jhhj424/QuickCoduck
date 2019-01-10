@@ -20,7 +20,7 @@ public interface BoardMapper  {
 	@Update("update board set readcnt = readcnt+1 where boardnum = #{boardnum}")
 	void readcntadd(Map<String, Integer> map);
 
-	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl}, recmd=#{recmd} where boardnum = #{boardnum}")
+	@Update("update board set userid=#{userid}, subject=#{subject}, content=#{content}, file1=#{fileurl}, recmd=#{recmd}, usetech=#{usetech} where boardnum = #{boardnum}")
 	void update(Board board);
 
 	@Update("update board set refstep = refstep+1 where ref= #{ref} and refstep > #{refstep}")

@@ -206,10 +206,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "board/update", method = RequestMethod.POST)
-	public ModelAndView update(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session) {
+	public ModelAndView update(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session,String techlist) {
 		//System.out.println("매개변수확인:"+board);
 		ModelAndView mav = new ModelAndView();
 		String pass = null;
+		String tech[] = null; //빈 기술목록 배열
+		String finaltech = "";
+		if(techlist!=null) { //techlist : java.,html.,
+			tech = techlist.split(","); // tech[0]: java.  // tech[1] : html.
+			for(int i=0;i<tech.length;i++) {finaltech += tech[i];}
+		}
+		board.setUsetech(finaltech);
 		if(request.getParameter("pass")!=null) {
 			pass = request.getParameter("pass");
 		}
@@ -233,6 +240,7 @@ public class BoardController {
 		} else { // 비번통과
 			board.setFileurl(request.getParameter("file2")); //기존의 파일로 url 넣어놓기
 			try { // 수정
+				System.out.println("게시판수정객체:"+board);
 				service.boardupdate(board,request);
 				mav.addObject("board",board);
 			} catch (Exception e) { // 수정시 오류 발생
