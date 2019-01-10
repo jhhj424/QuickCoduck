@@ -3,6 +3,7 @@
 <%@taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@include file="/WEB-INF/view/style/user_mypage.jsp" %>
@@ -26,6 +27,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-info"></i> 이용방법</a>
       <c:if test="${sessionScope.loginUser.type == '1'}">
       <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
+      <a href="../board/find.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 공고 프로젝트 찾기</a>
       </c:if>
       <c:if test="${sessionScope.loginUser.type == '2'}">
       <a href="../board/find.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
@@ -54,16 +56,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="text-align:center;">
-        <div class="w3-container">
-         <h4 class="w3-center">${loginUser.userid }</h4>
-         <p class="w3-center"><img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-         <hr>
-         <p><i class="fa fa-home  w3-text-theme"></i>
-         <a href="../user/mypage_info.duck?id=${loginUser.userid}">내 프로필 보기</a></p>
-         <p><i class="fa fa-pencil  w3-text-theme"></i>
-         <a href="../user/mypage_update.duck?id=${loginUser.userid}">내 프로필 수정</a></p>
-         <p><i class="fa fa-pencil  w3-text-theme"></i>
-         <a href="../user/mypage_delete.duck?id=${loginUser.userid}">회원 탈퇴</a></p>
+        <div class="w3-container" style="padding:0 0 0 0;">
+         <c:if test="${!empty loginUser.fileurl }">
+         <p class="w3-center"><img src="../file/${loginUser.fileurl }" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         </c:if>
+         <c:if test="${empty loginUser.fileurl }">
+         <p class="w3-center">
+         <i class="fa fa-user-circle-o" style="font-size:100px;color:#7d97a5;"></i>
+         </p>
+         </c:if>
+         <h4 class="w3-center">${loginUser.userid } 님</h4>
+         <div style="text-align:left;">
+         <button onclick="location.href='../user/mypage_info.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-address-book fa-fw w3-margin-right"></i> 내 프로필보기</button>
+         <button onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-edit fa-fw w3-margin-right"></i> 내 프로필 수정</button>
+         <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
+         </div>
         </div>
       </div>
       <br>
@@ -112,20 +119,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         </div>      
       </div>
       <br>
-      
-      <!-- Interests --> 
+      <!-- Interests -->
       <div class="w3-card w3-round w3-white w3-hide-small">
-        <div class="w3-container">
-          <p>Interests</p>
-          <p>
-            <span class="w3-tag w3-small w3-theme-d5">Java</span>
-            <span class="w3-tag w3-small w3-theme-d4">CSS</span>
-            <span class="w3-tag w3-small w3-theme-d3">HTML</span>
-            <span class="w3-tag w3-small w3-theme-d3">보유기술 항목 받아오면 됩니당</span>
-          </p>
-        </div>
-      </div>
-      <br>
+		<div class="w3-container">
+			<h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-user fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 보유기술</h2>
+			<c:if test="${empty loginUser.usetech }">
+			<h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i><b>보유기술 미등록</b></h5>
+			<button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-plus-square"></i> 추가하기</button>
+			</c:if>
+			<c:if test="${!empty loginUser.usetech }">
+			<c:forEach var="usetech" items="${loginUser.usetech}" varStatus="g" begin="0">
+			<span class="w3-tag w3-theme-d3">${usetech}</span>
+			<c:out value="${g.end}" />
+			</c:forEach>
+			</c:if>
+			<p></p>
+		</div>
+	 </div><br>
       
       <!-- Alert Box -->
       <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
