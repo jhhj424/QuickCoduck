@@ -68,53 +68,128 @@
 		})
 	})
 </script>
+<script>
+//콤마찍기 and 숫자체크
+function commanAndNum(obj) 
+{
+  var n = obj.value;
+  n = onlyNumber(n);
+  var reg = /(^[+-]?\d+)(\d{4})/;   // 정규식
+  n += '';                          // 숫자를 문자열로 변환
+  while (reg.test(n))
+  n = n.replace(reg, '$1' + '-' + '$2');  
+  obj.value = n;     
+}
+
+//숫자체크
+function onlyNumber(objVal) 
+{
+ var replaceNum = unNumberFormat(objVal);
+ var preNum = replaceNum;
+ if(/[^0123456789]/g.test(replaceNum)) 
+ {
+  preNum = "";
+  for (i = 0; i < (replaceNum.length - 1); i++)
+   {
+    preNum = preNum + replaceNum.charAt(i);
+   }
+  alert("숫자가 아닙니다.\n\n0-9의 정수만 허용합니다.");
+ }
+ if(replaceNum == 0)
+ {
+  if(preNum != "")
+  {
+   alert("첫자리 0은 허용하지 않습니다.");
+  }
+  preNum = "";
+ }
+  return preNum;
+}
+//특수문자 제거
+function unNumberFormat(num) 
+{
+ return (num.replace(/\-/g,""));
+} 
+</script>
 </head>
 <body>
 <form action="update.duck" method="post" enctype="multipart/form-data" name="f">
-<input type="hidden" name="file2" value="${loginUser.fileurl}">
+<input type="hidden" name="file2" value="${user.fileurl}">
  <div class="w3-container w3-card w3-white w3-round w3-margin">
       <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user-plus fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 회원정보 수정</h2>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-id-badge fa-fw w3-margin-right"></i><b>회원 Id</b></h5>
           <h6 class="w3-text-teal">
-          <input type="text" value="${loginUser.userid }" readonly="readonly" name="userid">
+          <input type="text" value="${user.userid }" readonly="readonly" name="userid">
           </h6>
           <hr>
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-envelope fa-fw w3-margin-right"></i>
-          <c:if test="${loginUser.type == '1' }"><b>회원 Email</b></c:if>
-          <c:if test="${loginUser.type == '2' }"><b>사업자 Email</b></c:if>
+          <c:if test="${user.type == '1' }"><b>회원 Email</b></c:if>
+          <c:if test="${user.type == '2' }"><b>사업자 Email</b></c:if>
           </h5>
           <h6 class="w3-text-teal">
-          <input type="email" value="${loginUser.email }" name="email">
+          <input type="email" value="${user.email }" name="email">
           </h6>
           <hr>
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-volume-control-phone fa-fw w3-margin-right"></i>
-          <c:if test="${loginUser.type == '1' }"><b>회원 Tel</b></c:if>
-          <c:if test="${loginUser.type == '2' }"><b>사업자 Tel</b></c:if>
+          <c:if test="${user.type == '1' }"><b>회원 Tel</b></c:if>
+          <c:if test="${user.type == '2' }"><b>사업자 Tel</b></c:if>
           </h5>
           <h6 class="w3-text-teal">
-          <input type="text" value="${loginUser.tel }" name="tel">
+          <input type="text" value="${user.tel }" name="tel">
           </h6>
           <hr>
        </div>
-       <c:if test="${loginUser.type == '1' }">
+       <c:if test="${user.type == '1' }">
         <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 birth</b></h5>
           <h6 class="w3-text-teal">
-          <fmt:formatDate value="${loginUser.birth}" pattern="yyyy-MM-dd" var="bibi"/>
+          <fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" var="bibi"/>
           <input type="date" min="1901-01-01" max="2019-01-01" name="birth" value="${bibi}">
           </h6>
           <hr>
        </div>
        </c:if>
+     <c:if test="${user.type == '2' }">
+       <c:if test="${empty user.creditnum }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
+          <input type="text" name="creditnum" id="creditnum"  maxlength="19"onkeyup="javascript:commanAndNum(this)">
+          <hr>
+       </div>
+       </c:if>
+       <c:if test="${!empty user.creditnum }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
+          <input type="text" name="creditnum" id="re_creditnum" maxlength="19" onkeyup="javascript:commanAndNum(this)" value="${user.creditnum }" readonly="readonly">
+          <hr>
+       </div>
+       </c:if>
+       <c:if test="${empty user.creditpass }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
+          <input type="password" name="creditpass" id="creditpass" maxlength="4">
+          <hr>
+       </div>
+     </c:if>
+       
+       <c:if test="${!empty user.creditpass }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
+          <input type="password" name="creditpass" id="re_creditpass" value="${user.creditpass }" maxlength="4" readonly="readonly">
+          <hr>
+       </div>
+       </c:if>
+       
+       </c:if>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i>
-          <c:if test="${loginUser.type == '1' }"><b>사용자 보유기술</b></c:if>
-          <c:if test="${loginUser.type == '2' }"><b>프로젝트 주요기술</b></c:if>
+          <c:if test="${user.type == '1' }"><b>사용자 보유기술</b></c:if>
+          <c:if test="${user.type == '2' }"><b>프로젝트 주요기술</b></c:if>
           </h5>
           <div align="left">
 		<select id="develop_select">
@@ -152,12 +227,12 @@
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-file-image-o fa-fw w3-margin-right"></i>
-          <c:if test="${loginUser.type == '1' }"><b>회원 프로필사진</b></c:if>
-          <c:if test="${loginUser.type == '2' }"><b>사업자 대표사진</b></c:if>
+          <c:if test="${user.type == '1' }"><b>회원 프로필사진</b></c:if>
+          <c:if test="${user.type == '2' }"><b>사업자 대표사진</b></c:if>
           </h5>
-          <c:if test="${!empty loginUser.fileurl}">
+          <c:if test="${!empty user.fileurl}">
           <div id="file_desc">
-			<a href="../file/${loginUser.fileurl}">${loginUser.fileurl}</a>
+			<a href="../file/${user.fileurl}">${user.fileurl}</a>
 			<a href="javascript:file_delete()">[첨부파일삭제]</a></div>
 		  </c:if>
 		  <div class="filebox preview-image">

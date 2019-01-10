@@ -32,7 +32,7 @@ import logic.User;
 public class UserController {
 	@Autowired
 	private DuckService service;
-	
+
 	@RequestMapping("user/start")
 	public ModelAndView start() {
 		ModelAndView mav = new ModelAndView();
@@ -155,7 +155,11 @@ public class UserController {
 	@RequestMapping(value = "user/mypage_*")
 	public ModelAndView mypage(String id, HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		User dbuser = (User) session.getAttribute("loginUser");
+		User dbuser = service.select(id);
+		User user = (User) session.getAttribute("loginUser");
+		if (!dbuser.getUserid().equals(user.getUserid()) && !user.getUserid().equals("admin")) {
+			throw new LoginException("본인정보만 조회 가능합니다", "../user/mypage_main.duck?id=" + user.getUserid());
+		}
 		mav.addObject("user", dbuser);
 		return mav;
 	}
@@ -174,7 +178,7 @@ public class UserController {
 		user.setFileurl(request.getParameter("file2"));
 		service.userUpdate(user, request);
 		User user1 = service.select(user.getUserid());
-		System.out.println("유저:"+user1);
+		System.out.println("유저:" + user1);
 		session.setAttribute("loginUser", user1);
 		mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
 		return mav;
@@ -270,16 +274,16 @@ public class UserController {
 		mav.addObject("boardlist2", boardlist2);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "user/supporterlist")
 	public ModelAndView supporterlist(HttpSession session, Integer boardnum) {
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User) session.getAttribute("loginUser");
 		int matching = 1;
 		int ducktype = 1;
 		List<User> supporterlist = service.supporterlist(user.getUserid(), matching, boardnum, ducktype);
 		mav.addObject("user", user);
-		mav.addObject("supporterlist",supporterlist);
+		mav.addObject("supporterlist", supporterlist);
 		return mav;
 	}
 }

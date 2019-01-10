@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.UserMapper">
 	<select id="list" resultType="User" parameterType="map">
-		select userid,pass,email,tel,birth,type,usetech,file1 fileurl, pic,rating,matching from user
+		select userid,pass,email,tel,birth,type,usetech,file1 fileurl,pic,creditnum,creditpass,rating,matching from user
 		<if test="userid != null">
 			where userid=#{userid}
 		</if>
@@ -17,14 +17,15 @@
 		</if>
 		order by userid
 	</select>
-	
+
 	<select id="supporterlist" resultType="User" parameterType="map">
 		select userid,email,tel,usetech,pic,matching from user
 		<if test="boardnum != null">
-			where userid in (select userid from duck where boardnum = #{boardnum})
+			where userid in (select userid from duck where boardnum =
+			#{boardnum})
 		</if>
 		<if test="ducktype != null">
-		and userid in (select userid from duck where ducktype = #{ducktype})
+			and userid in (select userid from duck where ducktype = #{ducktype})
 		</if>
 		and matching = 1
 		order by userid

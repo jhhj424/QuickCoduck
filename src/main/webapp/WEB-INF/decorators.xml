@@ -11,5 +11,6 @@
 	<decorator name="mypage" page="mypage_decorator.jsp">
 		<pattern>/user/mypage*</pattern>
 		<pattern>/user/myduck*</pattern>
+		<pattern>/admin/*</pattern>
 	</decorator>
 </decorators>
