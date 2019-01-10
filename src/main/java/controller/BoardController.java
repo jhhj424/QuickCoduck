@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.Board;
+import logic.Comment;
 import logic.DuckService;
 import logic.User;
 
@@ -152,11 +153,13 @@ public class BoardController {
 		Board bo = new Board();
 		bo.setBoardnum(num);
 		bo.setBoardtype(type);
+		List<Comment> comment = service.commentlist(num);
+		int commentCount = service.commentcount(bo.getBoardnum());
+		System.out.println("댓글개수:"+commentCount);
 		Board board = service.getBoard(bo);
-		System.out.println(board);
-		service.readcntadd(num); // 조회수 증가
 		mav.addObject("board",board);
-		System.out.println("디테일1");
+		mav.addObject("comment",comment);
+		mav.addObject("commentCount", commentCount);
 		return mav;
 	}
 	@RequestMapping(value="board/deleteForm")
@@ -271,4 +274,53 @@ public class BoardController {
 //	public void check(@RequestParam(value="valueArr[]") List<String>valueArr) {
 //		System.out.println(valueArr);
 //	}
+	//댓글 등록
+    @RequestMapping(value="board/comment*", method=RequestMethod.POST)
+	public ModelAndView comment(Comment comment, HttpSession session,HttpServletRequest request) {
+    	ModelAndView mav = new ModelAndView();
+    	System.out.println("댓글내용:"+comment.getContent());
+    	User user = (User)session.getAttribute("loginUser");
+    	System.out.println("아이디:" + user.getUserid());
+
+    	int boardnum = Integer.parseInt(request.getParameter("num"));
+    	int boardtype = Integer.parseInt(request.getParameter("type"));
+    	System.out.println("bnum:"+boardnum);
+    	System.out.println("btype:"+boardtype);
+    	int commentCount = service.commentcount(boardnum);
+    	
+
+    	try {
+    		service.commentadd(comment,request,user.getUserid());
+    		mav.addObject("content", comment.getContent());
+			mav.addObject("userid", user.getUserid());
+			mav.addObject("commentCount", commentCount);
+			mav.setViewName("redirect:detail.duck?type="+boardtype+"&num="+boardnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("댓글 등록에 실패하셨습니다", "detail.duck?type="+boardtype+"&num="+boardnum);
+		}		
+		return mav;
+	}
+ 
+    //댓글 삭제
+/*    @RequestMapping(value="/board/delcomment")
+    public ModelAndView delComment(Integer boardnum, Integer num, HttpServletRequest request) {
+    	System.out.println("원글번호:"+boardnum);
+    	System.out.println("댓글번호:"+num);
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int bnum = Integer.parseInt((request.getParameter("num")));
+    	int btype = Integer.parseInt((request.getParameter("type")));
+
+    	try {
+    		service.delcomment(num);    
+    		mav.addObject("num", num);
+			mav.setViewName("redirect:detail.duck?type="+btype+"&num="+bnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("댓글 삭제에 실패하셨습니다", "detail.duck?type="+btype+"&num="+bnum);
+		}	
+        return mav;
+     }
+*/ 
 }

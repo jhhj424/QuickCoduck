@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.CommentDao;
 import dao.UserDao;
 import util.CipherUtil;
 
@@ -24,6 +25,8 @@ public class DuckService {
 	private UserDao userDao;
 	@Autowired
 	private BoardDao boardDao;
+	@Autowired
+	private CommentDao commentDao;
 	
 	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String uploadPath = request.getServletContext().getRealPath("/") + "/" + path + "/";
@@ -163,5 +166,29 @@ public class DuckService {
 
 	public List<Board> boardlist2(Integer boardnum) {
 		return boardDao.mainlist2(boardnum);
+	}
+	//´ñ±Û
+	public void commentadd(Comment comment, HttpServletRequest request,String userid) {
+		int max = commentDao.maxNum();
+		comment.setNum(++max);
+		comment.setUserid(userid);
+		comment.setContent(comment.getContent());
+		comment.setBoardnum(Integer.parseInt(request.getParameter("num")));
+		
+		commentDao.insert(comment);
+	}
+
+	public int commentcount(Integer boardnum) {
+		return commentDao.count(boardnum);
+	}
+
+	public List<Comment> commentlist(Integer boardnum) {
+		return commentDao.list(boardnum);
+	}
+	public void upcomment(int num, String content) {
+		commentDao.update(num,content);
+	}
+	public void delcomment(Integer num) {
+		commentDao.delete(num);
 	}
 }

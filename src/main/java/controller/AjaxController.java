@@ -212,4 +212,15 @@ public class AjaxController {
 		}
 		return map;
 	}
+	//댓글삭제
+    @RequestMapping("board/delcomment")
+    @ResponseBody
+    public Map<Object,Object> delcomment(Integer num) {
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	service.delcomment(num);
+    	map.put("msg", "OK");
+//    	System.out.println("원글번호:"+boardnum);
+//    	System.out.println("댓글번호:"+num);
+        return map;
+   }
 }
