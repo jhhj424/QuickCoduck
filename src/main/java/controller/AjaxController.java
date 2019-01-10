@@ -63,7 +63,7 @@ public class AjaxController {
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
-					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!
+					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
 					service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
 					if(type==1) {
 						map.put("msg", "Duck 완료!");						
