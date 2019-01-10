@@ -120,8 +120,9 @@ document.getElementById("type").value = '${param.type}';
 <c:forEach var="board" items="${boardlist}">
 <tr align="center" valign="middle">
 <td>
+<c:set var="boardcnt" value="${boardcnt-1}" />
 <font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
-${board.boardnum}<sub>st</sub>게시글</font>
+${boardcnt+1}번 게시글</font>
 </td>
 <!-- 게시글번호 -->
 <td>
@@ -135,7 +136,6 @@ ${board.boardnum}<sub>st</sub>게시글</font>
 </c:if>
 </td>
 <!-- 첨부파일 여부 -->
-<c:set var="boardcnt" value="${boardcnt - 1}" />
 <td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
 <a href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}
 <c:if test="${board.boardtype==1}">추천 - ${board.recmd}</c:if></a></font>
