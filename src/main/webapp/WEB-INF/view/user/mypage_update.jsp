@@ -75,21 +75,21 @@
  <div class="w3-container w3-card w3-white w3-round w3-margin">
       <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user-plus fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 회원정보 수정</h2>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 id</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-id-badge fa-fw w3-margin-right"></i><b>사용자 id</b></h5>
           <h6 class="w3-text-teal">
           <input type="text" value="${loginUser.userid }" readonly="readonly" name="userid">
           </h6>
           <hr>
        </div>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 email</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-envelope fa-fw w3-margin-right"></i><b>사용자 email</b></h5>
           <h6 class="w3-text-teal">
           <input type="email" value="${loginUser.email }" name="email">
           </h6>
           <hr>
        </div>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 tel</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-volume-control-phone fa-fw w3-margin-right"></i><b>사용자 tel</b></h5>
           <h6 class="w3-text-teal">
           <input type="text" value="${loginUser.tel }" name="tel">
           </h6>
@@ -98,12 +98,12 @@
         <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 birth</b></h5>
           <h6 class="w3-text-teal">
-          <input type="date" min=1901 max="2018" name="birth" placeholder="Your birth(1901~2018)">
+          <input type="date" min=1901 max="2018" name="birth" placeholder="Your birth(1901~2018)" value="${loginUser.birth}">
           </h6>
           <hr>
        </div>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 보유기술</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i><b>사용자 보유기술</b></h5>
           <div align="left">
 		<select id="develop_select">
 			<option value="">Develop</option>
@@ -139,7 +139,7 @@
           <hr>
        </div>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 사진</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-file-image-o fa-fw w3-margin-right"></i><b>사용자 사진</b></h5>
           <c:if test="${!empty loginUser.fileurl}">
           <div id="file_desc">
 			<a href="../file/${loginUser.fileurl}">${loginUser.fileurl}</a>
@@ -153,7 +153,7 @@
           <hr>
        </div>
        <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 birth</b></h5>
+          <h5 class="w3-opacity"><i class="fa fa-refresh fa-fw w3-margin-right"></i><b>수정하기!</b></h5>
           <h6 class="w3-text-teal">
           <input type="submit" value="수정하기">
           </h6>
