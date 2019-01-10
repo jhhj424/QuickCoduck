@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.Board;
+import logic.Duck;
 import logic.DuckService;
 import logic.User;
 
@@ -225,20 +226,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/myduck")
-	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type,
-			HttpSession session, String id, Integer boardnum) {
+	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer boardtype,
+			HttpSession session, String id, Integer boardnum, Integer ducktype) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
-
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent, type, id);
+		int listcount = service.boardcount(searchType, searchContent, boardtype, id, ducktype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id);
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, boardtype, id, ducktype);
 		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -254,7 +254,8 @@ public class UserController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
-		mav.addObject("type", type);
+		mav.addObject("boardtype", boardtype);
+		mav.addObject("ducktype", ducktype);
 		return mav;
 	}
 	@RequestMapping(value = "user/submain")

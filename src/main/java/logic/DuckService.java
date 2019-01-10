@@ -63,8 +63,8 @@ public class DuckService {
 		return boardDao.count(type);
 	}
 	
-	public int boardcount(String searchType, String searchContent,Integer type, String id) {
-		return boardDao.count(searchType, searchContent,type, id);
+	public int boardcount(String searchType, String searchContent,Integer boardtype, String id, Integer ducktype) {
+		return boardDao.count(searchType, searchContent,boardtype, id, ducktype);
 	}
 	
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
@@ -122,12 +122,12 @@ public class DuckService {
 		return boardDao.recmdselect(userid,boardnum);//recmd테이블에 해당 데이터 있는지 조회
 	}
 
-	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
-		return boardDao.duckselect(userid,boardnum,ducktype);//duck테이블에 해당 데이터 있는지 조회
+	public int duckselect(String userid, Integer boardnum) {
+		return boardDao.duckselect(userid,boardnum);//duck테이블에 해당 데이터 있는지 조회
 	}
 
-	public void boardduck(Board board, String userid, Integer ducktype) {
-		boardDao.duckinsert(board,userid,ducktype);
+	public void boardduck(Board board, String userid) {
+		boardDao.duckinsert(board,userid);
 	}
 		
 	public List<User> userList() {
@@ -148,8 +148,8 @@ public class DuckService {
 	public List<Board> boardlist(Integer pageNum, int limit, Integer type) {
 		return boardDao.list(pageNum, limit,type);
 	}
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String id) {
-		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id);
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer boardtype, String id, Integer ducktype) {
+		return boardDao.ducklist(searchType, searchContent, pageNum, limit, boardtype, id, ducktype);
 	}
 
 	public List<Board> boardlist(String num) {

@@ -49,12 +49,13 @@ public class BoardDao {
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
-	public int count(String searchType, String searchContent,Integer type, String id) {
+	public int count(String searchType, String searchContent,Integer boardtype, String id, Integer ducktype) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
 		map.put("find", searchContent);
-		map.put("type", type);
+		map.put("boardtype", boardtype);
 		map.put("userid", id);
+		map.put("ducktype", ducktype);
 		return sqlSession.selectOne(NS + "count", map);
 	}
 	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
@@ -112,11 +113,10 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
+	public int duckselect(String userid, Integer boardnum) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("userid", userid);
 		map.put("boardnum", boardnum);
-		map.put("ducktype", ducktype);
 		String select = sqlSession.getMapper(BoardMapper.class).duckselect(map);
 		int num = 0;
 		if(select == null) {
@@ -126,12 +126,10 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public void duckinsert(Board board, String userid, Integer ducktype) {
+	public void duckinsert(Board board, String userid) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("boardnum", board.getBoardnum());
 		map.put("userid", userid);
-		ducktype = 1; 
-		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).duckinsert(map);
 	}
 	public List<Board> list(Integer pageNum, int limit, Integer type, String tech) {
@@ -152,16 +150,17 @@ public class BoardDao {
 		return sqlSession.selectList(NS + "select", map);
 	}
 	
-	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
-			String id) {
+	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer boardtype,
+			String id, Integer ducktype) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		int startrow = (pageNum -1) * limit;
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("startrow", startrow);
 		map.put("limit", limit);
-		map.put("type", type);
+		map.put("boardtype", boardtype);
 		map.put("userid", id);
+		map.put("ducktype", ducktype);
 		return sqlSession.selectList(NS + "ducklist", map);
 	}
 	public List<Board> list(String num) {

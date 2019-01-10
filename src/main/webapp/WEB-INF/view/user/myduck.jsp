@@ -51,10 +51,10 @@
 	<th width="14%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
 	<th width="10%" height="26">추천수</th>
-	<c:if test="${type==1}">
+	<c:if test="${boardtype==1}">
 	<th width="13%" height="26">DUCK수</th>
 	</c:if>
-	<c:if test="${type==3}">
+	<c:if test="${boardtype==3}">
 	<th width="13%" height="26">관심등록수</th>
 	</c:if>
 	<th width="10%" height="26">조회수</th>

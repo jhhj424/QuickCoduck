@@ -19,7 +19,6 @@
 							var data = {
 								"num" : num,
 								"type" : type,
-								"ducktype" : ducktype,
 								"userid" : userid
 								}
 							$.ajax({
@@ -36,17 +35,20 @@
 											+ error + ", status : " + status);
 								}
 							})
-						})
+						});
+				
 				$("#duck").click(
 						function() {
 							var num = ${board.boardnum}
 							var type = ${board.boardtype}
-							var ducktype = 1
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+							alert('boardnum:'+${board.boardnum});
+							alert(${board.boardtype});
+							alert("${loginUser.userid}");
+							
 							var data = {
 								"num" : num,
 								"type" : type,
-								"ducktype" : ducktype,
 								"userid" : userid
 							}
 							$.ajax({
@@ -62,8 +64,8 @@
 											+ error + ", status : " + status);
 								}
 							})
-						})
-			})
+						});
+			/* 
 			$("#pro").click(
 						function() {
 							var num = ${board.boardnum}
@@ -73,11 +75,10 @@
 							var data = {
 								"num" : num,
 								"type" : type,
-								"ducktype" : ducktype,
 								"userid" : userid
 							}
 							$.ajax({
-								url : "duck.duck",
+								url : "pro.duck",
 								type : "post",
 								data : data,
 								dataType : "json", // ajax 통신으로 받는 타입
@@ -89,8 +90,8 @@
 											+ error + ", status : " + status);
 								}
 							})
-						})
-			})
+						}); */
+			});
 </script>
 
 </head>

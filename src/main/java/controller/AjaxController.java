@@ -54,27 +54,26 @@ public class AjaxController {
 	// user_signup
 	@ResponseBody
 	@RequestMapping("board/duck")
-	public Map<Object, Object> duck(Integer num, Integer type, String userid, Integer ducktype) {
+	public Map<Object, Object> duck(Integer num, Integer type, String userid) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		Board board = new Board(); // board 껍데기 객체 생성
 		board.setBoardnum(num);
 		board.setBoardtype(type);
 		board = service.getBoard(board); // 해당 num,type의 board객체 가져옴
-		Duck duck = new Duck();
-		duck.setDucktype(ducktype);
-		duck = service.getDuck(duck);
-		int duckselect = service.duckselect(userid, num, ducktype);
+//		
+//		Duck duck = new Duck();
+//		if(type == 3) {//duck 이 아닌 스크랩 했을 경우
+//		}
+		int duckselect = service.duckselect(userid, num);
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
-					service.boardduck(board, userid, ducktype);
+					service.boardduck(board, userid);
 					service.duckcntadd(num);
-					if(type==1 && ducktype==1) {
+					if(type==1) {
 						map.put("msg", "Duck 완료!");						
-					}else if(type==3 && ducktype==1) {
+					}else if(type==3) {
 						map.put("msg", "스크랩 완료!");
-					}else if(type==1 && ducktype==2) {
-						map.put("msg", "신청 완료!");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,12 +82,10 @@ public class AjaxController {
 				map.put("msg", "본인 게시물입니다!");
 			}
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때			
-			if(type==1  && ducktype==1) {
+			if(type==1) {
 				map.put("msg", "이미 Duck한 게시물입니다!");						
-			}else if(type==3  && ducktype==1) {
+			}else if(type==3) {
 				map.put("msg", "이미 스크랩한 게시물입니다!");
-			}else if(type==1  && ducktype==2) {
-				map.put("msg", "이미 신청하셨습니다!");
 			}
 		}
 		return map;
