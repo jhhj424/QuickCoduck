@@ -61,9 +61,6 @@ public class AjaxController {
 		board.setBoardtype(type);
 		board = service.getBoard(board); // 해당 num,type의 board객체 가져옴
 		int duckselect = service.duckselect(userid, num, ducktype);
-		System.out.println("userid:"+userid);
-		System.out.println("num:"+num);
-		System.out.println("ducktype:"+ducktype);
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
