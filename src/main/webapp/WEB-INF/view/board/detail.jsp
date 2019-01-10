@@ -97,7 +97,7 @@
 				</tr>
 				<tr>
 					<td>첨부파일</td>
-					<td>&nbsp; <c:if test="${!empty board.fileurl}">
+					<td>&nbsp; <c:if test="${!empty board.fileurl}">테스트
 							<a href="../file/${board.fileurl}">${board.fileurl}</a>
 						</c:if>
 					</td>
@@ -107,7 +107,7 @@
 						href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[수정]</a>
 						<a
 						href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[삭제]</a>
-						<a href="list.duck?type=${board.boardtype}">[목록]</a>
+						<a href="list.duck?type=${board.boardtype}">[목록!!!]</a>
 						<c:if test="${board.boardtype==1}">
 						<button type="button" class="myButton" id="rec">추천</button>
 						<button type="button" class="myButton" id="duck">DUCK</button></c:if>

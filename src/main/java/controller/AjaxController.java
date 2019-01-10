@@ -93,6 +93,26 @@ public class AjaxController {
 		map.put("tech", data);
 		return map;
 	}
+	
+	@ResponseBody
+	@RequestMapping("board/tech_select")
+	public Map<Object, Object> tech_select(String tech) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		String techarr[] = null; // 사용기술목록 배열
+		List<String> techlist = new ArrayList<String>(); // 기술목록 리스트
+		techarr = tech.split(","); // 넘어온 기술목록을 / 기준으로 split
+		for(int i=0;i<techarr.length;i++) {
+			techlist.add(techarr[i]+",");
+		}
+		TreeSet<String> arr1 = new TreeSet<String>(techlist);
+		ArrayList<String> arr2 = new ArrayList<String>(arr1);
+		tech = "";
+		for(int i=0;i<arr2.size();i++) {
+			tech += arr2.get(i);
+		}
+		map.put("tech", tech);
+		return map;
+	}
 
 	@RequestMapping("board/ajax_content")
 	public String list(String chk, Integer pageNum, Integer type, HttpSession session, Model model) {
