@@ -5,7 +5,7 @@
 <mapper namespace="dao.mapper.BoardMapper">
 
 	<select id="count" resultType="int" parameterType="map">
-		select count(*) from board where boardtype = #{boardtype}
+		select count(*) from board where boardtype = #{type}
 		<if test="userid != null and ducktype != null">
 			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
 		</if>
@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="ducklist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype}) and boardtype = #{boardtype}
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype}) and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
