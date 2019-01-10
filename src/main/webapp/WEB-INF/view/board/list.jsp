@@ -68,19 +68,19 @@ QuickCoduck
 <input type="hidden" name="pageNum" value="1">
 <img src="../workpic/lens.png" style="height: 25px;weight:25px;">
 게시글 찾기:
-<select name="type" id="type">
-<option value="">선택하세요</option>
+<select name="searchtype" id="type">
+<option value=" ">선택하세요</option>
 <option value="subject">제목</option>
 <option value="userid">글쓴이</option>
 <option value="content">내용</option>
 </select>
 <script type="text/javascript">
 if ('${param.type}' != '') {
-document.getElementById("type").value = '${param.type}';
+document.getElementById("searchtype").value = '${param.type}';
 }
 </script>
 <input type="text" name="searchContent" size="50" value="${param.searchContent}">
-<input type="submit"value="검색" class="delete">
+<input type="submit"value="검색">
 </form>
 </td>
 <c:if test="${param.type==1}">

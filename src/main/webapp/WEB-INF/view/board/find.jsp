@@ -320,17 +320,16 @@ html, body, h1, h2, h3, h4, h5, h6 {
 														<b>글개수:${listcount}</b>
 													</div>
 												<div align="center" style="margin-top: 5px;">
-													<form action="find.duck?type=${param.type}" method="post"
-														name="searchform" onsubmit="return list(1)">
+													<form action="find.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">
 														게시글 검색 <input type="hidden" name="pageNum" value="1">
 														<select name="searchtype">
 															<option value=" ">선택하세요</option>
 															<option value="subject">제목</option>
 															<option value="userid">글쓴이</option>
 															<option value="content">내용</option>
-														</select>&nbsp; <input type="text" name="searchContent"
-															value="${param.searchContent}"> <input
-															type="submit" value="검색">
+														</select>&nbsp; 
+														<input type="text" name="searchContent" value="${param.searchContent}"> 
+														<input type="submit" value="검색">
 													</form>
 												</div>
 											</div>

@@ -90,7 +90,9 @@
 		</div>	
 		<div><div align="center"><b>글쓴이 : </b><form:input path="userid" value="${board.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></div>
 		<div><div align="center"><b>비밀번호 : </b><input type="password" name="pass"></div>
-		<div align="center"><b>사용기술 : </b>
+		<c:if test="${param.type==1 || param.type==3}">
+		<div align="center">
+		<b>사용기술 : </b>
 		<select id="develop_select">
 			<option value="">Develop</option>
 			<option value="C">C</option>
@@ -118,6 +120,7 @@
 			<option value="iOS">iOS</option>
 		</select>
 		</div>
+		</c:if>
 		<div><div align="center"><b>제목 : </b><form:input path="subject" value="${board.subject }"/><font color="red"><form:errors path="subject" /></font></div></div>
 		</div>
 		<div><div align="center"><b>[내용]</b></div>
@@ -130,9 +133,13 @@
 			<a href="javascript:file_delete()">[첨부파일삭제]</a></div>
 		</c:if>
 		<input type="file" name="file1"></div></div>
-		<div><div align="center"><b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="${board.usetech }">
-		<input type="button" id="tech_reset" value="reset"><div><div align="center">
-		</div></div>
-		<a href="javascript:document.f.submit()">[게시물수정]</a>
-		<a href="list.duck?type=${param.type}">[게시물목록]</a></div></div>
-		</div></div></form:form></body></html>
+	<div align="center">
+		 <c:if test="${param.type==1 || param.type==3}">
+		<div align="center">
+		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="${board.usetech }">
+		<input type="button" id="tech_reset" value="reset"></div>
+		</c:if>
+		<br>
+		<a href="javascript:document.f.submit()">[게시물등록]</a>
+		<a href="list.duck?type=${param.type}">[게시물목록]</a></div>
+		</div></form:form></body></html>

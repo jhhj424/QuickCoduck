@@ -79,7 +79,9 @@
 		</c:if>
 		</div>	
 		<div><div align="center"><b>글쓴이 : </b><form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></div>
-		<div align="center"><b>사용기술 : </b>
+		<c:if test="${param.type==1 || param.type==3}">
+		<div align="center">
+		<b>사용기술 : </b>
 		<select id="develop_select">
 			<option value="">Develop</option>
 			<option value="C">C</option>
@@ -107,15 +109,20 @@
 			<option value="iOS">iOS</option>
 		</select>
 		</div>
+		</c:if>
 		<div><div align="center"><b>제목 : </b><form:input path="subject"/><font color="red"><form:errors path="subject" /></font></div></div>
 		</div>
 		<div><div align="center"><b>[내용]</b></div>
 		<div><form:textarea path="content" rows="15" cols="80"/>
 			<font color="red"><form:errors path="content" /></font></div></div>
 		<div><div align="center"><b>첨부파일 : </b><input type="file" name="file1"></div></div>
-		<div><div align="center"><b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
-		<input type="button" id="tech_reset" value="reset"><div><div align="center">
-		</div></div>
+		<div align="center">
+		 <c:if test="${param.type==1 || param.type==3}">
+		<div align="center">
+		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
+		<input type="button" id="tech_reset" value="reset"></div>
+		</c:if>
+		<br>
 		<a href="javascript:document.f.submit()">[게시물등록]</a>
-		<a href="list.duck?type=${param.type}">[게시물목록]</a></div></div>
+		<a href="list.duck?type=${param.type}">[게시물목록]</a></div>
 		</div></form:form></body></html>
