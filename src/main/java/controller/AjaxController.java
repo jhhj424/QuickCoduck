@@ -213,4 +213,32 @@ public class AjaxController {
 		}
 		return map;
 	}
+	
+	// user_signup
+	@ResponseBody
+	@RequestMapping("board/pro")
+	public Map<Object, Object> pro(Integer num, Integer type, String userid, Integer ducktype) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Board board = new Board(); // board 껍데기 객체 생성
+		board.setBoardnum(num);
+		board.setBoardtype(type);
+		board = service.getBoard(board); // 해당 num,type의 board객체 가져옴
+		int duckselect = service.duckselect(userid, num, ducktype);
+		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
+			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
+				try {
+					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
+					//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
+					map.put("msg", "신청 완료!");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {// 자신의 게시물일때
+				map.put("msg", "본인 게시물입니다!");
+			}
+		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
+			map.put("msg", "이미 신청하셨습니다!");						
+		}
+		return map;
+	}
 }

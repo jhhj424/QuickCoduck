@@ -43,5 +43,4 @@ public interface BoardMapper  {
 
 	@Update("update board set duckcnt = duckcnt+1 where boardnum = #{boardnum}")
 	void duckcntadd(Map<String, Integer> map);
-
 }
