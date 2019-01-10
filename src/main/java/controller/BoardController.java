@@ -25,7 +25,6 @@ import logic.User;
 public class BoardController {
 	@Autowired
 	private DuckService service;
-	
 
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
@@ -306,26 +305,60 @@ public class BoardController {
     @RequestMapping(value="board/comment*", method=RequestMethod.POST)
 	public ModelAndView comment(Comment comment, HttpSession session,HttpServletRequest request) {
     	ModelAndView mav = new ModelAndView();
-    	System.out.println("댓글내용:"+comment.getContent());
+//    	System.out.println("댓글내용:"+comment.getContent());
     	User user = (User)session.getAttribute("loginUser");
-    	System.out.println("아이디:" + user.getUserid());
+//    	System.out.println("아이디:" + user.getUserid());
 
+    	int rnum = service.refnum();
     	int boardnum = Integer.parseInt(request.getParameter("num"));
     	int boardtype = Integer.parseInt(request.getParameter("type"));
-    	System.out.println("bnum:"+boardnum);
-    	System.out.println("btype:"+boardtype);
     	int commentCount = service.commentcount(boardnum);
-    	
+//    	System.out.println("bnum:"+boardnum);
+//    	System.out.println("btype:"+boardtype);    	
+//    	System.out.println("ref:"+rnum);
 
     	try {
-    		service.commentadd(comment,request,user.getUserid());
+    		service.commentadd(comment,request,user.getUserid(),rnum);
     		mav.addObject("content", comment.getContent());
 			mav.addObject("userid", user.getUserid());
 			mav.addObject("commentCount", commentCount);
+			mav.addObject("ref", rnum);
 			mav.setViewName("redirect:detail.duck?type="+boardtype+"&num="+boardnum);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LoginException("댓글 등록에 실패하셨습니다", "detail.duck?type="+boardtype+"&num="+boardnum);
+		}		
+		return mav;
+	}
+    //답변 등록
+    @RequestMapping(value="board/reply", method=RequestMethod.GET)
+	public ModelAndView reply(String reply,Integer num, Integer type, HttpSession session,HttpServletRequest request) {
+    	ModelAndView mav = new ModelAndView();
+    	Comment comment = service.selectcomment(num); //num : 원댓글번호
+    	System.out.println("ref"+comment.getRef());
+    	System.out.println("reflevel"+comment.getReflevel());
+    	System.out.println("refstep"+comment.getRefstep());
+    	System.out.println("================================");
+    	System.out.println("답변 내용:"+reply); //reply : 답글의 내용
+    	User user = (User)session.getAttribute("loginUser");
+    	System.out.println("아이디:" + user.getUserid());
+    	int commentCount = service.commentcount(comment.getBoardnum());
+    	int refstep = comment.getRefstep();
+    	int step = refstep +1;
+    	System.out.println(step);
+    	int boardnum = comment.getBoardnum();
+    	
+    	try {
+    		service.replyadd(reply,user.getUserid(),step,boardnum,comment.getRef());
+    		mav.addObject("content", comment.getContent());
+			mav.addObject("userid", user.getUserid());
+			mav.addObject("commentCount", commentCount);
+			mav.addObject("refstep", step);
+			mav.setViewName("redirect:detail.duck?type="+type+"&num="+boardnum);
+			System.out.println("답글등록성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("댓글 등록에 실패하셨습니다", "detail.duck?type="+type+"&num="+boardnum);
 		}		
 		return mav;
 	}

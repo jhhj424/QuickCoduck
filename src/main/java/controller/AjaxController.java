@@ -278,7 +278,7 @@ public class AjaxController {
 				map.put("msg", "본인 게시물입니다!");
 			}
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
-			map.put("msg", "이미 신청하셨습니다!");						
+			map.put("msg", "이미 신청하셨습니다!");
 		}
 		return map;
 	}

@@ -1,23 +1,18 @@
 package logic;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
 import dao.CommentDao;
 import dao.UserDao;
-import util.CipherUtil;
 
 @Service // @Component + Service 기능 (Controller 와 Repository의 사이의 중간 객체)
 public class DuckService {
@@ -188,10 +183,11 @@ public class DuckService {
 		return boardDao.mainlist2(boardnum);
 	}
 	//댓글
-	public void commentadd(Comment comment, HttpServletRequest request,String userid) {
+	public void commentadd(Comment comment, HttpServletRequest request, String userid, int rnum) {
 		int max = commentDao.maxNum();
 		comment.setNum(++max);
 		comment.setUserid(userid);
+		comment.setRef(rnum);
 		comment.setContent(comment.getContent());
 		comment.setBoardnum(Integer.parseInt(request.getParameter("num")));
 		
@@ -220,4 +216,23 @@ public class DuckService {
 		return userDao.supporterlist(userid,matching,boardnum,ducktype);
 	}
 
+	public int refnum() {
+		return commentDao.refnum();
+	}
+
+	public void replyadd(String reply, String userid, Integer step,Integer boardnum,Integer ref) {
+		int max = commentDao.maxNum();
+		Comment comment = new Comment();
+		comment.setNum(++max);
+		comment.setUserid(userid);
+		comment.setRefstep(step);
+		comment.setContent(reply);
+		comment.setBoardnum(boardnum);
+		comment.setRef(ref);
+		commentDao.insert(comment);
+	}
+
+	public Comment selectcomment(Integer num) {
+		return commentDao.select(num);
+	}
 }

@@ -32,7 +32,6 @@ public class CommentDao {
 		return sqlSession.selectOne(NS + "count", map);
 	}
 
-
 	public List<Comment> list(Integer boardnum) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("boardnum", boardnum);
@@ -44,5 +43,23 @@ public class CommentDao {
 	}
 	public void delete(Integer num) {
 		sqlSession.getMapper(CommentMapper.class).delete(num);
-	}	
+	}
+
+	public int refnum() {		
+		String refnum = sqlSession.getMapper(CommentMapper.class).refnum();
+		int rnum = 0;
+		if(refnum==null) {
+			rnum = 1;
+		}else {
+			rnum = Integer.parseInt(refnum) + 1;
+		}
+		return rnum;
+	}
+
+	public Comment select(Integer num) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("num", num);
+		return sqlSession.selectOne(NS + "select", map);
+	}
+
 }

@@ -127,6 +127,64 @@
 			return false;
 		}
 	}
+	//댓글 답변 입력창
+	function comment_submit2(num) {
+		var reply = $("#replycontent").val();
+		alert(reply);
+		var length = $("#replycontent").val().length;
+		alert(length);
+		alert("댓글번호:"+num);
+		var type = ${param.type};
+		if (length < 1) {
+			alert("답변을 입력하세요");
+			return;
+		}else{
+			alert($("#replycontent").val());
+		}
+		location.href="reply.duck?num="+num+"&reply="+reply+"&type="+type
+	}
+	function replyCommentOpen(num){
+		$("#reply").html(
+				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
+					+'<td>└답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
+					+'name="reply" id="replycontent" >'+'</textarea>'
+					+'<td><button type="button" onclick="location.href='
+					+"'javascript:comment_submit2("+num+")'"
+					+' "class="comment">답변등록!!</button><br>'
+					+'<button onclick="replycancer()">답변 취소</button>'
+				    +'</td></td></tr></table>'
+		)
+	}
+	function replycancer(){
+		$("#reply").html(
+				''
+		)
+	}
+			$("#pro").click(
+						function() {
+							var num = ${board.boardnum}
+							var type = ${board.boardtype}
+							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+							var data = {
+								"num" : num,
+								"type" : type,
+								"ducktype" : 2,
+								"userid" : userid
+							}
+							$.ajax({
+								url : "pro.duck",
+								type : "post",
+								data : data,
+								dataType : "json", // ajax 통신으로 받는 타입
+								success : function(data) {
+									alert(data.msg);
+								},
+								error : function(xhr, status, error) { //서버응답 실패
+									alert("서버오류 : " + xhr.status + ", error : "
+											+ error + ", status : " + status);
+								}
+							})
+						});
 </script>
 
 </head>
@@ -194,7 +252,7 @@
 						<button type="button" class="myButton" id="pro">참여신청</button>
 						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}">[지원자목록보기]</a>
 						</c:if>
-</td>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -216,39 +274,20 @@
 							<tr>
 								<td>${c.userid}님</td>
 								<td style="min-width: 600px; text-align: left; max-width: 600px">
-										${fn:replace(c.content, cn, br)}
-								</td>
+									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+										${fn:replace(c.content, cn, br)}</div>
+								</td>								
 								<td><c:if test="${c.userid == loginUser.userid}">
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<br>
+										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<!--  --><fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />  -->
+									</c:if> <c:if test="${c.userid != loginUser.userid }"> 
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" /><br><!-- 시간 설정해서 집어넣어야됨ㅇㅋ? -->
+										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 									</c:if></td>
-							</tr>
-						</c:forEach>
-						<%-- 페이지 부분 출력하기 --%>
-						<tr align="center">
-							<td colspan="3"><c:if test="${pageNum<=1}">
-									<button type="button" class="comment">이전</button>
-								</c:if> <c:if test="${pageNum>1}">
-									<button type="button"
-										onclick="location.href='detail.duck?pageNum=${pageNum-1}&num=${board.boardnum}&type=${board.boardtype}&id=${loginUser.userid}'"
-										class="comment">이전</button>
-								</c:if> <c:forEach var="a" begin="${startpage}" end="${endpage}">
-									<c:if test="${a==pageNum }">
-										<button type="button" class="comment">${a}</button>
-									</c:if>
-									<c:if test="${a!=pageNum }">
-										<button type="button"
-											onclick="location.href='detail.duck?pageNum=${a}&num=${board.boardnum}&type=${board.boardtype}&id=${loginUser.userid}'"
-											class="comment">${a}</button>
-									</c:if>
-								</c:forEach> <c:if test="${pageNum>=maxpage}">
-									<button type="button" class="comment">다음</button>
-								</c:if> <c:if test="${pageNum < maxpage}">
-									<button type="button" class="comment"
-										onclick="location.href='detail.duck?pageNum=${pageNum+1}&num=${board.boardnum}&type=${board.boardtype}&id=${loginUser.userid}'">다음</button>
-								</c:if></td>
-						</tr>
+							</tr><tr id="reply" align="right"></tr>
+						</c:forEach>						
 					</c:if>
 				</table>
 			</div>
