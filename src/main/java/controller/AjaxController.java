@@ -119,18 +119,29 @@ public class AjaxController {
 	}
 
 	@RequestMapping("board/ajax_content")
-	public String list(String chk, Integer pageNum, Integer type, HttpSession session, Model model) {
+	public String list(String chk, Integer pageNum, Integer type, HttpSession session, String searchType, String searchContent, Model model) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		User user = (User)session.getAttribute("loginUser");
 		int techlistcnt = 0;
+		int mycount = 0; //나만의 게시물 총게시물 개수
 		String tech[] = null; // 사용기술목록 배열
 		List<Board> boardlist = new ArrayList<Board>(); // 기술에맞는 board리스트
 		List<Integer> bonum = new ArrayList<Integer>();
+		List<Board> mylist = new ArrayList<Board>();//나만의 게시글
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		if (chk == "") {
 			boardlist = service.boardlist(pageNum, limit, type);
 			techlistcnt = service.boardcount(type);
+			if(type==5) {
+				for(int i=0; i<boardlist.size();i++) {
+					if(boardlist.get(i).getUserid().equals(user.getUserid())) {
+						mylist.add(boardlist.get(i));
+					}
+					mycount = mylist.size();
+				}
+			}
 		} else { // 체크박스에 항목이 있는 경우
 			tech = chk.split(","); // 넘어온 기술목록을 / 기준으로 split
 			System.out.println("기술목록 : " + chk);
@@ -165,6 +176,18 @@ public class AjaxController {
 				System.out.println("가져올게시글번호문자열:"+num);
 				System.out.println("페이지번호:"+pageNum);
 				boardlist = service.boardlist(num);//넘겨줄 게시물리스트<<
+				//나만의소스보기-------------------------------------
+				System.out.println("타입은???"+type);
+				if(type==5) {
+					for(int i=0; i<boardlist.size();i++) {
+						if(boardlist.get(i).getUserid().equals(user.getUserid())) {
+							mylist.add(boardlist.get(i));
+						}
+						mycount = mylist.size();
+					}
+				}
+
+				//나만의소스보기-------------------------------------
 			} catch (Exception e) {// 기술목록에 맞는 게시글이 없을경우
 				System.out.println("기술목록에 해당하는 게시물이 없음");
 				boardlist.add(new Board());
@@ -183,9 +206,12 @@ public class AjaxController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 		model.addAttribute("boardlist", boardlist);
+		model.addAttribute("mylist", mylist);
 		model.addAttribute("tech", chk);
 		model.addAttribute("listcount", techlistcnt);
+		model.addAttribute("mycount", mycount);
 		model.addAttribute("boardcnt", boardcnt);
+		model.addAttribute("type", type);
 		return "ajax/ajax_content";
 	}
 	

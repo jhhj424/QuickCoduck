@@ -44,6 +44,14 @@ public class BoardDao {
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
+	public int count(String searchType, String searchContent,Integer type,String userid) {//나만의소스 카운트용
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("type", type);
+		map.put("id", userid);//count용
+		return sqlSession.selectOne(NS + "count", map);
+	}
 	public int count(Integer type) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("type", type);
@@ -165,6 +173,18 @@ public class BoardDao {
 		map.put("ducktype", ducktype);
 		return sqlSession.selectList(NS + "ducklist", map);
 	}
+	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String userid) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("type", type);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "mylist", map);
+	}
+	
 	public List<Board> list(String num) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("num", num);

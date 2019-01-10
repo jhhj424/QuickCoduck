@@ -216,6 +216,8 @@ function write_submit() {
 								var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
 								var pageNum = $("input[name=pageNum]").val(); //pageNum값
 								var type = ${param.type}
+								var searchType = $("select[name=pageNum]").val();
+								var searchContent = $("input[name=searchContent]").val();
 								; //게시판type
 								$(".tree").click(
 										function() {
@@ -226,7 +228,9 @@ function write_submit() {
 											data = {
 												"chk" : chk,
 												"pageNum" : pageNum,
-												"type" : type
+												"type" : type,
+												"searchType" : searchType,
+												"searchContent" : searchContent
 											}
 											chk = ""
 											$.ajax({
@@ -346,7 +350,12 @@ function write_submit() {
 												onmouseout="this.style.backgroundColor=''"
 												style="border: 1px solid; border-color: grey; margin-bottom: 3px; margin-top: 3px">
 													<div align="right">
+														<c:if test="${type != 5}">														
 														<b>글개수:${listcount}</b>
+														</c:if>
+														<c:if test="${type == 5}">														
+														<b>나만의소스개수:${mycount}</b>
+														</c:if>
 													</div>
 												<div align="center" style="margin-top: 5px;">
 													<form action="find.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">

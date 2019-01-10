@@ -58,6 +58,7 @@ public class BoardController {
 	}
 	@RequestMapping(value = "board/find")
 	public ModelAndView find(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
+		User user = (User)session.getAttribute("loginUser");
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -69,19 +70,35 @@ public class BoardController {
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
 		int listcount = service.boardcount(searchType, searchContent,type);
+		int mycount = service.boardcount(searchType, searchContent,type,user.getUserid());//나만의소스카운트용
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
+		if(type==5) {
+			System.out.println("나만의소스게시판");
+			boardlist.clear();
+			boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type,user.getUserid());
+			System.out.println("나만의소스:"+boardlist);
+		}
 		int maxpage = (int) ((double) listcount / limit + 0.95);
+		if(type==5) {
+			maxpage = 0;
+			maxpage = (int) ((double) mycount / limit + 0.95);
+		}
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
 		int endpage = startpage + 9;
 		if (endpage > maxpage)
 			endpage = maxpage;
 		int boardcnt = listcount - (pageNum - 1) * limit;
+		if(type==5) {
+			boardcnt = 0;
+			boardcnt = mycount - (pageNum - 1) * limit;
+		}
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
 		mav.addObject("endpage", endpage);
 		mav.addObject("listcount", listcount);
+		mav.addObject("mycount", mycount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
 		return mav;
