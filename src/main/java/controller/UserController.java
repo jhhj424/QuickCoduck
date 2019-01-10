@@ -216,7 +216,7 @@ public class UserController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new LoginException("탈퇴실패", "../user/mypage_delete.duck?id=" + id);
+				throw new LoginException("관리자는 삭제불가", "../user/mypage_delete.duck?id=" + id);
 			}
 		} else {// 버번틀림
 			throw new LoginException("비밀번호오류", "../user/mypage_delete.duck?id=" + id);
