@@ -176,10 +176,10 @@
 						href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[수정]</a>
 						<a
 						href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[삭제]</a>
-						<c:if test="${board.boardtype==1 || board.boardtype==3 }">
+						<c:if test="${board.boardtype==1 || board.boardtype==3 || board.boardtype==5 }">
 						<a href="find.duck?type=${board.boardtype}">[목록]</a>
 						</c:if>
-						<c:if test="${board.boardtype!=1 && board.boardtype!=3 }">
+						<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
 						<a href="list.duck?type=${board.boardtype}">[목록]</a>
 						</c:if>
 						<c:if test="${board.boardtype==1}">

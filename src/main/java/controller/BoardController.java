@@ -135,7 +135,11 @@ public class BoardController {
 		try {
 			service.boardadd(board, request);
 			mav.addObject("board", board);
-			mav.setViewName("redirect:list.duck?type="+board.getBoardtype());
+			if(board.getBoardtype()==2) {
+				mav.setViewName("redirect:list.duck?type="+board.getBoardtype());	
+			}else {
+				mav.setViewName("redirect:find.duck?type="+board.getBoardtype());				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LoginException("게시글 등록에 실패하셨습니다", "write.duck?type="+board.getBoardtype());
@@ -246,7 +250,11 @@ public class BoardController {
 				throw new LoginException("게시글 수정에 실패했습니다", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
 			}
 		}
-		mav.setViewName("redirect:list.duck?type="+board.getBoardtype());
+		if(board.getBoardtype()==2) {
+			mav.setViewName("redirect:list.duck?type="+board.getBoardtype());	
+		}else {
+			mav.setViewName("redirect:find.duck?type="+board.getBoardtype());				
+		}
 		return mav;
 	}
 	

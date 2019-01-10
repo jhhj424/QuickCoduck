@@ -77,9 +77,12 @@
 		<c:if test="${param.type==3}">
 			<div><h3>프로젝트공고모집게시판 글쓰기</h3></div>
 		</c:if>
+		<c:if test="${param.type==5}">
+			<div><h3>나만의소스 작성하기</h3></div>
+		</c:if>
 		</div>	
 		<div><div align="center"><b>글쓴이 : </b><form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></div>
-		<c:if test="${param.type==1 || param.type==3}">
+		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<div align="center">
 		<b>사용기술 : </b>
 		<select id="develop_select">
@@ -117,7 +120,7 @@
 			<font color="red"><form:errors path="content" /></font></div></div>
 		<div><div align="center"><b>첨부파일 : </b><input type="file" name="file1"></div></div>
 		<div align="center">
-		 <c:if test="${param.type==1 || param.type==3}">
+		 <c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<div align="center">
 		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
 		<input type="button" id="tech_reset" value="reset"></div>

@@ -93,6 +93,11 @@ html, body, h1, h2, h3, h4, h5, h6 {
 					<b>프로젝트 공고 </b>
 				</h1>
 			</c:if>
+			<c:if test="${param.type==5}">
+				<h1>
+					<b>나만의 소스</b>
+				</h1>
+			</c:if>
 		</header>
 	</div>
 	<!-- Page Container -->
@@ -298,6 +303,12 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							<i
 								class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>프로젝트
 							공고
+						</h2>
+					</c:if>
+					<c:if test="${param.type==5}">
+						<h2 class="w3-text-grey w3-padding-16">
+							<i
+								class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>나만의 소스
 						</h2>
 					</c:if>
 					<!-- <div class="w3-container">
