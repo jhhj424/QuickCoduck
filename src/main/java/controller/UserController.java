@@ -32,7 +32,7 @@ import logic.User;
 public class UserController {
 	@Autowired
 	private DuckService service;
-
+	
 	@RequestMapping("user/start")
 	public ModelAndView start() {
 		ModelAndView mav = new ModelAndView();
@@ -268,6 +268,18 @@ public class UserController {
 		System.out.println("boardlist2:" + boardlist2);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardlist2", boardlist2);
+		return mav;
+	}
+	
+	@RequestMapping(value = "user/supporterlist")
+	public ModelAndView supporterlist(HttpSession session, Integer boardnum) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser");
+		int matching = 1;
+		int ducktype = 1;
+		List<User> supporterlist = service.supporterlist(user.getUserid(), matching, boardnum, ducktype);
+		mav.addObject("user", user);
+		mav.addObject("supporterlist",supporterlist);
 		return mav;
 	}
 }

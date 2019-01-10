@@ -25,4 +25,7 @@ public interface UserMapper  {
 
 	@Select("SELECT COUNT(*) FROM user WHERE userid = #{userid}")
 	int idchk(String userid);
+	
+	@Update("update user set matching = 1 where userid = #{userid}")
+	void supporting(Map<String, String> map);
 }

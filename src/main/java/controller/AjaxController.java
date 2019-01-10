@@ -244,6 +244,7 @@ public class AjaxController {
 					service.boardduck(board, userid, ducktype); //´öÀÌ¶û ½ºÅ©·¦ÇÒ¶§¸¸ »ç¿ë!					
 					//service.duckcntadd(num); //´ö, ½ºÅ©·¦ ÇÑ È½¼ö¸¸ Àû¿ë.
 					map.put("msg", "½ÅÃ» ¿Ï·á!");
+					service.supporting(userid);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

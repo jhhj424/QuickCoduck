@@ -64,4 +64,17 @@ public class UserDao {
 		int result = sqlSession.getMapper(UserMapper.class).idchk(userid);
 		return result;
 	}
+	public void supporting(String userid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).supporting(map);
+	}
+	public List<User> supporterlist(String userid, Integer matching, Integer boardnum, Integer ducktype) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("matching", matching);
+		map.put("boardnum", boardnum);
+		map.put("ducktype", ducktype);
+		return sqlSession.selectList(NS + "supporterlist", map);
+	}
 }

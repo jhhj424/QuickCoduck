@@ -145,6 +145,7 @@ public class DuckService {
 	public List<User> userList() {
 		return userDao.userList();
 	}
+	
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
@@ -203,4 +204,13 @@ public class DuckService {
 	public void delcomment(Integer num) {
 		commentDao.delete(num);
 	}
+
+	public void supporting(String userid) {
+		userDao.supporting(userid); 
+	}
+
+	public List<User> supporterlist(String userid, Integer matching, Integer boardnum, Integer ducktype) {
+		return userDao.supporterlist(userid,matching,boardnum,ducktype);
+	}
+
 }

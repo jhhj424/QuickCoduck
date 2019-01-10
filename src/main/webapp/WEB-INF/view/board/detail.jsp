@@ -189,6 +189,7 @@
 						<c:if test="${board.boardtype==3}">
 						<button type="button" class="myButton" id="duck">스크랩</button>
 						<button type="button" class="myButton" id="pro">참여신청</button>
+						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}">[지원자목록보기]</a>
 						</c:if>
 </td>
 					</tr>
