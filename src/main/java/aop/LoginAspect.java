@@ -26,7 +26,7 @@ public class LoginAspect {
 		}
 		//2. admin가 아니고, id와 로그인 정보가 다른 경우.
 		if(!id.equals(user.getUserid()) && !user.getUserid().equals("admin")) {
-			throw new LoginException ("본인만 확인 가능합니다.","../user/mypage.duck?id=" + user.getUserid());
+			throw new LoginException ("본인만 확인 가능합니다.","../user/mypage_main.duck?id=" + user.getUserid());
 		}
 		Object ret = joinPoint.proceed();
 		return ret;
@@ -42,7 +42,7 @@ public class LoginAspect {
 		}
 		//2. admin가 아니고, id와 로그인 정보가 다른 경우.
 		if(!user.getUserid().equals(loginuser.getUserid()) && !loginuser.getUserid().equals("admin")) {
-			throw new LoginException ("본인 정보만 수정 가능합니다.","../user/mypage.duck?id=" + loginuser.getUserid());
+			throw new LoginException ("본인 정보만 수정 가능합니다.","../user/mypage_main.duck?id=" + loginuser.getUserid());
 		}
 		Object ret = joinPoint.proceed();
 		return ret;
