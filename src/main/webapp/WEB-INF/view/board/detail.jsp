@@ -42,13 +42,10 @@
 							var num = ${board.boardnum}
 							var type = ${board.boardtype}
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
-							alert('boardnum:'+${board.boardnum});
-							alert(${board.boardtype});
-							alert("${loginUser.userid}");
-							
 							var data = {
 								"num" : num,
 								"type" : type,
+								"ducktype" : 1,
 								"userid" : userid
 							}
 							$.ajax({
