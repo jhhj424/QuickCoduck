@@ -119,12 +119,12 @@ public class DuckService {
 		return boardDao.recmdselect(userid,boardnum);//recmd테이블에 해당 데이터 있는지 조회
 	}
 
-	public int duckselect(String userid, Integer boardnum) {
-		return boardDao.duckselect(userid,boardnum);//duck테이블에 해당 데이터 있는지 조회
+	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
+		return boardDao.duckselect(userid,boardnum,ducktype);//duck테이블에 해당 데이터 있는지 조회
 	}
 
-	public void boardduck(Board board, String userid) {
-		boardDao.duckinsert(board,userid);
+	public void boardduck(Board board, String userid, Integer ducktype) {
+		boardDao.duckinsert(board,userid,ducktype);
 	}
 		
 	public List<User> userList() {
