@@ -98,6 +98,7 @@ public class AjaxController {
 	@ResponseBody
 	@RequestMapping("board/tech_select")
 	public Map<Object, Object> tech_select(String tech) {
+		System.out.println(tech);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		String techarr[] = null; // 사용기술목록 배열
 		List<String> techlist = new ArrayList<String>(); // 기술목록 리스트
@@ -105,12 +106,14 @@ public class AjaxController {
 		for(int i=0;i<techarr.length;i++) {
 			techlist.add(techarr[i]+",");
 		}
+		System.out.println("techarr:"+techarr);
 		TreeSet<String> arr1 = new TreeSet<String>(techlist);
 		ArrayList<String> arr2 = new ArrayList<String>(arr1);
 		tech = "";
 		for(int i=0;i<arr2.size();i++) {
 			tech += arr2.get(i);
 		}
+		System.out.println("기술넘기기:"+tech);
 		map.put("tech", tech);
 		return map;
 	}

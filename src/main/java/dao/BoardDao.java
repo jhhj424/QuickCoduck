@@ -140,7 +140,7 @@ public class BoardDao {
 		map.put("startrow", startrow);
 		map.put("limit", limit);
 		map.put("type", type);
-		map.put("tech", tech);
+		map.put("tech", tech+",");
 		return sqlSession.selectList(NS + "select", map);
 	}
 	public List<Board> list(Integer pageNum, int limit, Integer type) {

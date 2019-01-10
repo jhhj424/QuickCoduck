@@ -116,49 +116,49 @@ html, body, h1, h2, h3, h4, h5, h6 {
 									id="checkall_develop"></a>
 								<ul>
 									<li><a>C<input type="checkbox" name="usetech"
-											value="C." class="usetech_develop"></a></li>
+											value="C" class="usetech_develop"></a></li>
 									<li><a>C++<input type="checkbox" name="usetech"
-											value="C++." class="usetech_develop"></a></li>
+											value="C++" class="usetech_develop"></a></li>
 									<li><a>Java<input type="checkbox" name="usetech"
-											value="Java." class="usetech_develop"></a></li>
+											value="Java" class="usetech_develop"></a></li>
 									<li><a>JSP<input type="checkbox" name="usetech"
-											value="JSP." class="usetech_develop"></a></li>
+											value="JSP" class="usetech_develop"></a></li>
 									<li><a>Python<input type="checkbox" name="usetech"
-											value="Python." class="usetech_develop"></a></li>
+											value="Python" class="usetech_develop"></a></li>
 									<li><a>Ajax<input type="checkbox" name="usetech"
-											value="Ajax." class="usetech_develop"></a></li>
+											value="Ajax" class="usetech_develop"></a></li>
 									<li><a>jQuery<input type="checkbox" name="usetech"
-											value="jQuery." class="usetech_develop"></a></li>
+											value="jQuery" class="usetech_develop"></a></li>
 									<li><a>Ruby<input type="checkbox" name="usetech"
-											value="Ruby." class="usetech_develop"></a></li>
+											value="Ruby" class="usetech_develop"></a></li>
 									<li><a>Android<input type="checkbox" name="usetech"
-											value="Android." class="usetech_develop"></a></li>
+											value="Android" class="usetech_develop"></a></li>
 									<li><a>Unity<input type="checkbox" name="usetech"
-											value="Unity." class="usetech_develop"></a></li>
+											value="Unity" class="usetech_develop"></a></li>
 								</ul></li>
 
 							<li><a>Design<input type="checkbox" id="checkall_design"></a>
 								<ul>
 									<li><a>HTMl<input type="checkbox" name="usetech"
-											value="HTMl." class="usetech_design"></a></li>
+											value="HTMl" class="usetech_design"></a></li>
 									<li><a>CSS<input type="checkbox" name="usetech"
-											value="CSS." class="usetech_design"></a></li>
+											value="CSS" class="usetech_design"></a></li>
 									<li><a>BootStrap<input type="checkbox" name="usetech"
-											value="BootStrap." class="usetech_design"></a></li>
+											value="BootStrap" class="usetech_design"></a></li>
 									<li><a>DreamWeaver<input type="checkbox"
-											name="usetech" value="DreamWeaver." class="usetech_design"></a></li>
+											name="usetech" value="DreamWeaver" class="usetech_design"></a></li>
 									<li><a>PhotoShop<input type="checkbox" name="usetech"
-											value="PhotoShop." class="usetech_design"></a></li>
+											value="PhotoShop" class="usetech_design"></a></li>
 									<li><a>XML<input type="checkbox" name="usetech"
-											value="XML." class="usetech_design"></a></li>
+											value="XML" class="usetech_design"></a></li>
 									<li><a>Sketch<input type="checkbox" name="usetech"
-											value="Sketch." class="usetech_design"></a></li>
+											value="Sketch" class="usetech_design"></a></li>
 									<li><a>JavaScript<input type="checkbox" name="usetech"
-											value="JavaScript." class="usetech_design"></a></li>
+											value="JavaScript" class="usetech_design"></a></li>
 									<li><a>Unity3d<input type="checkbox" name="usetech"
-											value="Unity3d." class="usetech_design"></a></li>
+											value="Unity3d" class="usetech_design"></a></li>
 									<li><a>iOS<input type="checkbox" name="usetech"
-											value="iOS." class="usetech_design"></a></li>
+											value="iOS" class="usetech_design"></a></li>
 								</ul></li>
 
 						</ul>

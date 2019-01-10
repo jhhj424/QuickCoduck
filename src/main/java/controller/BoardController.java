@@ -122,13 +122,9 @@ public class BoardController {
 		System.out.println(board);
 		String tech = "";
 		if(techlist != null) {
-			System.out.println("보드컨트롤러글쓰기:"+techlist);
-			String techarr[] = techlist.split(",");
-			for(int i=0;i<techarr.length;i++) {
-				tech += techarr[i];
-			}
+			System.out.println("tl:"+techlist);
+			board.setUsetech(techlist);
 		}
-		board.setUsetech(tech);
 		System.out.println(board);
 		ModelAndView mav = new ModelAndView();
 		if (br.hasErrors()) {
@@ -210,13 +206,12 @@ public class BoardController {
 		//System.out.println("매개변수확인:"+board);
 		ModelAndView mav = new ModelAndView();
 		String pass = null;
-		String tech[] = null; //빈 기술목록 배열
 		String finaltech = "";
-		if(techlist!=null) { //techlist : java.,html.,
-			tech = techlist.split(","); // tech[0]: java.  // tech[1] : html.
-			for(int i=0;i<tech.length;i++) {finaltech += tech[i];}
+		if(techlist!=null) { 
+			board.setUsetech(techlist);
+		}else {
+			board.setUsetech(finaltech);
 		}
-		board.setUsetech(finaltech);
 		if(request.getParameter("pass")!=null) {
 			pass = request.getParameter("pass");
 		}

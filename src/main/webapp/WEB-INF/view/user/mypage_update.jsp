@@ -6,11 +6,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script type="text/javascript">
 	function file_delete() {
 		document.f.file2.value = "";
 		file_desc.style.display = "none";
 	}
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){		
+		$("#develop_select").change(function(){
+			var data ={
+					"tech" : $("#tech_box").val()+$("#develop_select option:selected").val()
+			};
+			$.ajax({
+				url : "../board/tech_select.duck",
+				type : "post",
+				data : data,
+				dataType : "json", // ajax 통신으로 받는 타입
+				success : function(data) {
+					$("#tech_box").val(data.tech);
+				},
+				error : function(xhr, status,
+						error) { //서버응답 실패
+					alert("서버오류 : "
+							+ xhr.status
+							+ ", error : "
+							+ error
+							+ ", status : "
+							+ status);
+				}
+			})
+		})
+		$("#design_select").change(function(){
+			var data ={
+					"tech" : $("#tech_box").val()+$("#design_select option:selected").val()
+			};
+			$.ajax({
+				url : "../board/tech_select.duck",
+				type : "post",
+				data : data,
+				dataType : "json", // ajax 통신으로 받는 타입
+				success : function(data) {
+					$("#tech_box").val(data.tech);
+				},
+				error : function(xhr, status,
+						error) { //서버응답 실패
+					alert("서버오류 : "
+							+ xhr.status
+							+ ", error : "
+							+ error
+							+ ", status : "
+							+ status);
+				}
+			})
+		})
+		$("#tech_reset").click(function(){
+			$("#tech_box").val("");
+			return false;
+		})
+	})
 </script>
 </head>
 <body>
@@ -48,8 +104,37 @@
        </div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 보유기술</b></h5>
+          <div align="left">
+		<select id="develop_select">
+			<option value="">Develop</option>
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="JSP">JSP</option>
+			<option value="Python">Python</option>
+			<option value="Ajax">Ajax</option>
+			<option value="jQuery">jQuery</option>
+			<option value="Ruby">Ruby</option>
+			<option value="Android">Android</option>
+			<option value="Unity">Unity</option>
+		</select>
+		<select id="design_select">
+			<option value="">Design</option>
+			<option value="HTML">HTML</option>
+			<option value="CSS">CSS</option>
+			<option value="BootStrap">BootStrap</option>
+			<option value="DreamWeaver">DreamWeaver</option>
+			<option value="PhotoShop">PhotoShop</option>
+			<option value="XML">XML</option>
+			<option value="Sketch">Sketch</option>
+			<option value="JavaScript">JavaScript</option>
+			<option value="Unity3d">Unity3d</option>
+			<option value="iOS">iOS</option>
+		</select>
+		</div>
           <h6 class="w3-text-teal">
-          <input type="text" value="${loginUser.usetech }" name="usetech">
+          <input readonly type="text" id="tech_box" name="usetech" value="${user.usetech }">
+		<input type="button" id="tech_reset" value="reset">
           </h6>
           <hr>
        </div>
@@ -67,34 +152,6 @@
 		  </div>
           <hr>
        </div>
-       <div align="center"><b>사용기술 : </b>
-		<select id="develop_select">
-			<option value="">Develop</option>
-			<option value="C.">C</option>
-			<option value="C++.">C++</option>
-			<option value="Java.">Java</option>
-			<option value="JSP.">JSP</option>
-			<option value="Python.">Python</option>
-			<option value="Ajax.">Ajax</option>
-			<option value="jQuery.">jQuery</option>
-			<option value="Ruby.">Ruby</option>
-			<option value="Android.">Android</option>
-			<option value="Unity.">Unity</option>
-		</select>
-		<select id="design_select">
-			<option value="">Design</option>
-			<option value="HTML.">HTML</option>
-			<option value="CSS.">CSS</option>
-			<option value="BootStrap.">BootStrap</option>
-			<option value="DreamWeaver.">DreamWeaver</option>
-			<option value="PhotoShop.">PhotoShop</option>
-			<option value="XML.">XML</option>
-			<option value="Sketch.">Sketch</option>
-			<option value="JavaScript.">JavaScript</option>
-			<option value="Unity3d.">Unity3d</option>
-			<option value="iOS.">iOS</option>
-		</select>
-		</div>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 birth</b></h5>
           <h6 class="w3-text-teal">
