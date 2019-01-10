@@ -12,8 +12,8 @@ public interface CommentMapper  {
 	@Select("select ifnull(max(num),0) from recomment ")
 	int maxNum();
 	
-	@Insert("insert into recomment (num,userid,boardnum,content) "
-		 	+ " values(#{num},#{userid},#{boardnum},#{content})")
+	@Insert("insert into recomment (num,userid,boardnum,content,regdate,ref,refstep,reflevel) "
+		 	+ " values(#{num},#{userid},#{boardnum},#{content},#{regdate},#{ref},#{refstep},#{reflevel})")
 	void insert(Comment comment);
 	
 	@Delete("delete from recomment where num = #{num}")
@@ -21,5 +21,8 @@ public interface CommentMapper  {
 	
 	@Update("update recomment set content = #{content} where num = #{num}")
 	void update(String content);
-	
+
+	@Select("select max(num) from recomment")
+	String refnum();
+
 }
