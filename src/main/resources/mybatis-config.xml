@@ -7,9 +7,11 @@
 		<typeAlias type="logic.User" alias="User"/>
 		<typeAlias type="logic.Board" alias="Board"/>
 		<typeAlias type="logic.Duck" alias="Duck"/>
+		<typeAlias type="logic.Comment" alias="Comment"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
 		<mapper resource="dao/mapper/Board.xml"/>
+		<mapper resource="dao/mapper/Comment.xml"/>
 	</mappers>
 </configuration>

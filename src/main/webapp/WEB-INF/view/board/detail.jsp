@@ -101,7 +101,6 @@
 			return false;
 		}
 	}
-						});
 			
 			$("#pro").click(
 						function() {
@@ -128,7 +127,6 @@
 								}
 							})
 						});
-			});
 </script>
 
 </head>
