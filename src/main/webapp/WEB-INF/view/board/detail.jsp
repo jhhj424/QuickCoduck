@@ -37,6 +37,32 @@
 							})
 						});
 				
+				$("#pro").click(
+						function() {
+							var num = ${board.boardnum}
+							var type = ${board.boardtype}
+							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+							var data = {
+								"num" : num,
+								"type" : type,
+								"ducktype" : 2,
+								"userid" : userid
+							}
+							$.ajax({
+								url : "pro.duck",
+								type : "post",
+								data : data,
+								dataType : "json", // ajax 통신으로 받는 타입
+								success : function(data) {
+									alert(data.msg);
+								},
+								error : function(xhr, status, error) { //서버응답 실패
+									alert("서버오류 : " + xhr.status + ", error : "
+											+ error + ", status : " + status);
+								}
+							})
+						});
+				
 				$("#duck").click(
 						function() {
 							var num = ${board.boardnum}
@@ -101,32 +127,6 @@
 			return false;
 		}
 	}
-			
-			$("#pro").click(
-						function() {
-							var num = ${board.boardnum}
-							var type = ${board.boardtype}
-							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
-							var data = {
-								"num" : num,
-								"type" : type,
-								"ducktype" : 2,
-								"userid" : userid
-							}
-							$.ajax({
-								url : "pro.duck",
-								type : "post",
-								data : data,
-								dataType : "json", // ajax 통신으로 받는 타입
-								success : function(data) {
-									alert(data.msg);
-								},
-								error : function(xhr, status, error) { //서버응답 실패
-									alert("서버오류 : " + xhr.status + ", error : "
-											+ error + ", status : " + status);
-								}
-							})
-						});
 </script>
 
 </head>
@@ -176,7 +176,12 @@
 						href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[수정]</a>
 						<a
 						href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[삭제]</a>
-						<a href="list.duck?type=${board.boardtype}">[목록!!!]</a>
+						<c:if test="${board.boardtype==1 || board.boardtype==3 }">
+						<a href="find.duck?type=${board.boardtype}">[목록]</a>
+						</c:if>
+						<c:if test="${board.boardtype!=1 && board.boardtype!=3 }">
+						<a href="list.duck?type=${board.boardtype}">[목록]</a>
+						</c:if>
 						<c:if test="${board.boardtype==1}">
 						<button type="button" class="myButton" id="rec">추천</button>
 						<button type="button" class="myButton" id="duck">DUCK</button>
@@ -207,15 +212,12 @@
 							<tr>
 								<td>${c.userid}님</td>
 								<td style="min-width: 600px; text-align: left; max-width: 600px">
-									<div
-										style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
-										${fn:replace(c.content, cn, br)}</div>
+										${fn:replace(c.content, cn, br)}
 								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
-										<!--<f:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />  -->
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
 									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<!--  --><f:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />  -->
+										<!--  --><fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />  -->
 									</c:if></td>
 							</tr>
 						</c:forEach>

@@ -98,7 +98,8 @@
         <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-calendar fa-fw w3-margin-right"></i><b>사용자 birth</b></h5>
           <h6 class="w3-text-teal">
-          <input type="date" min=1901 max="2018" name="birth" placeholder="Your birth(1901~2018)" value="${loginUser.birth}">
+          <fmt:formatDate value="${loginUser.birth}" pattern="yyyy-MM-dd" var="bibi"/>
+          <input type="date" min="1901-01-01" max="2019-01-01" name="birth" value="${bibi}">
           </h6>
           <hr>
        </div>
