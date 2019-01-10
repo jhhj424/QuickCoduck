@@ -39,16 +39,15 @@ public class DuckService {
 			e.printStackTrace();
 		}
 	}
-
-	public void userUpdate(User user) {
-		userDao.userUpdate(user);
-	}
-
+	
 	public void userDelete(String id) {
 		userDao.userDelete(id);
 	}
 	public Board getBoard(Board board) {
 		return boardDao.select(board);
+	}
+	public Duck getDuck(Duck duck) {
+		return boardDao.select(duck);
 	}
 
 	public Board getBoard(Integer num, HttpSession session) {
@@ -63,8 +62,8 @@ public class DuckService {
 		return boardDao.count(type);
 	}
 	
-	public int boardcount(String searchType, String searchContent,Integer type, String id) {
-		return boardDao.count(searchType, searchContent,type, id);
+	public int boardcount(String searchType, String searchContent,Integer type, String id, Integer ducktype) {
+		return boardDao.count(searchType, searchContent,type, id, ducktype);
 	}
 	
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
@@ -93,6 +92,19 @@ public class DuckService {
 		}
 		boardDao.update(board);
 	}
+	public void userUpdate(User user, HttpServletRequest request) {
+		System.out.println("userfget"+user.getFile1());
+		System.out.println(user.getFile1().getOriginalFilename());
+		
+		if(user.getFile1() != null && !user.getFile1().isEmpty()) {
+			uploadFileCreate(user.getFile1(), request,"file");
+			System.out.println("userfget"+user.getFile1());
+			System.out.println(user.getFile1().getOriginalFilename());
+			user.setFileurl(user.getFile1().getOriginalFilename());
+		}
+		userDao.userUpdate(user);
+	}
+
 
 	public void boarddelete(int boardnum) {
 		boardDao.delete(boardnum);
@@ -122,12 +134,12 @@ public class DuckService {
 		return boardDao.recmdselect(userid,boardnum);//recmd테이블에 해당 데이터 있는지 조회
 	}
 
-	public int duckselect(String userid, Integer boardnum) {
-		return boardDao.duckselect(userid,boardnum);//duck테이블에 해당 데이터 있는지 조회
+	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
+		return boardDao.duckselect(userid,boardnum,ducktype);//duck테이블에 해당 데이터 있는지 조회
 	}
 
-	public void boardduck(Board board, String userid) {
-		boardDao.duckinsert(board,userid);
+	public void boardduck(Board board, String userid, Integer ducktype) {
+		boardDao.duckinsert(board,userid,ducktype);
 	}
 		
 	public List<User> userList() {
@@ -148,8 +160,8 @@ public class DuckService {
 	public List<Board> boardlist(Integer pageNum, int limit, Integer type) {
 		return boardDao.list(pageNum, limit,type);
 	}
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String id) {
-		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id);
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String id, Integer ducktype) {
+		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 	}
 
 	public List<Board> boardlist(String num) {

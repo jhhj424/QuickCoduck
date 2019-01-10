@@ -65,8 +65,8 @@
 </head>
 <body>
 <form:form modelAttribute="board" action="write.duck" enctype="multipart/form-data" name="f">
-	<div>
 	<form:hidden path="boardtype" value="${param.type}"/>
+	<div>
 		<div align="center">
 		<c:if test="${param.type==1}">
 			<div><h3>오픈소스게시판 글쓰기</h3></div>
@@ -82,29 +82,29 @@
 		<div align="center"><b>사용기술 : </b>
 		<select id="develop_select">
 			<option value="">Develop</option>
-			<option value="C.">C</option>
-			<option value="C++.">C++</option>
-			<option value="Java.">Java</option>
-			<option value="JSP.">JSP</option>
-			<option value="Python.">Python</option>
-			<option value="Ajax.">Ajax</option>
-			<option value="jQuery.">jQuery</option>
-			<option value="Ruby.">Ruby</option>
-			<option value="Android.">Android</option>
-			<option value="Unity.">Unity</option>
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="JSP">JSP</option>
+			<option value="Python">Python</option>
+			<option value="Ajax">Ajax</option>
+			<option value="jQuery">jQuery</option>
+			<option value="Ruby">Ruby</option>
+			<option value="Android">Android</option>
+			<option value="Unity">Unity</option>
 		</select>
 		<select id="design_select">
 			<option value="">Design</option>
-			<option value="HTML.">HTML</option>
-			<option value="CSS.">CSS</option>
-			<option value="BootStrap.">BootStrap</option>
-			<option value="DreamWeaver.">DreamWeaver</option>
-			<option value="PhotoShop.">PhotoShop</option>
-			<option value="XML.">XML</option>
-			<option value="Sketch.">Sketch</option>
-			<option value="JavaScript.">JavaScript</option>
-			<option value="Unity3d.">Unity3d</option>
-			<option value="iOS.">iOS</option>
+			<option value="HTML">HTML</option>
+			<option value="CSS">CSS</option>
+			<option value="BootStrap">BootStrap</option>
+			<option value="DreamWeaver">DreamWeaver</option>
+			<option value="PhotoShop">PhotoShop</option>
+			<option value="XML">XML</option>
+			<option value="Sketch">Sketch</option>
+			<option value="JavaScript">JavaScript</option>
+			<option value="Unity3d">Unity3d</option>
+			<option value="iOS">iOS</option>
 		</select>
 		</div>
 		<div><div align="center"><b>제목 : </b><form:input path="subject"/><font color="red"><form:errors path="subject" /></font></div></div>
@@ -117,5 +117,5 @@
 		<input type="button" id="tech_reset" value="reset"><div><div align="center">
 		</div></div>
 		<a href="javascript:document.f.submit()">[게시물등록]</a>
-		<a href="list.duck">[게시물목록]</a></div></div>
+		<a href="list.duck?type=${param.type}">[게시물목록]</a></div></div>
 		</div></form:form></body></html>

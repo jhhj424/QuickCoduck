@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.Board;
+import logic.Duck;
 import logic.DuckService;
 import logic.User;
 
@@ -152,8 +152,16 @@ public class UserController {
 		return mav;
 	}
 
+	@RequestMapping(value = "user/mypage_*")
+	public ModelAndView mypage(String id, HttpSession session, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User dbuser = (User) session.getAttribute("loginUser");
+		mav.addObject("user", dbuser);
+		return mav;
+	}
+
 	@RequestMapping("user/updateForm")
-	public ModelAndView update(String id, HttpSession session) {
+	public ModelAndView update11(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
@@ -161,22 +169,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
-	public ModelAndView update(HttpSession session, User user) {
-		ModelAndView mav = new ModelAndView("user/updateForm");
-		User dbuser = service.select(user.getUserid());// 비밀번호 검증
-		if (user.getPass().equals(dbuser.getPass())) { // 비밀번호가 일치
-			// 정보수정
-			try {
-				service.userUpdate(user);
-				// mav.addObject("user",user);
-				mav.setViewName("redirect:mypage.duck?id=" + user.getUserid());
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mav.setViewName("user/updateForm");
-			}
-		} else {
-			return mav;
-		}
+	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("user/mypage_update");
+		user.setFileurl(request.getParameter("file2"));
+		service.userUpdate(user, request);
+		User user1 = service.select(user.getUserid());
+		System.out.println("유저:"+user1);
+		session.setAttribute("loginUser", user1);
+		mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
 		return mav;
 	}
 
@@ -202,10 +202,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
-	public ModelAndView delete(String id, HttpSession session, String password) {
+	public ModelAndView delete(String id, HttpSession session, String pass) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");// 현재로그인된유저
-		if (loginUser.getPass().equals(password)) {
+		if (loginUser.getPass().equals(pass)) {
 			try {
 				service.userDelete(id);
 				if (!loginUser.getUserid().equals("admin")) {
@@ -216,29 +216,28 @@ public class UserController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new LoginException("탈퇴실패", "../user/delete.duck?id=" + id);
+				throw new LoginException("관리자는 삭제불가", "../user/mypage_delete.duck?id=" + id);
 			}
 		} else {// 버번틀림
-			throw new LoginException("비밀번호오류", "../user/delete.duck?id=" + id);
+			throw new LoginException("비밀번호오류", "../user/mypage_delete.duck?id=" + id);
 		}
 		return mav;
 	}
 
 	@RequestMapping(value = "user/myduck")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type,
-			HttpSession session, String id, Integer boardnum) {
+			HttpSession session, String id, Integer boardnum, Integer ducktype) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
-
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent, type, id);
+		int listcount = service.boardcount(searchType, searchContent, type, id, ducktype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id);
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -255,16 +254,18 @@ public class UserController {
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
 		mav.addObject("type", type);
+		mav.addObject("ducktype", ducktype);
 		return mav;
 	}
+
 	@RequestMapping(value = "user/submain")
 	public ModelAndView submain(HttpSession session, Integer boardnum) {
 		ModelAndView mav = new ModelAndView();
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(boardnum);
 		List<Board> boardlist2 = service.boardlist2(boardnum);
-		System.out.println("boardlist:"+boardlist);
-		System.out.println("boardlist2:"+boardlist2);
+		System.out.println("boardlist:" + boardlist);
+		System.out.println("boardlist2:" + boardlist2);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardlist2", boardlist2);
 		return mav;

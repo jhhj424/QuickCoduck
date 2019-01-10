@@ -3,8 +3,7 @@ package logic;
 public class Duck {
 	private String userid;
 	private int boardnum;
-	private int duckcnt;
-	
+	private int ducktype;
 	public String getUserid() {
 		return userid;
 	}
@@ -17,15 +16,14 @@ public class Duck {
 	public void setBoardnum(int boardnum) {
 		this.boardnum = boardnum;
 	}
-	public int getDuckcnt() {
-		return duckcnt;
+	public int getDucktype() {
+		return ducktype;
 	}
-	public void setDuckcnt(int duckcnt) {
-		this.duckcnt = duckcnt;
+	public void setDucktype(int ducktype) {
+		this.ducktype = ducktype;
 	}
 	@Override
 	public String toString() {
-		return "Duck [userid=" + userid + ", boardnum=" + boardnum + ", duckcnt=" + duckcnt + "]";
+		return "Duck [userid=" + userid + ", boardnum=" + boardnum + ", ducktype=" + ducktype + "]";
 	}
-	
 }

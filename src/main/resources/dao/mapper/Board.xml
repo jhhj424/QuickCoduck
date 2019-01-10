@@ -6,8 +6,8 @@
 
 	<select id="count" resultType="int" parameterType="map">
 		select count(*) from board where boardtype = #{type}
-		<if test="userid != null">
-			and boardnum in (select boardnum from duck where userid=#{userid})
+		<if test="userid != null and ducktype != null">
+			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
 		</if>
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
@@ -31,8 +31,15 @@
 		</if>
 	</select>
 	
+	<select id="select2" resultType="Duck" parameterType="map">
+		select * from duck where ducktype = #{ducktype}
+		<if test="boardnum != null">
+			and boardnum = #{boardnum}
+		</if>
+	</select>
+	
 	<select id="ducklist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid}) and boardtype = #{type}
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype}) and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
