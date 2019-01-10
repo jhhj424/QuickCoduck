@@ -45,7 +45,7 @@ body * {
 	max-width: calc(100% - 2em);
 	margin: 1em auto;
 	overflow: hidden;
-	width: 1500px;
+	width: 100%;
 }
 
 table {
