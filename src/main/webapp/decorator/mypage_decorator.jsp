@@ -62,6 +62,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
          <a href="../user/mypage_info.duck?id=${loginUser.userid}">내 프로필 보기</a></p>
          <p><i class="fa fa-pencil  w3-text-theme"></i>
          <a href="../user/mypage_update.duck?id=${loginUser.userid}">내 프로필 수정</a></p>
+         <p><i class="fa fa-pencil  w3-text-theme"></i>
+         <a href="../user/mypage_delete.duck?id=${loginUser.userid}">회원 탈퇴</a></p>
         </div>
       </div>
       <br>

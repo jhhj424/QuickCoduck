@@ -170,6 +170,7 @@ public class UserController {
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/mypage_update");
+		user.setFileurl(request.getParameter("file2"));
 		service.userUpdate(user, request);
 		User user1 = service.select(user.getUserid());
 		System.out.println("유저:"+user1);
@@ -200,10 +201,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
-	public ModelAndView delete(String id, HttpSession session, String password) {
+	public ModelAndView delete(String id, HttpSession session, String pass) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");// 현재로그인된유저
-		if (loginUser.getPass().equals(password)) {
+		if (loginUser.getPass().equals(pass)) {
 			try {
 				service.userDelete(id);
 				if (!loginUser.getUserid().equals("admin")) {
@@ -214,10 +215,10 @@ public class UserController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new LoginException("탈퇴실패", "../user/delete.duck?id=" + id);
+				throw new LoginException("탈퇴실패", "../user/mypage_delete.duck?id=" + id);
 			}
 		} else {// 버번틀림
-			throw new LoginException("비밀번호오류", "../user/delete.duck?id=" + id);
+			throw new LoginException("비밀번호오류", "../user/mypage_delete.duck?id=" + id);
 		}
 		return mav;
 	}

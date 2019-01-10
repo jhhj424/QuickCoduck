@@ -51,7 +51,6 @@ $(document).ready(function () {
     				$(".name").siblings('span.error').text('중복입니다.').fadeIn().parent('.form-group').removeClass('hasCor');
     				$(".name").siblings('span.error').text('필수입력 입니다').fadeIn().parent('.form-group').addClass('hasError');
 				        usernameError = true;
-				        alert(data.id_chk);
 			    }
     				
     			},
