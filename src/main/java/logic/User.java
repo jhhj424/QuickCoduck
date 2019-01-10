@@ -26,129 +26,97 @@ public class User {
 	private MultipartFile file1;// 梅何颇老
 	private String fileurl;// 颇老林家
 	private String pic;// 荤柳
-
 	// getter,setter,toString
-
 	public String getUserid() {
 		return userid;
 	}
-
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-
 	public String getPass() {
 		return pass;
 	}
-
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getTel() {
 		return tel;
 	}
-
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
 	public Date getBirth() {
 		return birth;
 	}
-
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
 	public int getType() {
 		return type;
 	}
-
 	public void setType(int type) {
 		this.type = type;
 	}
-
 	public String getBusinessnum() {
 		return businessnum;
 	}
-
 	public void setBusinessnum(String businessnum) {
 		this.businessnum = businessnum;
 	}
-
 	public String getUsetech() {
 		return usetech;
 	}
-
 	public void setUsetech(String usetech) {
 		this.usetech = usetech;
 	}
-
 	public String getCreditnum() {
 		return creditnum;
 	}
-
 	public void setCreditnum(String creditnum) {
 		this.creditnum = creditnum;
 	}
-
 	public String getCreditpass() {
 		return creditpass;
 	}
-
 	public void setCreditpass(String creditpass) {
 		this.creditpass = creditpass;
 	}
-
 	public Integer getRating() {
 		return rating;
 	}
-
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
-
 	public Integer getMatching() {
 		return matching;
 	}
-
 	public void setMatching(Integer matching) {
 		this.matching = matching;
 	}
-
 	public MultipartFile getFile1() {
 		return file1;
 	}
-
 	public void setFile1(MultipartFile file1) {
 		this.file1 = file1;
 	}
-
 	public String getFileurl() {
 		return fileurl;
 	}
-
 	public void setFileurl(String fileurl) {
 		this.fileurl = fileurl;
 	}
-
 	public String getPic() {
 		return pic;
 	}
-
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
-
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth=" + birth
