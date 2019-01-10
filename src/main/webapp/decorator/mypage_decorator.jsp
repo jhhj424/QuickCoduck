@@ -61,14 +61,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
          <p class="w3-center"><img src="../file/${loginUser.fileurl }" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          </c:if>
          <c:if test="${empty loginUser.fileurl }">
-         <p class="w3-center">
-         <i class="fa fa-user-circle-o" style="font-size:100px;color:#7d97a5;"></i>
-         </p>
+           <c:if test="${loginUser.type == '1' }">
+           <p class="w3-center"><i class="fa fa-user-circle-o" style="font-size:100px;color:#7d97a5;"></i></p>
+           </c:if>
+           <c:if test="${loginUser.type == '2' }">
+           <p class="w3-center"><i class="fa fa-user-secret" style="font-size:100px;color:#7d97a5;"></i></p>
+           </c:if>
          </c:if>
-         <h4 class="w3-center">${loginUser.userid } 님</h4>
+         <c:if test="${loginUser.type == '1' }">
+         <h4 class="w3-center">개발자 : ${loginUser.userid } 님</h4>
+         </c:if>
+         <c:if test="${loginUser.type == '2' }">
+         <h4 class="w3-center">Client : ${loginUser.userid } 님</h4>
+         </c:if>
          <div style="text-align:left;">
-         <button onclick="location.href='../user/mypage_info.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-address-book fa-fw w3-margin-right"></i> 내 프로필보기</button>
-         <button onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-edit fa-fw w3-margin-right"></i> 내 프로필 수정</button>
+         <button onclick="location.href='../user/mypage_info.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-address-book fa-fw w3-margin-right"></i> 회원정보 보기</button>
+         <button onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-edit fa-fw w3-margin-right"></i> 회원정보 수정</button>
          <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
          </div>
         </div>
@@ -76,21 +84,31 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <br>
       
       <!-- Accordion -->
+      <!-- 받은 인재 추천 목록
+대기중인 프로젝트
+진행중인 프로젝트
+완료한 프로젝트 -->
       <div class="w3-card w3-round">
         <div class="w3-white">
+        <c:if test="${loginUser.type == '1'}">
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 관심프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=2&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원내역</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
-          <!-- <div id="Demo1" class="w3-hide w3-container">
-            <p>받아오면 됩니당</p>
-          </div> -->
+        </c:if>
+        <c:if test="${loginUser.type == '2'}">
+          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록</button>
+          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=2&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트</button>
+          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
+          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
+        </c:if>
         </div>      
       </div>
       <br>
       <!-- Interests -->
       <div class="w3-card w3-round w3-white w3-hide-small">
 		<div class="w3-container">
+		<c:if test="${loginUser.type == '1' }">
 			<h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-user fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 보유기술</h2>
 			<c:if test="${empty loginUser.usetech }">
 			<h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i><b>보유기술 미등록</b></h5>
@@ -102,6 +120,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 			<c:out value="${g.end}" />
 			</c:forEach>
 			</c:if>
+		</c:if>
+		
+		<c:if test="${loginUser.type == '2' }">
+		<h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-user fa-fw w3-xxlarge w3-text-teal"></i>프로젝트 주요기술</h2>
+			<c:if test="${empty loginUser.usetech }">
+			<h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i><b>프로젝트 주요기술 미등록</b></h5>
+			<button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-plus-square"></i> 추가하기</button>
+			</c:if>
+			<c:if test="${!empty loginUser.usetech }">
+			<c:forEach var="usetech" items="${loginUser.usetech}" varStatus="g" begin="0">
+			<span class="w3-tag w3-theme-d3">${usetech}</span>
+			<c:out value="${g.end}" />
+			</c:forEach>
+			</c:if>
+		</c:if>
+			
 			<p></p>
 		</div>
 	 </div><br>

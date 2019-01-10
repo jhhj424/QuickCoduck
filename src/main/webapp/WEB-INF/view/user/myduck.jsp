@@ -23,7 +23,27 @@
 </script>
 </head>
 <body>
-<table border="1" width="80%">
+<div class="w3-container w3-card w3-white w3-round w3-margin">
+<h2 class="w3-text-grey w3-padding-16">
+<c:if test="${loginUser.type == '1' && param.ducktype == '1' && param.type == '3' }">
+<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>관심 프로젝트</c:if>
+<c:if test="${loginUser.type == '1' && param.ducktype == '2' && param.type == '3' }">
+<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원내역</c:if>
+<c:if test="${loginUser.type == '1' && param.ducktype == '3' && param.type == '3' }">
+<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
+<c:if test="${loginUser.type == '1' && param.ducktype == '4' && param.type == '3' }">
+<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>완료한 프로젝트</c:if>
+
+<c:if test="${loginUser.type == '2' && param.ducktype == '1' && param.type == '3' }">
+<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>추천인재 목록</c:if>
+<c:if test="${loginUser.type == '2' && param.ducktype == '2' && param.type == '3' }">
+<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>대기중인 프로젝트</c:if>
+<c:if test="${loginUser.type == '2' && param.ducktype == '3' && param.type == '3' }">
+<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
+<c:if test="${loginUser.type == '2' && param.ducktype == '4' && param.type == '3' }">
+<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>완료한 프로젝트</c:if>
+</h2>
+<table border="1" style="width:100%;">
 <tr>
 	<td colspan="6" align="center">
 		<form action="myduck.duck?id=${user.userid}" method="post"
@@ -89,5 +109,7 @@
 	</c:if> <c:if test="${pageNum >= maxpage}">[다음]</c:if></td>
 </tr>
 </table>
+<p></p>
+</div>
 </body>
 </html>

@@ -186,6 +186,9 @@
 						<button type="button" class="myButton" id="rec">추천</button>
 						<button type="button" class="myButton" id="duck">DUCK</button>
 						</c:if>
+						<c:if test="${board.boardtype==2}">
+						<button type="button" class="myButton" id="rec">추천</button>
+						</c:if>
 						<c:if test="${board.boardtype==3}">
 						<button type="button" class="myButton" id="duck">스크랩</button>
 						<button type="button" class="myButton" id="pro">참여신청</button>
