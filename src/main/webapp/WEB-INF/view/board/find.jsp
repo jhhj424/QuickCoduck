@@ -35,6 +35,23 @@ html, body, h1, h2, h3, h4, h5, h6 {
 </style>
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+
+<script type="text/javascript">
+function write_submit() {
+	var usertype = ${loginUser.type}
+	var boardtype = ${param.type}
+	var userid = '${loginUser.userid}'
+	if (usertype != 1 && boardtype == 1 && userid!='admin') {
+		alert("개발자만 글을 쓸 수 있습니다.");
+		return false;
+	}
+	if (usertype != 2 && boardtype == 3 && userid!='admin') {
+		alert("클라이언트만 글을 쓸 수 있습니다.");
+		return false;
+	}
+	location.href = "write.duck?type="+boardtype;
+}
+</script>
 </head>
 <body class="w3-light-grey" id="home">
 
@@ -399,7 +416,8 @@ html, body, h1, h2, h3, h4, h5, h6 {
 									</c:if>
 									<div>
 										<div align="right">
-											<a href="write.duck?type=${param.type}">[글쓰기]</a>
+											<button type="button"
+								onclick="location.href='javascript:write_submit()'">글쓰기</button>
 										</div>
 									</div>
 								</div>
