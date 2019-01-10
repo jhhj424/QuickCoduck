@@ -142,6 +142,7 @@ public class DuckService {
 	public List<User> userList() {
 		return userDao.userList();
 	}
+	
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
@@ -176,4 +177,13 @@ public class DuckService {
 	public List<Board> boardlist2(Integer boardnum) {
 		return boardDao.mainlist2(boardnum);
 	}
+
+	public void supporting(String userid) {
+		userDao.supporting(userid); 
+	}
+
+	public List<User> supporterlist(String userid, Integer matching, Integer boardnum, Integer ducktype) {
+		return userDao.supporterlist(userid,matching,boardnum,ducktype);
+	}
+
 }
