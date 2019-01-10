@@ -54,22 +54,18 @@ public class AjaxController {
 	// user_signup
 	@ResponseBody
 	@RequestMapping("board/duck")
-	public Map<Object, Object> duck(Integer num, Integer type, String userid) {
+	public Map<Object, Object> duck(Integer num, Integer type, String userid, Integer ducktype) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		Board board = new Board(); // board 껍데기 객체 생성
 		board.setBoardnum(num);
 		board.setBoardtype(type);
 		board = service.getBoard(board); // 해당 num,type의 board객체 가져옴
-//		
-//		Duck duck = new Duck();
-//		if(type == 3) {//duck 이 아닌 스크랩 했을 경우
-//		}
-		int duckselect = service.duckselect(userid, num);
+		int duckselect = service.duckselect(userid, num, ducktype);
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
-					service.boardduck(board, userid);
-					service.duckcntadd(num);
+					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
+					service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
 					if(type==1) {
 						map.put("msg", "Duck 완료!");						
 					}else if(type==3) {
@@ -96,6 +92,26 @@ public class AjaxController {
 	public Map<Object, Object> techchk(String data) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("tech", data);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("board/tech_select")
+	public Map<Object, Object> tech_select(String tech) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		String techarr[] = null; // 사용기술목록 배열
+		List<String> techlist = new ArrayList<String>(); // 기술목록 리스트
+		techarr = tech.split(","); // 넘어온 기술목록을 / 기준으로 split
+		for(int i=0;i<techarr.length;i++) {
+			techlist.add(techarr[i]+",");
+		}
+		TreeSet<String> arr1 = new TreeSet<String>(techlist);
+		ArrayList<String> arr2 = new ArrayList<String>(arr1);
+		tech = "";
+		for(int i=0;i<arr2.size();i++) {
+			tech += arr2.get(i);
+		}
+		map.put("tech", tech);
 		return map;
 	}
 

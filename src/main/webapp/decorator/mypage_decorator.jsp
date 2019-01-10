@@ -55,13 +55,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="text-align:center;">
         <div class="w3-container">
-         <h4 class="w3-center">${sessionScope.loginUser.userid }</h4>
+         <h4 class="w3-center">${loginUser.userid }</h4>
          <p class="w3-center"><img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          <hr>
          <p><i class="fa fa-home  w3-text-theme"></i>
-         <a href="#">내 프로필 보기</a></p>
+         <a href="../user/mypage_info.duck?id=${loginUser.userid}">내 프로필 보기</a></p>
          <p><i class="fa fa-pencil  w3-text-theme"></i>
-         <a href="#">내 프로필 수정</a></p>
+         <a href="../user/mypage_update.duck?id=${loginUser.userid}">내 프로필 수정</a></p>
         </div>
       </div>
       <br>
@@ -139,7 +139,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     
     <!-- Middle Column -->
    <div class="w3-twothird">
-    
       <div class="w3-row-padding" >
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
@@ -158,7 +157,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         <h4>Angie Jane</h4><br>
         <hr class="w3-clear">
         <p>Have you seen this?</p>
-        <img src="../workpic/QuickCoduck.jpg" style="width:100%" class="w3-margin-bottom">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button> 
         <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> Comment</button> 

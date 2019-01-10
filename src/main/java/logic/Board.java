@@ -60,6 +60,9 @@ public class Board {
 	public void setFile1(MultipartFile file1) {
 		this.file1 = file1;
 	}
+	public void setFile1(String file1) {
+		this.fileurl = file1;
+	}
 	public String getFileurl() {
 		return fileurl;
 	}

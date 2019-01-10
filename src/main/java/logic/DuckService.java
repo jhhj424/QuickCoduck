@@ -36,11 +36,7 @@ public class DuckService {
 			e.printStackTrace();
 		}
 	}
-
-	public void userUpdate(User user) {
-		userDao.userUpdate(user);
-	}
-
+	
 	public void userDelete(String id) {
 		userDao.userDelete(id);
 	}
@@ -76,8 +72,8 @@ public class DuckService {
 			uploadFileCreate(board.getFile1(), request, "file");
 			board.setFileurl(board.getFile1().getOriginalFilename());
 		}
+		System.out.println("글쓰기/덕서비스"+board);
 		int max = boardDao.maxNum();
-		System.out.println("maxNum:"+max);
 		board.setBoardnum(++max);
 		boardDao.insert(board);
 	}
@@ -93,6 +89,19 @@ public class DuckService {
 		}
 		boardDao.update(board);
 	}
+	public void userUpdate(User user, HttpServletRequest request) {
+		System.out.println("userfget"+user.getFile1());
+		System.out.println(user.getFile1().getOriginalFilename());
+		
+		if(user.getFile1() != null && !user.getFile1().isEmpty()) {
+			uploadFileCreate(user.getFile1(), request,"file");
+			System.out.println("userfget"+user.getFile1());
+			System.out.println(user.getFile1().getOriginalFilename());
+			user.setFileurl(user.getFile1().getOriginalFilename());
+		}
+		userDao.userUpdate(user);
+	}
+
 
 	public void boarddelete(int boardnum) {
 		boardDao.delete(boardnum);
@@ -122,12 +131,12 @@ public class DuckService {
 		return boardDao.recmdselect(userid,boardnum);//recmd테이블에 해당 데이터 있는지 조회
 	}
 
-	public int duckselect(String userid, Integer boardnum) {
-		return boardDao.duckselect(userid,boardnum);//duck테이블에 해당 데이터 있는지 조회
+	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
+		return boardDao.duckselect(userid,boardnum,ducktype);//duck테이블에 해당 데이터 있는지 조회
 	}
 
-	public void boardduck(Board board, String userid) {
-		boardDao.duckinsert(board,userid);
+	public void boardduck(Board board, String userid, Integer ducktype) {
+		boardDao.duckinsert(board,userid,ducktype);
 	}
 		
 	public List<User> userList() {

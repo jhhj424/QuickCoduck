@@ -113,10 +113,11 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public int duckselect(String userid, Integer boardnum) {
+	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("userid", userid);
 		map.put("boardnum", boardnum);
+		map.put("ducktype", ducktype);
 		String select = sqlSession.getMapper(BoardMapper.class).duckselect(map);
 		int num = 0;
 		if(select == null) {
@@ -126,10 +127,11 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public void duckinsert(Board board, String userid) {
+	public void duckinsert(Board board, String userid, Integer ducktype) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("boardnum", board.getBoardnum());
 		map.put("userid", userid);
+		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).duckinsert(map);
 	}
 	public List<Board> list(Integer pageNum, int limit, Integer type, String tech) {
