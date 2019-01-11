@@ -249,6 +249,7 @@ public class UserController {
 	public ModelAndView delete(String id, HttpSession session, String pass) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");// 현재로그인된유저
+		System.out.println("session"+loginUser.getUserid());
 		if (loginUser.getPass().equals(pass)) {
 			try {
 				service.userDelete(id);

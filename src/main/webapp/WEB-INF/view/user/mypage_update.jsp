@@ -116,7 +116,7 @@ function unNumberFormat(num)
 <form action="update.duck" method="post" enctype="multipart/form-data" name="f">
 <input type="hidden" name="file2" value="${user.fileurl}">
  <div class="w3-container w3-card w3-white w3-round w3-margin">
-      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user-plus fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 회원정보 수정</h2>
+      <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user-plus fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 회원정보</h2>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-id-badge fa-fw w3-margin-right"></i><b>회원 Id</b></h5>
           <h6 class="w3-text-teal">
@@ -153,36 +153,6 @@ function unNumberFormat(num)
           </h6>
           <hr>
        </div>
-       </c:if>
-     <c:if test="${user.type == '2' }">
-       <c:if test="${empty user.creditnum }">
-       <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
-          <input type="text" name="creditnum" id="creditnum"  maxlength="19"onkeyup="javascript:commanAndNum(this)">
-          <hr>
-       </div>
-       </c:if>
-       <c:if test="${!empty user.creditnum }">
-       <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
-          <input type="text" name="creditnum" id="re_creditnum" maxlength="19" onkeyup="javascript:commanAndNum(this)" value="${user.creditnum }" readonly="readonly">
-          <hr>
-       </div>
-       </c:if>
-       <c:if test="${empty user.creditpass }">
-       <div class="w3-container">
-          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
-          <input type="password" name="creditpass" id="creditpass" maxlength="4">
-          <hr>
-       </div>
-     </c:if>
-       <c:if test="${!empty user.creditpass }">
-       <div class="w3-container" style="display:none;">
-          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
-          <input type="password" name="creditpass" id="re_creditpass" value="${user.creditpass }" maxlength="4" readonly="readonly">
-          <hr>
-       </div>
-       </c:if>
        </c:if>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i>
@@ -240,7 +210,10 @@ function unNumberFormat(num)
 		  </div>
           <hr>
        </div>
-       <div class="w3-container">
+    </div>
+    <div class="w3-container w3-card w3-white w3-round w3-margin">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-refresh fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 정보 수정하기</h2>
+        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-refresh fa-fw w3-margin-right"></i><b>정보 수정하기</b></h5>
           <h6 class="w3-text-teal">
           <input type="submit" value="수정하기">
@@ -248,6 +221,41 @@ function unNumberFormat(num)
           <hr>
        </div>
     </div>
+    <c:if test="${user.type == '2' }">
+    <div class="w3-container w3-card w3-white w3-round w3-margin">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-krw fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 결제정보</h2>
+       <c:if test="${user.type == '2' }">
+       <c:if test="${empty user.creditnum }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
+          <input type="text" name="creditnum" id="creditnum"  maxlength="19"onkeyup="javascript:commanAndNum(this)">
+          <hr>
+       </div>
+       </c:if>
+       <c:if test="${!empty user.creditnum }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
+          <input type="text" name="creditnum" id="re_creditnum" maxlength="19" onkeyup="javascript:commanAndNum(this)" value="${user.creditnum }" readonly="readonly">
+          <hr>
+       </div>
+       </c:if>
+       <c:if test="${empty user.creditpass }">
+       <div class="w3-container">
+          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
+          <input type="password" name="creditpass" id="creditpass" maxlength="4">
+          <hr>
+       </div>
+     </c:if>
+       <c:if test="${!empty user.creditpass }">
+       <div class="w3-container" style="display:none;">
+          <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
+          <input type="password" name="creditpass" id="re_creditpass" value="${user.creditpass }" maxlength="4" readonly="readonly">
+          <hr>
+       </div>
+       </c:if>
+       </c:if>
+    </div>
+    </c:if>
 </form>
 </body>
 </html>
