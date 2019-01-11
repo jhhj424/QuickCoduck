@@ -16,7 +16,7 @@
 		 recomment 
 	</select>
 	<select id="list" parameterType="map" resultType="Comment"> 
-		select * from recomment where boardnum = #{boardnum}
+		select * from recomment where boardnum = #{boardnum} order by ref,refstep
 	</select>
 	<select id="select" parameterType="map" resultType="Comment"> 
 		select * from recomment where num = #{num}

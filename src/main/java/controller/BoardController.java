@@ -335,17 +335,17 @@ public class BoardController {
 	public ModelAndView reply(String reply,Integer num, Integer type, HttpSession session,HttpServletRequest request) {
     	ModelAndView mav = new ModelAndView();
     	Comment comment = service.selectcomment(num); //num : 원댓글번호
-    	System.out.println("ref"+comment.getRef());
-    	System.out.println("reflevel"+comment.getReflevel());
-    	System.out.println("refstep"+comment.getRefstep());
-    	System.out.println("================================");
-    	System.out.println("답변 내용:"+reply); //reply : 답글의 내용
+//    	System.out.println("ref"+comment.getRef());
+//    	System.out.println("reflevel"+comment.getReflevel());
+//    	System.out.println("refstep"+comment.getRefstep());
+//    	System.out.println("================================");
+//    	System.out.println("답변 내용:"+reply); //reply : 답글의 내용
     	User user = (User)session.getAttribute("loginUser");
-    	System.out.println("아이디:" + user.getUserid());
+//    	System.out.println("아이디:" + user.getUserid());
     	int commentCount = service.commentcount(comment.getBoardnum());
     	int refstep = comment.getRefstep();
-    	int step = refstep +1;
-    	System.out.println(step);
+    	int step = refstep + 1;
+    	//System.out.println(step);
     	int boardnum = comment.getBoardnum();
     	
     	try {
