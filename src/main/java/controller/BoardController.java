@@ -150,9 +150,12 @@ public class BoardController {
 		}
 		try {
 			service.boardadd(board, request);
+			board = service.getBoard(board);
 			mav.addObject("board", board);
 			if(board.getBoardtype()==2) {
 				mav.setViewName("redirect:list.duck?type="+board.getBoardtype());	
+			}else if(board.getBoardtype()==3) {
+				mav.setViewName("redirect:clientsuccess.duck?boardnum="+board.getBoardnum());
 			}else {
 				mav.setViewName("redirect:find.duck?type="+board.getBoardtype());				
 			}
@@ -162,6 +165,21 @@ public class BoardController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="board/clientsuccess")
+	public ModelAndView detail(Integer boardnum, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Board bo = new Board();
+		bo.setBoardnum(boardnum);
+		bo.setBoardtype(3);
+		User user = (User)session.getAttribute("loginUser");
+		Board board = service.getBoard(bo);
+		mav.addObject("board", board);
+		mav.addObject("User", user);
+		session.setAttribute("loginUser", user);
+		session.setAttribute("clientboard", board);
+		return mav;
+	}	
 	
 	@RequestMapping(value="board/detail")
 	public ModelAndView detail(Integer num,Integer type, HttpSession session) {

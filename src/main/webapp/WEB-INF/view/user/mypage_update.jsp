@@ -176,15 +176,13 @@ function unNumberFormat(num)
           <hr>
        </div>
      </c:if>
-       
        <c:if test="${!empty user.creditpass }">
-       <div class="w3-container">
+       <div class="w3-container" style="display:none;">
           <h5 class="w3-opacity"><i class="fa fa-shield fa-fw w3-margin-right"></i><b>결제 비밀번호</b></h5>
           <input type="password" name="creditpass" id="re_creditpass" value="${user.creditpass }" maxlength="4" readonly="readonly">
           <hr>
        </div>
        </c:if>
-       
        </c:if>
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i>
