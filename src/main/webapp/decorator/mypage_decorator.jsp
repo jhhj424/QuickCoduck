@@ -84,7 +84,7 @@ margin-bottom:5px;
          <button onclick="location.href='../user/mypage_info.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-address-book fa-fw w3-margin-right"></i> 회원정보 보기</button>
          <button onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-edit fa-fw w3-margin-right"></i> 회원정보 수정</button>
          <c:if test="${loginUser.type == '1' }">
-         <button onclick="location.href='../board/find.duck?type=5'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 나만의 소스보기</button>
+         <button onclick="location.href='../board/find.duck?type=5'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 나만의 소스보기</button>
          </c:if>
          <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
          </div>
