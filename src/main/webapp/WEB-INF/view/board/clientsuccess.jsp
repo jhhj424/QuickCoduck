@@ -27,7 +27,7 @@
 </table>
 <div id="client_select" align="center" style="border: 1px solid">
 <input type="button" value="매칭인재보기" onclick="location.href='../user/matchuser.duck'">
-<input type="button" value="목록보기" onclick="location.href='../board/find.duck?type=${board.type}'">
+<input type="button" value="목록보기" onclick="location.href='../board/find.duck?type=${board.boardtype}'">
 </div>
 </div >
 </body>
