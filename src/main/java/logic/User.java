@@ -26,6 +26,7 @@ public class User {
 	private MultipartFile file1;// 梅何颇老
 	private String fileurl;// 颇老林家
 	private String pic;// 荤柳
+	private int maxcount;
 	// getter,setter,toString
 	public String getUserid() {
 		return userid;
@@ -117,12 +118,19 @@ public class User {
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
+	public int getMaxcount() {
+		return maxcount;
+	}
+	public void setMaxcount(int maxcount) {
+		this.maxcount = maxcount;
+	}
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth=" + birth
 				+ ", type=" + type + ", businessnum=" + businessnum + ", usetech=" + usetech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching
-				+ ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic + "]";
+				+ ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic + ", maxcount=" + maxcount + "]";
 	}
+	
 
 }

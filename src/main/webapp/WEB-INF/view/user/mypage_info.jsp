@@ -39,7 +39,7 @@
     </div>
     <c:if test="${user.type == '2' }">
     <div class="w3-container w3-card w3-white w3-round w3-margin">
-     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-krw fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 카드 관리</h2>
+     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-krw fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>결제 관리</h2>
      <hr>
      <div class="w3-container">
           <h5 class="w3-opacity">
@@ -53,6 +53,22 @@
           </c:if>
           <c:if test="${!empty user.creditnum }">
           ${user.creditnum }
+          </c:if>
+          </h6>
+          <hr>
+       </div>
+       <div class="w3-container">
+          <h5 class="w3-opacity">
+          <i class="fa fa-cart-plus fa-fw w3-margin-right"></i>
+          <b>상품 정보</b>
+          </h5>
+          <h6 class="w3-text-teal">
+          <c:if test="${user.maxcount == '0'}">
+          <button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_item.duck?id=${user.userid}'">
+          <i class="fa fa-plus-square"></i> 추가하기</button>
+          </c:if>
+          <c:if test="${user.maxcount != '0'}">
+          ${user.maxcount }
           </c:if>
           </h6>
           <hr>

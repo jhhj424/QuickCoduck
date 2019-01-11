@@ -160,6 +160,7 @@ public class UserController {
 	public ModelAndView mypage(String id, HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User dbuser = service.select(id);
+		System.out.println("maxcount" + dbuser.getMaxcount());
 		User user = (User) session.getAttribute("loginUser");
 		if (!dbuser.getUserid().equals(user.getUserid()) && !user.getUserid().equals("admin")) {
 			throw new LoginException("본인정보만 조회 가능합니다", "../user/mypage_main.duck?id=" + user.getUserid());
@@ -195,6 +196,31 @@ public class UserController {
 			throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 		}
 
+		return mav;
+	}
+
+	@RequestMapping(value = "user/payment*", method = RequestMethod.POST)
+	public ModelAndView payment(HttpSession session, User user, HttpServletRequest request)
+			throws NoSuchAlgorithmException {
+		ModelAndView mav = new ModelAndView("user/mypage_itempay");
+		int itemtype = Integer.parseInt(request.getParameter("itemtype"));
+		User dbuser = service.select(user.getUserid());
+		String hashpass = service.getHashvalue(user.getCreditpass());
+		if (hashpass.equals(dbuser.getCreditpass())) {
+			if (itemtype == 1) {
+				dbuser.setMaxcount(10);
+			} else if (itemtype == 2) {
+				dbuser.setMaxcount(20);
+			} else {
+				dbuser.setMaxcount(30);
+			}
+			service.maxcountUpdate(dbuser);
+			session.setAttribute("loginUser", dbuser);
+			mav.setViewName("redirect:mypage_main.duck?id=" + dbuser.getUserid());
+		} else {
+			throw new LoginException("결제비밀번호 오류!",
+					"../user/mypage_itempay.duck?id=" + user.getUserid() + "&itemtype=" + itemtype);
+		}
 		return mav;
 	}
 

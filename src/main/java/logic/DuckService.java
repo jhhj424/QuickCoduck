@@ -109,6 +109,9 @@ public class DuckService {
 		}
 		userDao.userUpdate(user);
 	}
+	public void maxcountUpdate(User user) {
+		userDao.userUpdate(user);
+	}
 
 	public void boarddelete(int boardnum) {
 		boardDao.delete(boardnum);
