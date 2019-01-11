@@ -138,7 +138,7 @@ margin-bottom:5px;
 		</c:if>
 		
 		<c:if test="${loginUser.type == '2' }">
-		<h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-user fa-fw w3-xxlarge w3-text-teal"></i>프로젝트 주요기술</h2>
+		<h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-briefcase fa-fw w3-xxlarge w3-text-teal"></i>프로젝트 주요기술</h2>
 			<c:if test="${empty loginUser.usetech }">
 			<h5 class="w3-opacity"><i class="fa fa-briefcase fa-fw w3-margin-right"></i><b>프로젝트 주요기술 미등록</b></h5>
 			<button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'"><i class="fa fa-plus-square"></i> 추가하기</button>
@@ -150,10 +150,26 @@ margin-bottom:5px;
 			</c:forEach>
 			</c:if>
 		</c:if>
-			
 			<p></p>
 		</div>
 	 </div><br>
+	 <c:if test="${loginUser.type == '2' }">
+	   <div class="w3-card w3-round w3-white w3-hide-small">
+	     <div class="w3-container">
+	       <h2 class="w3-text-grey w3-padding-16" style="text-align:left;"><i class="fa fa-bullhorn fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 상품정보</h2>
+	       <c:if test="${loginUser.maxcount == '0' }">
+			<h5 class="w3-opacity"><i class="fa fa-cart-plus fa-fw w3-margin-right"></i><b>공고 상품 미등록</b></h5>
+			<button type="button" class="w3-button w3-theme" onclick="location.href='../user/mypage_item.duck?id=${loginUser.userid}'"><i class="fa fa-plus-square"></i> 추가하기</button>
+			</c:if>
+			<c:if test="${loginUser.maxcount != '0' }">
+			공고 사용가능 횟수: 
+			<span class="w3-tag w3-theme-d3">${loginUser.maxcount}</span>
+			</c:if>
+			<p></p>
+	     </div>
+	   </div>
+	   <br>
+	 </c:if>
       
       <!-- Alert Box -->
       <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">

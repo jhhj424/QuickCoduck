@@ -17,7 +17,7 @@ public interface UserMapper  {
 	
 	@Update("update user set email = #{email}, tel = #{tel}, birth = #{birth}, "
 			+ " usetech = #{usetech}, rating = #{rating}, businessnum = #{businessnum}, "
-			+ " creditnum = #{creditnum}, creditpass = #{creditpass}, file1 = #{fileurl} where userid = #{userid}")
+			+ " creditnum = #{creditnum}, creditpass = #{creditpass}, file1 = #{fileurl}, maxcount= #{maxcount} where userid = #{userid}")
 	void update(User user);
 
 	@Delete("delete from user where userid=#{userid}")
