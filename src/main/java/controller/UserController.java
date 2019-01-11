@@ -2,6 +2,8 @@ package controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -173,14 +175,24 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
-	public ModelAndView update(HttpSession session, User user, HttpServletRequest request) {
+	public ModelAndView update(HttpSession session, User user, HttpServletRequest request)
+			throws NoSuchAlgorithmException {
 		ModelAndView mav = new ModelAndView("user/mypage_update");
 		user.setFileurl(request.getParameter("file2"));
-		service.userUpdate(user, request);
-		User user1 = service.select(user.getUserid());
-		System.out.println("유저:" + user1);
-		session.setAttribute("loginUser", user1);
-		mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+		if (user.getCreditpass().length() == 4) {// 초기에 4자리 결제 비밀번호로 들어올때만
+			String hashpass = service.getHashvalue(user.getCreditpass());
+			user.setCreditpass(hashpass);
+		}
+		int count = service.creditchk(user.getCreditnum());
+		if (count == 0) {
+			service.userUpdate(user, request);
+			User user1 = service.select(user.getUserid());
+			session.setAttribute("loginUser", user1);
+			mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+		} else {
+			throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
+		}
+
 		return mav;
 	}
 

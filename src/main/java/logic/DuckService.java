@@ -1,6 +1,8 @@
 package logic;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dao.BoardDao;
 import dao.CommentDao;
 import dao.UserDao;
+import exception.LoginException;
 
 @Service // @Component + Service 기능 (Controller 와 Repository의 사이의 중간 객체)
 public class DuckService {
@@ -22,7 +25,7 @@ public class DuckService {
 	private BoardDao boardDao;
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String uploadPath = request.getServletContext().getRealPath("/") + "/" + path + "/";
 		// 파일의 이름.
@@ -34,13 +37,15 @@ public class DuckService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void userDelete(String id) {
 		userDao.userDelete(id);
 	}
+
 	public Board getBoard(Board board) {
 		return boardDao.select(board);
 	}
+
 	public Duck getDuck(Duck duck) {
 		return boardDao.select(duck);
 	}
@@ -49,23 +54,24 @@ public class DuckService {
 		return boardDao.select(num);
 	}
 
-	public int boardcount(String searchType, String searchContent,Integer type) {
-		return boardDao.count(searchType, searchContent,type);
+	public int boardcount(String searchType, String searchContent, Integer type) {
+		return boardDao.count(searchType, searchContent, type);
 	}
-	public int boardcount(String searchType, String searchContent,Integer type,String userid) {//나만의소스카운트용
-		return boardDao.count(searchType, searchContent,type,userid);
+
+	public int boardcount(String searchType, String searchContent, Integer type, String userid) {// 나만의소스카운트용
+		return boardDao.count(searchType, searchContent, type, userid);
 	}
 
 	public int boardcount(Integer type) {
 		return boardDao.count(type);
 	}
-	
-	public int boardcount(String searchType, String searchContent,Integer type, String id, Integer ducktype) {
-		return boardDao.count(searchType, searchContent,type, id, ducktype);
+
+	public int boardcount(String searchType, String searchContent, Integer type, String id, Integer ducktype) {
+		return boardDao.count(searchType, searchContent, type, id, ducktype);
 	}
-	
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
-		return boardDao.list(searchType, searchContent, pageNum, limit,type);
+
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type) {
+		return boardDao.list(searchType, searchContent, pageNum, limit, type);
 	}
 
 	public void boardadd(Board board, HttpServletRequest request) {
@@ -73,7 +79,7 @@ public class DuckService {
 			uploadFileCreate(board.getFile1(), request, "file");
 			board.setFileurl(board.getFile1().getOriginalFilename());
 		}
-		System.out.println("글쓰기/덕서비스"+board);
+		System.out.println("글쓰기/덕서비스" + board);
 		int max = boardDao.maxNum();
 		board.setBoardnum(++max);
 		boardDao.insert(board);
@@ -90,19 +96,19 @@ public class DuckService {
 		}
 		boardDao.update(board);
 	}
+
 	public void userUpdate(User user, HttpServletRequest request) {
-		System.out.println("userfget"+user.getFile1());
+		System.out.println("userfget" + user.getFile1());
 		System.out.println(user.getFile1().getOriginalFilename());
-		
-		if(user.getFile1() != null && !user.getFile1().isEmpty()) {
-			uploadFileCreate(user.getFile1(), request,"file");
-			System.out.println("userfget"+user.getFile1());
+
+		if (user.getFile1() != null && !user.getFile1().isEmpty()) {
+			uploadFileCreate(user.getFile1(), request, "file");
+			System.out.println("userfget" + user.getFile1());
 			System.out.println(user.getFile1().getOriginalFilename());
 			user.setFileurl(user.getFile1().getOriginalFilename());
 		}
 		userDao.userUpdate(user);
 	}
-
 
 	public void boarddelete(int boardnum) {
 		boardDao.delete(boardnum);
@@ -112,7 +118,7 @@ public class DuckService {
 		User dbuser = userDao.userSelect(user);
 		return dbuser;
 	}
-	
+
 	public void userCreate(User user, HttpServletRequest request) {
 		userDao.insert(user);
 	}
@@ -121,29 +127,29 @@ public class DuckService {
 		return userDao.select(id);
 	}
 
-	public int recmd(Board board,String userid) {
+	public int recmd(Board board, String userid) {
 		boardDao.recmd(board);// 추천수 증가
-		boardDao.recmdchk(board,userid);//recmd 테이블에 추천정보 저장
-		Board bo = boardDao.select(board); //추천갱신 리턴할때 쓰려고 증가후 게시판객체가져옴
+		boardDao.recmdchk(board, userid);// recmd 테이블에 추천정보 저장
+		Board bo = boardDao.select(board); // 추천갱신 리턴할때 쓰려고 증가후 게시판객체가져옴
 		return bo.getRecmd();
 	}
 
-	public int recmdselect(String userid,Integer boardnum) {
-		return boardDao.recmdselect(userid,boardnum);//recmd테이블에 해당 데이터 있는지 조회
+	public int recmdselect(String userid, Integer boardnum) {
+		return boardDao.recmdselect(userid, boardnum);// recmd테이블에 해당 데이터 있는지 조회
 	}
 
 	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
-		return boardDao.duckselect(userid,boardnum,ducktype);//duck테이블에 해당 데이터 있는지 조회
+		return boardDao.duckselect(userid, boardnum, ducktype);// duck테이블에 해당 데이터 있는지 조회
 	}
 
 	public void boardduck(Board board, String userid, Integer ducktype) {
-		boardDao.duckinsert(board,userid,ducktype);
+		boardDao.duckinsert(board, userid, ducktype);
 	}
-		
+
 	public List<User> userList() {
 		return userDao.userList();
 	}
-	
+
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
@@ -152,20 +158,27 @@ public class DuckService {
 		return userDao.idchk(userid);
 	}
 
+	public int creditchk(String creditnum) {
+		return userDao.creditchk(creditnum);
+	}
+
 	public List<Board> boardlist(Integer pageNum, int limit, Integer type, String tech) {
-		return boardDao.list(pageNum, limit,type,tech);
+		return boardDao.list(pageNum, limit, type, tech);
 	}
 
 	public List<Board> boardlist(Integer pageNum, int limit, Integer type) {
-		return boardDao.list(pageNum, limit,type);
+		return boardDao.list(pageNum, limit, type);
 	}
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String id, Integer ducktype) {
+
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
+			String id, Integer ducktype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 	}
 
-	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,	String userid) {
+	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
+			String userid) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, userid);
-	}//나만의게시판리스트
+	}// 나만의게시판리스트
 
 	public List<Board> boardlist(String num) {
 		return boardDao.list(num);
@@ -182,7 +195,8 @@ public class DuckService {
 	public List<Board> boardlist2(Integer boardnum) {
 		return boardDao.mainlist2(boardnum);
 	}
-	//댓글
+
+	// 댓글
 	public void commentadd(Comment comment, HttpServletRequest request, String userid, int rnum) {
 		int max = commentDao.maxNum();
 		comment.setNum(++max);
@@ -190,7 +204,7 @@ public class DuckService {
 		comment.setRef(rnum);
 		comment.setContent(comment.getContent());
 		comment.setBoardnum(Integer.parseInt(request.getParameter("num")));
-		
+
 		commentDao.insert(comment);
 	}
 
@@ -201,26 +215,28 @@ public class DuckService {
 	public List<Comment> commentlist(Integer boardnum) {
 		return commentDao.list(boardnum);
 	}
+
 	public void upcomment(int num, String content) {
-		commentDao.update(num,content);
+		commentDao.update(num, content);
 	}
+
 	public void delcomment(Integer num) {
 		commentDao.delete(num);
 	}
 
 	public void supporting(String userid) {
-		userDao.supporting(userid); 
+		userDao.supporting(userid);
 	}
 
 	public List<User> supporterlist(String userid, Integer matching, Integer boardnum, Integer ducktype) {
-		return userDao.supporterlist(userid,matching,boardnum,ducktype);
+		return userDao.supporterlist(userid, matching, boardnum, ducktype);
 	}
 
 	public int refnum() {
 		return commentDao.refnum();
 	}
 
-	public void replyadd(String reply, String userid, Integer step,Integer boardnum,Integer ref) {
+	public void replyadd(String reply, String userid, Integer step, Integer boardnum, Integer ref) {
 		int max = commentDao.maxNum();
 		Comment comment = new Comment();
 		comment.setNum(++max);
@@ -234,5 +250,23 @@ public class DuckService {
 
 	public Comment selectcomment(Integer num) {
 		return commentDao.select(num);
+	}
+
+	public String getHashvalue(String password) throws NoSuchAlgorithmException {
+		MessageDigest md;
+		String hashvalue = "";
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+			byte[] plain = password.getBytes();
+			byte[] hash = md.digest(plain);
+			for (byte b : hash) {
+				hashvalue += String.format("%02X", b);
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			throw new LoginException("전산부에 전화 요망", "../mypage_update.duck");
+		}
+
+		return hashvalue;
 	}
 }

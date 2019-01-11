@@ -26,6 +26,9 @@ public interface UserMapper  {
 	@Select("SELECT COUNT(*) FROM user WHERE userid = #{userid}")
 	int idchk(String userid);
 	
+	@Select("select count(*) from user where creditnum = #{creditnum}")
+	int creditchk(String creditnum);
+	
 	@Update("update user set matching = 1 where userid = #{userid}")
 	void supporting(Map<String, String> map);
 }

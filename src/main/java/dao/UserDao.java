@@ -64,6 +64,10 @@ public class UserDao {
 		int result = sqlSession.getMapper(UserMapper.class).idchk(userid);
 		return result;
 	}
+	public int creditchk(String creditnum) {
+		int result = sqlSession.getMapper(UserMapper.class).creditchk(creditnum);
+		return result;
+	}
 	public void supporting(String userid) {
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("userid", userid);
