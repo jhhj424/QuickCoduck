@@ -109,7 +109,7 @@
 				data : {"boardnum" : boardnum,	"num" : num},
 				dataType : "json",
 				success : function(result) {
-					alert(result.msg)
+					//alert(result.msg)
 					if (result.msg == "OK") {
 						$('#comment.content').remove();
 						alert("삭제되었습니다.");
@@ -130,33 +130,34 @@
 	//댓글 답변 입력창
 	function comment_submit2(num) {
 		var reply = $("#replycontent").val();
-		alert(reply);
+		//alert(reply);
 		var length = $("#replycontent").val().length;
-		alert(length);
-		alert("댓글번호:"+num);
+		//alert(length);
+		//alert("댓글번호:"+num);
 		var type = ${param.type};
 		if (length < 1) {
 			alert("답변을 입력하세요");
 			return;
 		}else{
-			alert($("#replycontent").val());
+			//alert($("#replycontent").val());
 		}
 		location.href="reply.duck?num="+num+"&reply="+reply+"&type="+type
 	}
+	//답글 폼(?)
 	function replyCommentOpen(num){
-		$("#reply").html(
+		$("#reply"+num).html(
 				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
 					+'<td>└답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
 					+'name="reply" id="replycontent" >'+'</textarea>'
 					+'<td><button type="button" onclick="location.href='
 					+"'javascript:comment_submit2("+num+")'"
 					+' "class="comment">답변등록!!</button><br>'
-					+'<button onclick="replycancer()">답변 취소</button>'
+					+'<button onclick="replycancer('+num+')">답변 취소</button>'
 				    +'</td></td></tr></table>'
 		)
 	}
-	function replycancer(){
-		$("#reply").html(
+	function replycancer(num){
+		$("#reply"+num).html(
 				''
 		)
 	}
@@ -190,8 +191,8 @@
 </head>
 <body class="b1 ">
 	<form action="comment.duck?" name="f" method="post">
-		<input type="hidden" value="${param.type}" name="type"> <input
-			type="hidden" value="${param.num}" name="num">
+		<input type="hidden" value="${param.type}" name="type"> 
+		<input type="hidden" value="${param.num}" name="num">
 	<div class="w3-container">
 		<div class="w3-ul w3-card-4">
 			<table class="table14_10" style="width: 100%">
@@ -215,7 +216,7 @@
 				<tr>
 					<td>내용</td>
 					<td>
-						<table width="100%" height="250">
+						<table style = "width:100%; height:250">
 							<tr>
 								<td>${fn:replace(board.content, cn, br)}</td>
 							</tr>
@@ -276,20 +277,23 @@
 							<tr>
 								<td>${c.userid}님</td>
 								<td style="min-width: 600px; text-align: left; max-width: 600px">
-									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+									<div
+										style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
 										${fn:replace(c.content, cn, br)}</div>
-								</td>								
+								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
 										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-									</c:if> <c:if test="${c.userid != loginUser.userid }"> 
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" /><br><!-- 시간 설정해서 집어넣어야됨ㅇㅋ? -->
+									</c:if> <c:if test="${c.userid != loginUser.userid }">
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 									</c:if></td>
-							</tr><tr id="reply" align="right"></tr>
-						</c:forEach>						
+							</tr>
+							<tr id="reply${c.num}" align="right"></tr>
+						</c:forEach>
 					</c:if>
 				</table>
 			</div>

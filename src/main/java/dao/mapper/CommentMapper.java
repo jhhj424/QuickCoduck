@@ -13,7 +13,7 @@ public interface CommentMapper  {
 	int maxNum();
 	
 	@Insert("insert into recomment (num,userid,boardnum,content,regdate,ref,refstep,reflevel) "
-		 	+ " values(#{num},#{userid},#{boardnum},#{content},#{regdate},#{ref},#{refstep},#{reflevel})")
+		 	+ " values(#{num},#{userid},#{boardnum},#{content},now(),#{ref},#{refstep},#{reflevel})")
 	void insert(Comment comment);
 	
 	@Delete("delete from recomment where num = #{num}")
