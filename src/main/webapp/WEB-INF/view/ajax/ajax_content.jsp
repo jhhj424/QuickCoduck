@@ -1,7 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
-
+<script type="text/javascript">
+function write_submit() {
+	var usertype = ${loginUser.type}
+	var boardtype = ${param.type}
+	var userid = '${loginUser.userid}'
+	if (usertype != 1 && boardtype == 1 && userid!='admin') {
+		alert("개발자만 글을 쓸 수 있습니다.");
+		return false;
+	}
+	if (usertype != 2 && boardtype == 3 && userid!='admin') {
+		alert("클라이언트만 글을 쓸 수 있습니다.");
+		return false;
+	}
+	location.href = "write.duck?type="+boardtype;
+}
+</script>
 <c:if test="${type!=5}">
 <div class="table14_10" style="width: 100%">
 									<div>
@@ -84,7 +99,8 @@
 </c:if>
 									<div>
 										<div align="right">
-											<a href="write.duck?type=${param.type}">[글쓰기]</a>
+											<button type="button"
+								onclick="location.href='javascript:write_submit()'">글쓰기</button>
 										</div>
 									</div>
 									</div>
@@ -173,7 +189,8 @@
 </c:if>
 									<div>
 										<div align="right">
-											<a href="write.duck?type=${param.type}">[글쓰기]</a>
+											<button type="button"
+								onclick="location.href='javascript:write_submit()'">글쓰기</button>
 										</div>
 									</div>
 									</div>

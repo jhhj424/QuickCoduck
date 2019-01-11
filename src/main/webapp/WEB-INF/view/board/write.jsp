@@ -127,5 +127,10 @@
 		</c:if>
 		<br>
 		<a href="javascript:document.f.submit()">[게시물등록]</a>
-		<a href="list.duck?type=${param.type}">[게시물목록]</a></div>
+		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
+		<a href="find.duck?type=${param.type}">[게시물목록]</a>
+		</c:if>
+		<c:if test="${param.type!=1 && param.type!=3 && param.type!=5}">
+		<a href="list.duck?type=${param.type}">[게시물목록]</a>
+		</c:if></div>
 		</div></form:form></body></html>

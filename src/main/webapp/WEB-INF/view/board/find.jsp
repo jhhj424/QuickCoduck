@@ -396,6 +396,8 @@ function write_submit() {
 													</div>
 													<div align="right">날짜:${board.regdate}&nbsp;&nbsp;</div>
 													<div align="right">조회수:${board.readcnt}&nbsp;&nbsp;</div>
+			<div align="right">선택기술:${tech}&nbsp;&nbsp;</div>
+			<div align="right">사용기술:${board.usetech}&nbsp;&nbsp;</div>
 												</div>
 											</c:forEach>
 										</div>

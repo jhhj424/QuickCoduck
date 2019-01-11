@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -296,6 +298,45 @@ public class UserController {
 		List<User> supporterlist = service.supporterlist(user.getUserid(), matching, boardnum, ducktype);
 		mav.addObject("user", user);
 		mav.addObject("supporterlist", supporterlist);
+		return mav;
+	}
+
+	@RequestMapping(value = "user/matchuser")
+	public ModelAndView matchuser(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) session.getAttribute("loginUser"); //현재 로그인유저
+		Board board = (Board) session.getAttribute("clientboard"); //현재 쓴 게시글
+		String needtech = board.getUsetech(); // 현재 공고의 필요 기술
+		String tech[] = needtech.split(",");
+		List<User> matchinguserList = new ArrayList<User>();
+		List<String> useridlist = new ArrayList<String>();
+		try {
+			for(int i=0; i<tech.length;i++) {
+				matchinguserList.addAll(service.matchinguserList(tech[i]+",")); // 기술목록에 맞는 유저 리스트	
+			}
+			for (int i = 0; i < matchinguserList.size(); i++) { // 여러개의 tech가 들어올시 중복값이 있는 list
+				useridlist.add(matchinguserList.get(i).getUserid()); // 게시글번호만 저장
+			}
+			matchinguserList.clear(); //중복요소잇는 리스트 비우기
+			TreeSet<String> arr1 = new TreeSet<String>(useridlist);
+			ArrayList<String> arr2 = new ArrayList<String>(arr1);
+			String uid = "'"+arr2.get(0) + "',";
+			for (int i = 1; i < arr2.size()-1; i++) {
+				uid += "'" + arr2.get(i) + "',";;
+			}
+			uid += "'"+arr2.get(arr2.size()-1)+"'";
+			System.out.println(uid);
+			matchinguserList = service.userList(uid);
+		}catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
+			e.printStackTrace();
+			System.out.println("기술목록에 해당하는 개발자가 없음");
+			mav.addObject("ON", 1);
+//			boardlist.add(new Board());
+//			model.addAttribute("ON", 1);
+		}
+		session.setAttribute("loginUser",user);
+		mav.addObject("userlist",matchinguserList);
+		mav.addObject("clientboard",board);
 		return mav;
 	}
 }

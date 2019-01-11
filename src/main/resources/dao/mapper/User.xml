@@ -8,6 +8,12 @@
 		<if test="userid != null">
 			where userid=#{userid}
 		</if>
+		<if test="userid2 != null">
+			where userid in (${userid2})
+		</if>
+		<if test="usetech != null">
+			where usetech like '%${usetech}%'
+		</if>
 		<if test="ids != null">
 			where userid in
 			<foreach collection="ids" item="userid" open="(" close=")"

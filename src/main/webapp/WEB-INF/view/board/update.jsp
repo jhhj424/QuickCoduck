@@ -90,7 +90,7 @@
 		</div>	
 		<div><div align="center"><b>글쓴이 : </b><form:input path="userid" value="${board.userid}" readonly="true"/><font color="red"><form:errors path="userid" /></font></div>
 		<div><div align="center"><b>비밀번호 : </b><input type="password" name="pass"></div>
-		<c:if test="${param.type==1 || param.type==3}">
+		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<div align="center">
 		<b>사용기술 : </b>
 		<select id="develop_select">
@@ -134,7 +134,7 @@
 		</c:if>
 		<input type="file" name="file1"></div></div>
 	<div align="center">
-		 <c:if test="${param.type==1 || param.type==3}">
+		 <c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<div align="center">
 		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="${board.usetech }">
 		<input type="button" id="tech_reset" value="reset"></div>

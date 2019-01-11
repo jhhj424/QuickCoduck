@@ -54,6 +54,11 @@ public class UserDao {
 		map.put("ids", idchks);
 		return sqlSession.selectList(NS + "list", map);
 	}
+	public List<User> list(String userid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userid2", userid);
+		return sqlSession.selectList(NS + "list", map);
+	}
 	//XML¼³Á¤
 	public User select(String id) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -80,5 +85,10 @@ public class UserDao {
 		map.put("boardnum", boardnum);
 		map.put("ducktype", ducktype);
 		return sqlSession.selectList(NS + "supporterlist", map);
+	}
+	public List<User> matchinguserList(String tech) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("usetech", tech);
+		return sqlSession.selectList(NS + "list",map);
 	}
 }

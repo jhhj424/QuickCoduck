@@ -153,6 +153,9 @@ public class DuckService {
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
+	public List<User> userList(String userid) {
+		return userDao.list(userid);
+	}
 
 	public int idchk(String userid) {
 		return userDao.idchk(userid);
@@ -268,5 +271,9 @@ public class DuckService {
 		}
 
 		return hashvalue;
+	}
+
+	public List<User> matchinguserList(String tech) {
+		return userDao.matchinguserList(tech);
 	}
 }
