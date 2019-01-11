@@ -129,9 +129,9 @@
 	}
 	//댓글 답변 입력창
 	function comment_submit2(num) {
-		var reply = $("#replycontent").val();
+		var reply = $("#replycontent"+num).val();
 		//alert(reply);
-		var length = $("#replycontent").val().length;
+		var length = $("#replycontent"+num).val().length;
 		//alert(length);
 		//alert("댓글번호:"+num);
 		var type = ${param.type};
@@ -148,7 +148,7 @@
 		$("#reply"+num).html(
 				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
 					+'<td>└답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
-					+'name="reply" id="replycontent" >'+'</textarea>'
+					+'name="reply" id="replycontent'+num+'" >'+'</textarea>'
 					+'<td><button type="button" onclick="location.href='
 					+"'javascript:comment_submit2("+num+")'"
 					+' "class="comment">답변등록!!</button><br>'
@@ -191,7 +191,7 @@
 </head>
 <body class="b1 ">
 	<form action="comment.duck?" name="f" method="post">
-		<input type="hidden" value="${param.type}" name="type"> 
+		<input type="hidden" value="${param.type}" name="type">
 		<input type="hidden" value="${param.num}" name="num">
 	<div class="w3-container">
 		<div class="w3-ul w3-card-4">
@@ -282,17 +282,19 @@
 										${fn:replace(c.content, cn, br)}</div>
 								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${c.regdate}"
+											pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
 									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${c.regdate}"
+											pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 									</c:if></td>
 							</tr>
-							<tr id="reply${c.num}" align="right"></tr>
+							<tr name="rep" id="reply${c.num}" align="right"></tr>
 						</c:forEach>
 					</c:if>
 				</table>
