@@ -19,6 +19,7 @@
 <h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=1&type=3">스크랩보기</a></h1>
 <h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=2&type=3">신청프로젝트보기</a></h1>
 <h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=3&type=3">진행중인프로젝트보기</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&type=3">클라이언트 진행중인프로젝트보기</a></h1> <!-- 정해놓지않았 -->
 <h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=4&type=3">종료프로젝트보기</a></h1>
 <h1><a href="submain.duck">서브메인</a></h1>
 <h1>테스트 용입니다</h1>

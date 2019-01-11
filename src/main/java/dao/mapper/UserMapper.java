@@ -28,4 +28,13 @@ public interface UserMapper  {
 	
 	@Update("update user set matching = 1 where userid = #{userid}")
 	void supporting(Map<String, String> map);
+
+	@Update("update user set matching = 2 where userid = #{userid}")
+	void acceptmatching(Map<String, String> map);
+
+	@Update("update duck set ducktype = 3 where userid=#{userid} and boardnum=#{boardnum} and ducktype=2")
+	void acceptducktype(Map<String, Object> map);
+
+	@Update("update duck set ducktype = 5 where userid=#{userid} and boardnum=#{boardnum} and ducktype=2")
+	void failducktype(Map<String, Object> map);
 }

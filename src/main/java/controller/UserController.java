@@ -271,15 +271,46 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "user/supporterlist")
-	public ModelAndView supporterlist(HttpSession session, Integer boardnum) {
+	@RequestMapping(value = "user/supporterlist", method = RequestMethod.GET)
+	public ModelAndView supporterlist(HttpSession session, Integer boardnum, String userid) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User)session.getAttribute("loginUser");
 		int matching = 1;
-		int ducktype = 1;
-		List<User> supporterlist = service.supporterlist(user.getUserid(), matching, boardnum, ducktype);
+		int ducktype = 2;
+		List<User> supporterlist = service.supporterlist(userid, matching, boardnum, ducktype);
 		mav.addObject("user", user);
 		mav.addObject("supporterlist",supporterlist);
 		return mav;
 	}
+	
+	@RequestMapping(value = "user/fail")
+	public ModelAndView fail(HttpSession session, Integer boardnum, String userid) {
+		ModelAndView mav = new ModelAndView("user/supporterlist");
+		User user = (User)session.getAttribute("loginUser");
+		mav.addObject("user", user);
+		String duckid = service.duckidselect(boardnum); //boardnum값에 대한 duck테이블의 userid가져오기
+		System.out.println("boardnum:"+boardnum);
+		System.out.println("duckid:"+duckid);
+		int ducktype = 2;
+		int duckselect = service.duckselect(duckid, boardnum, ducktype);
+		System.out.println("duckselect:"+duckselect);
+		if (duckselect == 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
+			/*if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때
+				try {
+					//map.put("msg", "참여 승낙하셨습니다!");
+					service.fail(userid,boardnum);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {// 다른사람의 게시물일때
+				//map.put("msg", "다른사람의 게시물입니다!");
+			}*/
+			service.fail(duckid,boardnum);
+			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum="+boardnum);
+		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
+			//map.put("msg", "이미 승낙하셨습니다!");						
+		}
+		return mav;
+	}
+
 }

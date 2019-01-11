@@ -245,4 +245,60 @@ public class AjaxController {
 		}
 		return map;
 	}
+	
+	/*// user_signup
+		@ResponseBody
+		@RequestMapping("user/accept")
+		public Map<Object, Object> accept(Integer num, String userid, Integer ducktype) {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			Board board = new Board(); // board 껍데기 객체 생성
+			board.setBoardnum(num);
+			board = service.getBoard(board); // 해당 num의 board객체 가져옴
+			int duckselect = service.duckselect(userid, num, ducktype);
+			if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
+				if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때
+					try {
+						map.put("msg", "참여 승낙하셨습니다!");
+						service.accept(userid,num);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {// 다른사람의 게시물일때
+					map.put("msg", "다른사람의 게시물입니다!");
+				}
+			} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
+				map.put("msg", "이미 승낙하셨습니다!");						
+			}
+			return map;
+		}
+		
+		// user_signup
+		@ResponseBody
+		@RequestMapping("user/fail")
+		public Map<Object, Object> fail(Integer num, String userid, Integer ducktype) {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			Board board = new Board(); // board 껍데기 객체 생성
+			board.setBoardnum(num);
+			board = service.getBoard(board); // 해당 num의 board객체 가져옴
+			int duckselect = service.duckselect(userid, num, ducktype);
+			System.out.println(board);
+			System.out.println(duckselect);
+			if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
+				if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때
+					try {
+						//service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
+						//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
+						map.put("msg", "거절 완료!");
+						service.fail(userid,num);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {// 다른사람의 게시물일때
+					map.put("msg", "다른사람의 게시물입니다!");
+				}
+			} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
+				map.put("msg", "이미 거절하셨습니다. 너무하네!");						
+			}
+			return map;
+		}*/
 }

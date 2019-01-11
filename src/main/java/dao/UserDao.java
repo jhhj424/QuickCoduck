@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
 import logic.Board;
+import logic.Duck;
 import logic.User;
 
 
@@ -76,5 +77,22 @@ public class UserDao {
 		map.put("boardnum", boardnum);
 		map.put("ducktype", ducktype);
 		return sqlSession.selectList(NS + "supporterlist", map);
+	}
+	public void acceptmatching(String userid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).acceptmatching(map);
+	}
+	public void acceptducktype(String userid, Integer num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", num);
+		sqlSession.getMapper(UserMapper.class).acceptducktype(map);
+	}
+	public void failducktype(String duckid, Integer num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", duckid);
+		map.put("boardnum", num);
+		sqlSession.getMapper(UserMapper.class).failducktype(map);
 	}
 }

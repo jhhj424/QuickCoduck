@@ -77,4 +77,8 @@
 		</if>
 		order by readcnt desc
 	</select>
+	
+	<select id="duckid" resultType="String" parameterType="map">
+		select userid from duck where boardnum = #{boardnum}
+	</select>
 </mapper>

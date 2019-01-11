@@ -113,20 +113,6 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
-		Map<String , Object> map = new HashMap<String, Object>();
-		map.put("userid", userid);
-		map.put("boardnum", boardnum);
-		map.put("ducktype", ducktype);
-		String select = sqlSession.getMapper(BoardMapper.class).duckselect(map);
-		int num = 0;
-		if(select == null) {
-			num = 0;
-		}else {
-			num = 1;
-		}
-		return num; 
-	}
 	public void duckinsert(Board board, String userid, Integer ducktype) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("boardnum", board.getBoardnum());
@@ -184,5 +170,24 @@ public class BoardDao {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("boardnum", boardnum);
 		return sqlSession.selectList(NS + "mainlist2", map);
+	}
+	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		map.put("ducktype", ducktype);
+		String select = sqlSession.getMapper(BoardMapper.class).duckselect(map);
+		int num = 0;
+		if(select == null) {
+			num = 0;
+		}else {
+			num = 1;
+		}
+		return num; 
+	}
+	public String duckidselect(Integer boardnum) { //boardnum으로만 userid찾기
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum",boardnum);
+		return sqlSession.selectOne(NS + "duckid", map);
 	}
 }
