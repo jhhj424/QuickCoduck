@@ -191,8 +191,8 @@
 </head>
 <body class="b1 ">
 	<form action="comment.duck?" name="f" method="post">
-		<input type="hidden" value="${param.type}" name="type"> <input
-			type="hidden" value="${param.num}" name="num">
+		<input type="hidden" value="${param.type}" name="type"> 
+		<input type="hidden" value="${param.num}" name="num">
 		<div class="w3-container">
 			<div class="w3-ul w3-card-4">
 				<table class="table14_10" style="width: 100%">
@@ -275,12 +275,14 @@
 										${fn:replace(c.content, cn, br)}</div>
 								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${c.regdate}"
+											pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
 									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${c.regdate}"
+											pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 									</c:if></td>
