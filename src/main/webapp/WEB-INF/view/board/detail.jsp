@@ -252,7 +252,7 @@
 						<button type="button" class="myButton" id="duck">스크랩</button>
 						<button type="button" class="myButton" id="pro">참여신청</button>
 						<c:if test="${board.userid == loginUser.userid }">
-						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}">[지원자목록보기]</a>
+						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}">[지원자목록보기]</a>
 						</c:if>
 						</c:if>
 						</td>
@@ -294,7 +294,7 @@
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 									</c:if></td>
 							</tr>
-							<tr name="rep" id="reply${c.num}" align="right"></tr>
+							<tr id="reply${c.num}" align="right"></tr>
 						</c:forEach>
 					</c:if>
 				</table>

@@ -141,10 +141,6 @@ public class DuckService {
 		return boardDao.recmdselect(userid, boardnum);// recmd테이블에 해당 데이터 있는지 조회
 	}
 
-	public int duckselect(String userid, Integer boardnum, Integer ducktype) {
-		return boardDao.duckselect(userid, boardnum, ducktype);// duck테이블에 해당 데이터 있는지 조회
-	}
-
 	public void boardduck(Board board, String userid, Integer ducktype) {
 		boardDao.duckinsert(board, userid, ducktype);
 	}
@@ -278,5 +274,21 @@ public class DuckService {
 
 	public List<User> matchinguserList(String tech) {
 		return userDao.matchinguserList(tech);
+	}
+	public void accept(String userid, Integer num) {
+		//userDao.acceptmatching(userid); //유저에서 승낙하면 매칭 변경
+		userDao.acceptducktype(userid,num);
+	}
+
+	public void fail(String duckid, Integer num) {
+		userDao.failducktype(duckid,num);
+	}
+
+	public int duckselect(String userid, Integer num, Integer ducktype) {
+		return boardDao.duckselect(userid,num,ducktype);//duck테이블에 해당 데이터 있는지 조회
+	}
+
+	public String duckidselect(Integer boardnum) {
+		return boardDao.duckidselect(boardnum);
 	}
 }
