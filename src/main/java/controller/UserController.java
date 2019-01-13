@@ -182,20 +182,29 @@ public class UserController {
 			throws NoSuchAlgorithmException {
 		ModelAndView mav = new ModelAndView("user/mypage_update");
 		user.setFileurl(request.getParameter("file2"));
-		if (user.getCreditpass().length() == 4) {// 초기에 4자리 결제 비밀번호로 들어올때만
-			String hashpass = service.getHashvalue(user.getCreditpass());
-			user.setCreditpass(hashpass);
-		}
-		int count = service.creditchk(user.getCreditnum());
-		if (count == 0) {
+		if (user.getType() == 2 && user.getCreditpass().length() == 4) {
+			int count = service.creditchk(user.getCreditnum());
+			if (count == 0) {
+				String hashpass = service.getHashvalue(user.getCreditpass());
+				user.setCreditpass(hashpass);
+				service.userUpdate(user, request);
+				User user1 = service.select(user.getUserid());
+				session.setAttribute("loginUser", user1);
+				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+			} else if(count == 1 && user.getCreditpass().length() > 4) {//중복이지만 이미 creditpass가 해쉬알고리즘 화 되어있는 경우
+				service.userUpdate(user, request);
+				User user1 = service.select(user.getUserid());
+				session.setAttribute("loginUser", user1);
+				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+			}else if(count == 1 && user.getCreditpass().length() ==4) {//중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
+				throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
+			}
+		} else {
 			service.userUpdate(user, request);
 			User user1 = service.select(user.getUserid());
 			session.setAttribute("loginUser", user1);
 			mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
-		} else {
-			throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 		}
-
 		return mav;
 	}
 
@@ -249,7 +258,7 @@ public class UserController {
 	public ModelAndView delete(String id, HttpSession session, String pass) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");// 현재로그인된유저
-		System.out.println("session"+loginUser.getUserid());
+		System.out.println("session" + loginUser.getUserid());
 		if (loginUser.getPass().equals(pass)) {
 			try {
 				service.userDelete(id);
@@ -315,7 +324,7 @@ public class UserController {
 		mav.addObject("boardlist2", boardlist2);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "user/supporterlist", method = RequestMethod.GET)
 	public ModelAndView supporterlist(HttpSession session, Integer boardnum, String userid) {
 		ModelAndView mav = new ModelAndView();
@@ -331,99 +340,91 @@ public class UserController {
 	@RequestMapping(value = "user/matchuser")
 	public ModelAndView matchuser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User user = (User) session.getAttribute("loginUser"); //현재 로그인유저
-		Board board = (Board) session.getAttribute("clientboard"); //현재 쓴 게시글
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인유저
+		Board board = (Board) session.getAttribute("clientboard"); // 현재 쓴 게시글
 		String needtech = board.getUsetech(); // 현재 공고의 필요 기술
 		String tech[] = needtech.split(",");
 		List<User> matchinguserList = new ArrayList<User>();
 		List<String> useridlist = new ArrayList<String>();
 		try {
-			for(int i=0; i<tech.length;i++) {
-				matchinguserList.addAll(service.matchinguserList(tech[i]+",")); // 기술목록에 맞는 유저 리스트	
+			for (int i = 0; i < tech.length; i++) {
+				matchinguserList.addAll(service.matchinguserList(tech[i] + ",")); // 기술목록에 맞는 유저 리스트
 			}
 			for (int i = 0; i < matchinguserList.size(); i++) { // 여러개의 tech가 들어올시 중복값이 있는 list
 				useridlist.add(matchinguserList.get(i).getUserid()); // 게시글번호만 저장
 			}
-			matchinguserList.clear(); //중복요소잇는 리스트 비우기
+			matchinguserList.clear(); // 중복요소잇는 리스트 비우기
 			TreeSet<String> arr1 = new TreeSet<String>(useridlist);
 			ArrayList<String> arr2 = new ArrayList<String>(arr1);
-			String uid = "'"+arr2.get(0) + "',";
-			for (int i = 1; i < arr2.size()-1; i++) {
-				uid += "'" + arr2.get(i) + "',";;
+			String uid = "'" + arr2.get(0) + "',";
+			for (int i = 1; i < arr2.size() - 1; i++) {
+				uid += "'" + arr2.get(i) + "',";
+				;
 			}
-			uid += "'"+arr2.get(arr2.size()-1)+"'";
+			uid += "'" + arr2.get(arr2.size() - 1) + "'";
 			System.out.println(uid);
 			matchinguserList = service.userList(uid);
-		}catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
+		} catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
 			e.printStackTrace();
 			System.out.println("기술목록에 해당하는 개발자가 없음");
 			mav.addObject("ON", 1);
 //			boardlist.add(new Board());
 //			model.addAttribute("ON", 1);
 		}
-		session.setAttribute("loginUser",user);
-		mav.addObject("userlist",matchinguserList);
-		mav.addObject("clientboard",board);
+		session.setAttribute("loginUser", user);
+		mav.addObject("userlist", matchinguserList);
+		mav.addObject("clientboard", board);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "user/fail")
 	public ModelAndView fail(HttpSession session, Integer boardnum, String userid) {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); //boardnum값에 대한 duck테이블의 userid가져오기
-		System.out.println("boardnum:"+boardnum);
-		System.out.println("duckid:"+duckid);
+		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		System.out.println("boardnum:" + boardnum);
+		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
 		int duckselect = service.duckselect(duckid, boardnum, ducktype);
-		System.out.println("duckselect:"+duckselect);
+		System.out.println("duckselect:" + duckselect);
 		if (duckselect == 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
-			/*if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때
-				try {
-					//map.put("msg", "참여 승낙하셨습니다!");
-					service.fail(userid,boardnum);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {// 다른사람의 게시물일때
-				//map.put("msg", "다른사람의 게시물입니다!");
-			}*/
-			service.fail(duckid,boardnum);
-			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum="+boardnum);
+			/*
+			 * if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때 try {
+			 * //map.put("msg", "참여 승낙하셨습니다!"); service.fail(userid,boardnum); } catch
+			 * (Exception e) { e.printStackTrace(); } } else {// 다른사람의 게시물일때
+			 * //map.put("msg", "다른사람의 게시물입니다!"); }
+			 */
+			service.fail(duckid, boardnum);
+			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum=" + boardnum);
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
-			//map.put("msg", "이미 승낙하셨습니다!");						
+			// map.put("msg", "이미 승낙하셨습니다!");
 		}
 		return mav;
 	}
 
-	
 	@RequestMapping(value = "user/accept")
 	public ModelAndView accept(HttpSession session, Integer boardnum, String userid) {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); //boardnum값에 대한 duck테이블의 userid가져오기
-		System.out.println("boardnum:"+boardnum);
-		System.out.println("duckid:"+duckid);
+		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		System.out.println("boardnum:" + boardnum);
+		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
 		int duckselect = service.duckselect(duckid, boardnum, ducktype);
-		System.out.println("duckselect:"+duckselect);
+		System.out.println("duckselect:" + duckselect);
 		if (duckselect == 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
-			/*if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때
-				try {
-					//map.put("msg", "참여 승낙하셨습니다!");
-					service.fail(userid,boardnum);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {// 다른사람의 게시물일때
-				//map.put("msg", "다른사람의 게시물입니다!");
-			}*/
-			service.accept(duckid,boardnum);
-			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum="+boardnum);
+			/*
+			 * if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때 try {
+			 * //map.put("msg", "참여 승낙하셨습니다!"); service.fail(userid,boardnum); } catch
+			 * (Exception e) { e.printStackTrace(); } } else {// 다른사람의 게시물일때
+			 * //map.put("msg", "다른사람의 게시물입니다!"); }
+			 */
+			service.accept(duckid, boardnum);
+			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum=" + boardnum);
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
-			//map.put("msg", "이미 승낙하셨습니다!");						
+			// map.put("msg", "이미 승낙하셨습니다!");
 		}
 		return mav;
 	}

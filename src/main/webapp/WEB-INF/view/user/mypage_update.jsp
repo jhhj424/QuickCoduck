@@ -115,6 +115,7 @@ function unNumberFormat(num)
 <body>
 <form action="update.duck" method="post" enctype="multipart/form-data" name="f">
 <input type="hidden" name="file2" value="${user.fileurl}">
+<input type="hidden" name="type" value="${user.type }">
  <div class="w3-container w3-card w3-white w3-round w3-margin">
       <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user-plus fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 회원정보</h2>
        <div class="w3-container">
@@ -224,7 +225,6 @@ function unNumberFormat(num)
     <c:if test="${user.type == '2' }">
     <div class="w3-container w3-card w3-white w3-round w3-margin">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-krw fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 결제정보</h2>
-       <c:if test="${user.type == '2' }">
        <c:if test="${empty user.creditnum }">
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>
@@ -252,7 +252,6 @@ function unNumberFormat(num)
           <input type="password" name="creditpass" id="re_creditpass" value="${user.creditpass }" maxlength="4" readonly="readonly">
           <hr>
        </div>
-       </c:if>
        </c:if>
     </div>
     </c:if>
