@@ -1,34 +1,14 @@
 .tree {list-style:none}
 .tree li,
-.tree li > a,
+
 .tree li > span {
     padding: 4pt;
     border-radius: 4px;list-style:none
 }
 
-.tree li a {
-   color:#000;
-    text-decoration: none;
-    line-height: 20pt;
-    border-radius: 4px;
-}
-
-.tree li a:hover {
-    background-color: #34BC9D;
-    color: #fff;
-}
-
 .active {
     background-color: #999;
     color: white;
-}
-
-.active a {
-    color: #fff;
-}
-
-.tree li a.active:hover {
-    background-color: #34BC9D;
 }
 
 .treemenu, .treemenu li {list-style: none;}

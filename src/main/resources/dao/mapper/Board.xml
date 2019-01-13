@@ -80,14 +80,14 @@
 	</select>
 	
 	<select id="mainlist" resultType="Board" parameterType="map">
-		select * from board where boardtype = 1
+		select  boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, duckcnt from board where boardtype = 1
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 		order by readcnt desc
 	</select>
 	<select id="mainlist2" resultType="Board" parameterType="map">
-		select * from board where boardtype = 3
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, duckcnt from board where boardtype = 3
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>

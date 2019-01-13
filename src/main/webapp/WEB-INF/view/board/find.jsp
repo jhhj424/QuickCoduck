@@ -185,8 +185,6 @@ function write_submit() {
 								</ul></li>
 
 						</ul>
-
-
 					</div>
 				</div>
 				<br>
