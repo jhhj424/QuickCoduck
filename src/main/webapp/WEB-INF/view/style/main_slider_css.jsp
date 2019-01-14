@@ -110,7 +110,7 @@ li {
 	position: relative;
 	width: 1200px;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color:#FEFEFE;
 }
 
 .c #content {
@@ -122,8 +122,7 @@ li {
 	font-size: 1.1rem;
 	color: #1a1a1a;
 	letter-spacing: 2px;
-	margin-top: 90px;
-	margin-bottom: 0px;
+	margin-top: 60px;
 }
 
 .mline>span {
@@ -231,7 +230,7 @@ li {
 }
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li.nb a {
-	border: 1px solid #ccc;
+	border: 1px solid #000;
 	padding: 0;
 	padding-bottom: 30px;
 }
@@ -371,7 +370,7 @@ li {
 }
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li.nb a {
-	border: 1px solid #ccc;
+	border: 1px solid #888888;
 	padding: 0;
 	padding-bottom: 30px;
 }
@@ -392,6 +391,7 @@ li {
 	{
 	width: 270px !important;
 	height: 230px !important;
+	border-bottom:1px solid #888888;
 }
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li a span.title,
@@ -429,9 +429,9 @@ li {
 
 .mline>span:after {
 	position: absolute;
-	left: calc(50% - 25px);
+	left: calc(50% - 117px);
 	bottom: 0;
-	width: 50px;
+	width: 230px;
 	height: 1px;
 	background: #FF2E2E;
 	content: "";

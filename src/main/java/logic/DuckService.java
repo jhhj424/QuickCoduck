@@ -109,6 +109,7 @@ public class DuckService {
 		}
 		userDao.userUpdate(user);
 	}
+
 	public void maxcountUpdate(User user) {
 		userDao.userUpdate(user);
 	}
@@ -152,6 +153,7 @@ public class DuckService {
 	public List<User> userList(String[] idchks) {
 		return userDao.list(idchks);
 	}
+
 	public List<User> userList(String userid) {
 		return userDao.list(userid);
 	}
@@ -275,20 +277,25 @@ public class DuckService {
 	public List<User> matchinguserList(String tech) {
 		return userDao.matchinguserList(tech);
 	}
+
 	public void accept(String userid, Integer num) {
-		//userDao.acceptmatching(userid); //유저에서 승낙하면 매칭 변경
-		userDao.acceptducktype(userid,num);
+		// userDao.acceptmatching(userid); //유저에서 승낙하면 매칭 변경
+		userDao.acceptducktype(userid, num);
 	}
 
 	public void fail(String duckid, Integer num) {
-		userDao.failducktype(duckid,num);
+		userDao.failducktype(duckid, num);
 	}
 
 	public int duckselect(String userid, Integer num, Integer ducktype) {
-		return boardDao.duckselect(userid,num,ducktype);//duck테이블에 해당 데이터 있는지 조회
+		return boardDao.duckselect(userid, num, ducktype);// duck테이블에 해당 데이터 있는지 조회
 	}
 
 	public String duckidselect(Integer boardnum) {
 		return boardDao.duckidselect(boardnum);
+	}
+
+	public int usercount() {
+		return userDao.usercount();
 	}
 }

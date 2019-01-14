@@ -43,9 +43,28 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("user/main")
-	public ModelAndView main() {
+	@RequestMapping(value = "user/main")
+	public ModelAndView main(HttpSession session, Integer boardnum) {
 		ModelAndView mav = new ModelAndView();
+		List<Board> boardlist = service.boardlist(boardnum);
+		List<Board> boardlist2 = service.boardlist2(boardnum);
+		int usercount = service.usercount();
+		mav.addObject("usercount", usercount);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardlist2", boardlist2);
+		return mav;
+	}
+
+	@RequestMapping(value = "user/submain")
+	public ModelAndView submain(HttpSession session, Integer boardnum) {
+		ModelAndView mav = new ModelAndView();
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.boardlist(boardnum);
+		List<Board> boardlist2 = service.boardlist2(boardnum);
+		System.out.println("boardlist:" + boardlist);
+		System.out.println("boardlist2:" + boardlist2);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardlist2", boardlist2);
 		return mav;
 	}
 
@@ -169,14 +188,6 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("user/updateForm")
-	public ModelAndView update11(String id, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user = service.select(id);
-		mav.addObject("user", user);
-		return mav;
-	}
-
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session, User user, HttpServletRequest request)
 			throws NoSuchAlgorithmException {
@@ -191,12 +202,12 @@ public class UserController {
 				User user1 = service.select(user.getUserid());
 				session.setAttribute("loginUser", user1);
 				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
-			} else if(count == 1 && user.getCreditpass().length() > 4) {//중복이지만 이미 creditpass가 해쉬알고리즘 화 되어있는 경우
+			} else if (count == 1 && user.getCreditpass().length() > 4) {// 중복이지만 이미 creditpass가 해쉬알고리즘 화 되어있는 경우
 				service.userUpdate(user, request);
 				User user1 = service.select(user.getUserid());
 				session.setAttribute("loginUser", user1);
 				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
-			}else if(count == 1 && user.getCreditpass().length() ==4) {//중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
+			} else if (count == 1 && user.getCreditpass().length() == 4) {// 중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
 				throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 			}
 		} else {
@@ -246,13 +257,6 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // false:필수입력 true:선택입력
 	}
 
-	@RequestMapping(value = "user/delete", method = RequestMethod.GET)
-	public ModelAndView delete(String id, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user = service.select(id);
-		mav.addObject("user", user);
-		return mav;
-	}
 
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
 	public ModelAndView delete(String id, HttpSession session, String pass) {
@@ -309,19 +313,6 @@ public class UserController {
 		mav.addObject("boardcnt", boardcnt);
 		mav.addObject("type", type);
 		mav.addObject("ducktype", ducktype);
-		return mav;
-	}
-
-	@RequestMapping(value = "user/submain")
-	public ModelAndView submain(HttpSession session, Integer boardnum) {
-		ModelAndView mav = new ModelAndView();
-		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.boardlist(boardnum);
-		List<Board> boardlist2 = service.boardlist2(boardnum);
-		System.out.println("boardlist:" + boardlist);
-		System.out.println("boardlist2:" + boardlist2);
-		mav.addObject("boardlist", boardlist);
-		mav.addObject("boardlist2", boardlist2);
 		return mav;
 	}
 

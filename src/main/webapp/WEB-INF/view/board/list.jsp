@@ -28,15 +28,12 @@
 <div id="wrap">
 <div class="table-users">
 <div class="header">
-<c:if test="${param.type==1}">
-오픈소스 게시판
-</c:if>
-<c:if test="${param.type==2}">
-개발자 자유게시판
-</c:if>
-<c:if test="${param.type==3}">
-프로젝트 공고모집 게시판
-</c:if>
+  <div class="pagenation">
+    <a class="pager-home" style="color:white;">
+     <c:if test="${param.type==1}">오픈소스 게시판</c:if>
+     <c:if test="${param.type==2}">개발자 자유게시판</c:if>
+     <c:if test="${param.type==3}">프로젝트 공고모집 게시판</c:if></a>
+  </div>
 </div>
 <!-- header -->
 <table>
@@ -121,7 +118,7 @@ document.getElementById("searchtype").value = '${param.type}';
 <tr align="center" valign="middle">
 <td>
 <c:set var="boardcnt" value="${boardcnt-1}" />
-<font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
+<font style=" color: #000; font-weight: bold;">
 ${boardcnt+1}번 게시글</font>
 </td>
 <!-- 게시글번호 -->
@@ -136,16 +133,16 @@ ${boardcnt+1}번 게시글</font>
 </c:if>
 </td>
 <!-- 첨부파일 여부 -->
-<td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
+<td><font style=" color: #000; font-weight: bold;">
 <a href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}
 <c:if test="${board.boardtype==1}">추천 - ${board.recmd}</c:if></a></font>
 </td>
 <!-- 제목 디테일 -->
-<td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
+<td><font style=" color: #000; font-weight: bold;">
 ${board.userid}</font>
 </td>
 <!-- 작성자 -->
-<td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
+<td><font style=" color: #000; font-weight: bold;">
 <!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
  <jsp:useBean id="day" class="java.util.Date" />
   <fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today" />
@@ -159,7 +156,7 @@ ${board.userid}</font>
      </font>
 </td>
 <!-- 작성일 -->
-<td><font style="border-bottom: 2px solid #2ac1bc; color: #000; font-weight: bold;">
+<td><font style=" color: #000; font-weight: bold;">
 ${board.readcnt}</font>
 </td>
 <!-- 조회수 -->
@@ -203,9 +200,9 @@ ${board.readcnt}</font>
 글쓰기</font>
 </a></td>
 </tr>
-<tr><td colspan="6"><a href="../board/list.duck?type=1">오픈소스게시판</a>
-<a href="../board/list.duck?type=2">개발자자유게시판</a>
-<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></td></tr>
+<tr><td colspan="6" style="background-color:#7d97a5">
+<p style="color:white"><i class="fa fa-copyright"></i>2019 QuickCoduck Corp</p>
+</td></tr>
 </c:if>
 </table>
 </div>

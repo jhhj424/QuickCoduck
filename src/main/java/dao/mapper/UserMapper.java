@@ -10,12 +10,11 @@ import org.apache.ibatis.annotations.Update;
 
 import logic.User;
 
-public interface UserMapper  {
-	
-	@Insert("insert into user (userid,pass,email,type) "
-		 	+ " values(#{userid},#{pass},#{email},#{type})")
+public interface UserMapper {
+
+	@Insert("insert into user (userid,pass,email,type) " + " values(#{userid},#{pass},#{email},#{type})")
 	void insert(User user);
-	
+
 	@Update("update user set email = #{email}, tel = #{tel}, birth = #{birth}, "
 			+ " usetech = #{usetech}, rating = #{rating}, businessnum = #{businessnum}, "
 			+ " creditnum = #{creditnum}, creditpass = #{creditpass}, file1 = #{fileurl}, maxcount= #{maxcount} where userid = #{userid}")
@@ -26,10 +25,10 @@ public interface UserMapper  {
 
 	@Select("SELECT COUNT(*) FROM user WHERE userid = #{userid}")
 	int idchk(String userid);
-	
+
 	@Select("select count(*) from user where creditnum = #{creditnum}")
 	int creditchk(String creditnum);
-	
+
 	@Update("update user set matching = 1 where userid = #{userid}")
 	void supporting(Map<String, String> map);
 
@@ -41,4 +40,8 @@ public interface UserMapper  {
 
 	@Update("update duck set ducktype = 5 where userid=#{userid} and boardnum=#{boardnum} and ducktype=2")
 	void failducktype(Map<String, Object> map);
+
+	@Select("select count(userid) from user")
+	int usercount();
+
 }

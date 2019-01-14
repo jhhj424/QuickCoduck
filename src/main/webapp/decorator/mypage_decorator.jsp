@@ -18,7 +18,7 @@ margin-bottom:5px;
 }
 </style>
 <decorator:head/>
-<body class="w3-theme-l5"id="home">
+<body id="home"style="background-color:#FEFEFE;">
 <div class="w3-top" >
 <div class="w3-bar w3-card" id="myNavbar" style="background-color:rgba(255, 255, 255, 0.7);height:50%">
     <!-- 상단 아이콘-->
