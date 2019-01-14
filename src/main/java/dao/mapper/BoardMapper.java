@@ -46,4 +46,7 @@ public interface BoardMapper  {
 
 	@Select("select userid from duck where boardnum=#{boardnum}")
 	void duckidselect(Map<Integer, String> map);
+	
+	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},#{ducktype})")
+	void matchduckinsert(Map<String, Object> map);
 }

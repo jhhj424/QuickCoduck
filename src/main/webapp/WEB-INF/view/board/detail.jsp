@@ -284,6 +284,7 @@
 						<button type="button" class="myButton" id="pro">참여신청</button>
 						<c:if test="${board.userid == loginUser.userid }">
 						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}">[지원자목록보기]</a>
+						<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}">[선택한개발자목록]</a>
 						</c:if>
 						</c:if>
 						</td>

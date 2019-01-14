@@ -231,4 +231,11 @@ public class BoardDao {
 		map.put("boardnum",boardnum);
 		return sqlSession.selectOne(NS + "duckid", map);
 	}
+	public void duckinsert(String userid, Integer boardnum, int ducktype) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		map.put("ducktype", ducktype);
+		sqlSession.getMapper(BoardMapper.class).matchduckinsert(map);
+	}
 }

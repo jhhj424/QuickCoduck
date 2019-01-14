@@ -8,6 +8,9 @@
 <title>매칭유저 보기</title>
 </head>
 <body>
+<h1>매칭유저 보기</h1>
+<form action="../board/match_suggest.duck" method="post" name="f">
+<input type="hidden" name="boardnum" value="${clientboard.boardnum}">
 <table border="1" style="border-collapse: collapse; width: 100%">
 			<tr>
 				<td colspan="7">회원 목록</td>
@@ -33,7 +36,7 @@
 					<td>${user.tel}</td>
 					<td>${user.usetech}</td>
 					<td>
-						<input type="button" value="선택하기" onclick="location.href='#'">
+						<input type="checkbox" value="${user.userid}" name="idchk">선택하기
 					</td>
 				</tr>
 			</c:forEach>
@@ -42,10 +45,12 @@
 			<h1>조건을 만족하는 개발자가 없음</h1>
 			</c:if>
 			<tr>
-			<td colspan="6">
+			<td colspan="6" align="right">
+				<a href="javascript:document.f.submit()">[매칭 제안하기]</a>
 				<a href="../board/find.duck?type=${clientboard.boardtype}">[게시물목록]</a>
 				</td>
 			</tr>
 		</table>
+</form>
 </body>
 </html>

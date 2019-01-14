@@ -458,4 +458,44 @@ public class UserController {
 		mav.addObject("type", 1);
 		return mav;
 	}
+	@RequestMapping("user/mypage_suggestlist")
+	public ModelAndView mypage_suggestlist(Integer pageNum, String searchType, String searchContent, HttpSession session, String id, Integer ducktype) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
+		ModelAndView mav = new ModelAndView();
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		System.out.println("아이디:"+id);
+		System.out.println("덕타입:"+ducktype);
+		int listcount = service.myduckcount(searchType, searchContent, id, ducktype);
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype);
+		System.out.println("boardlist:" + boardlist);
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = listcount - (pageNum - 1) * limit;
+		mav.addObject("id", id);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", listcount);
+		mav.addObject("boardlist", boardlist);
+		mav.addObject("boardcnt", boardcnt);
+		mav.addObject("ducktype", ducktype);
+		mav.addObject("type", 6);
+		return mav;
+	}
 }

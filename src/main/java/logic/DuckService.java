@@ -309,4 +309,8 @@ public class DuckService {
 		return userDao.usercount();
 	}
 
+	public void match_insert(String userid, Integer boardnum, int ducktype) {
+		boardDao.duckinsert(userid, boardnum, ducktype);
+	}
+
 }

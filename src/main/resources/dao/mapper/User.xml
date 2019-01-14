@@ -25,7 +25,7 @@
 	</select>
 
 	<select id="supporterlist" resultType="User" parameterType="map">
-		select userid,email,tel,usetech,pic,matching from user
+		select userid,email,tel,usetech,pic,file1 fileurl,matching from user
 		<if test="boardnum != null">
 			where userid in (select userid from duck where boardnum = #{boardnum})
 		</if>

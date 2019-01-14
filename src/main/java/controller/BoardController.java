@@ -389,6 +389,30 @@ public class BoardController {
 		}		
 		return mav;
 	}
+    @RequestMapping("board/match_suggest")
+    public ModelAndView match_suggest(Integer boardnum, String idchk, HttpSession session) { // 클라이언트 공고등록후에 매칭유저 선택 => 제안보내기
+    	ModelAndView mav = new ModelAndView();
+    	String userid[] = idchk.split(",");
+    	int ducktype = 6; // 덕타입:6 => 클라이언트가 개발자한테 요청을 보낸 게시물(덕)
+    	try {
+    		for(int i=0; i<userid.length;i++) {
+    			service.match_insert(userid[i],boardnum,ducktype);
+    		}    		
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return mav;
+    }
+    @RequestMapping("board/selectdevelop")
+    public ModelAndView selectdevelop(String userid, Integer boardnum, HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+		int matching = 1; // 유저의 매칭타입이 1
+		int ducktype = 6; // 유저의 덕타입이 6
+		List<User> developlist = service.supporterlist(userid, matching, boardnum, ducktype);
+		System.out.println("개발자목록:"+developlist);
+    	mav.addObject("developlist",developlist);
+    	return mav;
+    }
  
     //댓글 삭제
 /*    @RequestMapping(value="/board/delcomment")

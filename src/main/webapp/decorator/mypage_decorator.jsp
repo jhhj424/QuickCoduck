@@ -85,7 +85,7 @@ margin-bottom:5px;
          <button onclick="location.href='../user/mypage_update.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-edit fa-fw w3-margin-right"></i> 회원정보 수정</button>
          <c:if test="${loginUser.type == '1' }">
          <button onclick="location.href='../board/find.duck?type=5'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 나만의 소스보기</button>
-         <button onclick="location.href='../user/mypage_ducklist.duck?id=${loginUser.userid}&ducktype=1'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> '덕' 한 오픈소스</button>
+         <button onclick="location.href='../user/mypage_ducklist.duck?id=${loginUser.userid}&ducktype=1'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 'Duck' 한 오픈소스</button>
          </c:if>
          <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
          </div>
@@ -103,6 +103,7 @@ margin-bottom:5px;
         <c:if test="${loginUser.type == '1'}">
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 관심프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=2&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원내역</button>
+          <button onclick="location.href='../user/mypage_suggestlist.duck?id=${loginUser.userid}&ducktype=6'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 제안받은 프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
         </c:if>
