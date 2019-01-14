@@ -136,16 +136,15 @@ public class BoardController {
 	
 	@RequestMapping(value = "board/write", method = RequestMethod.POST)
 	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session, String techlist) {
-		System.out.println(board);
 		String tech = "";
 		if(techlist != null) {
 			System.out.println("tl:"+techlist);
 			board.setUsetech(techlist);
 		}
-		System.out.println(board);
 		ModelAndView mav = new ModelAndView();
 		if (br.hasErrors()) {
 			mav.getModel().putAll(br.getModel());
+			mav.addObject("boardtype",board.getBoardtype());
 			return mav;
 		}
 		try {

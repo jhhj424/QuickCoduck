@@ -8,6 +8,7 @@
 <title>게시물 상세보기</title>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -197,13 +198,36 @@
 		<div class="w3-ul w3-card-4">
 			<table class="table14_10" style="width: 100%">
 				<tr>
-					<td>
+					<td colspan="2">
 					<c:if test="${board.boardtype==1}">오픈소스게시판</c:if>
 					<c:if test="${board.boardtype==2}">개발자자유게시판</c:if>
 					<c:if test="${board.boardtype==3}">프로젝트공고모집게시판</c:if>
 					</td>
-					<td align="center"><input class="recview"
-						style="text-align: center;" readonly value="추천수 : ${board.recmd}"></td>
+					<c:if test="${board.boardtype==1}">
+					<tr>
+						<td align="center" colspan="2">
+							<input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">
+						</td>
+					</tr>
+					</c:if>
+					<c:if test="${board.boardtype==3}">
+					<tr>
+						<td align="center">
+							프로젝트 기간
+						</td>
+						<td align="center">
+							${board.schedule} 일
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+							프로젝트 금액
+						</td>
+						<td align="center">
+							${board.price} 원
+						</td>
+					</tr>
+					</c:if>
 				</tr>
 				<tr>
 					<td width="15%">글쓴이</td>
@@ -218,15 +242,22 @@
 					<td>
 						<table style = "width:100%; height:250">
 							<tr>
-								<td>${fn:replace(board.content, cn, br)}</td>
+								<td>
+								<c:if test="${!empty board.fileurl }">
+									<img src="${path}/file/${board.fileurl}" style="max-width: 500px; max-height:500px;">
+									<br>
+								</c:if>
+								<div style="padding: 30px; margin: 30px; text-align: left; min-width: 800px;max-width: 800px">
+								${fn:replace(board.content, cn, br)}
+								</div>
+								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
 					<td>첨부파일</td>
-					<td>&nbsp; <c:if test="${!empty board.fileurl}">테스트
-							<a href="../file/${board.fileurl}">${board.fileurl}</a>
+					<td>&nbsp; <c:if test="${!empty board.fileurl}"><a href="../file/${board.fileurl}">${board.fileurl}</a>
 						</c:if>
 					</td>
 				</tr>

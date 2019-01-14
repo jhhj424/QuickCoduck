@@ -3,6 +3,7 @@ package logic;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
@@ -21,7 +22,9 @@ public class Board {
 	private int readcnt; // 조회수
 	private int recmd; // 추천수
 	private String usetech; // 사용기술
-	private int price; // 가격
+//	@NotEmpty(message = "가격은 필수 입력사항 입니다.")
+	private String price; // 가격
+//	@Range(min=1,max=365,message="최소 1일 ~ 최대 365일 까지 지정 가능합니다.")
 	private int schedule; // 기간 (일)=
 	private int duckcnt; // 덕 당한 횟수
 
@@ -125,11 +128,11 @@ public class Board {
 		this.usetech = usetech;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
