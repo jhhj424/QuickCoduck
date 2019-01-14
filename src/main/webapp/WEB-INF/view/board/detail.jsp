@@ -295,6 +295,7 @@
 		<div class="w3-container">
 			<div class="w3-ul w3-card-4">
 				<table class="table14_10" style="width: 100%">
+				<jsp:useBean id="day" class="java.util.Date" />
 					<c:if test="${commentCount==0 }">
 						<tr>
 							<td colspan="5" align="center">등록된 댓글이 없습니다.</td>
@@ -315,18 +316,30 @@
 									</c:if>
 									<c:if test="${c.refstep != 0 }">
 									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
-										&nbsp;&nbsp;└><font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp;<font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
 									</c:if>
 								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
-										<fmt:formatDate value="${c.regdate}"
-											pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
+										<c:if test="${today == rdate }">
+											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+										</c:if>
+										<c:if test="${today != rdate }">
+											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+										</c:if>
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
 									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<fmt:formatDate value="${c.regdate}"
-											pattern="yy/MM/dd HH:mm:ss" />
+										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
+										<c:if test="${today == rdate }">
+											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+										</c:if>
+										<c:if test="${today != rdate }">
+											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+										</c:if>
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
 										<c:if test="${loginUser.userid == 'admin'}">
