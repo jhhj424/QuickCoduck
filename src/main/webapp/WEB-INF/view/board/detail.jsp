@@ -148,7 +148,7 @@
 	function replyCommentOpen(num){
 		$("#reply"+num).html(
 				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
-					+'<td>└답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
+					+'<td>└>답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
 					+'name="reply" id="replycontent'+num+'" >'+'</textarea>'
 					+'<td><button type="button" onclick="location.href='
 					+"'javascript:comment_submit2("+num+")'"
@@ -308,9 +308,14 @@
 							<tr>
 								<td>${c.userid}님</td>
 								<td style="min-width: 600px; text-align: left; max-width: 600px">
-									<div
-										style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+									<c:if test="${c.refstep == 0}">
+									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
 										${fn:replace(c.content, cn, br)}</div>
+									</c:if>
+									<c:if test="${c.refstep != 0 }">
+									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+										&nbsp;&nbsp;└><font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
+									</c:if>
 								</td>
 								<td><c:if test="${c.userid == loginUser.userid}">
 										<fmt:formatDate value="${c.regdate}"
@@ -323,6 +328,9 @@
 											pattern="yy/MM/dd HH:mm:ss" />
 										<br>
 										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
+										<c:if test="${loginUser.userid == 'admin'}">
+											<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
+										</c:if>
 									</c:if></td>
 							</tr>
 							<tr id="reply${c.num}" align="right"></tr>
