@@ -190,6 +190,21 @@ public class BoardController {
 		return mav;
 	}	
 	
+	@RequestMapping(value="board/suggest_detail")
+	public ModelAndView suggest_detail(Integer boardnum, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Board bo = new Board();
+		bo.setBoardnum(boardnum);
+		bo.setBoardtype(3);
+		User user = (User)session.getAttribute("loginUser");
+		Board board = service.getBoard(bo);
+		mav.addObject("board", board);
+		mav.addObject("User", user);
+		session.setAttribute("loginUser", user);
+		session.setAttribute("clientboard", board);
+		return mav;
+	}	
+	
 	@RequestMapping(value="board/detail")
 	public ModelAndView detail(Integer num,Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
