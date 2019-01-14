@@ -314,20 +314,20 @@ function write_submit() {
 					<c:if test="${param.type==1}">
 						<h2 class="w3-text-grey w3-padding-16">
 							<i
-								class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>오픈소스
+								class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>오픈소스
 						</h2>
 					</c:if>
 					<c:if test="${param.type==3}">
 						<h2 class="w3-text-grey w3-padding-16">
 							<i
-								class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>프로젝트
+								class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>프로젝트
 							공고
 						</h2>
 					</c:if>
 					<c:if test="${param.type==5}">
 						<h2 class="w3-text-grey w3-padding-16">
 							<i
-								class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>나만의 소스
+								class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>나만의 소스
 						</h2>
 					</c:if>
 					<!-- <div class="w3-container">
