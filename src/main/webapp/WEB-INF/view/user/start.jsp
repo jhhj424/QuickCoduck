@@ -5,18 +5,23 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/style/start_middle.jsp" %>
-<%@include file="/WEB-INF/view/style/start_signup.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ include file="/WEB-INF/view/style/user_signup.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Quick Coduck</title>
+<style>
+span,label{
+color:#2c2c2c;
+}
+</style>
+<spring:url value="/resources/css/login.css" var="login" />
 <spring:url value="/resources/css/full-page-scroll.css" var="mainCss" />
-<spring:url value="/resources/css/style.css" var="signup" />
 <spring:url value="/resources/js/full-page-scroll.js" var="jqueryJs" />
 
+<link href="${login}" rel="stylesheet" />
 <link href="${mainCss}" rel="stylesheet" />
-<link href="${signup}" rel="stylesheet" />
 <script src="${jqueryJs}"></script>
 
 <meta charset="UTF-8">
@@ -26,7 +31,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
-<link href="${mainCss}" rel="stylesheet" />
 <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 <style>
@@ -57,22 +61,20 @@ text-color:red;
   </div>
   <!-- 중앙에 아이언맨!! -->
  <div class="w3-display-left" style="margin:10px 280px 0px -30px">
-      <h1 style="margin:0px 270px -5px -140px;font-size:35px;color:#ffffff;">Welcome to the Quick Coduck</h1>
-      <h1 style="margin:0px 335px 0px 76px;font-size:28px;color:#ffffff;">Provide developers with OpenSource space and</h1>
-      <h1 style="margin:0px 335px 0px 0px;font-size:28px;color:#ffffff;">based on your data Platform that provides</h1>
-      <h1 style="margin:0px 335px 0px -64px;font-size:28px;color:#ffffff;">outsourcing through big data analysis</h1>
+      <h1 style="margin:0px 270px -5px -140px;font-size:35px;color:#000;font-weight:bold;text-shadow: -1px 2px 2px white;">Welcome to the Quick Coduck</h1>
+      <h1 style="margin:0px 335px 0px 76px;font-size:28px;color:#000;font-weight:bold;text-shadow: -1px 2px 2px white;">Provide developers with OpenSource space and</h1>
+      <h1 style="margin:0px 335px 0px 0px;font-size:28px;color:#000;font-weight:bold;text-shadow: -1px 2px 2px white;">based on your data Platform that provides</h1>
+      <h1 style="margin:0px 335px 0px -64px;font-size:28px;color:#000;font-weight:bold;text-shadow: -1px 2px 2px white;">outsourcing through big data analysis</h1>
       <a class="w3-button w3-black w3-round w3-hide-small w3-hover-light-grey"style="margin:15px 800px 0px 0px" onclick="document.getElementById('free').style.display='block'">Get for Free <i class="fa fa-angle-right"></i></a>
       <a class="w3-button w3-block w3-black w3-hide-large w3-hide-medium" onclick="document.getElementById('free').style.display='block'"><i class="fa fa-angle-right"></i></a>
     </div>
  <div class="w3-display-right" style="margin:5px 150px 0px 0px">
-      <h1 style="margin:0px 0px -5px 0px;font-size:42px;color:#ffffff;">Quick Coduck is back.</h1>
-      <h1 style="margin:0px 350px 0px 0px;font-size:44px;color:#ffffff;">2019</h1>
-      <h1 style="margin:-63px 172px 0px 0px;font-size:22px;color:#ffffff;">Jan23</h1>
-      <h1 style="margin:-10px -15px 0px 0px;font-size:22px;color:#ffffff;">Made by Quick Coduck</h1>
-      <a class="w3-button w3-black w3-round w3-hide-small w3-hover-light-grey"style="margin:15px 320px 0px 0px" onclick="document.getElementById('login').style.display='block'">Get Login<i class="fa fa-angle-right"></i></a>
+      <h1 style="margin:0px 0px -5px 0px;font-size:42px;color:#000;font-weight:bold;text-shadow: 2px 1px 1px white;">Quick Coduck is back.</h1>
+      <h1 style="margin:0px 350px 0px 0px;font-size:44px;color:#000;font-weight:bold;text-shadow: 2px 1px 1px white;">2019</h1>
+      <h1 style="margin:-63px 172px 0px 0px;font-size:22px;color:#000;font-weight:bold;text-shadow: 2px 1px 1px white;">Jan23</h1>
+      <h1 style="margin:-10px -15px 0px 0px;font-size:22px;color:#000;font-weight:bold;text-shadow: 2px 1px 1px white;">Made by Quick Coduck</h1>
+      <a class="w3-button w3-black w3-round w3-hide-small w3-hover-light-grey"style="margin:50px 260px 0px 0px" onclick="document.getElementById('login').style.display='block'">Get Login & SignUp<i class="fa fa-angle-right"></i></a>
       <a class="w3-button w3-block w3-black w3-hide-large w3-hide-medium" onclick="plusDivs(1)"><i class="fa fa-angle-right"></i></a><br>
-      <a class="w3-button w3-black w3-round w3-hide-small w3-hover-light-grey"style="margin:15px 305px 0px 0px"onclick="document.getElementById('signup').style.display='block'">Get Sign Up <i class="fa fa-angle-right"></i></a>
-      <a class="w3-button w3-block w3-black w3-hide-large w3-hide-medium" onclick="document.getElementById('signup').style.display='block'"><i class="fa fa-angle-right"></i></a>
     </div>
 </header>
 </section>
@@ -196,31 +198,78 @@ text-color:red;
 
 <!-- Modal -->
 <div id="login" class="w3-modal w3-animate-opacity">
-<section class="container">
-		    <article class="half">
-			        <h1>Quick Coduck</h1>
-			        <div class="tabs">
-				            <span class="tab signin active"><a href="#signin">Login</a></span>
-			        </div>
-			        <div class="content">
-				            <div class="signin-cont cont">
-					                <form action="start_login.duck" method="post" enctype="multipart/form-data">
-						                    <input type="text" name="userid" id="userid" class="inpt" required="required" placeholder="User ID">
-						                    <label for="text">Your id</label>
-						                    <input type="password" name="pass" id="password" class="inpt" required="required" placeholder="Password">
-                						    <label for="password">Your password</label>
-						                    <input type="checkbox" id="remember" class="checkbox" checked>
-						                    <div class="submit-wrap">
-							                        <input type="submit" value="Sign in" class="submit">
-							                        <a href="#" class="more">Forgot your password?</a>
-						                    </div>
-        					        </form>
-    				        </div>
-			        </div>
-		    </article>
-		    <i onclick="document.getElementById('login').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
-		    <div class="half bg"></div>
-	</section>
+<div class="box1"style="text-align:left;">
+   <section id="formHolder">
+         <!-- Form Box -->
+         <div class="col-sm-6 form" style="max-width:80%;left: 50%;top: 50%;transform: translate(-50%, -50%);">
+
+            <!-- Login Form -->
+            <div class="login form-peice"style="border: 1px solid #444444;">
+            <i onclick="document.getElementById('login').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
+               <form class="login-form" action="login.duck" method="post">
+                  <div class="form-group">
+                     <label for="loginid">Id</label>
+                     <input type="text" name="userid" id="loginid" required style="border-bottom:1px solid #000">
+                  </div>
+
+                  <div class="form-group">
+                     <label for="loginPassword">Password</label>
+                     <input type="password" name="pass" id="loginPassword" required style="border-bottom:1px solid #000">
+                  </div>
+
+                  <div class="CTA">
+                     <input type="submit" value="Login" class="login">
+                     <a href="#" class="switch">SignUp</a>
+                  </div>
+               </form>
+            </div><!-- End Login Form -->
+
+            <!-- Signup Form -->
+            <div class="signup form-peice switched"style="border: 1px solid #444444;">
+            <i onclick="document.getElementById('login').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
+               <form class="signup-form" action="userEntry.duck" method="post">
+               <label for="type">Type</label>
+                  <div class="form-group"style="text-align:center;">
+					<input type="radio" name="type" id="user_type" class="input-hidden" value="1" checked="checked" />
+					<label for="user_type"> <img src="../workpic/d3.jpg" /></label>
+					<span>&nbsp;<i class="fa fa-user"></i> User</span>&nbsp;
+					<input type="radio" name="type" id="client_type"class="input-hidden" value="2" />
+					<label for="client_type"> <img src="../workpic/d3.jpg" /></label>
+					<span>&nbsp;<i class="fa fa-user-secret"></i> Client</span>&nbsp;
+                  </div><br>
+				  <div class="form-group">
+                     <label for="id">ID</label>
+                     <input type="text" name="userid" id="user_id" class="name" style="border-bottom:1px solid #000">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="email">Email Adderss</label>
+                     <input type="email" name="email" id="user_email" class="email" style="border-bottom:1px solid #000">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="password">Password</label>
+                     <input type="password" name="pass" id="user_password" class="pass" style="border-bottom:1px solid #000">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="passwordCon">Confirm Password</label>
+                     <input type="password" name="pass2" id="user_passwordCon" class="passConfirm" style="border-bottom:1px solid #000">
+                     <span class="error"></span>
+                  </div>
+                  <div class="CTA">
+                     <input type="submit" value="Signup Now" class="signup">
+                     <a href="#" class="switch">Login</a>
+                  </div>
+               </form>
+            </div><!-- End Signup Form -->
+         
+         </div>
+   </section>
+</div>
 </div>
 <div id="signup" class="w3-modal w3-animate-opacity">
 <section class="container">

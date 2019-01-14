@@ -123,7 +123,7 @@ while(reg.test(n)){
 </head>
 <body>
 <form:form modelAttribute="board" action="write.duck" enctype="multipart/form-data" name="f">
-	<form:hidden path="boardtype" value="${param.type}"/>
+<form:hidden path="boardtype" value="${param.type}"/>
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
 <c:if test="${param.type==1 || boardtype==1}">
@@ -141,7 +141,7 @@ while(reg.test(n)){
 </h2>
 <div align="center">
 		
-		</div>	
+</div>	
 <div class="half left">
 <div class="div">
 		<b>글쓴이 : </b>

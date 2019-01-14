@@ -6,6 +6,44 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 상세보기</title>
+<style>
+body,h1,h2,h3,h4,h5,h6,b,textarea {font-family: "Montserrat", sans-serif;}
+input[type=text] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 10px 0 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0);
+  height: 2.5em;
+  font-size:15px;
+  font: inherit;
+  color: inherit;
+  outline: none;
+  transition: all 180ms;
+  padding: 0;
+  text-align:center;
+  width:63%;
+}
+.half {
+  float: left;
+  width: 46%;
+  margin-bottom: 1em;
+}
+
+.right {
+  width: 52%;
+}
+
+.left {
+  margin-right: 2%;
+}
+.div{
+text-align:left;
+margin:10px 10px 10px 10px;
+}
+</style>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -190,10 +228,68 @@
 </script>
 
 </head>
-<body class="b1 ">
-	<form action="comment.duck?" name="f" method="post">
-		<input type="hidden" value="${param.type}" name="type">
-		<input type="hidden" value="${param.num}" name="num">
+<body>
+<form action="comment.duck?" name="f" method="post">
+<input type="hidden" value="${param.type}" name="type">
+<input type="hidden" value="${param.num}" name="num">
+<div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
+<h2 class="w3-text-grey w3-padding-16">
+<c:if test="${param.type==1 || boardtype==1}">
+<i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+오픈소스게시판 글쓰기</c:if>
+<c:if test="${param.type==2 || boardtype==2}">
+<i class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+개발자자유게시판 글쓰기</c:if>
+<c:if test="${param.type==3 || boardtype==3}">
+<i class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+프로젝트공고모집게시판 글쓰기</c:if>
+<c:if test="${param.type==5 || boardtype==5}">
+<i class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+나만의소스 작성하기</c:if>
+</h2>
+<div align="center">
+		
+</div>	
+<div class="half left">
+<div class="div">
+<b>글쓴이 : </b>
+${board.userid}
+</div>
+<c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
+<div class="div">
+<b>추천수 : </b>
+<input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">
+</div>
+		</c:if>
+		<%-- 
+		<div>
+			<div align="center"><b>프로젝트 금액 : </b>
+				<form:input path="price" 
+				<font color="red"><form:errors path="price" /></font>
+			</div>
+		</div>
+		</c:if> --%>
+<c:if test="${param.type==3 || boardtype==3}">
+<div class="div">
+		<b>가격 : </b><form:input path="price" onkeyup="number_chk(this);" onkeypress="javascript:if((event.keyCode<48)||(event.keyCode>57))event.returnValue=false;" style="ime-mode:disabled; text-align: right;" />원<font color="red"><form:errors path="price" /></font>
+		<br>
+		<b>기간 : </b><form:input path="schedule" style="ime-mode:disabled; text-align: right;"/>일<font color="red"><form:errors path="schedule" /></font>
+		<br>
+</div>
+</c:if>
+<div class="div">
+		<b>제목 : </b>
+		
+</div>
+<div class="div"><b>첨부파일 : </b>
+          <div class="filebox preview-image">
+			<input class="upload-name" value="Choose Photo!"disabled="disabled">
+			  <label for="input-file">Upload</label>
+			    <input type="file" id="input-file" class="upload-hidden" name="file1">
+		  </div>
+</div>
+</div>
+		
 	<div class="w3-container">
 		<div class="w3-ul w3-card-4">
 			<table class="table14_10" style="width: 100%">
@@ -356,6 +452,7 @@
 					</tr>
 				</table>
 			</div>
+		</div>
 		</div>
 	</form>
 </body>
