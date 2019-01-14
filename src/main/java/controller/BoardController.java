@@ -31,8 +31,12 @@ public class BoardController {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
 //		if(type==1)System.out.println("오픈소스게시판");
 //		if(type==2)System.out.println("개발자자유게시판");
 //		if(type==3)System.out.println("프로젝트공고모집게시판");
@@ -63,8 +67,6 @@ public class BoardController {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
 		if (searchType == null || searchType.equals("")) {
 			searchType = null;
 		}

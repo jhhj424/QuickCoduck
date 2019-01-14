@@ -36,25 +36,7 @@
   </div>
 </div>
 <!-- header -->
-<table>
-<!-- 게시글 존재 안할시 -->
-<c:if test="${listcount == 0}">
-<tr>
-<td width="27%"></td>
-<td width="45%"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
-<td width="28%" align="right" class="top">
-<a href="write.duck?type=${param.type}">
-<font style="font-weight: bold;">
-<img src="../workpic/review1.png" style="height: 25px;weight:25px;">
-글쓰기</font>
-</a></td>
-</tr>
-<tr><td colspan="6"><a href="../board/list.duck?type=1">오픈소스게시판</a>
-<a href="../board/list.duck?type=2">개발자자유게시판</a>
-<a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></td></tr>
-</c:if>
-<!-- 게시글 존재 할시 -->			
-<c:if test="${listcount > 0}">
+<table>		
 <tr>
 <th style="font-weight:bold;">
 <img src="../workpic/rating.png" style="width: 25px; height: 25px;">
@@ -65,17 +47,17 @@ QuickCoduck
 <input type="hidden" name="pageNum" value="1">
 <img src="../workpic/lens.png" style="height: 25px;weight:25px;">
 게시글 찾기:
-<select name="searchtype" id="type">
-<option value=" ">선택하세요</option>
+<select name="searchType" id="type">
+<option value="">선택하세요</option>
 <option value="subject">제목</option>
 <option value="userid">글쓴이</option>
 <option value="content">내용</option>
 </select>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 if ('${param.type}' != '') {
-document.getElementById("searchtype").value = '${param.type}';
+document.getElementById("searchType").value = '${param.type}';
 }
-</script>
+</script> -->
 <input type="text" name="searchContent" size="50" value="${param.searchContent}">
 <input type="submit"value="검색">
 </form>
@@ -104,6 +86,8 @@ document.getElementById("searchtype").value = '${param.type}';
 </td>
 </c:if>
 </tr>
+<!-- 게시글 존재 할시 -->	
+<c:if test="${listcount > 0}">
 
 <tr>
 <th width="13%" scope="row"><font style="font-weight: bold;">글번호</font></th>
@@ -162,6 +146,25 @@ ${board.readcnt}</font>
 <!-- 조회수 -->
 </tr>
 </c:forEach>
+</c:if>
+<!-- 게시글 존재 안할시 -->
+<c:if test="${listcount == 0}">
+<tr>
+<th width="13%" scope="row"><font style="font-weight: bold;">글번호</font></th>
+<th width="10%" scope="row"><font style="font-weight: bold;">사진</font></th>
+<th width="35%" scope="row"><font style="font-weight: bold;">제목</font></th>
+<th width="14%" scope="row"><font style="font-weight: bold;">글쓴이</font></th>
+<th width="17%" scope="row"><font style="font-weight: bold;">날짜</font></th>
+<th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
+</tr>
+<tr>
+<td ></td>
+<td  colspan="4"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
+<td  align="center">
+<a href="write.duck?type=${param.type}"><font style="font-weight: bold;"><img src="../workpic/review1.png" style="height: 25px;weight:25px;">
+글쓰기</font>
+</a></td>
+</tr>
 </c:if>
 <!-- 페이징 부분 -->
 <c:if test="${listcount != 0}">
