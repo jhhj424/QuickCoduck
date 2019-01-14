@@ -23,16 +23,16 @@ input[type=text] {
   transition: all 180ms;
   padding: 0;
   text-align:center;
-  width:50%;
+  width:63%;
 }
 .half {
   float: left;
-  width: 48%;
+  width: 46%;
   margin-bottom: 1em;
 }
 
 .right {
-  width: 50%;
+  width: 52%;
 }
 
 .left {
