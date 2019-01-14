@@ -3,6 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <style>
+.pagenation {
+	position: relative;
+	text-align: center;
+	margin: 1em auto;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #CECECE;
+}
+
+
+.pager-home {
+	display: inline-block;
+}
+
+.pager-arrow {
+	position: absolute;
+	top: 0;
+	display: table;
+	vertical-align: middle;
+}
+
+.pager-arrow-next {
+	left: .5em;
+}
+. pager-arrow-border {
+     transform : rotate( -135deg);
+	-webkit-transform: rotate(-135deg);
+	-ms-transform: rotate(-135deg);
+}
+.pager-arrow-prev {
+	right: .5em;
+}
+. pager-arrow-border {
+     transform : rotate( 45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+}
+.pager-arrow-border {
+	display: table-cell;
+	width: 1.5em;
+	height: 1.5em;
+}
+
+.pager-arrow-mask {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: #7d97a5;
+	top: 1px;
+	right: 1px;
+}
+
+.pager-arrow-label {
+	display: table-cell;
+	text-align: right;
+	vertical-align: middle;
+	position: relative;
+	z-index: 2;
+}
+</style>
+<style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 input.delete{
 -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -30,16 +98,15 @@ body * {
 }
 
 .header {
-	background-color: #327a81;
+	background-color: #7d97a5;
 	color: white;
 	font-size: 1.5em;
 	padding: 1rem;
 	text-align: center;
-	text-transform: uppercase;
 }
 
 .table-users {
-	border: 1px solid #327a81;
+	border: 1px solid #4d636f;
 	border-radius: 10px;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
 	max-width: calc(100% - 2em);
@@ -53,7 +120,6 @@ table {
 }
 
 table td, table th {
-	color: #2b686e;
 	padding: 10px;
 }
 

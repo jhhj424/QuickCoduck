@@ -15,9 +15,6 @@
 			<div id="container" class="clear" style="padding: 0px 26px 0px;">
 				<div id="content">
 					<div id="gap">
-						<!------------------- Mainpage css ------------------------>
-						<!-- 여기부터 -->
-						<!-- 구분선 'COMMUNITY' -->
 						<script
 							src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js"></script>
 						<div class="mline" style="margin-bottom: 20px;">

@@ -25,7 +25,7 @@
 
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Roboto", sans-serif
+	font-family: "Roboto", sans-serif;
 }
 
 .w3-bar .w3-button {
@@ -53,7 +53,7 @@ function write_submit() {
 }
 </script>
 </head>
-<body class="w3-light-grey" id="home">
+<body id="home">
 
 	<div class="w3-top">
 
@@ -95,9 +95,9 @@ function write_submit() {
 	</div>
 	<div class="w3-opacity">
 		<br>
-		<div class="w3-clear"></div>
-		<header class="w3-center w3-margin-bottom" style="margin-top: 60px;">
-			<p>
+		<div class="w3-clear"style="background-color:#FEFEFE;"></div>
+		<header class="w3-center w3-margin-bottom" style="margin-top:60px;background-color:#FEFEFE;">
+			<p style="background-color:#FEFEFE;">
 				<b>Quick Coduck</b>
 			</p>
 			<c:if test="${param.type==1}">
@@ -118,7 +118,7 @@ function write_submit() {
 		</header>
 	</div>
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top" style="max-width: 1400px;">
+	<div class="w3-content w3-margin-top" style="max-width: 1400px;background-color:#FEFEFE;">
 
 		<!-- The Grid -->
 		<div class="w3-row-padding" style="margin-bottom: 50px">
@@ -444,20 +444,24 @@ function write_submit() {
 		<!-- End Page Container -->
 	</div>
 
-	<!-- Footer -->
-	<footer class="w3-center w3-black w3-padding-32">
-		<div class="w3-xlarge w3-section">
-			<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
-				class="fa fa-instagram w3-hover-opacity"></i> <i
-				class="fa fa-snapchat w3-hover-opacity"></i> <i
-				class="fa fa-pinterest-p w3-hover-opacity"></i> <i
-				class="fa fa-twitter w3-hover-opacity"></i> <i
-				class="fa fa-linkedin w3-hover-opacity"></i><br>
-		</div>
-		<p>
-			Quick Coduck<a href="#home" class="w3-hover-text-green"> <i
-				class="fa fa-arrow-up w3-margin-right">Up to top</i></a>
-		</p>
-	</footer>
+<footer class="w3-center w3-padding-32" style="background-color:#4d636f;color:#fff;">
+  <div class="w3-xlarge w3-section">
+<i class="fa fa-github"></i>
+<i class="fa fa-git-square"></i>
+<i class="fa fa-github-alt"></i>
+<i class="fa fa-windows"></i>
+<i class="fa fa-codepen"></i>
+<i class="fa fa-chrome"></i>
+<i class="fa fa-internet-explorer"></i>
+<i class="fa fa-html5"></i>
+<i class="fa fa-linux"></i>
+<i class="fa fa-firefox"></i>
+<i class="fa fa-dropbox"></i>
+<i class="fa fa-mixcloud"></i>
+<i class="fa fa-share-alt-square"></i>
+
+  </div>
+  <p>Quick Coduck<a href="#home"class="w3-hover">&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-up w3-margin-right"> Up to top</i></a></p>
+</footer>
 </body>
 </html>

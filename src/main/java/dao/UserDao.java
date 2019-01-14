@@ -109,4 +109,8 @@ public class UserDao {
 		map.put("boardnum", num);
 		sqlSession.getMapper(UserMapper.class).failducktype(map);
 	}
+	public int usercount() {
+		return sqlSession.getMapper(UserMapper.class).usercount();
+	}
+	
 }
