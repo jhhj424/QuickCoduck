@@ -203,7 +203,7 @@
 					<c:if test="${board.boardtype==2}">개발자자유게시판</c:if>
 					<c:if test="${board.boardtype==3}">프로젝트공고모집게시판</c:if>
 					</td>
-					<c:if test="${board.boardtype==1}">
+					<c:if test="${board.boardtype==1 || board.boardtype==2}">
 					<tr>
 						<td align="center" colspan="2">
 							<input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">

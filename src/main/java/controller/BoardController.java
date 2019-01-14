@@ -31,9 +31,11 @@ public class BoardController {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-		if(type==1)System.out.println("오픈소스게시판");
-		if(type==2)System.out.println("개발자자유게시판");
-		if(type==3)System.out.println("프로젝트공고모집게시판");
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+//		if(type==1)System.out.println("오픈소스게시판");
+//		if(type==2)System.out.println("개발자자유게시판");
+//		if(type==3)System.out.println("프로젝트공고모집게시판");
 		ModelAndView mav = new ModelAndView();
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
@@ -61,6 +63,14 @@ public class BoardController {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
 		if(type != null) {
 			if(type==1)System.out.println("오픈소스게시판");
 			if(type==3)System.out.println("프로젝트공고모집게시판");
@@ -73,10 +83,8 @@ public class BoardController {
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
 		if(type==5) {
-			System.out.println("나만의소스게시판");
 			boardlist.clear();
 			boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type,user.getUserid());
-			System.out.println("나만의소스:"+boardlist);
 		}
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		if(type==5) {

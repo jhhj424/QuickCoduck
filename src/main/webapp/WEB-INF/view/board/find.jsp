@@ -358,8 +358,8 @@ function write_submit() {
 												<div align="center" style="margin-top: 5px;">
 													<form action="find.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">
 														게시글 검색 <input type="hidden" name="pageNum" value="1">
-														<select name="searchtype">
-															<option value=" ">선택하세요</option>
+														<select name="searchType">
+															<option value="">선택하세요</option>
 															<option value="subject">제목</option>
 															<option value="userid">글쓴이</option>
 															<option value="content">내용</option>
