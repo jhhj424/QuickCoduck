@@ -195,7 +195,7 @@ input {
 
 input[type=radio]:checked + label>img {
   border: 1px solid #fff;
-  box-shadow: 0 0 3px 3px #46c95e;
+  box-shadow: 0 0 3px 3px #f95959;
 }
 
 input[type=radio] + label>img {
