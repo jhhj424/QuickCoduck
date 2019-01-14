@@ -61,6 +61,9 @@ public class DuckService {
 	public int myduckcount(String searchType, String searchContent, String id, Integer ducktype) {
 		return boardDao.count(searchType, searchContent, id, ducktype);
 	}
+	public int myduckcount(String searchType, String searchContent, String id, Integer ducktype,Integer boardtype) {
+		return boardDao.count(searchType, searchContent, boardtype,id, ducktype);
+	}
 
 	public int boardcount(String searchType, String searchContent, Integer type, String userid) {// 나만의소스카운트용
 		return boardDao.count(searchType, searchContent, type, userid);
@@ -187,6 +190,10 @@ public class DuckService {
 	public List<Board> myducklist(String searchType, String searchContent, Integer pageNum, int limit, String id,
 			Integer ducktype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, id, ducktype);
+	}
+	public List<Board> myducklist(String searchType, String searchContent, Integer pageNum, int limit, String id,
+			Integer ducktype,Integer boardtype) {
+		return boardDao.ducklist(searchType, searchContent, pageNum, limit,boardtype, id, ducktype);
 	}
 
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,

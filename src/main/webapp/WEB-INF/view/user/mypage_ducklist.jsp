@@ -52,6 +52,7 @@
 			<input type="hidden" name="pageNum" value="1"> 
 			<input type="hidden" name="id" value="${user.userid}"> 
 			<input type="hidden" name="ducktype" value="1"> 
+			<input type="hidden" name="boardtype" value="1"> 
 			<select name="searchType" id="searchType">
 				<option value="">선택하세요</option>
 				<option value="subject">제목</option>

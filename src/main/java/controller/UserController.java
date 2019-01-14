@@ -421,7 +421,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/mypage_ducklist")
-	public ModelAndView ducklist(Integer pageNum, String searchType, String searchContent, HttpSession session, String id, Integer ducktype) {
+	public ModelAndView ducklist(Integer pageNum, String searchType, String searchContent, HttpSession session, String id, Integer ducktype,Integer boardtype) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -436,9 +436,9 @@ public class UserController {
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.myduckcount(searchType, searchContent, id, ducktype);
+		int listcount = service.myduckcount(searchType, searchContent, id, ducktype,boardtype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype);
+		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype,boardtype);
 		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -470,6 +470,8 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
+		User user = service.select(id); //현재 로그인한 유저의 정보
+		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
 		System.out.println("검색타입:"+searchType);
