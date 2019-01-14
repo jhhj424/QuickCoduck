@@ -27,6 +27,16 @@ public class Board {
 //	@Range(min=1,max=365,message="최소 1일 ~ 최대 365일 까지 지정 가능합니다.")
 	private int schedule; // 기간 (일)=
 	private int duckcnt; // 덕 당한 횟수
+	private int maxperson;// 공고 인원제한
+	
+
+	public int getMaxperson() {
+		return maxperson;
+	}
+
+	public void setMaxperson(int maxperson) {
+		this.maxperson = maxperson;
+	}
 
 	public int getBoardnum() {
 		return boardnum;
@@ -157,7 +167,8 @@ public class Board {
 		return "Board [boardnum=" + boardnum + ", userid=" + userid + ", boardtype=" + boardtype + ", subject="
 				+ subject + ", content=" + content + ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic
 				+ ", regdate=" + regdate + ", readcnt=" + readcnt + ", recmd=" + recmd + ", usetech=" + usetech
-				+ ", price=" + price + ", schedule=" + schedule + ", duckcnt=" + duckcnt + "]";
+				+ ", price=" + price + ", schedule=" + schedule + ", duckcnt=" + duckcnt + ", maxperson=" + maxperson
+				+ "]";
 	}
 
 }
