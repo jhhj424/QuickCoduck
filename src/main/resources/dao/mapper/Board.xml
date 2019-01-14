@@ -17,6 +17,13 @@
 		</if>
 	</select>
 	
+	<select id="myduckcount" resultType="int" parameterType="map">
+		select count(*) from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+	</select>
+	
 	<select id="select" resultType="Board" parameterType="map">
 		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule from board where boardtype = #{type}
 		<if test="boardnum != null">
@@ -43,6 +50,19 @@
 	
 	<select id="ducklist" resultType="Board" parameterType="map">
 		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype}) and boardtype = #{type}
+		<if test="boardnum != null">
+			and boardnum = #{boardnum}
+		</if>
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
+	<select id="ducklist2" resultType="Board" parameterType="map">
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype})
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
