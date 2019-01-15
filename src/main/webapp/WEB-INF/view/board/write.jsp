@@ -148,6 +148,9 @@ while(reg.test(n)){
 		<form:input path="userid" value="${loginUser.userid}" readonly="true"/><font color="red">
 		<form:errors path="userid" /></font>
 </div>
+<div class="div">
+		<b>제목 : </b><form:input path="subject"/><font color="red"><form:errors path="subject" /></font>
+</div>
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <div class="div">
 		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
@@ -197,11 +200,18 @@ while(reg.test(n)){
 		<br>
 		<b>기간 : </b><form:input path="schedule" style="ime-mode:disabled; text-align: right;"/>일<font color="red"><form:errors path="schedule" /></font>
 		<br>
+		<b>인원수 : </b>
+		<select name="maxperson">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>		
+		</select>명
+		<br>
 </div>
 </c:if>
-<div class="div">
-		<b>제목 : </b><form:input path="subject"/><font color="red"><form:errors path="subject" /></font>
-</div>
 <div class="div"><b>첨부파일 : </b>
           <div class="filebox preview-image">
 			<input class="upload-name" value="Choose Photo!"disabled="disabled">
@@ -234,5 +244,5 @@ while(reg.test(n)){
 		<c:if test="${boardtype==2}">
 		<a href="list.duck?type=${boardtype}"class="w3-hover" style="color:#000"><i class="fa fa-list">[게시물목록]</i></a>
 		</c:if>
-		</div>
+</div>
 		</div></form:form></body></html>
