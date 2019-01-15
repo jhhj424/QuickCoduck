@@ -267,13 +267,13 @@ public class AjaxController {
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
-					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
-					//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
-					map.put("msg", "신청 완료!");
-					if(board.getMaxperson()>=board.getNowperson()) {
-						service.supporting(userid);
-					}else {
-						map.put("msg", "신청인원 초과!");
+					if(board.getMaxperson()>board.getNowperson()) { //현재 게시물의 max인원보다 매칭된 유저가 적을때
+						service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!//매칭에도사용됨.				
+						//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
+						map.put("msg", "신청 완료!");
+							service.supporting(userid);
+						}else {
+							map.put("msg", "신청인원 초과!");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

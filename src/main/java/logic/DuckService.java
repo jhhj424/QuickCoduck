@@ -346,5 +346,18 @@ public class DuckService {
 		userDao.cntmaxcount(dbuser);
 		
 	}
+
+	public void duckupdate(String userid, Integer boardnum) {
+		boardDao.duckupdate(userid,boardnum);
+	}
+
+	public void usermatchingupdate(String userid) {
+		userDao.usermatchingupdate(userid);
+	}
+
+	public void nowpersonupdate(Integer boardnum) {
+		boardDao.nowpersonupdate(boardnum);
+		
+	}
 	
 }

@@ -121,7 +121,6 @@ public class BoardController {
 			if(type==1)System.out.println("오픈소스게시판");
 			if(type==3)System.out.println("프로젝트공고모집게시판");
 		}
-		System.out.println("페이징기술목록:"+chk);
 		ModelAndView mav = new ModelAndView();
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
@@ -313,7 +312,6 @@ public class BoardController {
 		} else { // 비번통과
 			board.setFileurl(request.getParameter("file2")); //기존의 파일로 url 넣어놓기
 			try { // 수정
-				System.out.println("게시판수정객체:"+board);
 				service.boardupdate(board,request);
 				mav.addObject("board",board);
 			} catch (Exception e) { // 수정시 오류 발생
@@ -440,6 +438,21 @@ public class BoardController {
 		System.out.println("개발자목록:"+developlist);
     	mav.addObject("developlist",developlist);
     	return mav;
+    }
+    @RequestMapping("board/suggest_accept")
+    public ModelAndView suggest_accept(String userid, Integer boardnum, HttpSession session, HttpServletRequest request) {
+    	ModelAndView mav = new ModelAndView();
+		//현재 보드객체의 board에 nowperson을 1 증가시킴
+		try {
+			service.nowpersonupdate(boardnum);// 여기서 해당 게시판의 현재 인원수 1증가
+			service.duckupdate(userid,boardnum); // 덕테이블에있던 데이터를 진행중인상태로 변경 : 덕타입 : 4
+			service.usermatchingupdate(userid); //현재 유저의 매칭상태를 2로 변경 : 프로젝트진행중인 유저<
+			mav.addObject("suggest_message","수락에 성공하셨습니다.");
+			mav.addObject("suggest_url","../user/myduck.duck?id="+userid+"&ducktype=4&type=3");
+		} catch (Exception e) {
+			throw new LoginException("수락에 실패하셨습니다", "suggest_detail.duck?boardnum="+boardnum+"&type="+3);
+		}	
+		return mav;
     }
  
     //댓글 삭제

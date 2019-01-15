@@ -300,4 +300,16 @@ public class BoardDao {
 		map.put("boardnum", num);
 		sqlSession.getMapper(BoardMapper.class).userproaccept(map);
 	}
+	public void duckupdate(String userid, Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).duckupdate(map);
+	}
+	public void nowpersonupdate(Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		System.out.println("º¸µå³Ñ:"+boardnum);
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).nowpersonupdate(boardnum);
+	}
 }

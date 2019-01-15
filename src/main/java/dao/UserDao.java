@@ -129,5 +129,9 @@ public class UserDao {
 		sqlSession.getMapper(UserMapper.class).cntmaxcount(map);
 		
 	}
-	
+	public void usermatchingupdate(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).usermatchingupdate(map);
+	}
 }

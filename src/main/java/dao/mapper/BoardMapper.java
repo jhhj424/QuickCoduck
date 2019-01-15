@@ -61,4 +61,10 @@ public interface BoardMapper  {
 
 	@Update("update duck set ducktype=4 where userid=#{userid} and boardnum=#{boardnum} and ducktype=3")
 	void userproaccept(Map<String, Object> map);
+	
+	@Update("update duck set ducktype=4 where userid=#{userid} and boardnum=#{boardnum} and ducktype=6")
+	void duckupdate(Map<String, Object> map);
+
+	@Update("update board set nowperson = nowperson+1 where boardnum=#{boardnum}")
+	void nowpersonupdate(Integer boardnum);
 }

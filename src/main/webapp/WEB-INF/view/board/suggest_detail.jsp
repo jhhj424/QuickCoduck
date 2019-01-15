@@ -76,8 +76,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-							<button onclick="#'" > 수락</button>
-							<button onclick="#'" > 거절</button>
+							<button onclick="location.href='suggest_accept.duck?boardnum=${board.boardnum}&userid=${loginUser.userid}'" > 수락</button>
+							<button onclick="location.href='suggest_refuse.duck?boardnum=${board.boardnum}&userid=${loginUser.userid}'" > 거절</button>
 							<button onclick="location.href='../user/mypage_suggestlist.duck?id=${loginUser.userid}&ducktype=6'" > 목록</button>
 						</td>
 					</tr>

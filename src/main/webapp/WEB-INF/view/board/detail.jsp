@@ -276,6 +276,9 @@ ${board.userid}
 <div class="div">
 <b>프로젝트 인원수 : ${board.maxperson} 명</b>
 </div>
+<div class="div">
+<b>현재 참여한 인원수 : ${board.nowperson} 명</b>
+</div>
 </c:if>
 <div class="div">
 <b>제목 : ${board.subject}</b>
