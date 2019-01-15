@@ -249,9 +249,10 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public String duckidselect(Integer boardnum) { //boardnum으로만 userid찾기
-		Map<String,Integer> map = new HashMap<String,Integer>();
+	public String duckidselect(Integer boardnum,String userid) { //boardnum으로만 userid찾기
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("boardnum",boardnum);
+		map.put("userid",userid);
 		return sqlSession.selectOne(NS + "duckid", map);
 	}
 	public void duckinsert(String userid, Integer boardnum, int ducktype) {

@@ -309,8 +309,8 @@ public class DuckService {
 		return boardDao.duckselect(userid, num, ducktype);// duck테이블에 해당 데이터 있는지 조회
 	}
 
-	public String duckidselect(Integer boardnum) {
-		return boardDao.duckidselect(boardnum);
+	public String duckidselect(Integer boardnum,String userid) {
+		return boardDao.duckidselect(boardnum,userid);
 	}
 
 	public int usercount() {

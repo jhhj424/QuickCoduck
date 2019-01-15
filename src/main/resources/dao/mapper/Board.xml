@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule from board where boardtype = #{type}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson from board where boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -124,6 +124,6 @@
 	</select>
 	
 	<select id="duckid" resultType="String" parameterType="map">
-		select userid from duck where boardnum = #{boardnum} and ducktype = 2
+		select userid from duck where boardnum = #{boardnum} and ducktype = 2 and userid=#{userid}
 	</select>
 </mapper>

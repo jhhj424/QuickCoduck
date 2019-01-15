@@ -28,7 +28,16 @@ public class Board {
 	private int schedule; // 기간 (일)=
 	private int duckcnt; // 덕 당한 횟수
 	private int maxperson;// 공고 인원제한
+	private int nowperson;// 공고 현재인원
 	
+
+	public int getNowperson() {
+		return nowperson;
+	}
+
+	public void setNowperson(int nowperson) {
+		this.nowperson = nowperson;
+	}
 
 	public int getMaxperson() {
 		return maxperson;
@@ -168,7 +177,6 @@ public class Board {
 				+ subject + ", content=" + content + ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic
 				+ ", regdate=" + regdate + ", readcnt=" + readcnt + ", recmd=" + recmd + ", usetech=" + usetech
 				+ ", price=" + price + ", schedule=" + schedule + ", duckcnt=" + duckcnt + ", maxperson=" + maxperson
-				+ "]";
+				+ ", nowperson=" + nowperson + "]";
 	}
-
 }

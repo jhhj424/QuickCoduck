@@ -257,8 +257,13 @@ ${board.userid}
 </div>
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <div class="div">
+<c:if test="${param.type==1 || boardtype==1}">
 <b>추천수 : </b>
-<input class="recview" style="text-align: center;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="추천수 : ${board.recmd}">
+</c:if>
+<c:if test="${param.type==3 || boardtype==3}">
+<b>신청자수 : </b>
+</c:if>
+<input class="recview" style="text-align: center;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="${board.recmd}">
 </div>
 </c:if>
 <c:if test="${board.boardtype==3}">

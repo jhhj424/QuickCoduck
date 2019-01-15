@@ -202,7 +202,7 @@ while(reg.test(n)){
 		<br>
 		<b>인원수 : </b>
 		<select name="maxperson">
-		<option value="1">1</option>
+		<option value="1" selected="selected">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
 		<option value="4">4</option>

@@ -387,7 +387,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
@@ -413,7 +413,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;

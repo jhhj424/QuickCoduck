@@ -13,8 +13,8 @@ public interface BoardMapper  {
 	@Select("select ifnull(max(boardnum),0) from board ")
 	int maxNum();
 	
-	@Insert("insert into board (boardnum,userid,boardtype,subject,content,file1,pic, regdate, readcnt, usetech, price, schedule) "
-			+ " values(#{boardnum},#{userid},#{boardtype},#{subject},#{content},#{fileurl},#{pic}, now(), 0, #{usetech}, #{price}, #{schedule})")
+	@Insert("insert into board (boardnum,userid,boardtype,subject,content,file1,pic, regdate, readcnt, usetech, price, schedule, maxperson) "
+			+ " values(#{boardnum},#{userid},#{boardtype},#{subject},#{content},#{fileurl},#{pic}, now(), 0, #{usetech}, #{price}, #{schedule}, #{maxperson})")
 	void insert(Board board);
 
 	@Update("update board set readcnt = readcnt+1 where boardnum = #{boardnum}")

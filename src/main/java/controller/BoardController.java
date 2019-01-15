@@ -158,6 +158,8 @@ public class BoardController {
 			return mav;
 		}
 		try {
+			int maxperson = Integer.parseInt(request.getParameter("maxperson"));
+			board.setMaxperson(maxperson);
 			service.boardadd(board, request);
 			board = service.getBoard(board);
 			mav.addObject("board", board);
