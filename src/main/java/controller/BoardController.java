@@ -161,10 +161,10 @@ public class BoardController {
 		}
 		try {
 			int maxperson = Integer.parseInt(request.getParameter("maxperson"));
-			board.setMaxperson(maxperson);
+			board.setMaxperson(maxperson);//최대인원 설정
 			service.boardadd(board, request);
 			board = service.getBoard(board);
-			if(type == 3 && dbuser.getMaxcount() != 0) {
+			if(type == 3 && dbuser.getMaxcount() != 0) {//클라이언트 공고게시일때 maxcount -1
 				service.cntmaxcount(dbuser);
 				User user = service.select(dbuser.getUserid());
 				mav.addObject("loginUser",user);
