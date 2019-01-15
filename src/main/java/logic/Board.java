@@ -29,148 +29,108 @@ public class Board {
 	private int duckcnt; // 덕 당한 횟수
 	private int maxperson;// 공고 인원제한
 	private int nowperson;// 공고 현재인원
-	
-
-	public int getNowperson() {
-		return nowperson;
-	}
-
-	public void setNowperson(int nowperson) {
-		this.nowperson = nowperson;
-	}
-
-	public int getMaxperson() {
-		return maxperson;
-	}
-
-	public void setMaxperson(int maxperson) {
-		this.maxperson = maxperson;
-	}
-
 	public int getBoardnum() {
 		return boardnum;
 	}
-
 	public void setBoardnum(int boardnum) {
 		this.boardnum = boardnum;
 	}
-
 	public String getUserid() {
 		return userid;
 	}
-
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-
 	public int getBoardtype() {
 		return boardtype;
 	}
-
-	public void setBoardtype(int type) {
-		this.boardtype = type;
+	public void setBoardtype(int boardtype) {
+		this.boardtype = boardtype;
 	}
-
 	public String getSubject() {
 		return subject;
 	}
-
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public MultipartFile getFile1() {
 		return file1;
 	}
-
 	public void setFile1(MultipartFile file1) {
 		this.file1 = file1;
 	}
-
-	public void setFile1(String file1) {
-		this.fileurl = file1;
-	}
-
 	public String getFileurl() {
 		return fileurl;
 	}
-
 	public void setFileurl(String fileurl) {
 		this.fileurl = fileurl;
 	}
-
 	public String getPic() {
 		return pic;
 	}
-
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
-
 	public Date getRegdate() {
 		return regdate;
 	}
-
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-
 	public int getReadcnt() {
 		return readcnt;
 	}
-
 	public void setReadcnt(int readcnt) {
 		this.readcnt = readcnt;
 	}
-
 	public int getRecmd() {
 		return recmd;
 	}
-
 	public void setRecmd(int recmd) {
 		this.recmd = recmd;
 	}
-
 	public String getUsetech() {
 		return usetech;
 	}
-
 	public void setUsetech(String usetech) {
 		this.usetech = usetech;
 	}
-
 	public String getPrice() {
 		return price;
 	}
-
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
 	public int getSchedule() {
 		return schedule;
 	}
-
 	public void setSchedule(int schedule) {
 		this.schedule = schedule;
 	}
-
 	public int getDuckcnt() {
 		return duckcnt;
 	}
-
 	public void setDuckcnt(int duckcnt) {
 		this.duckcnt = duckcnt;
 	}
-
+	public int getMaxperson() {
+		return maxperson;
+	}
+	public void setMaxperson(int maxperson) {
+		this.maxperson = maxperson;
+	}
+	public int getNowperson() {
+		return nowperson;
+	}
+	public void setNowperson(int nowperson) {
+		this.nowperson = nowperson;
+	}
 	@Override
 	public String toString() {
 		return "Board [boardnum=" + boardnum + ", userid=" + userid + ", boardtype=" + boardtype + ", subject="
@@ -178,5 +138,5 @@ public class Board {
 				+ ", regdate=" + regdate + ", readcnt=" + readcnt + ", recmd=" + recmd + ", usetech=" + usetech
 				+ ", price=" + price + ", schedule=" + schedule + ", duckcnt=" + duckcnt + ", maxperson=" + maxperson
 				+ ", nowperson=" + nowperson + "]";
-	}
+	}	
 }

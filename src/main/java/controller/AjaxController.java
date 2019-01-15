@@ -270,7 +270,11 @@ public class AjaxController {
 					service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!					
 					//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
 					map.put("msg", "신청 완료!");
-					service.supporting(userid);
+					if(board.getMaxperson()>=board.getNowperson()) {
+						service.supporting(userid);
+					}else {
+						map.put("msg", "신청인원 초과!");
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

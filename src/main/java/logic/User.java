@@ -21,12 +21,17 @@ public class User {
 	private String usetech;
 	private String creditnum;
 	private String creditpass;
-	private Integer rating;
+	private float rating;
 	private Integer matching;
 	private MultipartFile file1;// 梅何颇老
 	private String fileurl;// 颇老林家
 	private String pic;// 荤柳
 	private int maxcount;
+	private float profess;
+	private float proaction;
+	private float prosatisfact;
+	private float prodate;
+	private float procommunicate;
 	// getter,setter,toString
 	public String getUserid() {
 		return userid;
@@ -88,10 +93,10 @@ public class User {
 	public void setCreditpass(String creditpass) {
 		this.creditpass = creditpass;
 	}
-	public Integer getRating() {
+	public float getRating() {
 		return rating;
 	}
-	public void setRating(Integer rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 	public Integer getMatching() {
@@ -124,13 +129,44 @@ public class User {
 	public void setMaxcount(int maxcount) {
 		this.maxcount = maxcount;
 	}
+	public float getProfess() {
+		return profess;
+	}
+	public void setProfess(float profess) {
+		this.profess = profess;
+	}
+	public float getProaction() {
+		return proaction;
+	}
+	public void setProaction(float proaction) {
+		this.proaction = proaction;
+	}
+	public float getProsatisfact() {
+		return prosatisfact;
+	}
+	public void setProsatisfact(float prosatisfact) {
+		this.prosatisfact = prosatisfact;
+	}
+	public float getProdate() {
+		return prodate;
+	}
+	public void setProdate(float prodate) {
+		this.prodate = prodate;
+	}
+	public float getProcommunicate() {
+		return procommunicate;
+	}
+	public void setProcommunicate(float procommunicate) {
+		this.procommunicate = procommunicate;
+	}
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", pass=" + pass + ", email=" + email + ", tel=" + tel + ", birth=" + birth
 				+ ", type=" + type + ", businessnum=" + businessnum + ", usetech=" + usetech + ", creditnum="
 				+ creditnum + ", creditpass=" + creditpass + ", rating=" + rating + ", matching=" + matching
-				+ ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic + ", maxcount=" + maxcount + "]";
+				+ ", file1=" + file1 + ", fileurl=" + fileurl + ", pic=" + pic + ", maxcount=" + maxcount + ", profess="
+				+ profess + ", proaction=" + proaction + ", prosatisfact=" + prosatisfact + ", prodate=" + prodate
+				+ ", procommunicate=" + procommunicate + "]";
 	}
 	
-
 }

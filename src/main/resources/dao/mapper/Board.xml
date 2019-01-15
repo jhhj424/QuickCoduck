@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson from board where boardtype = #{type}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
