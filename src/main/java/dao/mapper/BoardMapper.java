@@ -50,7 +50,7 @@ public interface BoardMapper  {
 	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},#{ducktype})")
 	void matchduckinsert(Map<String, Object> map);
 
-	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype in (${ducktype})")
+	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype = #{ducktype}")
 	void userprodelete(Map<String, Object> map);
 
 	@Select("select * from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=3")

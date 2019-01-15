@@ -67,18 +67,26 @@
 	</td>
 </tr>
 <tr align="center" valign="middle" bordercolor="#212121">
-	<th width="8%" height="26">번호</th>
-	<th width="14%" height="26">글쓴이</th>
+	<th width="6%" height="26">번호</th>
+	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
-	<th width="10%" height="26">추천수</th>
+	<th width="8%" height="26">추천수</th>
 	<c:if test="${type==1}">
-	<th width="13%" height="26">DUCK수</th>
+	<th width="8%" height="26">DUCK수</th>
 	</c:if>
 	<c:if test="${type==3}">
-	<th width="13%" height="26">관심등록수</th>
+	<th width="10%" height="26">관심등록수</th>
 	</c:if>
 	<th width="10%" height="26">조회수</th>
-		<th>매칭상태(수락/거절&삭제)</th>
+	<c:if test="${param.ducktype==2}">
+		<th width="16%" height="26">삭제</th>
+	</c:if>
+	<c:if test="${param.ducktype==3}">
+		<th width="16%" height="26">수락&거절</th>
+	</c:if>
+	<c:if test="${param.ducktype==5}">
+		<th width="16%" height="26">삭제</th>
+	</c:if>
 </tr>
 
 <c:forEach var="board" items="${boardlist}">
@@ -95,8 +103,19 @@
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
 		<td>
-			<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">수락</button>
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">거절&삭제</button>
+			<c:if test="${param.ducktype==3}">
+				<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">수락</button>
+			</c:if>
+			
+			<c:if test="${param.ducktype==2}">
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'">삭제</button>
+			</c:if>
+			<c:if test="${param.ducktype==3}">
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">거절</button>
+			</c:if>
+			<c:if test="${param.ducktype==5}">
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=5&type=3'">삭제</button>
+			</c:if>
 		</td>
 	
 	</tr>

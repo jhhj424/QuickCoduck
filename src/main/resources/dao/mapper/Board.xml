@@ -10,10 +10,7 @@
 			and userid = #{id}
 		</if>
 		<if test="userid != null and ducktype != null">
-			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype in (${ducktype}))
-		</if>
-		<if test="matching != null">
-			and userid in (select userid from user where matching = #{matching})
+			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
 		</if>
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
@@ -45,14 +42,14 @@
 	</select>
 	
 	<select id="select2" resultType="Duck" parameterType="map">
-		select * from duck where ducktype = ${ducktype}
+		select * from duck where ducktype = #{ducktype}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 	</select>
 	
 	<select id="ducklist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype in (${ducktype})) and boardtype = #{type}
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype}) and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -71,7 +68,7 @@
 		</if>
 	</select>
 	<select id="ducklist2" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype})
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>

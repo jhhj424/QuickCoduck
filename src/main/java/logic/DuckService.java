@@ -69,7 +69,7 @@ public class DuckService {
 		return boardDao.count(searchType, searchContent, type, userid);
 	}
 
-	public int boardcount(String searchType, String searchContent, Integer type, String id, String ducktype) {
+	public int boardcount(String searchType, String searchContent, Integer type, String id, Integer ducktype) {
 	      return boardDao.count(searchType, searchContent, type, id, ducktype);
 	   }
 	
@@ -182,7 +182,7 @@ public class DuckService {
 	}
 
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
-			String id, String ducktype) {
+			String id, Integer ducktype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 	}
 
@@ -326,8 +326,8 @@ public class DuckService {
 		boardDao.userproaccept(userid,num);
 	}
 
-	public void userprodelete(String userid, Integer num, String dtype) {
-		boardDao.userprodelete(userid,num,dtype);
+	public void userprodelete(String userid, Integer num, Integer ducktype) {
+		boardDao.userprodelete(userid,num,ducktype);
 	}
 
 	public void usernullmatching(String userid) {
