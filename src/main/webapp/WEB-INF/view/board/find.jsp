@@ -425,8 +425,19 @@ function write_submit() {
 									</c:if>
 									<div>
 										<div align="right">
+										<c:if test="${loginUser.type == 2 && loginUser.maxcount != 0 && param.type == 3}">
 											<button type="button"
 								onclick="location.href='javascript:write_submit()'">글쓰기</button>
+								        </c:if>
+								        <c:if test="${loginUser.type == 2 && loginUser.maxcount == 0 && param.type == 3}">
+								        <p>공고를 사용하시려면 상품을 먼저 결제해주세요.</p>
+											<button type="button"
+								onclick="location.href='../user/mypage_item.duck?id=${loginUser.userid}'">상품결제</button>
+								        </c:if>
+								        <c:if test="${loginUser.type == 1 || loginUser.type == 3 || param.type == 1 || param.type == 5}">
+											<button type="button"
+								onclick="location.href='javascript:write_submit()'">글쓰기</button>
+								        </c:if>
 										</div>
 									</div>
 								</div>

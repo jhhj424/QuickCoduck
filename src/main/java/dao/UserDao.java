@@ -122,4 +122,12 @@ public class UserDao {
 		map.put("userid", userid);
 		sqlSession.getMapper(UserMapper.class).usernullmatching(map);
 	}
+	public void cntmaxcount(User dbuser) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", dbuser.getUserid());
+		map.put("maxcount", dbuser.getMaxcount());
+		sqlSession.getMapper(UserMapper.class).cntmaxcount(map);
+		
+	}
+	
 }

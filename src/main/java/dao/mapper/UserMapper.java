@@ -49,4 +49,6 @@ public interface UserMapper {
 
 	@Update("update user set matching = null where userid=#{userid}")
 	void usernullmatching(Map<String, Object> map);
+    @Update("update user set maxcount = #{maxcount} -1 where userid=#{userid} ")
+	void cntmaxcount(Map<String, Object> map);
 }
