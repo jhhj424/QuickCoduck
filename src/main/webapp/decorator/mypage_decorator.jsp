@@ -16,6 +16,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 .w3-badge, .w3-tag{
 margin-bottom:5px;
 }
+.leftdiv{
+width:33.3333%;
+float:left;
+max-height:100%;
+text-align:center;
+border:1px solid #000;
+}
+.centerdiv{
+width:33.3333%;
+margin:0 auto;
+text-align:center;
+max-height:100%;
+border:1px solid #000;
+}
+.rightdiv{
+width:33.3333%;
+float:right;
+max-height:100%;
+text-align:center;
+border:1px solid #000;
+}
 </style>
 <decorator:head/>
 <body id="home"style="background-color:#FEFEFE;">
@@ -55,7 +76,7 @@ margin-bottom:5px;
   <div class="w3-row"style="margin-bottom:50px;margin-top:50px;">
     <!-- Left Column -->
     <div class="w3-third"
-				style="padding-right: 50px; padding-left: 50px;">
+				style="padding:10px 50px 0px 50px;">
 
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="text-align:center;">
@@ -192,12 +213,10 @@ margin-bottom:5px;
    <div class="w3-twothird">
       <div class="w3-row-padding" >
         <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">검색기능 창으로 쓸까 예정중</h6>
-              <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-              <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i> Post</button> 
-            </div>
+          <div class="w3-card w3-round w3-white" style="height:170px;width:100%">
+          <div class="leftdiv">123</div><div class="rightdiv">789</div>
+          <div class="centerdiv">456
+          </div>
           </div>
         </div>
       </div>

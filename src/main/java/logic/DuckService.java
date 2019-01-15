@@ -341,4 +341,10 @@ public class DuckService {
 	public int sel(String userid) {
 		return boardDao.sel(userid);//duck테이블에 해당 데이터 있는지 조회
 	}
+
+	public void cntmaxcount(User dbuser) {
+		userDao.cntmaxcount(dbuser);
+		
+	}
+	
 }

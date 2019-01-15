@@ -147,6 +147,8 @@ public class BoardController {
 	@RequestMapping(value = "board/write", method = RequestMethod.POST)
 	public ModelAndView boardwrite(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session, String techlist) {
 		String tech = "";
+		User dbuser = (User)session.getAttribute("loginUser");
+		int type = Integer.parseInt(request.getParameter("boardtype"));
 		if(techlist != null) {
 			System.out.println("tl:"+techlist);
 			board.setUsetech(techlist);
@@ -162,6 +164,12 @@ public class BoardController {
 			board.setMaxperson(maxperson);
 			service.boardadd(board, request);
 			board = service.getBoard(board);
+			if(type == 3 && dbuser.getMaxcount() != 0) {
+				service.cntmaxcount(dbuser);
+				User user = service.select(dbuser.getUserid());
+				mav.addObject("loginUser",user);
+				session.setAttribute("loginUser",user);
+			}
 			mav.addObject("board", board);
 			if(board.getBoardtype()==2) {
 				mav.setViewName("redirect:list.duck?type="+board.getBoardtype());	
