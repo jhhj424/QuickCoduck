@@ -41,4 +41,10 @@ public interface UserMapper  {
 
 	@Update("update duck set ducktype = 5 where userid=#{userid} and boardnum=#{boardnum} and ducktype=2")
 	void failducktype(Map<String, Object> map);
+
+	@Update("update user set matching = 2 where userid=#{userid}")
+	void userproaccept(Map<String, Object> map);
+
+	@Update("update user set matching = null where userid=#{userid}")
+	void usernullmatching(Map<String, Object> map);
 }

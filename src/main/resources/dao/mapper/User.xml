@@ -26,11 +26,8 @@
 
 	<select id="supporterlist" resultType="User" parameterType="map">
 		select userid,email,tel,usetech,pic,matching from user
-		<if test="boardnum != null">
-			where userid in (select userid from duck where boardnum = #{boardnum})
-		</if>
-		<if test="ducktype != null">
-			and userid in (select userid from duck where ducktype = #{ducktype})
+		<if test="boardnum != null and ducktype != null">
+			where userid in (select userid from duck where boardnum = #{boardnum} AND ducktype = #{ducktype})
 		</if>
 		and matching = 1
 		order by userid

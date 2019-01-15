@@ -46,4 +46,16 @@ public interface BoardMapper  {
 
 	@Select("select userid from duck where boardnum=#{boardnum}")
 	void duckidselect(Map<Integer, String> map);
+
+	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype in (${ducktype})")
+	void userprodelete(Map<String, Object> map);
+
+	@Select("select * from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=3")
+	String duckselect2(Map<String, Object> map);
+
+	@Select("select count(*) from duck where userid=#{userid} and ducktype in (2,3,5)")
+	String sel(Map<String, Object> map);
+
+	@Update("update duck set ducktype=4 where userid=#{userid} and boardnum=#{boardnum} and ducktype=3")
+	void userproaccept(Map<String, Object> map);
 }

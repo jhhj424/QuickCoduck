@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.BoardMapper;
+import dao.mapper.UserMapper;
 import logic.Board;
 import logic.Duck;
 
@@ -32,7 +33,7 @@ public class BoardDao {
 		return sqlSession.selectOne(NS + "select",map);
 	}
 	public Duck select(Duck duck) {
-		Map<String, Integer> map= new HashMap<String, Integer>();
+		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("boardnum", duck.getBoardnum());
 		map.put("ducktype", duck.getDucktype());
 		return sqlSession.selectOne(NS + "select2",map);
@@ -49,7 +50,7 @@ public class BoardDao {
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("id", userid);//count용
+		map.put("userid", userid);//count용
 		return sqlSession.selectOne(NS + "count", map);
 	}
 	public int count(Integer type) {
@@ -57,13 +58,14 @@ public class BoardDao {
 		map.put("type", type);
 		return sqlSession.selectOne(NS + "count", map);
 	}
-	public int count(String searchType, String searchContent,Integer type, String id, Integer ducktype) {
+	public int count(String searchType, String searchContent,Integer type, String id, String ducktype, Integer matching) {
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("userid", id);
+		map.put("id", id);
 		map.put("ducktype", ducktype);
+		map.put("matching", matching);
 		return sqlSession.selectOne(NS + "count", map);
 	}
 	public List<Board> list(String searchType, String searchContent, Integer pageNum, int limit,Integer type) {
@@ -147,7 +149,7 @@ public class BoardDao {
 	}
 	
 	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
-			String id, Integer ducktype) {
+			String id, String ducktype, Integer matching) {
 		Map<String , Object> map = new HashMap<String, Object>();
 		int startrow = (pageNum -1) * limit;
 		map.put("column", searchType);
@@ -157,6 +159,7 @@ public class BoardDao {
 		map.put("type", type);
 		map.put("userid", id);
 		map.put("ducktype", ducktype);
+		map.put("matching", matching);
 		return sqlSession.selectList(NS + "ducklist", map);
 	}
 	public List<Board> ducklist(String searchType, String searchContent, Integer pageNum, int limit, Integer type, String userid) {
@@ -210,4 +213,43 @@ public class BoardDao {
 		map.put("boardnum",boardnum);
 		return sqlSession.selectOne(NS + "duckid", map);
 	}
+	public void userprodelete(String userid, Integer num, String dtype) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", num);
+		map.put("ducktype", dtype);
+		sqlSession.getMapper(BoardMapper.class).userprodelete(map);
+	}
+	public int duckselect2(String duckid, Integer boardnum) { //id값과 dtype 2,3,5로 찾기
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid",duckid);
+		map.put("boardnum", boardnum);
+		String select2 = sqlSession.getMapper(BoardMapper.class).duckselect2(map);
+		int num = 0;
+		if(select2 == null) {
+			num = 0;
+		}else {
+			num = 1;
+		}
+		return num;
+	}
+	public int sel(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid",userid);
+		String select5 = sqlSession.getMapper(BoardMapper.class).sel(map);
+		int xnum = 0;
+		if(Integer.parseInt(select5) == 0) {
+			xnum = 0;
+		}else {
+			xnum = 1;
+		}
+		return xnum;
+	}
+	public void userproaccept(String userid, Integer num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", num);
+		sqlSession.getMapper(BoardMapper.class).userproaccept(map);
+	}
+	
 }

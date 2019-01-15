@@ -109,4 +109,14 @@ public class UserDao {
 		map.put("boardnum", num);
 		sqlSession.getMapper(UserMapper.class).failducktype(map);
 	}
+	public void userproaccept(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).userproaccept(map);
+	}
+	public void usernullmatching(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).usernullmatching(map);
+	}
 }
