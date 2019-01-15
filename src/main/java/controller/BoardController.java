@@ -435,8 +435,14 @@ public class BoardController {
 		int matching = 1; // 유저의 매칭타입이 1
 		int ducktype = 6; // 유저의 덕타입이 6
 		List<User> developlist = service.supporterlist(userid, matching, boardnum, ducktype);
+		List<User> refuselist = service.supporterlist(userid, matching, boardnum, 8); //거절목록
+		List<User> acceptlist = service.supporterlist(userid, 2, boardnum, 4); //수락목록
 		System.out.println("개발자목록:"+developlist);
+		System.out.println("거절목록:"+refuselist);
+		System.out.println("수락목록:"+acceptlist);
     	mav.addObject("developlist",developlist);
+    	mav.addObject("refuselist",refuselist);
+    	mav.addObject("acceptlist",acceptlist);
     	return mav;
     }
     @RequestMapping("board/suggest_accept")
@@ -451,6 +457,19 @@ public class BoardController {
 			mav.addObject("suggest_url","../user/myduck.duck?id="+userid+"&ducktype=4&type=3");
 		} catch (Exception e) {
 			throw new LoginException("수락에 실패하셨습니다", "suggest_detail.duck?boardnum="+boardnum+"&type="+3);
+		}	
+		return mav;
+    }
+    @RequestMapping("board/suggest_refuse")
+    public ModelAndView suggest_refuse(String userid, Integer boardnum, HttpSession session, HttpServletRequest request) {
+    	ModelAndView mav = new ModelAndView();
+		//현재 보드객체의 board에 nowperson을 1 증가시킴
+		try {
+			service.suggest_refuse(userid,boardnum); // 덕테이블에있던 데이터를 삭제
+			mav.addObject("suggest_message","거절에 성공하셨습니다.");
+			mav.addObject("suggest_url","../user/mypage_suggestlist.duck?id="+userid+"&ducktype=6");
+		} catch (Exception e) {
+			throw new LoginException("거절에 실패하셨습니다", "suggest_detail.duck?boardnum="+boardnum+"&type="+3);
 		}	
 		return mav;
     }

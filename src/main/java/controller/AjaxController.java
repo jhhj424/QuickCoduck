@@ -253,6 +253,15 @@ public class AjaxController {
 //    	System.out.println("´ñ±Û¹øÈ£:"+num);
         return map;
    }
+    
+    @RequestMapping("board/developdelete")
+    @ResponseBody
+    public Map<Object,Object> developdelete(String userid, Integer boardnum, Integer ducktype) {
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	service.developdelete(userid,boardnum,ducktype);
+    	map.put("msg", "OK");
+        return map;
+   }
 	
 	// user_signup
 	@ResponseBody

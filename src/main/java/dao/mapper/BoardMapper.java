@@ -67,4 +67,10 @@ public interface BoardMapper  {
 
 	@Update("update board set nowperson = nowperson+1 where boardnum=#{boardnum}")
 	void nowpersonupdate(Integer boardnum);
+
+	@Update("update duck set ducktype=8 where userid=#{userid} and boardnum=#{boardnum} and ducktype=6")
+	void suggest_refuse(Map<String, Object> map);
+
+	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype = #{ducktype}")
+	void developdelete(Map<String, Object> map);
 }

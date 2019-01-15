@@ -37,7 +37,7 @@
 		<if test="boardnum != null and ducktype != null">
 			where userid in (select userid from duck where boardnum = #{boardnum} AND ducktype = #{ducktype})
 		</if>
-		and matching = 1
+		and matching = #{matching}
 		order by userid
 	</select>
 

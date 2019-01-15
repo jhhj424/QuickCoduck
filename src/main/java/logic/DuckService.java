@@ -359,5 +359,13 @@ public class DuckService {
 		boardDao.nowpersonupdate(boardnum);
 		
 	}
+
+	public void suggest_refuse(String userid, Integer boardnum) {
+		boardDao.suggest_refuse(userid,boardnum);
+	}
+
+	public void developdelete(String userid, Integer boardnum, Integer ducktype) {
+		boardDao.developdelete(userid,boardnum,ducktype);
+	}
 	
 }

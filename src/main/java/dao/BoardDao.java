@@ -308,8 +308,20 @@ public class BoardDao {
 	}
 	public void nowpersonupdate(Integer boardnum) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		System.out.println("º¸µå³Ñ:"+boardnum);
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).nowpersonupdate(boardnum);
+	}
+	public void suggest_refuse(String userid, Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		map.put("userid", userid);
+		sqlSession.getMapper(BoardMapper.class).suggest_refuse(map);
+	}
+	public void developdelete(String userid, Integer boardnum, Integer ducktype) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		map.put("userid", userid);
+		map.put("ducktype", ducktype);
+		sqlSession.getMapper(BoardMapper.class).developdelete(map);
 	}
 }
