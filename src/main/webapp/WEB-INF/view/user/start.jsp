@@ -92,7 +92,12 @@ text-color:red;
 	  <button class="w3-button w3-light-grey w3-padding-large w3-section w3-hide-small" onclick="document.getElementById('free').style.display='block'">
         <i class="fa fa-download"></i>Get For Free
       </button>
-      <p>Available for <i class="fa fa-android w3-xlarge w3-text-green"></i> <i class="fa fa-apple w3-xlarge"></i> <i class="fa fa-windows w3-xlarge w3-text-blue"></i></p>
+      <p> Available for
+       <i class="fa fa-github w3-xlarge"></i><i class="fa fa-git-square w3-xlarge"></i><i class="fa fa-github-alt w3-xlarge"></i>
+       <i class="fa fa-windows w3-xlarge"></i><i class="fa fa-codepen w3-xlarge"></i><i class="fa fa-chrome w3-xlarge"></i>
+       <i class="fa fa-internet-explorer w3-xlarge"></i><i class="fa fa-html5 w3-xlarge"></i><i class="fa fa-linux w3-xlarge"></i>
+       <i class="fa fa-firefox w3-xlarge"></i><i class="fa fa-dropbox w3-xlarge"></i><i class="fa fa-mixcloud w3-xlarge"></i> <i class="fa fa-share-alt-square w3-xlarge"></i>
+	  </p>
     </div>
     <div class="w3-col l4 m6">
       <img src="../workpic/QuickCoduck.jpg" class="w3-image w3-right w3-hide-small" width="335" height="471">
@@ -106,7 +111,7 @@ text-color:red;
 <div class="w3-padding-64 w3-light-grey" style="height:970px;">
   <div class="w3-row-padding"style="padding-top:200px;">
     <div class="w3-col l4 m6">
-      <img class="w3-image w3-round-large w3-hide-small w3-grayscale" src="../workpic/d3.jpg" alt="App" width="335" height="471">
+      <img class="w3-image w3-round-large w3-hide-small w3-grayscale" src="../workpic/title3.jpg" alt="App" width="335" height="471">
     </div>
     <div class="w3-col l8 m6">
       <h1 class="w3-jumbo"><b>Clarity</b></h1>
@@ -271,60 +276,6 @@ text-color:red;
    </section>
 </div>
 </div>
-<div id="signup" class="w3-modal w3-animate-opacity">
-<section class="container">
-		    <article class="half">
-			        <h1>Quick Coduck</h1>
-			        <div class="tabs">
-				            <span class="tab signin active"><a href="#signin">User</a></span>
-				            <span class="tab signup"><a href="#signup">Client</a></span>
-			        </div>
-			        <div class="content">
-				            <div class="signin-cont cont">
-					                <form action="signup.duck" method="post" enctype="multipart/form-data">
-					                        <input type="text" name="userid" id="user_id" class="inpt" required="required" placeholder="User Id">
-					                        <span class="id_chk"style="color:red;"></span>
-						                    <label for="name"></label>
-						                    <input type="email" name="email" id="user_email" class="inpt" required="required" placeholder="User Email">
-						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="user_password" class="inpt" required="required" placeholder="Password(4~12자리)">
-                						    <label for="password"></label>
-                						    <input type="password" name="pass2" id="user_password2" class="inpt" required="required" placeholder="Re Password">
-                						    <label for="password"></label>
-                						    <span class="corpass_chk"style="color:red;"></span>
-                						    <input type="hidden" name="type" value="1" id="user" class="inpt">
-						                    <div class="submit-wrap">
-							                        <input type="submit" value="Sign up" class="submit">
-							                        <a href="#" class="more">Forgot your password?</a>
-						                    </div>
-        					        </form>
-    				        </div>
-    				        <div class="signup-cont cont">
-                <form action="signup.duck" method="post" enctype="multipart/form-data">
-						                    <input type="text" name="userid" id="client_id" class="inpt" required="required" placeholder="User Id">
-						                    <span class="cid_chk"style="color:red;"></span>
-						                    <label for="name"></label>
-                                            <input type="email" name="email" id="client_email" class="inpt" required="required" placeholder="User Email">
-						                    <label for="email"></label>
-						                    <input type="password" name="pass" id="client_password" class="inpt" required="required" placeholder="Password(4~12자리)">
-                						    <label for="password"></label>
-                						    <input type="password" name="pass2" id="client_password2" class="inpt" required="required" placeholder="Re Password">
-                						    <label for="password"></label>
-                						    <span class="pass_chk"style="color:red;"></span>
-                						    <input type="hidden" name="type" value="2" id="client" class="inpt">
-						                    <div class="submit-wrap">
-							                        <input type="submit" value="Sign up" class="submit"id="client_signup">
-							                        <a href="#" class="more">Terms and conditions</a>
-						                    </div>
-        					        </form>
-            </div>
-			        </div>
-		    </article>
-		    <i onclick="document.getElementById('signup').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge" style="color:#000000;"></i>
-		    <div class="half bg">
-		    </div>
-	</section>
-</div>
 <!-- 비회원 입장용 모달 -->
 <div id="free" class="w3-modal w3-animate-opacity">
   <div class="w3-modal-content" style="padding:32px">
@@ -332,33 +283,14 @@ text-color:red;
       <i onclick="document.getElementById('free').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
       <h2 class="w3-wide">비회원 입장</h2>
       <p>비회원으로 접근시 사용이 제한됩니다.</p>
-      <i class="fa fa-android w3-large"></i> <i class="fa fa-apple w3-large"></i> <i class="fa fa-windows w3-large"></i>
-      <p></p>
-      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="goReplace('../user/main.duck')">비회원 입장하기</button>
+      <p><i class="fa fa-copyright"></i>2019 QuickCoduck Corp</p>
+      <button type="button" style="background-color:#f95959;color:#fff" class="w3-button w3-block w3-padding-large w3-margin-bottom" onclick="goReplace('../user/main.duck')">비회원 입장하기</button>
     </div>
   </div>
 </div>
 <!-- onclick 이벤트 스크립트 -->
 <script type="text/javascript">
 function goReplace(str) { location.replace(str); }
-</script>
-<!-- 모달 로그인창 스크립트 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script type="text/javascript">
-$('.tabs .tab').click(function(){
-    if ($(this).hasClass('signin')) {
-        $('.tabs .tab').removeClass('active');
-        $(this).addClass('active');
-        $('.cont').hide();
-        $('.signin-cont').show();
-    } 
-    if ($(this).hasClass('signup')) {
-        $('.tabs .tab').removeClass('active');
-        $(this).addClass('active');
-        $('.cont').hide();
-        $('.signup-cont').show();
-    }
-});
 </script>
 <!-- 페이징 스크롤 스크립트 -->
 <script src="${jqueryJs}"></script>

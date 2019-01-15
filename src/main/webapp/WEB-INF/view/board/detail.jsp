@@ -260,8 +260,24 @@ ${board.userid}
 <b>추천수 : </b>
 <input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">
 </div>
-		</c:if>
-		<%-- 
+</c:if>
+<c:if test="${board.boardtype==3}">
+<div class="div">
+<b>프로젝트 기간 : ${board.schedule} 일</b>
+</div>
+<div class="div">
+<b>프로젝트 금액 : ${board.price} 원</b>
+</div>
+</c:if>
+<div class="div">
+<b>제목 : ${board.subject}</b>
+</div>
+<div class="div">
+<b>첨부파일 : </b>
+<c:if test="${!empty board.fileurl}"><a href="../file/${board.fileurl}">${board.fileurl}</a></c:if>
+</div>
+</div>
+			<%-- 
 		<div>
 			<div align="center"><b>프로젝트 금액 : </b>
 				<form:input path="price" 
@@ -269,128 +285,66 @@ ${board.userid}
 			</div>
 		</div>
 		</c:if> --%>
-<c:if test="${param.type==3 || boardtype==3}">
-<div class="div">
-		<b>가격 : </b><form:input path="price" onkeyup="number_chk(this);" onkeypress="javascript:if((event.keyCode<48)||(event.keyCode>57))event.returnValue=false;" style="ime-mode:disabled; text-align: right;" />원<font color="red"><form:errors path="price" /></font>
-		<br>
-		<b>기간 : </b><form:input path="schedule" style="ime-mode:disabled; text-align: right;"/>일<font color="red"><form:errors path="schedule" /></font>
-		<br>
+			<!-- 왼쪽 div 영역 끝나는 지점 -->
+<div class="half right">
+<div align="center"><b>[내용]</b>
+<font color="red"><form:errors path="content" /></font>		
 </div>
+<div>
+<c:if test="${!empty board.fileurl }">
+<img src="${path}/file/${board.fileurl}" style="max-width: 500px; max-height:500px;">
+<br>
 </c:if>
+<div style="width:100%;resize:none;font-size:20px;">
+${fn:replace(board.content, cn, br)}
+</div>
+</div>
+</div>
+<div style="text-align:center;margin-bottom:20px;">
+		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
+		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
+		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
+		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+		</c:if>
+		<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
+		<a href="list.duck?type=${board.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+		</c:if>
+		<c:if test="${board.boardtype==1}">
+		<button type="button" class="myButton" id="rec">추천</button>
+		<button type="button" class="myButton" id="duck">DUCK</button>
+		</c:if>
+		<c:if test="${board.boardtype==2}">
+		<button type="button" class="myButton" id="rec">추천</button>
+		</c:if>
+		<c:if test="${board.boardtype==3}">
+		<button type="button" class="myButton" id="duck">스크랩</button>
+		<button type="button" class="myButton" id="pro">참여신청</button>
+		<c:if test="${board.userid == loginUser.userid }">
+		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right">[지원자목록보기]</i></a>
+		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
+		</c:if>
+		</c:if>
+</div>
+</div>
+<!-- 아래쪽 하단 버튼 끝 -->
+<div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
+<h2 class="w3-text-grey w3-padding-16">
+<i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
 <div class="div">
-		<b>제목 : </b>
-		
-</div>
-<div class="div"><b>첨부파일 : </b>
-          <div class="filebox preview-image">
-			<input class="upload-name" value="Choose Photo!"disabled="disabled">
-			  <label for="input-file">Upload</label>
-			    <input type="file" id="input-file" class="upload-hidden" name="file1">
-		  </div>
-</div>
-</div>
-		
-	<div class="w3-container">
-		<div class="w3-ul w3-card-4">
-			<table class="table14_10" style="width: 100%">
-				<tr>
-					<td colspan="2">
-					<c:if test="${board.boardtype==1}">오픈소스게시판</c:if>
-					<c:if test="${board.boardtype==2}">개발자자유게시판</c:if>
-					<c:if test="${board.boardtype==3}">프로젝트공고모집게시판</c:if>
-					</td>
-					<c:if test="${board.boardtype==1 || board.boardtype==2}">
+<table class="table14_10" style="width: 100%">
 					<tr>
-						<td align="center" colspan="2">
-							<input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">
-						</td>
-					</tr>
-					</c:if>
-					<c:if test="${board.boardtype==3}">
-					<tr>
-						<td align="center">
-							프로젝트 기간
-						</td>
-						<td align="center">
-							${board.schedule} 일
-						</td>
-					</tr>
-					<tr>
-						<td align="center">
-							프로젝트 금액
-						</td>
-						<td align="center">
-							${board.price} 원
-						</td>
-					</tr>
-					</c:if>
-				</tr>
-				<tr>
-					<td width="15%">글쓴이</td>
-					<td width="85%">${board.userid}</td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td>${board.subject}</td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td>
-						<table style = "width:100%; height:250">
-							<tr>
-								<td>
-								<c:if test="${!empty board.fileurl }">
-									<img src="${path}/file/${board.fileurl}" style="max-width: 500px; max-height:500px;">
-									<br>
-								</c:if>
-								<div style="padding: 30px; margin: 30px; text-align: left; min-width: 800px;max-width: 800px">
-								${fn:replace(board.content, cn, br)}
-								</div>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>첨부파일</td>
-					<td>&nbsp; <c:if test="${!empty board.fileurl}"><a href="../file/${board.fileurl}">${board.fileurl}</a>
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><a
-						href="update.duck?num=${board.boardnum}&type=${board.boardtype}">[수정]</a>
-						<a
-						href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}">[삭제]</a>
-						<c:if test="${board.boardtype==1 || board.boardtype==3 || board.boardtype==5 }">
-						<a href="find.duck?type=${board.boardtype}">[목록]</a>
-						</c:if>
-						<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
-						<a href="list.duck?type=${board.boardtype}">[목록]</a>
-						</c:if>
-						<c:if test="${board.boardtype==1}">
-						<button type="button" class="myButton" id="rec">추천</button>
-						<button type="button" class="myButton" id="duck">DUCK</button>
-						</c:if>
-						<c:if test="${board.boardtype==2}">
-						<button type="button" class="myButton" id="rec">추천</button>
-						</c:if>
-						<c:if test="${board.boardtype==3}">
-						<button type="button" class="myButton" id="duck">스크랩</button>
-						<button type="button" class="myButton" id="pro">참여신청</button>
-						<c:if test="${board.userid == loginUser.userid }">
-						<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}">[지원자목록보기]</a>
-						<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}">[선택한개발자목록]</a>
-						</c:if>
-						</c:if>
+						<td>댓글쓰기</td>
+						<td><textarea required="required" rows="2" cols="75"
+								name="content"></textarea></td>
+						<td>
+							<button type="button"
+								onclick="location.href='javascript:comment_submit()' "
+								class="comment">댓글등록!!</button>
 						</td>
 					</tr>
 				</table>
-			</div>
-		</div>
-		<div class="w3-container">
-			<div class="w3-ul w3-card-4">
-				<table class="table14_10" style="width: 100%">
+</div>
+<table class="table14_10" style="width: 100%">
 				<jsp:useBean id="day" class="java.util.Date" />
 					<c:if test="${commentCount==0 }">
 						<tr>
@@ -446,27 +400,7 @@ ${board.userid}
 							<tr id="reply${c.num}" align="right"></tr>
 						</c:forEach>
 					</c:if>
-				</table>
-			</div>
-		</div>
-		<br>
-		<div class="w3-container">
-			<div class="w3-ul w3-card-4">
-				<table class="table14_10" style="width: 100%">
-					<tr>
-						<td>댓글쓰기</td>
-						<td><textarea required="required" rows="2" cols="75"
-								name="content"></textarea></td>
-						<td>
-							<button type="button"
-								onclick="location.href='javascript:comment_submit()' "
-								class="comment">댓글등록!!</button>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		</div>
+				</table></div>
 	</form>
 </body>
 </html>
