@@ -43,5 +43,10 @@ public interface UserMapper {
 
 	@Select("select count(userid) from user")
 	int usercount();
+	
+	@Update("update user set matching = 2 where userid=#{userid}")
+	void userproaccept(Map<String, Object> map);
 
+	@Update("update user set matching = null where userid=#{userid}")
+	void usernullmatching(Map<String, Object> map);
 }

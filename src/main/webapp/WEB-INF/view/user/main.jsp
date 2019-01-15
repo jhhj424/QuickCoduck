@@ -147,5 +147,20 @@
 		</div>
 	</div>
 	<div style="padding-top:50px;"></div>
+<%-- <h1>메인 페이지 입니다</h1>
+<h1><a href="logout.duck">로그아웃</a></h1>
+<h1><a href="mypage.duck?id=${sessionScope.loginUser.userid}">mypage</a></h1>
+<h1><a href="../board/find.duck?type=1">[게시판테스트중] - 오픈소스,프로젝트공고 게시판Form</a></h1>
+<h1><a href="../board/list.duck?type=1">오픈소스게시판</a></h1>
+<h1><a href="../board/list.duck?type=2">개발자자유게시판</a></h1>
+<h1><a href="../board/list.duck?type=3">프로젝트공고모집게시판</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=1&type=1">덕한거보기</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=1&type=3">스크랩보기</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=2&type=3&matching=1">신청프로젝트보기</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=3&type=3&matching=2">진행중인프로젝트보기</a></h1>
+<h1><a href="../user/myduck.duck?id=${user.userid}&type=3">클라이언트 진행중인프로젝트보기</a></h1> <!-- 정해놓지않았 -->
+<h1><a href="../user/myduck.duck?id=${user.userid}&ducktype=4&type=3">종료프로젝트보기</a></h1>
+<h1><a href="submain.duck">서브메인</a></h1>
+<h1>테스트 용입니다</h1> --%>
 </body>
 </html>

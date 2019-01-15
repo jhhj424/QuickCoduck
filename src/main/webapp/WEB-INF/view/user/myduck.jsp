@@ -78,6 +78,9 @@
 	<th width="13%" height="26">관심등록수</th>
 	</c:if>
 	<th width="10%" height="26">조회수</th>
+	<c:if test="">
+		<th>매칭상태(수락/거절&삭제)</th>
+	</c:if>
 </tr>
 
 <c:forEach var="board" items="${boardlist}">
@@ -93,6 +96,13 @@
 		<td align="center">${board.recmd}</td>
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
+		<td>
+			<c:if test="${param.ducktype==3}">
+				<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">수락</button>
+			</c:if>
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">거절&삭제</button>
+		</td>
+	
 	</tr>
 </c:forEach>
 <tr align="center" height="26">

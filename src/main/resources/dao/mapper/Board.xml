@@ -10,7 +10,10 @@
 			and userid = #{id}
 		</if>
 		<if test="userid != null and ducktype != null">
-			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
+			and boardnum in (select boardnum from duck where userid=#{userid} and ducktype in (${ducktype}))
+		</if>
+		<if test="matching != null">
+			and userid in (select userid from user where matching = #{matching})
 		</if>
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
@@ -42,20 +45,26 @@
 	</select>
 	
 	<select id="select2" resultType="Duck" parameterType="map">
-		select * from duck where ducktype = #{ducktype}
+		select * from duck where ducktype = ${ducktype}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 	</select>
 	
 	<select id="ducklist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = ${ducktype}) and boardtype = #{type}
+		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype in (${ducktype})) and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
+		<!-- <if test="type == 1"> 개발자 못씀
+			and (select userid from user where matching = #{matching}) 개발자의 매칭넘버로 됨 / 안됨
+		</if>
+		<if test="type == 2"> 클라이언트 못씀
+			and userid in (select userid from user where matching = #{matching}) 클라이언트의 매칭넘버로 검색이 되어버린다
+		</if> -->
 		order by regdate desc
 		<if test="startrow != null and limit !=null">
 			limit #{startrow},${limit}
@@ -115,6 +124,6 @@
 	</select>
 	
 	<select id="duckid" resultType="String" parameterType="map">
-		select userid from duck where boardnum = #{boardnum}
+		select userid from duck where boardnum = #{boardnum} and ducktype = 2
 	</select>
 </mapper>

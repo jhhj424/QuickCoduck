@@ -112,5 +112,14 @@ public class UserDao {
 	public int usercount() {
 		return sqlSession.getMapper(UserMapper.class).usercount();
 	}
-	
+	public void userproaccept(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).userproaccept(map);
+	}
+	public void usernullmatching(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		sqlSession.getMapper(UserMapper.class).usernullmatching(map);
+	}
 }

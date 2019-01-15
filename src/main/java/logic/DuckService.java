@@ -69,12 +69,12 @@ public class DuckService {
 		return boardDao.count(searchType, searchContent, type, userid);
 	}
 
+	public int boardcount(String searchType, String searchContent, Integer type, String id, String ducktype) {
+	      return boardDao.count(searchType, searchContent, type, id, ducktype);
+	   }
+	
 	public int boardcount(Integer type) {
 		return boardDao.count(type);
-	}
-
-	public int boardcount(String searchType, String searchContent, Integer type, String id, Integer ducktype) {
-		return boardDao.count(searchType, searchContent, type, id, ducktype);
 	}
 
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type) {
@@ -182,7 +182,7 @@ public class DuckService {
 	}
 
 	public List<Board> boardlist(String searchType, String searchContent, Integer pageNum, int limit, Integer type,
-			String id, Integer ducktype) {
+			String id, String ducktype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 	}
 
@@ -191,6 +191,7 @@ public class DuckService {
 			Integer ducktype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit, id, ducktype);
 	}
+	
 	public List<Board> myducklist(String searchType, String searchContent, Integer pageNum, int limit, String id,
 			Integer ducktype,Integer boardtype) {
 		return boardDao.ducklist(searchType, searchContent, pageNum, limit,boardtype, id, ducktype);
@@ -320,4 +321,24 @@ public class DuckService {
 		boardDao.duckinsert(userid, boardnum, ducktype);
 	}
 
+	public void userproaccept(String userid, Integer num) {
+		userDao.userproaccept(userid);
+		boardDao.userproaccept(userid,num);
+	}
+
+	public void userprodelete(String userid, Integer num, String dtype) {
+		boardDao.userprodelete(userid,num,dtype);
+	}
+
+	public void usernullmatching(String userid) {
+		userDao.usernullmatching(userid);
+	}
+
+	public int select(String userid, Integer num) {
+		return boardDao.duckselect2(userid,num);//duck테이블에 해당 데이터 있는지 조회
+	}
+
+	public int sel(String userid) {
+		return boardDao.sel(userid);//duck테이블에 해당 데이터 있는지 조회
+	}
 }
