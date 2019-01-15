@@ -291,17 +291,17 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
-		String dtype = "";
+		/*String dtype = "";
 		if(ducktype == 2) {
 			dtype = "2,3,5";
 		}else {
 			dtype = ducktype + "";
-		}
+		}*/
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.boardcount(searchType, searchContent, type, id, dtype);
+		int listcount = service.boardcount(searchType, searchContent, type, id, ducktype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id, dtype);
+		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit, type, id, ducktype);
 		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -318,7 +318,7 @@ public class UserController {
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
 		mav.addObject("type", type);
-		mav.addObject("ducktype", dtype);
+		mav.addObject("ducktype", ducktype);
 		return mav;
 	}
 
@@ -387,19 +387,13 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
 		int duckselect = service.duckselect(duckid, boardnum, ducktype);
 		System.out.println("duckselect:" + duckselect);
 		if (duckselect == 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
-			/*
-			 * if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때 try {
-			 * //map.put("msg", "참여 승낙하셨습니다!"); service.fail(userid,boardnum); } catch
-			 * (Exception e) { e.printStackTrace(); } } else {// 다른사람의 게시물일때
-			 * //map.put("msg", "다른사람의 게시물입니다!"); }
-			 */
 			service.fail(duckid, boardnum);
 			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum=" + boardnum);
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
@@ -413,19 +407,13 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
 		int duckselect = service.duckselect(duckid, boardnum, ducktype);
 		System.out.println("duckselect:" + duckselect);
 		if (duckselect == 1) { // 해당 게시글에 해당아이디의 Duck이 있을때
-			/*
-			 * if (board.getUserid().equals(userid)) { // 자신의 게시물이 맞을때 try {
-			 * //map.put("msg", "참여 승낙하셨습니다!"); service.fail(userid,boardnum); } catch
-			 * (Exception e) { e.printStackTrace(); } } else {// 다른사람의 게시물일때
-			 * //map.put("msg", "다른사람의 게시물입니다!"); }
-			 */
 			service.accept(duckid, boardnum);
 			mav.setViewName("redirect:supporterlist.duck?userid=" + user.getUserid() + "&boardnum=" + boardnum);
 		} else {// 해당 게시글에 해당 아이디의 Duck이 없을때
@@ -525,7 +513,7 @@ public class UserController {
 		System.out.println("duckselect2:" + duckselect2);
 		if (duckselect2 == 1) {//해당 아이디에 Duck테이블의 값이 있을때 id/num/type=3
 			service.userproaccept(userid,num); // matching=2로 변경하여 서로 수락
-			//mav.setViewName("redirect:myduck.duck?userid=" + user.getUserid() + "&ducktype=2&type=3&matching=1");
+			mav.setViewName("redirect: myduck.duck?id="+ user.getUserid() +"&ducktype=3&type=3");
 		} else {// 해당 게시글에 해당 아이디의 Duck이 없을때
 			 //map.put("msg", "이미 승낙하셨습니다!");
 		}
@@ -538,22 +526,23 @@ public class UserController {
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
 		
-		String dtype = "";
+		/*String dtype = "";
 		if(ducktype == 2) {
 			dtype = "2,3,5";
 		}else {
 			dtype = ducktype + "";
-		}
-		service.userprodelete(userid,num,dtype);
+		}*/
+		service.userprodelete(userid,num,ducktype);
 		System.out.println("userid:" + userid);
 		System.out.println("boardnum:" + num);
+		System.out.println("ducktype:" + ducktype);
+		mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type=3");
 		
-		
-		int duckselect3 = service.sel(userid); //id와/duck235있는 프로젝트 찾기
+		int duckselect3 = service.sel(userid); //id와/ducktype 2/3/5있는 프로젝트 찾기
 		System.out.println("duckselect3:" + duckselect3);
 		if (duckselect3 < 1) {//신청중이거나 수락받은/거절받은 프로젝트가 없을때
 			service.usernullmatching(userid);
-			//mav.setViewName("redirect:myduck.duck?userid=" + user.getUserid() + "&ducktype=2&type=3&matching=1");
+			//mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type=3&matching=1");
 		}/* else {// 신청/수락/거절중인 프로젝트가 있을때 거절&삭제
 	
 		}*/

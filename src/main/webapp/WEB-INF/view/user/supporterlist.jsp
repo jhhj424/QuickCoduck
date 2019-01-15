@@ -28,8 +28,8 @@
 		<td>${user.usetech}</td>
 		<td>${user.matching}</td>
 		<td>
-			<button type="button" id="accept" onclick="location.href='accept.duck?userid=${board.userid}&boardnum=${param.boardnum}'">수락</button>
-			<button type="button" id="fail" onclick="location.href='fail.duck?userid=${board.userid}&boardnum=${param.boardnum}'">거절</button>
+			<button type="button" id="accept" onclick="location.href='accept.duck?userid=${user.userid}&boardnum=${param.boardnum}'">수락</button>
+			<button type="button" id="fail" onclick="location.href='fail.duck?userid=${user.userid}&boardnum=${param.boardnum}'">거절</button>
 		</td>
 	</c:forEach>
 </table>

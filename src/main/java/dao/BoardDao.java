@@ -81,7 +81,7 @@ public class BoardDao {
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("id", id);
+		map.put("userid", id);
 		map.put("ducktype", ducktype);
 		return sqlSession.selectOne(NS + "count", map);
 	}
@@ -249,9 +249,10 @@ public class BoardDao {
 		}
 		return num; 
 	}
-	public String duckidselect(Integer boardnum) { //boardnum으로만 userid찾기
-		Map<String,Integer> map = new HashMap<String,Integer>();
+	public String duckidselect(Integer boardnum, String userid) { //boardnum으로만 userid찾기
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("boardnum",boardnum);
+		map.put("userid",userid);
 		return sqlSession.selectOne(NS + "duckid", map);
 	}
 	public void duckinsert(String userid, Integer boardnum, int ducktype) {
@@ -261,11 +262,11 @@ public class BoardDao {
 		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).matchduckinsert(map);
 	}
-	public void userprodelete(String userid, Integer num, String dtype) {
+	public void userprodelete(String userid, Integer num, Integer ducktype) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userid", userid);
 		map.put("boardnum", num);
-		map.put("ducktype", dtype);
+		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).userprodelete(map);
 	}
 	public int duckselect2(String duckid, Integer boardnum) { //id값과 dtype 2,3,5로 찾기
