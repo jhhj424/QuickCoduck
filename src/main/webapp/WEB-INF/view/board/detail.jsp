@@ -236,16 +236,16 @@ margin:10px 10px 10px 10px;
 <h2 class="w3-text-grey w3-padding-16">
 <c:if test="${param.type==1 || boardtype==1}">
 <i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-오픈소스게시판 글쓰기</c:if>
+오픈소스게시판</c:if>
 <c:if test="${param.type==2 || boardtype==2}">
 <i class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-개발자자유게시판 글쓰기</c:if>
+개발자자유게시판</c:if>
 <c:if test="${param.type==3 || boardtype==3}">
 <i class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-프로젝트공고모집게시판 글쓰기</c:if>
+프로젝트공고모집게시판</c:if>
 <c:if test="${param.type==5 || boardtype==5}">
 <i class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-나만의소스 작성하기</c:if>
+나만의소스</c:if>
 </h2>
 <div align="center">
 		
@@ -258,7 +258,7 @@ ${board.userid}
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <div class="div">
 <b>추천수 : </b>
-<input class="recview" style="text-align: center;" readonly value="추천수 : ${board.recmd}">
+<input class="recview" style="text-align: center;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="추천수 : ${board.recmd}">
 </div>
 </c:if>
 <c:if test="${board.boardtype==3}">
@@ -268,13 +268,32 @@ ${board.userid}
 <div class="div">
 <b>프로젝트 금액 : ${board.price} 원</b>
 </div>
+<div class="div">
+<b>프로젝트 인원수 : ${board.maxperson} 명</b>
+</div>
 </c:if>
 <div class="div">
 <b>제목 : ${board.subject}</b>
 </div>
 <div class="div">
 <b>첨부파일 : </b>
-<c:if test="${!empty board.fileurl}"><a href="../file/${board.fileurl}">${board.fileurl}</a></c:if>
+<c:if test="${!empty board.fileurl}">
+<a href="../file/${board.fileurl}">${board.fileurl}</a>
+</c:if>
+<c:if test="${empty board.fileurl }">
+<b style="color:red;">등록된 이미지가 없습니다</b>
+</c:if>
+</div>
+<div class="div">
+<div style="width:550px;height:310px;float:left;border:1px solid #000;" class="1">
+<c:if test="${!empty board.fileurl }">
+<img src="${path}/file/${board.fileurl}" style="width:100%;height:100%;">
+<br>
+</c:if>
+<c:if test="${empty board.fileurl}">
+<img src="../workpic/noimage.png" style="width:100%; height:100%;">
+</c:if>
+</div>
 </div>
 </div>
 			<%-- 
@@ -287,19 +306,26 @@ ${board.userid}
 		</c:if> --%>
 			<!-- 왼쪽 div 영역 끝나는 지점 -->
 <div class="half right">
-<div align="center"><b>[내용]</b>
-<font color="red"><form:errors path="content" /></font>		
+<div style="text-align:center;">
+<b style="text-align:center;">[내용]</b>
 </div>
-<div>
-<c:if test="${!empty board.fileurl }">
-<img src="${path}/file/${board.fileurl}" style="max-width: 500px; max-height:500px;">
-<br>
-</c:if>
-<div style="width:100%;resize:none;font-size:20px;">
+<div style="text-align:left;width:800px;max-width:800px;resize:none;font-size:30px;height:500px;float:right;border:1px solid #000;word-break:break-all;overflow:scroll" class="2">
 ${fn:replace(board.content, cn, br)}
 </div>
+		<c:if test="${board.boardtype==3}">
+<div style="text-align:center;margin-bottom:20px;">
+		<i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
+		<button type="button" class="myButton" id="duck">스크랩</button>
+		<i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
+		<button type="button" class="myButton" id="pro">즉시신청</button>
+		<c:if test="${board.userid == loginUser.userid }">
+		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
+		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
+		</c:if>
 </div>
+		</c:if>
 </div>
+
 <div style="text-align:center;margin-bottom:20px;">
 		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
 		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
@@ -310,40 +336,21 @@ ${fn:replace(board.content, cn, br)}
 		<a href="list.duck?type=${board.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
 		</c:if>
 		<c:if test="${board.boardtype==1}">
+		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
 		<button type="button" class="myButton" id="rec">추천</button>
+		<i class="fa fa-external-link fa-fw w3-xlarge"></i>
 		<button type="button" class="myButton" id="duck">DUCK</button>
 		</c:if>
 		<c:if test="${board.boardtype==2}">
+		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
 		<button type="button" class="myButton" id="rec">추천</button>
-		</c:if>
-		<c:if test="${board.boardtype==3}">
-		<button type="button" class="myButton" id="duck">스크랩</button>
-		<button type="button" class="myButton" id="pro">참여신청</button>
-		<c:if test="${board.userid == loginUser.userid }">
-		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right">[지원자목록보기]</i></a>
-		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
-		</c:if>
 		</c:if>
 </div>
 </div>
 <!-- 아래쪽 하단 버튼 끝 -->
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
-<i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
-<div class="div">
-<table class="table14_10" style="width: 100%">
-					<tr>
-						<td>댓글쓰기</td>
-						<td><textarea required="required" rows="2" cols="75"
-								name="content"></textarea></td>
-						<td>
-							<button type="button"
-								onclick="location.href='javascript:comment_submit()' "
-								class="comment">댓글등록!!</button>
-						</td>
-					</tr>
-				</table>
-</div>
+<i class="fa fa-comments-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
 <table class="table14_10" style="width: 100%">
 				<jsp:useBean id="day" class="java.util.Date" />
 					<c:if test="${commentCount==0 }">
@@ -400,7 +407,22 @@ ${fn:replace(board.content, cn, br)}
 							<tr id="reply${c.num}" align="right"></tr>
 						</c:forEach>
 					</c:if>
-				</table></div>
+				</table>
+<div style="margin:10px 0 10px 0">
+<table class="table14_10" style="width: 100%">
+					<tr>
+						<td>댓글쓰기</td>
+						<td><textarea required="required" rows="2" cols="75"
+								name="content"></textarea></td>
+						<td>
+							<button type="button"
+								onclick="location.href='javascript:comment_submit()' "
+								class="comment">댓글등록!!</button>
+						</td>
+					</tr>
+				</table>
+</div>
+				</div>
 	</form>
 </body>
 </html>
