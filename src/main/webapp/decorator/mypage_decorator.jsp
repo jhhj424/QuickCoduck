@@ -29,6 +29,7 @@ margin:0 auto;
 text-align:center;
 max-height:100%;
 border:1px solid #000;
+max-width:300px;
 }
 .rightdiv{
 width:33.3333%;
@@ -37,6 +38,51 @@ max-height:100%;
 text-align:center;
 border:1px solid #000;
 }
+</style>
+<style>
+.card {
+  background-color: #f3f5f7;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card .about {
+  height: 150px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card .about h3,
+.card .about .lead {
+  font-weight: 300;
+  margin: 0;
+}
+
+.card .about h3 {
+  font-size: 24px;
+}
+
+.card .about .lead {
+  color: #aaa;
+}
+.tooltip-placeholder {
+  background-color: #fff;
+  border-radius: 4px;
+  color: #aaa;
+  font-size: 15px;
+  position: fixed;
+  padding: 4px 0;
+  display: none;
+  z-index: 2;
+}
+
 </style>
 <decorator:head/>
 <body id="home"style="background-color:#FEFEFE;">
@@ -214,9 +260,79 @@ border:1px solid #000;
    <div class="w3-twothird">
       <div class="w3-row-padding" >
         <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white" style="height:170px;width:100%">
+          <div class="w3-card w3-round w3-white" style="height:350px;width:100%">
           <div class="leftdiv">123</div><div class="rightdiv">789</div>
-          <div class="centerdiv">456
+          <div class="centerdiv">
+          <canvas id="canvas" width="100%" height="100%"></canvas>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+<script>
+var canvas = document.getElementById("canvas");
+
+var gradientBlue = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientBlue.addColorStop(0, 'rgba(85, 85, 255, 0.9)');
+gradientBlue.addColorStop(1, 'rgba(151, 135, 255, 0.8)');
+
+var gradientHoverBlue = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientHoverBlue.addColorStop(0, 'rgba(65, 65, 255, 1)');
+gradientHoverBlue.addColorStop(1, 'rgba(131, 125, 255, 1)');
+
+var redArea = null;
+var blueArea = null;
+
+var shadowed = {
+	beforeDatasetsDraw: function(chart, options) {
+    chart.ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+    chart.ctx.shadowBlur = 40;
+  },
+  afterDatasetsDraw: function(chart, options) {
+  	chart.ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+    chart.ctx.shadowBlur = 0;
+  }
+};
+
+
+window.chart = new Chart(document.getElementById("canvas"), {
+    type: "radar",
+    data: {
+        labels: ["전문성", "적극성", "만족도", "일정수준", "의사소통"],
+        datasets: [{
+            label: "김도롱",
+            data: [3.2, 1, 2, 4.2, 2.7],
+            fill: true,
+            backgroundColor: gradientBlue,
+            borderColor: "transparent",
+            pointBackgroundColor: "transparent",
+            pointBorderColor: "transparent",
+            pointHoverBackgroundColor: "transparent",
+            pointHoverBorderColor: "transparent",
+            pointHitRadius: 50,
+        }]
+    },
+    options: {
+    	legend: {
+      	display: false,
+      },
+      tooltips: {
+      	enabled: false,
+      },
+      gridLines: {
+        display: false
+      },
+      scale: {
+         ticks: {
+        	 min: 0,
+             max: 5,
+             stepsize:1,
+            display: true,
+         }, 
+         pointLabels: {
+             fontSize: 13,
+           }
+      }
+    },
+    plugins: [shadowed]
+});
+</script>
           </div>
           </div>
         </div>
