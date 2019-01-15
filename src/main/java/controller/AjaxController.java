@@ -1,12 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import exception.LoginException;
 import logic.Board;
 import logic.Duck;
 import logic.DuckService;
@@ -272,15 +273,24 @@ public class AjaxController {
 		board.setBoardnum(num);
 		board.setBoardtype(type);
 		board = service.getBoard(board); // 해당 num,type의 board객체 가져옴
+		User user = service.select(userid); //로그인된 유저의 정보
 		int duckselect = service.duckselect(userid, num, ducktype);
 		if (duckselect < 1) { // 해당 게시글에 해당아이디의 Duck이 없을때
 			if (!board.getUserid().equals(userid)) { // 자신의 게시물이 아닐때
 				try {
 					if(board.getMaxperson()>board.getNowperson()) { //현재 게시물의 max인원보다 매칭된 유저가 적을때
-						service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!//매칭에도사용됨.				
-						//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
-						map.put("msg", "신청 완료!");
-							service.supporting(userid);
+						if(user.getType()==1){ //개발자일때
+							if(user.getMatching()==2) { //이미 신청한 공고가있을경우
+								map.put("msg", "이미 진행중인 프로젝트가 있습니다.");
+							}else {//프로젝트공고 신청가능
+								service.boardduck(board, userid, ducktype); //덕이랑 스크랩할때만 사용!//매칭에도사용됨.				
+								//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
+								map.put("msg", "신청 완료!");
+								//service.supporting(userid);
+							}
+						}else {//개발자가 아닐떄
+							map.put("msg", "개발자만 신청 가능합니다!");
+						}
 						}else {
 							map.put("msg", "신청인원 초과!");
 					}

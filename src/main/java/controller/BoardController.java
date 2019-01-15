@@ -450,12 +450,20 @@ public class BoardController {
     	ModelAndView mav = new ModelAndView();
 		//현재 보드객체의 board에 nowperson을 1 증가시킴
 		try {
-			service.nowpersonupdate(boardnum);// 여기서 해당 게시판의 현재 인원수 1증가
-			service.duckupdate(userid,boardnum); // 덕테이블에있던 데이터를 진행중인상태로 변경 : 덕타입 : 4
-			service.usermatchingupdate(userid); //현재 유저의 매칭상태를 2로 변경 : 프로젝트진행중인 유저<
-			mav.addObject("suggest_message","수락에 성공하셨습니다.");
-			mav.addObject("suggest_url","../user/myduck.duck?id="+userid+"&ducktype=4&type=3");
+			User user = service.select(userid);
+			System.out.println("유저:"+user);
+			if(user.getMatching()==1) { //매칭타입 1일때만 수락가능
+				service.nowpersonupdate(boardnum);// 여기서 해당 게시판의 현재 인원수 1증가
+				service.duckupdate(userid,boardnum); // 덕테이블에있던 데이터를 진행중인상태로 변경 : 덕타입 : 4
+				service.usermatchingupdate(userid); //현재 유저의 매칭상태를 2로 변경 : 프로젝트진행중인 유저<
+				mav.addObject("suggest_message","수락에 성공하셨습니다.");
+				mav.addObject("suggest_url","../user/myduck.duck?id="+userid+"&ducktype=4&type=3");
+			}else { //매칭타입이 1이 아닐경우 // 수락 불가능
+				mav.addObject("suggest_message","이미 진행중인 프로젝트가 있습니다.");
+				mav.addObject("suggest_url","suggest_detail.duck?boardnum="+boardnum+"&type="+3);
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new LoginException("수락에 실패하셨습니다", "suggest_detail.duck?boardnum="+boardnum+"&type="+3);
 		}	
 		return mav;
