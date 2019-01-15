@@ -1,20 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Å¬¶óÀÌ¾ğÆ® ±Û¾²±â ¿Ï·á</title>
+<meta charset="UTF-8">
+<script type="text/javascript">
+ // ë’¤ë¡œê°€ê¸° ë°©ì§€
+window.history.forward(1);
+// ìš°í´ë¦­ë°©ì§€
+oncontextmenu='return false' 
+ // ë“œë˜ê·¸ ë°©ì§€
+ ondragstart='return false'
+// ì„ íƒë³µì‚¬ ë°©ì§€
+onselectstart='return false'
+//ìƒˆë¡œê³ ì¹¨, ë’¤ë¡œê°€ê¸° ë§‰ê¸°
+document.onkeydown = function(e) {
+ key = (e) ? e.keyCode : event.keyCode;
+ if(key==8 || key==116) {
+  if(e) {
+   e.preventDefault();
+  } else {
+   event.keyCode = 0;
+   event.returnValue = false;
+  }
+ }
+}
+//ì˜¤ë¥¸ìª½ë§ˆìš°ìŠ¤ ë§‰ê¸°
+document.oncontextmenu = function(e){
+	alert("ìš°í´ë¦­ ë¶ˆê°€ëŠ¥")
+ if(e){
+  e.preventDefault();
+ }
+ else{
+  event.keyCode = 0;
+  event.returnValue = false;
+ }
+}
+</script>
+<title>í´ë¼ì´ì–¸íŠ¸ ê¸€ì“°ê¸° ì™„ë£Œ</title>
 </head>
 <body>
 <div id="client_main" align="center" style="border: 3px solid">
-<h1>ÇÁ·ÎÁ§Æ® ¸ğÁı °ø°í °Ô½Ã¿Ï·á!</h1>
+<h1>í”„ë¡œì íŠ¸ ëª¨ì§‘ ê³µê³  ê²Œì‹œì™„ë£Œ!</h1>
 <table border="1" style="border-collapse: collapse; width: 100%">
 <thead>
 	<tr>
-		<th>±Û¾´ÀÌ</th>
-		<th>Á¦¸ñ</th>
-		<th>»ç¿ë±â¼ú</th>
+		<th>ê¸€ì“´ì´</th>
+		<th>ì œëª©</th>
+		<th>ì‚¬ìš©ê¸°ìˆ </th>
 	</tr>
 </thead>
 <tbody>
@@ -26,8 +60,8 @@
 </tbody>
 </table>
 <div id="client_select" align="center" style="border: 1px solid">
-<input type="button" value="¸ÅÄªÀÎÀçº¸±â" onclick="location.href='../user/matchuser.duck'">
-<input type="button" value="¸ñ·Ïº¸±â" onclick="location.href='../board/find.duck?type=${board.boardtype}'">
+<input type="button" value="ë§¤ì¹­ì¸ì¬ë³´ê¸°" onclick="location.href='../user/matchuser.duck'">
+<input type="button" value="ëª©ë¡ë³´ê¸°" onclick="location.href='../board/find.duck?type=${board.boardtype}'">
 </div>
 </div >
 </body>

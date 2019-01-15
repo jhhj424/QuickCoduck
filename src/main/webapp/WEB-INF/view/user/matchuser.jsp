@@ -4,8 +4,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>매칭유저 보기</title>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+ // 뒤로가기 방지
+window.history.forward(1);
+// 우클릭방지
+oncontextmenu='return false' 
+ // 드래그 방지
+ ondragstart='return false'
+// 선택복사 방지
+onselectstart='return false'
+//새로고침, 뒤로가기 막기
+document.onkeydown = function(e) {
+ key = (e) ? e.keyCode : event.keyCode;
+ if(key==8 || key==116) {
+  if(e) {
+   e.preventDefault();
+  } else {
+   event.keyCode = 0;
+   event.returnValue = false;
+  }
+ }
+}
+//오른쪽마우스 막기
+document.oncontextmenu = function(e){
+	alert("우클릭 불가능")
+ if(e){
+  e.preventDefault();
+ }
+ else{
+  event.keyCode = 0;
+  event.returnValue = false;
+ }
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#suggest').click(function(event){
+	    if ($("input:checkbox[name='idchk']").is(":checked") == false){
+	    	alert("유저 체크 안됨")
+	    	return event.preventDefault();
+	    }else {
+	    	return event;
+	    }
+	});  
+})
+
+</script>
 </head>
 <body>
 <h1>매칭유저 보기</h1>
@@ -46,7 +94,7 @@
 			</c:if>
 			<tr>
 			<td colspan="6" align="right">
-				<a href="javascript:document.f.submit()">[매칭 제안하기]</a>
+				<a href="javascript:document.f.submit()" id="suggest">[매칭 제안하기]</a>
 				<a href="../board/find.duck?type=${clientboard.boardtype}">[게시물목록]</a>
 				</td>
 			</tr>

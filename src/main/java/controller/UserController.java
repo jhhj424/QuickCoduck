@@ -354,7 +354,14 @@ public class UserController {
 			}
 			uid += "'" + arr2.get(arr2.size() - 1) + "'";
 			System.out.println(uid);
-			matchinguserList = service.userList(uid);
+			matchinguserList = service.userList(uid); //중복없는 리스트 생성
+			if(matchinguserList.size() > 3) {
+				for (int i=matchinguserList.size();i>3;i--) {
+					int ran = (int)(i * (Math.random()*10))/10;
+					System.out.println("사이즈:"+i+" 랜덤수:"+ran);
+					matchinguserList.remove(ran);
+				}
+			}
 			System.out.println("리스트:"+matchinguserList);
 		} catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
 			e.printStackTrace();
