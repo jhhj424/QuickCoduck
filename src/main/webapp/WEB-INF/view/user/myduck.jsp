@@ -45,7 +45,7 @@
 </h2>
 <table border="1" style="width:100%;">
 <tr>
-	<td colspan="6" align="center">
+	<td colspan="7" align="center">
 		<form action="myduck.duck?id=${user.userid}" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
@@ -78,17 +78,15 @@
 	<th width="13%" height="26">관심등록수</th>
 	</c:if>
 	<th width="10%" height="26">조회수</th>
-	<c:if test="">
 		<th>매칭상태(수락/거절&삭제)</th>
-	</c:if>
 </tr>
 
 <c:forEach var="board" items="${boardlist}">
 	<tr align="center" valign="middle" bordercolor="#333333"
 		onmouseover="this.style.backgroundColor='#5CD1E5'"
 		onmouseout="this.style.backgroundColor=''">
-		<td height="23"> ${boardcnt} </td> <%--duck개시물번호 --%>
 	<c:set var="boardcnt" value="${boardcnt-1}" />
+		<td height="23"> ${boardcnt+1} </td> <%--duck개시물번호 --%>
 		<td align="left">${board.userid}</td>
 		<td align="left">
 			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
@@ -97,16 +95,14 @@
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
 		<td>
-			<c:if test="${param.ducktype==3}">
-				<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">수락</button>
-			</c:if>
+			<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">수락</button>
 			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3&matching=1'">거절&삭제</button>
 		</td>
 	
 	</tr>
 </c:forEach>
 <tr align="center" height="26">
-	<td colspan="6"><c:if test="${pageNum > 1}">
+	<td colspan="7"><c:if test="${pageNum > 1}">
 		<a href="javascript:list(${pageNum -1})">[이전]</a>
 	</c:if> <c:if test="${pageNum <= 1}">[이전]</c:if>
 	<c:forEach var="a" begin="${startpage}" end="${endpage}">

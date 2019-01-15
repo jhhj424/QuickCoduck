@@ -72,7 +72,7 @@ public class BoardDao {
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("id", id);
+		map.put("userid", id);
 		map.put("ducktype", ducktype);
 		return sqlSession.selectOne(NS + "count", map);
 	}
@@ -81,7 +81,7 @@ public class BoardDao {
 		map.put("column", searchType);
 		map.put("find", searchContent);
 		map.put("type", type);
-		map.put("id", id);
+		map.put("userid", id);
 		map.put("ducktype", ducktype);
 		return sqlSession.selectOne(NS + "count", map);
 	}
