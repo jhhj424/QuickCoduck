@@ -355,6 +355,7 @@ public class UserController {
 			uid += "'" + arr2.get(arr2.size() - 1) + "'";
 			System.out.println(uid);
 			matchinguserList = service.userList(uid);
+			System.out.println("리스트:"+matchinguserList);
 		} catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
 			e.printStackTrace();
 			System.out.println("기술목록에 해당하는 개발자가 없음");

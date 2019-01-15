@@ -9,7 +9,7 @@
 			where userid=#{userid}
 		</if>
 		<if test="userid2 != null">
-			where userid in (${userid2})
+			where userid in (${userid2}) and matching = 1
 		</if>
 		<if test="usetech != null">
 			where usetech like '%${usetech}%'

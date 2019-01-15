@@ -176,7 +176,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="board/clientsuccess")
-	public ModelAndView detail(Integer boardnum, HttpSession session) {
+	public ModelAndView clientsuccess(Integer boardnum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board bo = new Board();
 		bo.setBoardnum(boardnum);
@@ -211,6 +211,9 @@ public class BoardController {
 		Board bo = new Board();
 		bo.setBoardnum(num);
 		bo.setBoardtype(type);
+		//조회수증가----
+		service.readcntadd(num);
+		//------------
 		List<Comment> comment = service.commentlist(num);
 		int commentCount = service.commentcount(bo.getBoardnum());
 		System.out.println("댓글개수:"+commentCount);
