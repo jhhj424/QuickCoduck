@@ -148,6 +148,7 @@ public class UserDao {
 		map.put("userid", userid);
 		return sqlSession.selectList(NS + "recmdpersonlist", map);
 	}
+
 	public void setrating(String userid, float profess, float proaction, float prosatisfact, float prodate,
 			float procommunicate,float rating) {
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -159,5 +160,13 @@ public class UserDao {
 		map.put("procommunicate", procommunicate);
 		map.put("rating", rating);
 		sqlSession.getMapper(UserMapper.class).setrating(map);
+	}
+
+	public void matching(String userid, Integer matching) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("matching",matching);
+		sqlSession.getMapper(UserMapper.class).matching(map);
+		
 	}
 }

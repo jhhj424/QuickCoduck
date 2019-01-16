@@ -439,4 +439,8 @@ public class DuckService {
 		boardDao.add10duck(userid,boardnum);
 	}
 	
+	public void matching(String userid, Integer matching) {
+		userDao.matching(userid,matching);
+		
+	}
 }

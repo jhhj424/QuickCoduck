@@ -340,4 +340,22 @@ public class AjaxController {
 		}
 		return map;
 	}
+	@ResponseBody
+	@RequestMapping("user/checkbox")
+	public Map<Object, Object> checkbox(String userid, Integer matching, HttpSession session) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		try {
+			service.matching(userid,matching);
+			User user = service.select(userid);
+			session.setAttribute("loginUser", user);
+			if(user.getMatching()==1) {
+				map.put("msg", "인재추천이 활성화되었습니다.");
+			}else if(user.getMatching() == 0) {
+				map.put("msg", "인재추천이 비활성화되었습니다.");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
+		return map;
+	}
 }
