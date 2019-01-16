@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+
+</style>
 </head>
 <body>
-메인페이지
 </body>
 </html>

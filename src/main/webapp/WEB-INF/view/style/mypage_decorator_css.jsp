@@ -90,7 +90,7 @@ box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   font-family: arial;
   font-size: 20px;
   color: green;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .score_main-rating {
@@ -104,6 +104,9 @@ box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   top: 0px;
   position: relative;
   font-size: 100%;
+}
+.rating_main{
+  margin-top:10px;
 }
 
 
