@@ -324,4 +324,71 @@ public class BoardDao {
 		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).developdelete(map);
 	}
+	public int waitlistcount(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).waitlistcount(map);
+	}
+	public List<Board> recmdpersonlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "recmdpersonlist", map);
+	}
+	public int proceedlistcnt(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).proceedlistcnt(map);
+	}
+	public List<Board> proceedlist(String searchType, String searchContent, Integer pageNum, int limit, String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "proceedlist", map);
+	}
+	public int completelistcnt(String searchType, String searchContent, String userid) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("userid", userid);
+		return sqlSession.selectOne(NS + "completelistcnt", map);
+	}
+	public List<Board> completelist(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "completelist", map);
+	}
+	public int developcompletecnt(String searchType, String searchContent, String userid) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("userid", userid);
+		return sqlSession.selectOne(NS + "developcompletecnt", map);
+	}
+	public List<Board> developcomplete(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "developcomplete", map);
+	}
 }

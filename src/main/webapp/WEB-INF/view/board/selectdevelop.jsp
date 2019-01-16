@@ -6,7 +6,7 @@
 <head>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>개발자 목록</title>
 <script type="text/javascript">
 function cdelete(userid,ducktype){

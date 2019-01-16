@@ -73,4 +73,10 @@ public interface BoardMapper  {
 
 	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype = #{ducktype}")
 	void developdelete(Map<String, Object> map);
+
+	@Select("select count(*) from board where userid = #{userid} and maxperson != nowperson and boardtype=3")
+	int waitlistcount(Map<String, Object> map);
+
+	@Select("select count(*) from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)")
+	int proceedlistcnt(Map<String, Object> map);
 }

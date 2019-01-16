@@ -55,5 +55,8 @@ public interface UserMapper {
 
     @Update("update user set matching = 2 where userid=#{userid}")
 	void usermatchingupdate(Map<String, Object> map);
+    
+    @Select("select count(*) from user where userid in (select userid from duck where ducktype=6 and boardnum in (select boardnum from board where boardtype=3 and userid=#{userid})) ")
+	int personcnt(Map<String, String> map);
    
 }

@@ -502,6 +502,191 @@ public class UserController {
 		mav.addObject("type", 6);
 		return mav;
 	}
+	@RequestMapping("user/mypage_waitlist")
+	public ModelAndView mypage_waitlist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
+		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		mav.addObject("user", user);
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		int waitlistcount = service.waitlistcount(searchType, searchContent, user.getUserid());
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> waitlist = service.waitlist(searchType, searchContent, pageNum, limit, user.getUserid());
+		System.out.println("waitlist:" + waitlist);
+		int maxpage = (int) ((double) waitlistcount / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = waitlistcount - (pageNum - 1) * limit;
+		mav.addObject("id", user.getUserid());
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", waitlistcount);
+		mav.addObject("waitlist", waitlist);
+		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
+
+	@RequestMapping("user/mypage_proceedlist")
+	public ModelAndView mypage_proceedlist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
+		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		mav.addObject("user", user);
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		int proceedlistcnt = service.proceedlistcnt(searchType, searchContent, user.getUserid());
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> proceedlist = service.proceedlist(searchType, searchContent, pageNum, limit, user.getUserid());
+		System.out.println("proceedlist:" + proceedlist);
+		int maxpage = (int) ((double) proceedlistcnt / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = proceedlistcnt - (pageNum - 1) * limit;
+		mav.addObject("id", user.getUserid());
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", proceedlistcnt);
+		mav.addObject("proceedlist", proceedlist);
+		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
+	@RequestMapping("user/mypage_completelist")
+	public ModelAndView mypage_completelist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
+		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		mav.addObject("user", user);
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		int completelistcnt = service.completelistcnt(searchType, searchContent, user.getUserid());
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> completelist = service.completelist(searchType, searchContent, pageNum, limit, user.getUserid());
+		System.out.println("proceedlist:" + completelist);
+		int maxpage = (int) ((double) completelistcnt / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = completelistcnt - (pageNum - 1) * limit;
+		mav.addObject("id", user.getUserid());
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", completelistcnt);
+		mav.addObject("completelist", completelist);
+		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
+	@RequestMapping("user/mypage_developcomplete")
+	public ModelAndView mypage_developcomplete(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if (searchType == null || searchType.equals("")) {
+			searchType = null;
+		}
+		if (searchContent == null || searchContent.equals("")) {
+			searchContent = null;
+		}
+		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		mav.addObject("user", user);
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		System.out.println("검색타입:"+searchType);
+		System.out.println("검색내용:"+searchContent);
+		int developcompletecnt = service.developcompletecnt(searchType, searchContent, user.getUserid());
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<Board> developcomplete = service.developcomplete(searchType, searchContent, pageNum, limit, user.getUserid());
+		System.out.println("proceedlist:" + developcomplete);
+		int maxpage = (int) ((double) developcompletecnt / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = developcompletecnt - (pageNum - 1) * limit;
+		mav.addObject("id", user.getUserid());
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listcount", developcompletecnt);
+		mav.addObject("developcomplete", developcomplete);
+		mav.addObject("boardcnt", boardcnt);
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage_recmdlist")
+	public ModelAndView mypage_recmdlist(Integer pageNum, HttpSession session) {
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User)session.getAttribute("loginUser");//현재 로그인한 유저의 정보
+		mav.addObject("user", loginUser);
+		int limit = 10; // 한페이지에 출력할 게시물 갯수
+		// 총 게시물 건수
+		int personcnt = service.personcnt(loginUser.getUserid());//userid를 통해서 추천인재 목록수 가져오기
+		// boardlist : 한페이지에 출력할 게시물 정보 저장
+		List<User> recmdpersonlist = service.recmdpersonlist(loginUser.getUserid(), pageNum, limit);
+		System.out.println("boardlist:" + recmdpersonlist);
+		int maxpage = (int) ((double) personcnt / limit + 0.95);
+		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		int boardcnt = personcnt - (pageNum - 1) * limit;
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("personcnt", personcnt);
+		mav.addObject("recmdpersonlist", recmdpersonlist);
+		mav.addObject("boardcnt", boardcnt);
+		mav.addObject("type", 6);
+		return mav;
+	}
+	
 	//개발자가 신청 승낙할때
 	@RequestMapping(value = "user/userproaccept")
 	public ModelAndView userproaccept(HttpSession session, String userid, Integer num) {

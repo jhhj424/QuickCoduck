@@ -134,4 +134,18 @@ public class UserDao {
 		map.put("userid", userid);
 		sqlSession.getMapper(UserMapper.class).usermatchingupdate(map);
 	}
+	public int personcnt(String userid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(UserMapper.class).personcnt(map);
+	}
+	public List<User> recmdpersonlist(Integer pageNum, int limit, String userid) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		System.out.println("로그인유저:"+userid);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "recmdpersonlist", map);
+	}
 }
