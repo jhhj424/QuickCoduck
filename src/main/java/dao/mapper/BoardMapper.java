@@ -91,4 +91,10 @@ public interface BoardMapper  {
 
 	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=10")
 	int tenduck(Map<String, Object> map);
+
+	@Select("select count(*) from duck where ducktype=10 and boardnum in (select boardnum from board where userid = #{userid} and boardtype in (3,4))")
+	int duck10cnt(Map<String, Object> map);
+
+	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},10)")
+	void add10duck(Map<String, Object> map);
 }

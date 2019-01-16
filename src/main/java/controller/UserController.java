@@ -735,4 +735,36 @@ public class UserController {
 		}*/
 		return mav;
 	}
+	
+	@RequestMapping("user/rating")
+	public ModelAndView rating(int boardnum, float profess,float proaction,float prosatisfact, float prodate, float procommunicate, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("점수나오기! - " + profess +"\n"+ proaction +"\n"+ prosatisfact +"\n"+ prodate +"\n"+ procommunicate +"\n");
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인된 유저
+		try {
+			Board board = new Board();
+			board.setBoardnum(boardnum);
+			board.setBoardtype(4);
+			board = service.getBoard(board); // 평가하고있는 게시물
+			System.out.println("레이팅보드:"+board);
+			User ratinguser = service.select(board.getUserid()); // 평가받을 유저
+			int cnt = service.duck10cnt(board.getUserid()); //해당 id가 쓴 게시글중에, ducktype이 10인 duck테이블 인스턴스의 개수
+			System.out.println("평가받은갯수 : " + cnt);
+			if(cnt == 0) {			cnt = 1;		} // 해당유저 첫평가의 경우 1로 적용.
+			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / (cnt+1); //점수 평균내기
+			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / (cnt+1); //점수 평균내기
+			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / (cnt+1); //점수 평균내기
+			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / (cnt+1); //점수 평균내기
+			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / (cnt+1); //점수 평균내기
+			float rating = (profess2+ proaction2+ prosatisfact2+ prodate2+ procommunicate2)/5; //레이팅
+			service.setrating(board.getUserid(), profess2, proaction2, prosatisfact2, prodate2, procommunicate2,rating);
+			// duck테이블에 평가하는유저id, 평가하고있는게시물, ducktype = 10으로 인서트
+			service.add10duck(user.getUserid(), board.getBoardnum()); // 평가 성공
+			mav.addObject("suggest_message","평가에 성공하셨습니다.");
+			mav.addObject("suggest_url","../user/mypage_main.duck?id=" + user.getUserid());
+		}catch (Exception e) {
+			throw new LoginException("평가에 실패하셨습니다.", "../user/mypage_main.duck?id=" + user.getUserid());
+		}
+		return mav;
+	}
 }

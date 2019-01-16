@@ -413,4 +413,15 @@ public class BoardDao {
 		map.put("userid", userid);
 		return sqlSession.getMapper(BoardMapper.class).tenduck(map);
 	}
+	public int duck10cnt(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).duck10cnt(map);
+	}
+	public void add10duck(String userid, int boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).add10duck(map);
+	}
 }

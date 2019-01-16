@@ -425,5 +425,18 @@ public class DuckService {
 	public int tenduck(String userid,Integer boardnum) {
 		return boardDao.tenduck(userid, boardnum);
 	}
+
+	public void setrating(String userid, float profess, float proaction, float prosatisfact, float prodate,
+			float procommunicate, float rating) {
+		userDao.setrating( userid,  profess,  proaction,  prosatisfact,  prodate, procommunicate,rating);
+	}
+
+	public int duck10cnt(String userid) {
+		return boardDao.duck10cnt(userid);
+	}
+
+	public void add10duck(String userid, int boardnum) {
+		boardDao.add10duck(userid,boardnum);
+	}
 	
 }

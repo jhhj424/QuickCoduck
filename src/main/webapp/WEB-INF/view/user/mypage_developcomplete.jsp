@@ -21,7 +21,7 @@ function evaluation(boardnum){
 			success : function(result) {
 				alert(result.msg);
 				if(result.ok == "ok") {
-				location.href = "mypage_project_finished.duck?id="+userid;					
+				location.href = "mypage_project_finished.duck?id="+userid+"&boardnum="+boardnum;					
 				}else{
 					return false;
 				}

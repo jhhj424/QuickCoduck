@@ -14,13 +14,14 @@
 </script>
 </head>
 <body>
-<form action="#" method="post" name="f">
+<form action="rating.duck" method="post" name="f">
 <!-- 해당 전문성..기타 등등 value 값 넘겨주는 부분 -->
 <input type="hidden" value="" id="rt1" name="profess">
 <input type="hidden" value="" id="rt2" name="proaction">
 <input type="hidden" value="" id="rt3" name="prosatisfact">
 <input type="hidden" value="" id="rt4" name="prodate">
 <input type="hidden" value="" id="rt5" name="procommunicate">
+<input type="hidden" value="${param.boardnum}" name="boardnum">
 <div class="rating1" data-vote="0">
   <div class="star hidden">
     <span class="full"data-value="0"></span>
