@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>개발자 목록</title>
 <script type="text/javascript">
+
 function cdelete(userid,ducktype){
 	var boardnum = ${param.boardnum}
 	var msg = confirm("해당 개발자를 삭제 하시겠습니까??");

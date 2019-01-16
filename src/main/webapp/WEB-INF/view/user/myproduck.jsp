@@ -8,6 +8,7 @@
 <title>클라이언트 마이페이지용</title>
 </head>
 <body>
+
 <table border="1" style="width:100%;">
 <tr>
 	<td colspan="6" align="center">

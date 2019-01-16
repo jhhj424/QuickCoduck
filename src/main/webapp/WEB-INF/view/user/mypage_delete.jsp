@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form action="delete.duck" method="post"name="f">
 <input type="hidden" name="id" value="${param.id}">
  <div class="w3-container w3-card w3-white w3-round w3-margin">

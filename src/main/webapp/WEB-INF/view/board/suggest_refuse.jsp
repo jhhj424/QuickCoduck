@@ -7,6 +7,7 @@
 ${exception.message} : exception.CartEmptyException.getMessage() : 메서드 호출
 ${exception.url} : exception.CartEmptyException.getUrl() : 메서드 호출
  --%>
+ 
 <script>
 	alert("${suggest_message}");
 	location.href="${suggest_url}";

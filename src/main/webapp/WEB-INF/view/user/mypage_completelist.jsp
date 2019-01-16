@@ -8,6 +8,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>완료한 프로젝트</title>
+
 <!-- <script type="text/javascript">
 function complete(boardnum){
 	alert("보드넘:"+boardnum)

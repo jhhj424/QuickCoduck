@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My DUCK LIST</title>
+
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;

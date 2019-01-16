@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>대기중인 프로젝트</title>
 <script type="text/javascript">
+
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
 		if (searchType == null || searchType.length == 0) {
