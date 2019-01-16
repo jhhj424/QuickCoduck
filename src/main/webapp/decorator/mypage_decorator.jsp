@@ -12,6 +12,53 @@
 <html>
 <title>Quick Coduck</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+	var mat = ${loginUser.matching}
+	if(mat == 0) {
+		$(":checkbox[id=toggle]").prop("checked", false);
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", true);
+	}
+	
+$("#toggle").click(function(){
+	var result = confirm("매칭타입을 바꾸시겠습니까?");
+	if(result) {	
+	if($(":checkbox[id=toggle]").is(":checked") == false){
+		$(":checkbox[id=toggle]").prop("checked", false);
+		mat = 0;
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", true);
+		mat = 1;
+	}
+	var userid = '${loginUser.userid}';
+	var data = {
+			"userid" : userid,
+			"matching" : mat
+	}
+	$.ajax({
+		url : "checkbox.duck",
+		type: "post",
+		data: data,
+		dataType: "json",
+		success: function(data){
+			alert(data.msg);
+		},
+		error: function(xhr,status,error){
+			alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
+		}
+	})
+	} else {
+		return false;
+	}
+});	
+	
+});
+</script>
+</head>
 <decorator:head/>
 <body id="home"style="background-color:#FEFEFE;">
 <div class="w3-top" >
@@ -49,12 +96,20 @@
   <!-- The Grid -->
   <div class="w3-row"style="margin-bottom:50px;margin-top:50px;">
     <!-- Left Column -->
-    <div class="w3-third"
-				style="padding:10px 50px 0px 50px;">
+    <div class="w3-third" style="padding:10px 50px 0px 50px;">
 
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="text-align:center;">
         <div class="w3-container" style="padding:0 0 0 0;">
+        <c:if test="${loginUser.type == 1 }">
+        <div style="text-align:left;">
+        <sup style="font-size:13px;">off</sup>
+        <label class="switch" ><input type="checkbox" value="" name="" id="toggle">
+        <span class="slider round" id="slider"></span></label>
+        <sup style="font-size:13px;">on</sup>
+        </div>
+        </c:if>
+         
          <c:if test="${!empty loginUser.fileurl }">
          <p class="w3-center"><img src="../file/${loginUser.fileurl }" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          </c:if>
@@ -67,7 +122,7 @@
            </c:if>
          </c:if>
          <c:if test="${loginUser.type == '1' }">
-         <h4 class="w3-center">개발자 : ${user.userid } 님</h4>
+         <h4 class="w3-center">개발자 : ${user.userid } 님 </h4>
          </c:if>
          <c:if test="${loginUser.type == '2' }">
          <h4 class="w3-center">Client : ${user.userid } 님</h4>
@@ -195,7 +250,7 @@
           <div class="w3-card w3-round w3-white" style="height:350px;width:100%;border-radius: 10px;">
           <div class="leftdiv">
   <div class="rating_main" data-vote="0">
-  <div class="star">
+  <div class="star_main">
   <c:if test="${loginUser.rating >= 0.0 && loginUser.rating <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
@@ -281,7 +336,7 @@
   </div>
   <!-- 총 평점 끝나는 지점 -->
     <div class="rating_main" data-vote="0">
-    <div class="star">
+    <div class="star_main">
           <c:if test="${loginUser.prosatisfact >= 0.0 && loginUser.prosatisfact <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
@@ -367,7 +422,7 @@
     </div>
   <!-- 만족도 끝나는 지점 -->
        <div class="rating_main" data-vote="0">
-          <div class="star">
+          <div class="star_main">
           <c:if test="${loginUser.procommunicate >= 0.0 && loginUser.procommunicate <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
@@ -456,7 +511,7 @@
   <!-- 왼쪽 div 끝나는 지점 -->
    <div class="rightdiv">
           <div class="rating_main" data-vote="0">
-          <div class="star">
+          <div class="star_main">
           <c:if test="${loginUser.profess >= 0.0 && loginUser.profess <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
@@ -543,7 +598,7 @@
     </div>
     <!-- 전문성 끝 -->
     <div class="rating_main" data-vote="0">
-    <div class="star">
+    <div class="star_main">
     <c:if test="${loginUser.proaction >= 0.0 && loginUser.proaction <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
@@ -629,7 +684,7 @@
     </div>
     <!-- 적극성 끝나는 지점 -->
      <div class="rating_main" data-vote="0">
-    <div class="star">
+    <div class="star_main">
     <c:if test="${loginUser.prodate >= 0.0 && loginUser.prodate <0.5}">
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
     <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>

@@ -421,5 +421,10 @@ public class DuckService {
 	public void duckdelete(String userid, Integer num) {
 		boardDao.duckdelete(userid,num);
 	}
+
+	public void matching(String userid, Integer matching) {
+		userDao.matching(userid,matching);
+		
+	}
 	
 }

@@ -148,4 +148,11 @@ public class UserDao {
 		map.put("userid", userid);
 		return sqlSession.selectList(NS + "recmdpersonlist", map);
 	}
+	public void matching(String userid, Integer matching) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("matching",matching);
+		sqlSession.getMapper(UserMapper.class).matching(map);
+		
+	}
 }
