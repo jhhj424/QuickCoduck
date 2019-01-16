@@ -9,7 +9,14 @@
 <meta charset="UTF-8">
 <title>완료한 프로젝트</title>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('#btn-open-dialog').click(){
+		alert("클릭됨");
+	}
+})
+
 function complete(boardnum){
 	alert("보드넘:"+boardnum)
 	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
@@ -37,7 +44,7 @@ function complete(boardnum){
 		return false;
 	}
 }
-</script> -->
+</script>
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
@@ -53,6 +60,35 @@ function complete(boardnum){
 		return false;
 	}
 </script>
+
+<style>
+#dialog-background {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,.3);
+    z-index: 10;
+}
+#my-dialog {
+    display: none;
+    position: fixed;
+    left: calc( 50% - 160px ); top: calc( 50% - 70px );
+    width: 320px; height: 140px; 
+    background: #fff;
+    z-index: 11;
+    padding: 10px;
+}
+</style>
+<script src='//code.jquery.com/jquery.min.js'></script>
+<script>
+$(function(){
+	$("#btn-open-dialog,#dialog-background,#btn-close-dialog").click(function () {
+		$("#my-dialog,#dialog-background").toggle();
+	});
+});
+</script>
+
 </head>
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin">
@@ -87,6 +123,7 @@ function complete(boardnum){
 	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
 	<th width="10%" height="26">조회수</th>
+	<th width="10%" height="26">평가하기</th>
 	
 </tr>
 
@@ -101,6 +138,9 @@ function complete(boardnum){
 			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 		</td>
 		<td align="right">${board.readcnt}</td>
+		<td align="center">		
+			<button id="btn-open-dialog">선택하기</button>
+		</td>
 	</tr>
 </c:forEach>
 <tr align="center" height="26">
@@ -117,6 +157,15 @@ function complete(boardnum){
 	</c:if> <c:if test="${pageNum >= maxpage}">[다음]</c:if></td>
 </tr>
 </table>
+<div id="my-dialog">
+		<!-- 여기에 리스트를 받아오면 됩니다! -->
+		<div> <!-- ajax으로 유저리스트 받아오면됨 -->
+			
+		</div>
+    <button id="btn-close-dialog">창 닫기</button>
+</div>
+<div id="dialog-background">
+</div>
 <p></p>
 </div>
 </body>

@@ -421,5 +421,9 @@ public class DuckService {
 	public void duckdelete(String userid, Integer num) {
 		boardDao.duckdelete(userid,num);
 	}
+
+	public int tenduck(String userid,Integer boardnum) {
+		return boardDao.tenduck(userid, boardnum);
+	}
 	
 }

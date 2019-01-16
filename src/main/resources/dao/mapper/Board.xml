@@ -165,14 +165,14 @@
 		</if>
 	</select>
 	<select id="developcompletecnt" resultType="int" parameterType="map">
-		select count(*) from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype=7 and userid=#{userid})
+		select count(*) from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid})
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
 		order by regdate desc
 	</select>
 	<select id="developcomplete" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype=7 and userid=#{userid}) 
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid}) 
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>

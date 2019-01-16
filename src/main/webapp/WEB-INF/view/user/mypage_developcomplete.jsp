@@ -8,36 +8,34 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>완료한 프로젝트</title>
-
-<!-- <script type="text/javascript">
-function complete(boardnum){
-	alert("보드넘:"+boardnum)
-	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
+<script type="text/javascript">
+function evaluation(boardnum){
+	var userid = '${loginUser.userid}';
+	var msg = confirm("해당 프로젝트를 평가하시겠습니까?");
 	if (msg) { //삭제
-		$.ajax({
-			url : "../board/complete.duck",
+		 $.ajax({
+			url : "evaluation.duck",
 			type : "post",
-			data : {"userid" : userid,	"boardnum" : boardnum,	"ducktype" : ducktype},
+			data : {"boardnum" : boardnum, "userid" : userid},
 			dataType : "json",
 			success : function(result) {
-				//alert(result.msg)
-				if (result.msg == "OK") {
-					alert("삭제되었습니다.");
-					location.reload();
-				} else {
-					alert("삭제에 실패하였습니다.");
+				alert(result.msg);
+				if(result.ok == "ok") {
+				location.href = "mypage_project_finished.duck?id="+userid;					
+				}else{
+					return false;
 				}
 			},
 			error : function(xhr, status, error) {
 				alert("서버오류:"+xhr.status+",error:"+error+",status:"+status);
-			}
+			} 
 		})
 	} else { //삭제 취소
 		//alert("취소")
 		return false;
 	}
 }
-</script> -->
+</script>
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
@@ -87,7 +85,7 @@ function complete(boardnum){
 	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
 	<th width="10%" height="26">조회수</th>
-	
+	<th width="10%" height="26">평가하기</th>
 </tr>
 
 <c:forEach var="board" items="${developcomplete}">
@@ -101,6 +99,7 @@ function complete(boardnum){
 			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 		</td>
 		<td align="right">${board.readcnt}</td>
+		<td align="center"><input type="button" value="선택하기" onclick="evaluation(${board.boardnum})"></td>
 	</tr>
 </c:forEach>
 <tr align="center" height="26">

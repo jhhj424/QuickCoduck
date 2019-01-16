@@ -88,4 +88,7 @@ public interface BoardMapper  {
 	
 	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype != 3")
 	void duckdelete(Map<String, Object> map);
+
+	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=10")
+	int tenduck(Map<String, Object> map);
 }
