@@ -5,85 +5,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<%@include file="/WEB-INF/view/style/mypage_decorator_css.jsp" %>
 <%@include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@include file="/WEB-INF/view/style/user_mypage.jsp" %>
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
-.w3-badge, .w3-tag{
-margin-bottom:5px;
-}
-.leftdiv{
-width:33.3333%;
-float:left;
-max-height:100%;
-text-align:center;
-border:1px solid #000;
-}
-.centerdiv{
-width:33.3333%;
-margin:0 auto;
-text-align:center;
-max-height:100%;
-border:1px solid #000;
-max-width:300px;
-}
-.rightdiv{
-width:33.3333%;
-float:right;
-max-height:100%;
-text-align:center;
-border:1px solid #000;
-}
-</style>
-<style>
-.card {
-  background-color: #f3f5f7;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 500px;
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.card .about {
-  height: 150px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.card .about h3,
-.card .about .lead {
-  font-weight: 300;
-  margin: 0;
-}
-
-.card .about h3 {
-  font-size: 24px;
-}
-
-.card .about .lead {
-  color: #aaa;
-}
-.tooltip-placeholder {
-  background-color: #fff;
-  border-radius: 4px;
-  color: #aaa;
-  font-size: 15px;
-  position: fixed;
-  padding: 4px 0;
-  display: none;
-  z-index: 2;
-}
-
-</style>
 <decorator:head/>
 <body id="home"style="background-color:#FEFEFE;">
 <div class="w3-top" >
@@ -262,11 +190,102 @@ border:1px solid #000;
     
     <!-- Middle Column -->
    <div class="w3-twothird">
-      <div class="w3-row-padding" >
+      <div class="w3-row-padding">
         <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white" style="height:350px;width:100%">
-          <div class="leftdiv">123</div><div class="rightdiv">789</div>
+          <div class="w3-card w3-round w3-white" style="height:350px;width:100%;border-radius: 10px;">
+          <div class="leftdiv">
+  <div class="rating_main" data-vote="0">
+  <div class="star">
+  <c:if test="${loginUser.rating >= 0.0 && loginUser.rating <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.rating >= 0.5 && loginUser.rating <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 1 && loginUser.rating <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 1.5 && loginUser.rating <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 2 && loginUser.rating <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 2.5 && loginUser.rating <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 3 && loginUser.rating <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 3.5 && loginUser.rating <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 4 && loginUser.rating <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 4.5 && loginUser.rating < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.rating == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+  </div>
+  <div class="score_main">
+    <span>평점</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.rating}</span>
+    <span>/</span>
+    <span class="total">5</span>
+  </div>
+</div>
+          </div>
+          <div class="rightdiv">오른쪽</div>
           <div class="centerdiv">
+          <div class="chart-container" style="position: relative;width:100%;position:center;">
+
           <canvas id="canvas" width="100%" height="100%"></canvas>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
 <script>
@@ -337,6 +356,7 @@ window.chart = new Chart(document.getElementById("canvas"), {
     plugins: [shadowed]
 });
 </script>
+</div>
           </div>
           </div>
         </div>
