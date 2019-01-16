@@ -750,13 +750,23 @@ public class UserController {
 			User ratinguser = service.select(board.getUserid()); // 평가받을 유저
 			int cnt = service.duck10cnt(board.getUserid()); //해당 id가 쓴 게시글중에, ducktype이 10인 duck테이블 인스턴스의 개수
 			System.out.println("평가받은갯수 : " + cnt);
-			if(cnt == 0) {			cnt = 1;		} // 해당유저 첫평가의 경우 1로 적용.
-			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / (cnt+1); //점수 평균내기
-			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / (cnt+1); //점수 평균내기
-			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / (cnt+1); //점수 평균내기
-			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / (cnt+1); //점수 평균내기
-			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / (cnt+1); //점수 평균내기
+			int nanum = 0;
+			if(cnt < 1) {
+				nanum = 1;
+			}else {
+				nanum = cnt +1;
+			}
+			if(cnt==0) {
+				cnt = 1;
+			}
+			System.out.println(ratinguser);
+			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / nanum; //점수 평균내기
+			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / nanum; //점수 평균내기
+			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / nanum; //점수 평균내기
+			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / nanum; //점수 평균내기
+			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / nanum; //점수 평균내기
 			float rating = (profess2+ proaction2+ prosatisfact2+ prodate2+ procommunicate2)/5; //레이팅
+			System.out.println(profess2+"\n"+proaction2+"\n"+prosatisfact2+"\n"+prodate2+"\n"+procommunicate2+"\n"+rating+"\n");
 			service.setrating(board.getUserid(), profess2, proaction2, prosatisfact2, prodate2, procommunicate2,rating);
 			// duck테이블에 평가하는유저id, 평가하고있는게시물, ducktype = 10으로 인서트
 			service.add10duck(user.getUserid(), board.getBoardnum()); // 평가 성공
