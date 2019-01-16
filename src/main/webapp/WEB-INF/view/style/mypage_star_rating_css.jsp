@@ -7,7 +7,7 @@
 <style>
 .rating1,.rating2,.rating3,.rating4,.rating5 {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 50px;
   position: relative;
   width: 45%;
   float: left;
@@ -113,15 +113,18 @@
 .average {
   font-family: arial;
   font-size: 20px;
-  color: indianred;
+  color: green;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 60px;
   position: relative;
   width: 50%;
   float: left;
 }
 .average .score-average {
   padding-top: 30px;
+  padding-bottom:30px;
+  font-family: arial;
+  font-size: 30px;
 }
 
 </style>

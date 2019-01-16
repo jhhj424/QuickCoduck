@@ -134,12 +134,11 @@ function calculateAverage() {
   $('.js-average').text((average/ 5).toFixed(1))
 }
 $('#btn').click(function(e){
-	alert("클릭")
-	var rating1 = $('.rating1').data('vote');
-	var rating2 = $('.rating2').data('vote');
-	var rating3 = $('.rating3').data('vote');
-	var rating4 = $('.rating4').data('vote');
-	var rating5 = $('.rating5').data('vote');
+	var rating1 = $('.rating1').data('vote');//전문성
+	var rating2 = $('.rating2').data('vote');//적극성
+	var rating3 = $('.rating3').data('vote');//만족도
+	var rating4 = $('.rating4').data('vote');//일정준수
+	var rating5 = $('.rating5').data('vote');//의사소통
 	console.log(rating1)
 	console.log(rating2)
 	console.log(rating3)
@@ -151,9 +150,10 @@ $('#btn').click(function(e){
 	$('#rt4').val(rating4);
 	$('#rt5').val(rating5);
 	if(rating1 == 0 || rating2 == 0 || rating3 == 0 || rating4 == 0 || rating5 == 0){
-		alert("조건")
+		alert("평가되지 않은 부분이 있습니다. 다시 시도해주십쇼");
 		return e.preventDefault();
 	}else{
+		alert("평가 감사합니다. 더 좋은 사이트가 되겠습니다.");
 		return e;
 	}
 })
