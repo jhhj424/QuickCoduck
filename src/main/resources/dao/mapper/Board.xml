@@ -155,7 +155,7 @@
 	</select>
 	
 	<select id="completelist" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid='client' and boardtype=4 
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid=#{userid} and boardtype=4 
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
