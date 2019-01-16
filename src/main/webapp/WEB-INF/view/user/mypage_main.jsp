@@ -4,11 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-
-</style>
 </head>
 <body>
-
+시바아아아아아아아아아아
 </body>
 </html>
