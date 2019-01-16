@@ -391,4 +391,20 @@ public class BoardDao {
 		map.put("userid", userid);
 		return sqlSession.selectList(NS + "developcomplete", map);
 	}
+	public void complete(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).complete(boardnum);
+	}
+	public void duck7update(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).duck7update(boardnum);
+	}
+	public void duckdelete(String userid, Integer num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", num);
+		map.put("userid", userid);
+		sqlSession.getMapper(BoardMapper.class).duckdelete(map);
+	}
 }

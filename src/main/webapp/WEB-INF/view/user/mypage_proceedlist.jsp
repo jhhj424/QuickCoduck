@@ -17,15 +17,15 @@ function complete(boardnum){
 		$.ajax({
 			url : "../board/complete.duck",
 			type : "post",
-			data : {"userid" : userid,	"boardnum" : boardnum,	"ducktype" : ducktype},
+			data : {"boardnum" : boardnum },
 			dataType : "json",
 			success : function(result) {
 				//alert(result.msg)
 				if (result.msg == "OK") {
-					alert("삭제되었습니다.");
+					alert("프로젝트가 완료되었습니다. 평가를 진행 할 수 있습니다.");
 					location.reload();
 				} else {
-					alert("삭제에 실패하였습니다.");
+					alert("프로젝트 완료에 실패하셨습니다.");
 				}
 			},
 			error : function(xhr, status, error) {

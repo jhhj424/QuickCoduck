@@ -254,13 +254,29 @@ public class AjaxController {
 //    	System.out.println("댓글번호:"+num);
         return map;
    }
-    
+
     @RequestMapping("board/developdelete")
     @ResponseBody
     public Map<Object,Object> developdelete(String userid, Integer boardnum, Integer ducktype) {
     	Map<Object,Object> map = new HashMap<Object,Object>();
     	service.developdelete(userid,boardnum,ducktype);
     	map.put("msg", "OK");
+        return map;
+   }
+    @RequestMapping("board/complete")
+    @ResponseBody
+    public Map<Object,Object> complete(Integer boardnum) {
+    	System.out.println("컴플릿보드넘:"+boardnum);
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	try {
+    		// 프로젝트 완료해버리기~ => 해당 boardnum 게시물 boardtype 4로변경
+        	service.complete(boardnum); 
+        	//duck테이블의 해당 boardnum에 해당하는 모든 인스턴스의 ducktype을 7로 변경
+        	service.duck7update(boardnum);
+        	map.put("msg", "OK");
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
         return map;
    }
 	

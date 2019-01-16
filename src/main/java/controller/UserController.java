@@ -697,7 +697,9 @@ public class UserController {
 		System.out.println("boardnum:" + num);
 		System.out.println("duckselect2:" + duckselect2);
 		if (duckselect2 == 1) {//해당 아이디에 Duck테이블의 값이 있을때 id/num/type=3
+			service.duckdelete(userid,num); //진행중으로 넘어갈때 ducktype이 3이아니면 다 삭제
 			service.userproaccept(userid,num); // matching=2로 변경하여 서로 수락
+			service.nowpersonupdate(num); //현재프로젝트참여인원 + 1
 			mav.setViewName("redirect: myduck.duck?id="+ user.getUserid() +"&ducktype=3&type=3");
 		} else {// 해당 게시글에 해당 아이디의 Duck이 없을때
 			 //map.put("msg", "이미 승낙하셨습니다!");

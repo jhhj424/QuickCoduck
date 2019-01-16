@@ -409,5 +409,17 @@ public class DuckService {
 			String userid) {
 		return boardDao.developcomplete(searchType,searchContent,pageNum, limit,userid);
 	}
+
+	public void complete(Integer boardnum) {
+		boardDao.complete(boardnum);
+	}
+
+	public void duck7update(Integer boardnum) {
+		boardDao.duck7update(boardnum);
+	}
+
+	public void duckdelete(String userid, Integer num) {
+		boardDao.duckdelete(userid,num);
+	}
 	
 }

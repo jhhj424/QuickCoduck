@@ -79,4 +79,13 @@ public interface BoardMapper  {
 
 	@Select("select count(*) from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)")
 	int proceedlistcnt(Map<String, Object> map);
+
+	@Update("update board set boardtype = 4 where boardnum = #{boardnum}")
+	void complete(Integer boardnum);
+
+	@Update("update duck set ducktype = 7 where boardnum = #{boardnum}")
+	void duck7update(Integer boardnum);
+	
+	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype != 3")
+	void duckdelete(Map<String, Object> map);
 }
