@@ -3,8 +3,6 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
 <script type="text/javascript">
 function userevaluation(boardnum,userid){
-	alert(userid)
-	alert(boardnum)
 	var msg = confirm("해당 유저를 평가하시겠습니까?");
 	if (msg) { //평가
 		 $.ajax({

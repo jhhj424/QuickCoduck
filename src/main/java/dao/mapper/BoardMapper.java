@@ -114,4 +114,7 @@ public interface BoardMapper  {
 
 	@Update("update board set duckcnt = duckcnt-1 where boardnum = #{boardnum}")
 	void duckcntremove(Map<String, Integer> map);
+
+	@Update("update user set matching = 1 where userid in (select userid from duck where ducktype=7 and boardnum =${boardnum})")
+	void matchingto1(Map<String, Integer> map);
 }

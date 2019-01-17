@@ -273,6 +273,7 @@ public class AjaxController {
         	service.complete(boardnum); 
         	//duck테이블의 해당 boardnum에 해당하는 모든 인스턴스의 ducktype을 7로 변경
         	service.duck7update(boardnum);
+        	service.matchingto1(boardnum); // 완료된 유저의 매칭타입을 2에서 1로 변경
         	map.put("msg", "OK");
     	}catch (Exception e) {
 			e.printStackTrace();
@@ -353,6 +354,9 @@ public class AjaxController {
 								//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
 								map.put("msg", "신청 완료!");
 								//service.supporting(userid);
+								board.setRecmd(board.getRecmd() + 1);
+								int recmd = service.recmd(board, userid);
+								map.put("recmd", recmd);
 							}
 						}else {//개발자가 아닐떄
 							map.put("msg", "개발자만 신청 가능합니다!");

@@ -67,7 +67,7 @@ margin:10px 10px 10px 10px;
 								dataType : "json", // ajax 통신으로 받는 타입
 								success : function(data) {
 									alert(data.msg);
-									$(".recview").val("추천수 : " + data.recmd);
+									$(".recview").val(data.recmd);
 								},
 								error : function(xhr, status, error) { //서버응답 실패
 									alert("서버오류 : " + xhr.status + ", error : "
@@ -94,6 +94,7 @@ margin:10px 10px 10px 10px;
 								dataType : "json", // ajax 통신으로 받는 타입
 								success : function(data) {
 									alert(data.msg);
+									$(".recview").val(data.recmd);
 								},
 								error : function(xhr, status, error) { //서버응답 실패
 									alert("서버오류 : " + xhr.status + ", error : "

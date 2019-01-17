@@ -462,4 +462,8 @@ public class DuckService {
 	public void duckcntremove(Integer num) {
 		boardDao.duckcntremove(num);
 	}
+
+	public void matchingto1(Integer boardnum) {
+		boardDao.matchingto1(boardnum);
+	}
 }

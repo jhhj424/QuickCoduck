@@ -452,4 +452,9 @@ public class BoardDao {
 		map.put("boardnum", num);
 		sqlSession.getMapper(BoardMapper.class).duckcntremove(map);
 	}
+	public void matchingto1(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).matchingto1(map);
+	}
 }
