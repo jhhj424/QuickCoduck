@@ -47,7 +47,7 @@
 </h2>
 <table border="1" style="width:100%;">
 <tr>
-	<td colspan="6" align="center">
+	<td colspan="7" align="center">
 		<form action="mypage_ducklist.duck" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
@@ -72,12 +72,13 @@
 	</td>
 </tr>
 <tr align="center" valign="middle" bordercolor="#212121">
-	<th width="8%" height="26">번호</th>
-	<th width="14%" height="26">글쓴이</th>
+	<th width="6%" height="26">번호</th>
+	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
 	<th width="10%" height="26">추천수</th>
-	<th width="13%" height="26">DUCK수</th>
+	<th width="10%" height="26">DUCK수</th>
 	<th width="10%" height="26">조회수</th>
+	<th width="10%" height="26">삭제</th>
 </tr>
 
 <c:forEach var="board" items="${boardlist}">
@@ -93,10 +94,13 @@
 		<td align="center">${board.recmd}</td>
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
+		<td>
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'">삭제</button>
+		</td>
 	</tr>
 </c:forEach>
 <tr align="center" height="26">
-	<td colspan="6"><c:if test="${pageNum > 1}">
+	<td colspan="7"><c:if test="${pageNum > 1}">
 		<a href="javascript:list(${pageNum -1})">[이전]</a>
 	</c:if> <c:if test="${pageNum <= 1}">[이전]</c:if>
 	<c:forEach var="a" begin="${startpage}" end="${endpage}">

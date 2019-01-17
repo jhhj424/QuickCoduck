@@ -105,4 +105,7 @@ public interface BoardMapper  {
 
 	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=20")
 	int twenduck(Map<String, Object> map);
+
+	@Update("update board set duckcnt = duckcnt-1 where boardnum = #{boardnum}")
+	void duckcntremove(Map<String, Integer> map);
 }
