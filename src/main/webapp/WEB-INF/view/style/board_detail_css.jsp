@@ -97,8 +97,8 @@
   font-size: 30px;
   font-weight: 900;
   margin-bottom: 15px;
-  width:99%;
-  line-height:2;
+  width:60%;
+  line-height:3;
   margin:0 auto;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);

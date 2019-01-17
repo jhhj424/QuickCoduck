@@ -18,41 +18,46 @@
 <script>
 $(document).ready(function () {
 	var mat = ${loginUser.matching}
-	if(mat == 0) {
-		$(":checkbox[id=toggle]").prop("checked", false);
-	}else{
+	if(mat == 1 || mat == 2) {
 		$(":checkbox[id=toggle]").prop("checked", true);
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", false);
 	}
 	
 $("#toggle").click(function(){
-	var result = confirm("매칭타입을 바꾸시겠습니까?");
-	if(result) {	
-	if($(":checkbox[id=toggle]").is(":checked") == false){
-		$(":checkbox[id=toggle]").prop("checked", false);
-		mat = 0;
-	}else{
-		$(":checkbox[id=toggle]").prop("checked", true);
-		mat = 1;
-	}
-	var userid = '${loginUser.userid}';
-	var data = {
-			"userid" : userid,
-			"matching" : mat
-	}
-	$.ajax({
-		url : "checkbox.duck",
-		type: "post",
-		data: data,
-		dataType: "json",
-		success: function(data){
-			alert(data.msg);
-		},
-		error: function(xhr,status,error){
-			alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
-		}
-	})
-	} else {
+	if(mat==2){
+		alert("현재진행중인 프로젝트가 있습니다.")
 		return false;
+	}else{
+		var result = confirm("매칭타입을 바꾸시겠습니까?");
+		if(result) {	
+		if($(":checkbox[id=toggle]").is(":checked") == false){
+			$(":checkbox[id=toggle]").prop("checked", false);
+			mat = 0;
+		}else{
+			$(":checkbox[id=toggle]").prop("checked", true);
+			mat = 1;
+		}
+		var userid = '${loginUser.userid}';
+		var data = {
+				"userid" : userid,
+				"matching" : mat
+		}
+		$.ajax({
+			url : "checkbox.duck",
+			type: "post",
+			data: data,
+			dataType: "json",
+			success: function(data){
+				alert(data.msg);
+			},
+			error: function(xhr,status,error){
+				alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
+			}
+		})
+		} else {
+			return false;
+		}
 	}
 });	
 	
@@ -809,7 +814,7 @@ window.chart = new Chart(document.getElementById("canvas"), {
         labels: ["전문성", "적극성", "만족도", "일정준수", "의사소통"],
         datasets: [{
             label: "김도롱",
-            data: [3.2, 1, 2, 4.2, 2.7],
+            data: [${loginUser.profess}, ${loginUser.proaction}, ${loginUser.prosatisfact}, ${loginUser.prodate},${loginUser.procommunicate}],
             fill: true,
             backgroundColor: gradientBlue,
             borderColor: "transparent",

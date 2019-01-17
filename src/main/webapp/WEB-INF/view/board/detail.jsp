@@ -45,7 +45,9 @@ input[type=text] {
 .div{
 text-align:left;
 margin:20px 10px 10px 50px;
-border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+border:2px solid #ada6a6;
+border-radius: 10px;
+box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 width:47%;
 }
 b{
@@ -262,8 +264,6 @@ line-height:2;
             
       <div class="details">
       
-        <div class="title1">${board.subject}</div>
-
         <div class="title2">
         <c:if test="${param.type==1 || boardtype==1}">
 <i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
@@ -286,32 +286,32 @@ line-height:2;
     <div class="description">
    <div class="half left">
 <div class="div">
-<div style="margin-top:20px;margin-bottom:20px;">
-<b><b style="border:1px solid grey">글쓴이</b>  :  ${board.userid}</b><br>
-<b><b style="border:1px solid grey">제목</b> : ${board.subject}</b><br>
-<c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
+<div style="margin-top:10px;margin-bottom:10px;">
+<b><b style="border:1px solid grey;border-radius: 5px;">글쓴이</b>  :  ${board.userid}</b><br>
+<b><b style="border:1px solid grey;border-radius: 5px;">제목</b> : ${board.subject}</b><br>
+<c:if test="${param.type==1 || param.type==3 || boardtype==1 || boardtype==3}">
 <c:if test="${param.type==1 || boardtype==1}">
-<b><b style="border:1px solid grey">추천수  </b> :</b>
+<b><b style="border:1px solid grey;border-radius: 5px;">추천수  </b> :</b>
 </c:if>
 <c:if test="${param.type==3 || boardtype==3}">
-<b><b style="border:1px solid grey">신청자수</b>  : </b>
+<b><b style="border:1px solid grey;border-radius: 5px;">신청자수</b>  : </b>
 </c:if>
 <input class="recview" style="text-align: center; width:45%;background-color:#f0f0ed8a;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="${board.recmd}"><br>
 </c:if>
 <c:if test="${!empty board.usetech }">
-<b><b style="border:1px solid grey">사용기술</b> :  
+<b><b style="border:1px solid grey;border-radius: 5px;">사용기술</b> :
 <c:forEach var="usetech" items="${board.usetech}" varStatus="g" begin="0">
 <span class="tag">${usetech}</span>
 <c:out value="${g.end}" />
 </c:forEach></b><br>
 </c:if>
 <c:if test="${board.boardtype==3}">
-<b><b style="border:1px solid grey">프로젝트 기간</b> : ${board.schedule} 일</b><br>
-<b><b style="border:1px solid grey">프로젝트 금액</b> : ${board.price} 원</b><br>
-<b><b style="border:1px solid grey">프로젝트 인원수</b> : ${board.maxperson} 명</b><br>
-<b><b style="border:1px solid grey">현재 참여한 인원수</b> : ${board.nowperson} 명</b><br>
+<b><b style="border:1px solid grey;border-radius: 5px;">프로젝트 기간</b> : ${board.schedule} 일</b><br>
+<b><b style="border:1px solid grey;border-radius: 5px;">프로젝트 금액</b> : ${board.price} 원</b><br>
+<b><b style="border:1px solid grey;border-radius: 5px;">프로젝트 인원수</b> : ${board.maxperson} 명</b><br>
+<b><b style="border:1px solid grey;border-radius: 5px;">현재 참여한 인원수</b> : ${board.nowperson} 명</b><br>
 </c:if>
-<b><b style="border:1px solid grey">첨부파일</b> : </b>
+<b><b style="border:1px solid grey;border-radius: 5px;">첨부파일</b> : </b>
 <c:if test="${!empty board.fileurl}">
 <a href="../file/${board.fileurl}">${board.fileurl}</a><br>
 </c:if>
@@ -324,7 +324,15 @@ line-height:2;
 
 <div class="half right">
 <div style="text-align:center;margin-right:50%;margin-bottom:10px;">
+<c:if test="${param.type == 1 || boardtype == 1 }">
+<b>[오픈소스]</b>
+</c:if>
+<c:if test="${param.type == 3 || boardtype == 3 }">
 <b>[공고 내용]</b>
+</c:if>
+<c:if test="${param.type == 5 || boardtype == 5 }">
+<b>[클라우드]</b>
+</c:if>
 </div>
 <div style="margin-right:70px;line-height:initial;text-align:left;width:1000px;max-width:1000px;resize:none;font-size:30px;max-height:560px;height:60%;float:right;border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);word-break:break-all;overflow:scroll" class="2">
 ${fn:replace(board.content, cn, br)}

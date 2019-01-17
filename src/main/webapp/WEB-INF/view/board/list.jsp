@@ -42,7 +42,7 @@
 <img src="../workpic/rating.png" style="width: 25px; height: 25px;">
 QuickCoduck
 </th>
-<td colspan="4">
+<td colspan="4" style="border:1px solid grey;border-radius: 3px;">
 <form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">
 <input type="hidden" name="pageNum" value="1">
 <img src="../workpic/lens.png" style="height: 25px;weight:25px;">
@@ -63,7 +63,7 @@ document.getElementById("searchType").value = '${param.type}';
 </form>
 </td>
 <c:if test="${param.type==1}">
-<td colspan="1" style="text-align:center;" class="buttom">
+<td colspan="1" style="text-align:center;border:1px solid grey;border-radius: 3px;" class="buttom">
 <font style="font-weight: bold;">
 <img src="../workpic/review.png" style="width: 25px; height: 25px;">
 글개수 : ${listcount}</font>
@@ -150,9 +150,9 @@ ${board.readcnt}</font>
 <th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
 </tr>
 <tr>
-<td ></td>
-<td  colspan="4"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
-<td  align="center">
+<td style="border:none;"></td>
+<td colspan="4" style="border:none;"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
+<td  align="center" style="border:none;">
 <a href="write.duck?type=${param.type}"><font style="font-weight: bold;"><img src="../workpic/review1.png" style="height: 25px;weight:25px;">
 글쓰기</font>
 </a></td>
