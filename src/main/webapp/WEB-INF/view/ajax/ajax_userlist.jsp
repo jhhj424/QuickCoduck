@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
 <script type="text/javascript">
-function evaluation(boardnum,userid){
+function userevaluation(boardnum,userid){
 	alert(userid)
 	alert(boardnum)
 	var msg = confirm("해당 유저를 평가하시겠습니까?");
@@ -15,7 +15,7 @@ function evaluation(boardnum,userid){
 			success : function(result) {
 				alert(result.msg);
 				if(result.ok == "ok") {
-				location.href = "mypage_project_finished.duck?id="+userid+"&boardnum="+boardnum;					
+				location.href = "mypage_project_finished2.duck?id="+userid+"&boardnum="+boardnum;					
 				}else{
 					return false;
 				}

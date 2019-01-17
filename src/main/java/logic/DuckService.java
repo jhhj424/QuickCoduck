@@ -451,4 +451,12 @@ public class DuckService {
 	public int twenduck(String userid, Integer boardnum) {
 		return boardDao.twenduck(userid, boardnum);
 	}
+
+	public int duck20cnt(String userid) {
+		return boardDao.duck20cnt(userid);
+	}
+
+	public void add20duck(String userid, int boardnum) {
+		boardDao.add20duck(userid,boardnum);
+	}
 }

@@ -188,6 +188,12 @@ public class UserController {
 		return mav;
 	}
 
+	@RequestMapping(value = "user/mypage_project_finished2")
+	public ModelAndView mypage_project_finished2(String id, Integer boardnum) {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+
 	@RequestMapping(value = "user/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session, User user, HttpServletRequest request)
 			throws NoSuchAlgorithmException {
@@ -733,7 +739,7 @@ public class UserController {
 		}*/
 		return mav;
 	}
-	
+
 	@RequestMapping("user/rating")
 	public ModelAndView rating(int boardnum, float profess,float proaction,float prosatisfact, float prodate, float procommunicate, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -771,6 +777,48 @@ public class UserController {
 			mav.addObject("suggest_message","평가에 성공하셨습니다.");
 			mav.addObject("suggest_url","../user/mypage_main.duck?id=" + user.getUserid());
 		}catch (Exception e) {
+			throw new LoginException("평가에 실패하셨습니다.", "../user/mypage_main.duck?id=" + user.getUserid());
+		}
+		return mav;
+	}
+	@RequestMapping("user/rating2")
+	public ModelAndView rating2(int boardnum, float profess,float proaction,float prosatisfact, float prodate, float procommunicate, String userid, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("점수나오기! - " + profess +"\n"+ proaction +"\n"+ prosatisfact +"\n"+ prodate +"\n"+ procommunicate +"\n");
+		User user = (User)session.getAttribute("loginUser"); //현재 로그인된 유저
+		try {
+			Board board = new Board();
+			board.setBoardnum(boardnum);
+			board.setBoardtype(4);
+			board = service.getBoard(board); // 평가하고있는 게시물
+			System.out.println("레이팅보드:"+board);
+			User ratinguser = service.select(userid); // 평가받을 유저
+			int cnt = service.duck20cnt(board.getUserid()); //해당 id가 평가받은 게시글중에, ducktype이 20인 duck테이블 인스턴스의 개수
+			System.out.println("평가받은갯수 : " + cnt);
+			int nanum = 0;
+			if(cnt < 1) {
+				nanum = 1;
+			}else {
+				nanum = cnt +1;
+			}
+			if(cnt==0) {
+				cnt = 1;
+			}
+			System.out.println(ratinguser);
+			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / nanum; //점수 평균내기
+			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / nanum; //점수 평균내기
+			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / nanum; //점수 평균내기
+			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / nanum; //점수 평균내기
+			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / nanum; //점수 평균내기
+			float rating = (profess2+ proaction2+ prosatisfact2+ prodate2+ procommunicate2)/5; //레이팅
+			System.out.println(profess2+"\n"+proaction2+"\n"+prosatisfact2+"\n"+prodate2+"\n"+procommunicate2+"\n"+rating+"\n");
+			service.setrating(userid, profess2, proaction2, prosatisfact2, prodate2, procommunicate2,rating);
+			// duck테이블에 평가하는유저id, 평가하고있는게시물, ducktype = 20으로 인서트
+			service.add20duck(userid, board.getBoardnum()); // 평가 성공
+			mav.addObject("suggest_message","평가에 성공하셨습니다.");
+			mav.addObject("suggest_url","../user/mypage_main.duck?id=" + user.getUserid());
+		}catch (Exception e) {
+			e.printStackTrace();
 			throw new LoginException("평가에 실패하셨습니다.", "../user/mypage_main.duck?id=" + user.getUserid());
 		}
 		return mav;
