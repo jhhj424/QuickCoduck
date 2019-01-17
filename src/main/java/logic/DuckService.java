@@ -466,4 +466,16 @@ public class DuckService {
 	public void matchingto1(Integer boardnum) {
 		boardDao.matchingto1(boardnum);
 	}
+	
+	public String projectcnt() {
+		return boardDao.projectcnt();
+	}
+
+	public String projecttotalprice() {
+		return boardDao.projecttotalprice();
+	}
+
+	public String usertotalcnt() {
+		return userDao.usertotalcnt();
+	}
 }

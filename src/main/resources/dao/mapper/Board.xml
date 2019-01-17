@@ -181,4 +181,12 @@
 			limit #{startrow},${limit}
 		</if>
 	</select>
+	
+	<select id="propro" resultType="String" parameterType="map">
+		select format(count(*),0) from board where boardtype in (3,4)  
+	</select>
+	
+	<select id="propro2" resultType="String" parameterType="map">
+		select format(sum(replace(price,',','')),0) as totalprice from board where boardtype in (3,4) 
+	</select>
 </mapper>

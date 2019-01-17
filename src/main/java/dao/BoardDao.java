@@ -457,4 +457,14 @@ public class BoardDao {
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).matchingto1(map);
 	}
+	public String projectcnt() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro", map);
+		return col;
+	}
+	public String projecttotalprice() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro2", map);
+		return col;
+	}
 }

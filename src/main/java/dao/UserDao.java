@@ -169,4 +169,9 @@ public class UserDao {
 		sqlSession.getMapper(UserMapper.class).matching(map);
 		
 	}
+	public String usertotalcnt() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro3", map);
+		return col;
+	}
 }

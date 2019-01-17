@@ -48,4 +48,8 @@
 			limit #{startrow},${limit}
 		</if>
 	</select>
+	
+	<select id="propro3" resultType="String" parameterType="map">
+		select format(count(*),0) from user  
+	</select>
 </mapper>
