@@ -73,4 +73,28 @@ public interface BoardMapper  {
 
 	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype = #{ducktype}")
 	void developdelete(Map<String, Object> map);
+
+	@Select("select count(*) from board where userid = #{userid} and maxperson != nowperson and boardtype=3")
+	int waitlistcount(Map<String, Object> map);
+
+	@Select("select count(*) from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)")
+	int proceedlistcnt(Map<String, Object> map);
+
+	@Update("update board set boardtype = 4 where boardnum = #{boardnum}")
+	void complete(Integer boardnum);
+
+	@Update("update duck set ducktype = 7 where boardnum = #{boardnum}")
+	void duck7update(Integer boardnum);
+	
+	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype != 3")
+	void duckdelete(Map<String, Object> map);
+
+	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=10")
+	int tenduck(Map<String, Object> map);
+
+	@Select("select count(*) from duck where ducktype=10 and boardnum in (select boardnum from board where userid = #{userid} and boardtype in (3,4))")
+	int duck10cnt(Map<String, Object> map);
+
+	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},10)")
+	void add10duck(Map<String, Object> map);
 }

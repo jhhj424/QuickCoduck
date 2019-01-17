@@ -37,8 +37,15 @@
 		<if test="boardnum != null and ducktype != null">
 			where userid in (select userid from duck where boardnum = #{boardnum} AND ducktype = #{ducktype})
 		</if>
-		and matching = #{matching}
+		and matching != 2
 		order by userid
 	</select>
 
+
+	<select id="recmdpersonlist" resultType="User" parameterType="map">
+		select userid,pass,email,tel,birth,type,usetech,file1 fileurl,pic,creditnum,creditpass,rating,matching,maxcount,profess,proaction,prosatisfact,prodate,procommunicate from user where userid in (select userid from duck where ducktype=6 and boardnum in (select boardnum from board where boardtype=3 and userid=#{userid}))
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
 </mapper>

@@ -4,16 +4,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>My DUCK LIST</title>
+<title>진행중인 프로젝트</title>
 
+<script type="text/javascript">
+function complete(boardnum){
+	alert("보드넘:"+boardnum)
+	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
+	if (msg) { //삭제
+		$.ajax({
+			url : "../board/complete.duck",
+			type : "post",
+			data : {"boardnum" : boardnum },
+			dataType : "json",
+			success : function(result) {
+				//alert(result.msg)
+				if (result.msg == "OK") {
+					alert("프로젝트가 완료되었습니다. 평가를 진행 할 수 있습니다.");
+					location.reload();
+				} else {
+					alert("프로젝트 완료에 실패하셨습니다.");
+				}
+			},
+			error : function(xhr, status, error) {
+				alert("서버오류:"+xhr.status+",error:"+error+",status:"+status);
+			}
+		})
+	} else { //삭제 취소
+		//alert("취소")
+		return false;
+	}
+}
+</script>
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
 		if (searchType == null || searchType.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
-			location.href = "mypage_suggestlist.duck?id=" + ${loginUser.userid} + "&pageNum=" + pageNum + "&ducktype=6";
+			location.href = "mypage_proceedlist.duck?pageNum=" + pageNum;
 		} else {
 			document.searchform.pageNum.value = pageNum;
 			document.searchform.submit();
@@ -26,17 +57,14 @@
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin">
 <h2 class="w3-text-grey w3-padding-16">
-<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>제안받은 프로젝트
+<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트
 </h2>
 <table border="1" style="width:100%;">
 <tr>
-	<td colspan="6" align="center">
-		<form action="mypage_suggestlist.duck" method="post"
+	<td colspan="7" align="center">
+		<form action="myduck.duck?id=${user.userid}" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
-			<input type="hidden" name="id" value="${loginUser.userid}"> 
-			<input type="hidden" name="ducktype" value="6">
-			<input type="hidden" name="boardtype" value="3">  
 			<select name="searchType" id="searchType">
 				<option value="">선택하세요</option>
 				<option value="subject">제목</option>
@@ -48,33 +76,37 @@
 					document.getElementById("searchType").value = '${param.searchType}';
 				}
 			</script>
-			<input type="text" name="searchContent" value="${param.searchContent}"><input type="submit"value="검색">
+			<input type="text" name="searchContent"
+				value="${param.searchContent}"> <input type="submit"
+				value="검색">
 		</form>
 	</td>
 </tr>
 <tr align="center" valign="middle" bordercolor="#212121">
-	<th width="8%" height="26">번호</th>
-	<th width="14%" height="26">글쓴이</th>
+	<th width="6%" height="26">번호</th>
+	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
-	<th width="13%" height="26">관심등록수</th>
 	<th width="10%" height="26">조회수</th>
+	<th width="15%" height="26">클라이언트확인</th>
+	
 </tr>
-<c:forEach var="board" items="${boardlist}">
+
+<c:forEach var="board" items="${proceedlist}">
 	<tr align="center" valign="middle" bordercolor="#333333"
 		onmouseover="this.style.backgroundColor='#5CD1E5'"
 		onmouseout="this.style.backgroundColor=''">
-		<td height="23"> ${boardcnt} </td> <%--duck게시물번호 --%>
 	<c:set var="boardcnt" value="${boardcnt-1}" />
+		<td height="23"> ${boardcnt+1} </td> <%--duck개시물번호 --%>
 		<td align="left">${board.userid}</td>
 		<td align="left">
-			<a href="../board/suggest_detail.duck?boardnum=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
+			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 		</td>
-		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
+		<td align="center"><input type="button" class="btn" value="완료하기" onclick="complete(${board.boardnum})"></td>
 	</tr>
 </c:forEach>
 <tr align="center" height="26">
-	<td colspan="6"><c:if test="${pageNum > 1}">
+	<td colspan="7"><c:if test="${pageNum > 1}">
 		<a href="javascript:list(${pageNum -1})">[이전]</a>
 	</c:if> <c:if test="${pageNum <= 1}">[이전]</c:if>
 	<c:forEach var="a" begin="${startpage}" end="${endpage}">

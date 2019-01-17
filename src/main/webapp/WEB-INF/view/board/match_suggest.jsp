@@ -5,6 +5,7 @@
 <html>
 <head>
 <script type="text/javascript">
+
  // 뒤로가기 방지
 window.history.forward(1);
 // 우클릭방지

@@ -254,13 +254,48 @@ public class AjaxController {
 //    	System.out.println("댓글번호:"+num);
         return map;
    }
-    
+
     @RequestMapping("board/developdelete")
     @ResponseBody
     public Map<Object,Object> developdelete(String userid, Integer boardnum, Integer ducktype) {
     	Map<Object,Object> map = new HashMap<Object,Object>();
     	service.developdelete(userid,boardnum,ducktype);
     	map.put("msg", "OK");
+        return map;
+   }
+    @RequestMapping("board/complete")
+    @ResponseBody
+    public Map<Object,Object> complete(Integer boardnum) {
+    	System.out.println("컴플릿보드넘:"+boardnum);
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	try {
+    		// 프로젝트 완료해버리기~ => 해당 boardnum 게시물 boardtype 4로변경
+        	service.complete(boardnum); 
+        	//duck테이블의 해당 boardnum에 해당하는 모든 인스턴스의 ducktype을 7로 변경
+        	service.duck7update(boardnum);
+        	map.put("msg", "OK");
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+        return map;
+   }
+    @RequestMapping("user/evaluation")
+    @ResponseBody
+    public Map<Object,Object> evaluation(Integer boardnum, String userid) {
+    	System.out.println("evaluation보드넘:"+boardnum);
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	try {
+    		//평가 내역이 있는지 조회 -> 덕테이블 // userid=#{userid},boardnum=#{boardnum},ducktype=10
+    		int tenduck = service.tenduck(userid,boardnum); // 덕테이블에서 해당 boardnum, 해당 user, 덕타입이 10인값을 가져옴
+    		if(tenduck == 0) { // 평가내역이 없으면.
+    			map.put("msg", "평가페이지로 이동합니다."); 
+    			map.put("ok", "ok");
+    		}else { //평가내역이 있으면
+    			map.put("msg", "이미 평가가 완료된 프로젝트입니다.");
+    		}
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
         return map;
    }
 	
@@ -303,6 +338,24 @@ public class AjaxController {
 		} else {// 해당 게시글에 해당 아이디의 Duck이 있을때
 			map.put("msg", "이미 신청하셨습니다!");
 		}
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("user/checkbox")
+	public Map<Object, Object> checkbox(String userid, Integer matching, HttpSession session) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		try {
+			service.matching(userid,matching);
+			User user = service.select(userid);
+			session.setAttribute("loginUser", user);
+			if(user.getMatching()==1) {
+				map.put("msg", "인재추천이 활성화되었습니다.");
+			}else if(user.getMatching() == 0) {
+				map.put("msg", "인재추천이 비활성화되었습니다.");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
 		return map;
 	}
 }

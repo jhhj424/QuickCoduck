@@ -123,4 +123,62 @@
 	<select id="duckid" resultType="String" parameterType="map">
 		select userid from duck where boardnum = #{boardnum} and ducktype = 2 and userid=#{userid}
 	</select>
+	
+	<select id="recmdpersonlist" resultType="Board" parameterType="map">
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid = #{userid} and maxperson != nowperson and boardtype=3
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
+	
+	<select id="proceedlist" resultType="Board" parameterType="map">
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
+	
+	<select id="completelistcnt" resultType="int" parameterType="map">
+		select count(*) from board where userid=#{userid} and boardtype=4
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+	</select>
+	
+	<select id="completelist" resultType="Board" parameterType="map">
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid=#{userid} and boardtype=4 
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
+	<select id="developcompletecnt" resultType="int" parameterType="map">
+		select count(*) from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid})
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+	</select>
+	<select id="developcomplete" resultType="Board" parameterType="map">
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid}) 
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+		<if test="startrow != null and limit !=null">
+			limit #{startrow},${limit}
+		</if>
+	</select>
 </mapper>

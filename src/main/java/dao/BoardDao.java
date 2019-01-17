@@ -324,4 +324,104 @@ public class BoardDao {
 		map.put("ducktype", ducktype);
 		sqlSession.getMapper(BoardMapper.class).developdelete(map);
 	}
+	public int waitlistcount(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).waitlistcount(map);
+	}
+	public List<Board> recmdpersonlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "recmdpersonlist", map);
+	}
+	public int proceedlistcnt(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).proceedlistcnt(map);
+	}
+	public List<Board> proceedlist(String searchType, String searchContent, Integer pageNum, int limit, String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "proceedlist", map);
+	}
+	public int completelistcnt(String searchType, String searchContent, String userid) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("userid", userid);
+		return sqlSession.selectOne(NS + "completelistcnt", map);
+	}
+	public List<Board> completelist(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "completelist", map);
+	}
+	public int developcompletecnt(String searchType, String searchContent, String userid) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("userid", userid);
+		return sqlSession.selectOne(NS + "developcompletecnt", map);
+	}
+	public List<Board> developcomplete(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "developcomplete", map);
+	}
+	public void complete(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).complete(boardnum);
+	}
+	public void duck7update(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).duck7update(boardnum);
+	}
+	public void duckdelete(String userid, Integer num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", num);
+		map.put("userid", userid);
+		sqlSession.getMapper(BoardMapper.class).duckdelete(map);
+	}
+	public int tenduck(String userid, Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).tenduck(map);
+	}
+	public int duck10cnt(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).duck10cnt(map);
+	}
+	public void add10duck(String userid, int boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).add10duck(map);
+	}
 }

@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My DUCK</title>
+<title>대기중인 프로젝트</title>
 <script type="text/javascript">
+
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
 		if (searchType == null || searchType.length == 0) {
@@ -20,29 +21,12 @@
 		}
 		return false;
 	}
-	
 </script>
 </head>
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin">
 <h2 class="w3-text-grey w3-padding-16">
-<c:if test="${loginUser.type == '1' && param.ducktype == '1' && param.type == '3' }">
-<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>관심 프로젝트</c:if>
-<c:if test="${loginUser.type == '1' && param.ducktype == '2' && param.type == '3' }">
-<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원내역</c:if>
-<c:if test="${loginUser.type == '1' && param.ducktype == '3' && param.type == '3' }">
-<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
-<c:if test="${loginUser.type == '1' && param.ducktype == '4' && param.type == '3' }">
-<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>완료한 프로젝트</c:if>
-
-<c:if test="${loginUser.type == '2' && param.ducktype == '1' && param.type == '3' }">
-<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>추천인재 목록</c:if>
-<c:if test="${loginUser.type == '2' && param.ducktype == '2' && param.type == '3' }">
-<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>대기중인 프로젝트</c:if>
-<c:if test="${loginUser.type == '2' && param.ducktype == '3' && param.type == '3' }">
-<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
-<c:if test="${loginUser.type == '2' && param.ducktype == '4' && param.type == '3' }">
-<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>완료한 프로젝트</c:if>
+<i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>대기중인 프로젝트
 </h2>
 <table border="1" style="width:100%;">
 <tr>
@@ -72,25 +56,11 @@
 	<th width="10%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
 	<th width="8%" height="26">추천수</th>
-	<c:if test="${type==1}">
-	<th width="8%" height="26">DUCK수</th>
-	</c:if>
-	<c:if test="${type==3}">
 	<th width="10%" height="26">관심등록수</th>
-	</c:if>
 	<th width="10%" height="26">조회수</th>
-	<c:if test="${param.ducktype==2}">
-		<th width="16%" height="26">삭제</th>
-	</c:if>
-	<c:if test="${param.ducktype==3}">
-		<th width="16%" height="26">수락&거절</th>
-	</c:if>
-	<c:if test="${param.ducktype==5}">
-		<th width="16%" height="26">삭제</th>
-	</c:if>
 </tr>
 
-<c:forEach var="board" items="${boardlist}">
+<c:forEach var="board" items="${waitlist}">
 	<tr align="center" valign="middle" bordercolor="#333333"
 		onmouseover="this.style.backgroundColor='#5CD1E5'"
 		onmouseout="this.style.backgroundColor=''">
@@ -103,22 +73,6 @@
 		<td align="center">${board.recmd}</td>
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
-		<td>
-			<c:if test="${param.ducktype==3}">
-				<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">수락</button>
-			</c:if>
-			
-			<c:if test="${param.ducktype==2}">
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'">삭제</button>
-			</c:if>
-			<c:if test="${param.ducktype==3}">
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">거절</button>
-			</c:if>
-			<c:if test="${param.ducktype==5}">
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=5&type=3'">삭제</button>
-			</c:if>
-		</td>
-	
 	</tr>
 </c:forEach>
 <tr align="center" height="26">

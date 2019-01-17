@@ -367,5 +367,80 @@ public class DuckService {
 	public void developdelete(String userid, Integer boardnum, Integer ducktype) {
 		boardDao.developdelete(userid,boardnum,ducktype);
 	}
+
+	public int personcnt(String userid) {		
+		return userDao.personcnt(userid);
+	}
+
+	public List<User> recmdpersonlist(String userid, Integer pageNum, int limit) {
+		return userDao.recmdpersonlist(pageNum, limit,userid);
+	}
+
+	public int waitlistcount(String searchType, String searchContent, String userid) {
+		return boardDao.waitlistcount(userid);
+	}
+
+	public List<Board> waitlist(String searchType, String searchContent, Integer pageNum, int limit, String userid) {
+		return boardDao.recmdpersonlist(searchType,searchContent,pageNum, limit,userid);
+	}
+
+	public int proceedlistcnt(String searchType, String searchContent, String userid) {
+		return boardDao.proceedlistcnt(userid);
+	}
+
+	public List<Board> proceedlist(String searchType, String searchContent, Integer pageNum, int limit, String userid) {
+		return boardDao.proceedlist(searchType,searchContent,pageNum, limit,userid);
+	}
+
+	public int completelistcnt(String searchType, String searchContent, String userid) {
+		return boardDao.completelistcnt(searchType,searchContent,userid);
+	}
+
+	public List<Board> completelist(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		return boardDao.completelist(searchType,searchContent,pageNum, limit,userid);
+	}
+
+	public int developcompletecnt(String searchType, String searchContent, String userid) {
+		return boardDao.developcompletecnt(searchType,searchContent,userid);
+	}
+
+	public List<Board> developcomplete(String searchType, String searchContent, Integer pageNum, int limit,
+			String userid) {
+		return boardDao.developcomplete(searchType,searchContent,pageNum, limit,userid);
+	}
+
+	public void complete(Integer boardnum) {
+		boardDao.complete(boardnum);
+	}
+
+	public void duck7update(Integer boardnum) {
+		boardDao.duck7update(boardnum);
+	}
+
+	public void duckdelete(String userid, Integer num) {
+		boardDao.duckdelete(userid,num);
+	}
+
+	public int tenduck(String userid,Integer boardnum) {
+		return boardDao.tenduck(userid, boardnum);
+	}
+
+	public void setrating(String userid, float profess, float proaction, float prosatisfact, float prodate,
+			float procommunicate, float rating) {
+		userDao.setrating( userid,  profess,  proaction,  prosatisfact,  prodate, procommunicate,rating);
+	}
+
+	public int duck10cnt(String userid) {
+		return boardDao.duck10cnt(userid);
+	}
+
+	public void add10duck(String userid, int boardnum) {
+		boardDao.add10duck(userid,boardnum);
+	}
 	
+	public void matching(String userid, Integer matching) {
+		userDao.matching(userid,matching);
+		
+	}
 }

@@ -9,6 +9,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 </head>
 <body>
+
 <div class="w3-container">
 		<div class="w3-ul w3-card-4">
 			<table class="table14_10" style="width: 100%">

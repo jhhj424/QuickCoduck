@@ -5,85 +5,60 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<%@include file="/WEB-INF/view/style/mypage_decorator_css.jsp" %>
 <%@include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@include file="/WEB-INF/view/style/user_mypage.jsp" %>
 <!DOCTYPE html>
 <html>
 <title>Quick Coduck</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
-.w3-badge, .w3-tag{
-margin-bottom:5px;
-}
-.leftdiv{
-width:33.3333%;
-float:left;
-max-height:100%;
-text-align:center;
-border:1px solid #000;
-}
-.centerdiv{
-width:33.3333%;
-margin:0 auto;
-text-align:center;
-max-height:100%;
-border:1px solid #000;
-max-width:300px;
-}
-.rightdiv{
-width:33.3333%;
-float:right;
-max-height:100%;
-text-align:center;
-border:1px solid #000;
-}
-</style>
-<style>
-.card {
-  background-color: #f3f5f7;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 500px;
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.card .about {
-  height: 150px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.card .about h3,
-.card .about .lead {
-  font-weight: 300;
-  margin: 0;
-}
-
-.card .about h3 {
-  font-size: 24px;
-}
-
-.card .about .lead {
-  color: #aaa;
-}
-.tooltip-placeholder {
-  background-color: #fff;
-  border-radius: 4px;
-  color: #aaa;
-  font-size: 15px;
-  position: fixed;
-  padding: 4px 0;
-  display: none;
-  z-index: 2;
-}
-
-</style>
+<head>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+	var mat = ${loginUser.matching}
+	if(mat == 0) {
+		$(":checkbox[id=toggle]").prop("checked", false);
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", true);
+	}
+	
+$("#toggle").click(function(){
+	var result = confirm("매칭타입을 바꾸시겠습니까?");
+	if(result) {	
+	if($(":checkbox[id=toggle]").is(":checked") == false){
+		$(":checkbox[id=toggle]").prop("checked", false);
+		mat = 0;
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", true);
+		mat = 1;
+	}
+	var userid = '${loginUser.userid}';
+	var data = {
+			"userid" : userid,
+			"matching" : mat
+	}
+	$.ajax({
+		url : "checkbox.duck",
+		type: "post",
+		data: data,
+		dataType: "json",
+		success: function(data){
+			alert(data.msg);
+		},
+		error: function(xhr,status,error){
+			alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
+		}
+	})
+	} else {
+		return false;
+	}
+});	
+	
+});
+</script>
+</head>
 <decorator:head/>
 <body id="home"style="background-color:#FEFEFE;">
 <div class="w3-top" >
@@ -121,12 +96,20 @@ border:1px solid #000;
   <!-- The Grid -->
   <div class="w3-row"style="margin-bottom:50px;margin-top:50px;">
     <!-- Left Column -->
-    <div class="w3-third"
-				style="padding:10px 50px 0px 50px;">
+    <div class="w3-third" style="padding:10px 50px 0px 50px;">
 
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="text-align:center;">
         <div class="w3-container" style="padding:0 0 0 0;">
+        <c:if test="${loginUser.type == 1 }">
+        <div style="text-align:left;">
+        <sup style="font-size:13px;">off</sup>
+        <label class="switch" ><input type="checkbox" value="" name="" id="toggle">
+        <span class="slider round" id="slider"></span></label>
+        <sup style="font-size:13px;">on</sup>
+        </div>
+        </c:if>
+         
          <c:if test="${!empty loginUser.fileurl }">
          <p class="w3-center"><img src="../file/${loginUser.fileurl }" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          </c:if>
@@ -139,7 +122,7 @@ border:1px solid #000;
            </c:if>
          </c:if>
          <c:if test="${loginUser.type == '1' }">
-         <h4 class="w3-center">개발자 : ${user.userid } 님</h4>
+         <h4 class="w3-center">개발자 : ${user.userid } 님 </h4>
          </c:if>
          <c:if test="${loginUser.type == '2' }">
          <h4 class="w3-center">Client : ${user.userid } 님</h4>
@@ -175,14 +158,18 @@ border:1px solid #000;
 		  <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=5&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원탈락된 프로젝트</button>
           <button onclick="location.href='../user/mypage_suggestlist.duck?id=${loginUser.userid}&ducktype=6'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 제안받은 프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=7&type=4'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
+          <button onclick="location.href='../user/mypage_developcomplete.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
 
         </c:if>
         <c:if test="${loginUser.type == '2'}">
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=4'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
+          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록</button> --%>
+          <button onclick="location.href='../user/mypage_recmdlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록test</button>
+          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트</button> --%>
+          <button onclick="location.href='../user/mypage_waitlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트test</button>
+          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button> --%>
+          <button onclick="location.href='../user/mypage_proceedlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트test</button>
+          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=4'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button> --%>
+          <button onclick="location.href='../user/mypage_completelist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트test</button>
         </c:if>
         <c:if test="${loginUser.type == '3'}">
           <button onclick="location.href='../admin/list.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 회원 목록</button>
@@ -258,11 +245,536 @@ border:1px solid #000;
     
     <!-- Middle Column -->
    <div class="w3-twothird">
-      <div class="w3-row-padding" >
+      <div class="w3-row-padding">
         <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white" style="height:350px;width:100%">
-          <div class="leftdiv">123</div><div class="rightdiv">789</div>
+          <div class="w3-card w3-round w3-white" style="height:350px;width:100%;border-radius: 10px;">
+          <div class="leftdiv">
+  <div class="rating_main" data-vote="0">
+  <div class="star_main">
+  <c:if test="${loginUser.rating >= 0.0 && loginUser.rating <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.rating >= 0.5 && loginUser.rating <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 1 && loginUser.rating <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 1.5 && loginUser.rating <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 2 && loginUser.rating <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 2.5 && loginUser.rating <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 3 && loginUser.rating <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 3.5 && loginUser.rating <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 4 && loginUser.rating <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.rating >= 4.5 && loginUser.rating < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.rating == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+  </div>
+  <div class="score_main">
+    <span>총 평점</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.rating} / 5</span>
+  </div>
+  </div>
+  <!-- 총 평점 끝나는 지점 -->
+    <div class="rating_main" data-vote="0">
+    <div class="star_main">
+          <c:if test="${loginUser.prosatisfact >= 0.0 && loginUser.prosatisfact <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.prosatisfact >= 0.5 && loginUser.prosatisfact <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 1 && loginUser.prosatisfact <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 1.5 && loginUser.prosatisfact <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 2 && loginUser.prosatisfact <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 2.5 && loginUser.prosatisfact <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 3 && loginUser.prosatisfact <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 3.5 && loginUser.prosatisfact <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 4 && loginUser.prosatisfact <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prosatisfact >= 4.5 && loginUser.prosatisfact < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.prosatisfact == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    </div>
+    <div class="score_main">
+    <span>만족도</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.prosatisfact} / 5</span>
+    </div>
+    </div>
+  <!-- 만족도 끝나는 지점 -->
+       <div class="rating_main" data-vote="0">
+          <div class="star_main">
+          <c:if test="${loginUser.procommunicate >= 0.0 && loginUser.procommunicate <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.procommunicate >= 0.5 && loginUser.procommunicate <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 1 && loginUser.procommunicate <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 1.5 && loginUser.procommunicate <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 2 && loginUser.procommunicate <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 2.5 && loginUser.procommunicate <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 3 && loginUser.procommunicate <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 3.5 && loginUser.procommunicate <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 4 && loginUser.procommunicate <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.procommunicate >= 4.5 && loginUser.procommunicate < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.procommunicate == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    </div>
+    <div class="score_main">
+    <span>의사소통</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.procommunicate} / 5</span>
+    </div>
+    </div>
+    <!-- 의사소통 끝나는 지점 -->  
+</div>
+  <!-- 왼쪽 div 끝나는 지점 -->
+   <div class="rightdiv">
+          <div class="rating_main" data-vote="0">
+          <div class="star_main">
+          <c:if test="${loginUser.profess >= 0.0 && loginUser.profess <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.profess >= 0.5 && loginUser.profess <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 1 && loginUser.profess <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 1.5 && loginUser.profess <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 2 && loginUser.profess <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 2.5 && loginUser.profess <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 3 && loginUser.profess <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 3.5 && loginUser.profess <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 4 && loginUser.profess <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.profess >= 4.5 && loginUser.profess < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.profess == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    </div>
+    <div class="score_main">
+    <span>전문성</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.profess} / 5</span>
+    </div>
+    
+    </div>
+    <!-- 전문성 끝 -->
+    <div class="rating_main" data-vote="0">
+    <div class="star_main">
+    <c:if test="${loginUser.proaction >= 0.0 && loginUser.proaction <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.proaction >= 0.5 && loginUser.proaction <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 1 && loginUser.proaction <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 1.5 && loginUser.proaction <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 2 && loginUser.proaction <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 2.5 && loginUser.proaction <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 3 && loginUser.proaction <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 3.5 && loginUser.proaction <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 4 && loginUser.proaction <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.proaction >= 4.5 && loginUser.proaction < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.proaction == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    </div>
+    <div class="score_main">
+    <span>적극성</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.proaction} / 5</span>
+    </div>
+    </div>
+    <!-- 적극성 끝나는 지점 -->
+     <div class="rating_main" data-vote="0">
+    <div class="star_main">
+    <c:if test="${loginUser.prodate >= 0.0 && loginUser.prodate <0.5}">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.prodate >= 0.5 && loginUser.prodate <1 }">
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 1 && loginUser.prodate <1.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 1.5 && loginUser.prodate <2 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 2 && loginUser.prodate <2.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 2.5 && loginUser.prodate <3 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 3 && loginUser.prodate <3.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 3.5 && loginUser.prodate <4 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 4 && loginUser.prodate <4.5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #b2b2b25c;position: relative;"></i>
+    </c:if>
+     <c:if test="${loginUser.prodate >= 4.5 && loginUser.prodate < 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star-half-empty"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    <c:if test="${loginUser.prodate == 5 }">
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    <i class="fa fa-star"style="display: inline-block;margin: 5px;font-size: 30px;color: #ffd700;position: relative;"></i>
+    </c:if>
+    </div>
+    <div class="score_main">
+    <span>일정준수</span>&nbsp;&nbsp;
+    <span class="score_main-rating js-score">${loginUser.prodate} / 5</span>
+    </div>
+    </div>
+    <!-- 적극성 끝나는 지점 -->
+        
+    </div>
+   <!-- 오른쪽 div 끝나는 지점 -->
           <div class="centerdiv">
+          <div class="chart-container" style="position: relative;width:100%;position:center;">
+
           <canvas id="canvas" width="100%" height="100%"></canvas>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
 <script>
@@ -294,7 +806,7 @@ var shadowed = {
 window.chart = new Chart(document.getElementById("canvas"), {
     type: "radar",
     data: {
-        labels: ["전문성", "적극성", "만족도", "일정수준", "의사소통"],
+        labels: ["전문성", "적극성", "만족도", "일정준수", "의사소통"],
         datasets: [{
             label: "김도롱",
             data: [3.2, 1, 2, 4.2, 2.7],
@@ -333,21 +845,12 @@ window.chart = new Chart(document.getElementById("canvas"), {
     plugins: [shadowed]
 });
 </script>
+</div>
           </div>
           </div>
         </div>
       </div>
 <decorator:body/>
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="../workpic/QuickCoduck.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">32 min</span>
-        <h4>Angie Jane</h4><br>
-        <hr class="w3-clear">
-        <p>Have you seen this?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> Comment</button> 
-      </div> 
       
     <!-- End Middle Column -->
     </div>

@@ -134,4 +134,39 @@ public class UserDao {
 		map.put("userid", userid);
 		sqlSession.getMapper(UserMapper.class).usermatchingupdate(map);
 	}
+	public int personcnt(String userid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(UserMapper.class).personcnt(map);
+	}
+	public List<User> recmdpersonlist(Integer pageNum, int limit, String userid) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("startrow", startrow);
+		map.put("limit", limit);
+		System.out.println("로그인유저:"+userid);
+		map.put("userid", userid);
+		return sqlSession.selectList(NS + "recmdpersonlist", map);
+	}
+
+	public void setrating(String userid, float profess, float proaction, float prosatisfact, float prodate,
+			float procommunicate,float rating) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("profess", profess);
+		map.put("proaction", proaction);
+		map.put("prosatisfact", prosatisfact);
+		map.put("prodate", prodate);
+		map.put("procommunicate", procommunicate);
+		map.put("rating", rating);
+		sqlSession.getMapper(UserMapper.class).setrating(map);
+	}
+
+	public void matching(String userid, Integer matching) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("matching",matching);
+		sqlSession.getMapper(UserMapper.class).matching(map);
+		
+	}
 }
