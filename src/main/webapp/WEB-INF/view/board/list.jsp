@@ -127,17 +127,9 @@ ${board.userid}</font>
 </td>
 <!-- 작성자 -->
 <td><font style=" color: #000; font-weight: bold;">
-<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
- <jsp:useBean id="day" class="java.util.Date" />
-  <fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today" />
-   <fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
-    <c:if test="${today == rdate }">
-    <fmt:formatDate value="${board.regdate}" pattern="HH:mm" />
-    </c:if>
-     <c:if test="${today != rdate }">
-     <fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd" />
-     </c:if>
-     </font>
+	<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
+	<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd hh:mm"/>
+	</font>
 </td>
 <!-- 작성일 -->
 <td><font style=" color: #000; font-weight: bold;">
