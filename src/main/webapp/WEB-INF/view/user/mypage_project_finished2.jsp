@@ -14,7 +14,7 @@
 </script>
 </head>
 <body>
-<form action="rating.duck" method="post" name="f">
+<form action="rating2.duck" method="post" name="f">
 <!-- 해당 전문성..기타 등등 value 값 넘겨주는 부분 -->
 <input type="hidden" value="" id="rt1" name="profess">
 <input type="hidden" value="" id="rt2" name="proaction">
@@ -22,6 +22,7 @@
 <input type="hidden" value="" id="rt4" name="prodate">
 <input type="hidden" value="" id="rt5" name="procommunicate">
 <input type="hidden" value="${param.boardnum}" name="boardnum">
+<input type="hidden" value="${param.id}" name="userid">
 <div class="rating1" data-vote="0">
   <div class="star hidden">
     <span class="full"data-value="0"></span>
@@ -211,7 +212,7 @@
 </div>
 
 <div class="average">
-  <span class="text">클라이언트 평균점수는?</span><div class=" score-average js-average"></div>
+  <span class="text">참여한 개발자 평균점수는?</span><div class=" score-average js-average"></div>
   <span class="text">평가하기 : <input type="submit" id="btn" value="눌러주세용"></span>
   
 </div>
