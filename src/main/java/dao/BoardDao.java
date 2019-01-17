@@ -452,4 +452,14 @@ public class BoardDao {
 		map.put("boardnum", num);
 		sqlSession.getMapper(BoardMapper.class).duckcntremove(map);
 	}
+	public String projectcnt() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro", map);
+		return col;
+	}
+	public String projecttotalprice() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro2", map);
+		return col;
+	}
 }

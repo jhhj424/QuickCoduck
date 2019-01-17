@@ -25,7 +25,7 @@ import logic.User;
 public class BoardController {
 	@Autowired
 	private DuckService service;
-
+	
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
@@ -59,6 +59,13 @@ public class BoardController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	@RequestMapping(value = "board/find")
@@ -232,6 +239,13 @@ public class BoardController {
 		mav.addObject("board",board);
 		mav.addObject("comment",comment);
 		mav.addObject("commentCount", commentCount);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	@RequestMapping(value="board/deleteForm")
@@ -248,6 +262,13 @@ public class BoardController {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		mav.addObject("board",board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	
@@ -349,6 +370,13 @@ public class BoardController {
 			board = service.getBoard(board);
 		}
 		mav.addObject("board", board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 //	@ResponseBody
@@ -445,6 +473,13 @@ public class BoardController {
     	mav.addObject("developlist",developlist);
     	mav.addObject("refuselist",refuselist);
     	mav.addObject("acceptlist",acceptlist);
+    	String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
     	return mav;
     }
     @RequestMapping("board/suggest_accept")

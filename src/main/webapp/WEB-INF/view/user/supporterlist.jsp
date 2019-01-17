@@ -34,6 +34,12 @@
 		</td>
 		</tr>
 	</c:forEach>
+	<tr height="60"></tr>
+	<tr>
+	<td align="center" colspan="7" height="40" width="32">
+		<a href="../user/mypage_waitlist.duck"><i class="fa fa-users w3-margin-right w3-margin-left">[내 게시물 목록보기]</i></a>
+	</td>
+	</tr>
 </table>
 </body>
 </html>

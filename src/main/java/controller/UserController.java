@@ -52,6 +52,13 @@ public class UserController {
 		mav.addObject("usercount", usercount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardlist2", boardlist2);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 
@@ -156,6 +163,13 @@ public class UserController {
 	public ModelAndView loginForm() {
 		ModelAndView mav = new ModelAndView("user/login");
 		mav.addObject(new User());
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 
@@ -337,6 +351,13 @@ public class UserController {
 		List<User> supporterlist = service.supporterlist(userid, matching, boardnum, ducktype);
 		mav.addObject("user", user);
 		mav.addObject("supporterlist", supporterlist);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 

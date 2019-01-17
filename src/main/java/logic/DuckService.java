@@ -462,4 +462,16 @@ public class DuckService {
 	public void duckcntremove(Integer num) {
 		boardDao.duckcntremove(num);
 	}
+
+	public String projectcnt() {
+		return boardDao.projectcnt();
+	}
+
+	public String projecttotalprice() {
+		return boardDao.projecttotalprice();
+	}
+
+	public String usertotalcnt() {
+		return userDao.usertotalcnt();
+	}
 }
