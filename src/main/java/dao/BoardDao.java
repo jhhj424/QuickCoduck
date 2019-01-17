@@ -447,4 +447,9 @@ public class BoardDao {
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).add20duck(map);
 	}
+	public void duckcntremove(Integer num) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", num);
+		sqlSession.getMapper(BoardMapper.class).duckcntremove(map);
+	}
 }

@@ -111,4 +111,7 @@ public interface BoardMapper  {
 
 	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},20)")
 	void add20duck(Map<String, Object> map);
+
+	@Update("update board set duckcnt = duckcnt-1 where boardnum = #{boardnum}")
+	void duckcntremove(Map<String, Integer> map);
 }

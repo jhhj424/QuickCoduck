@@ -112,7 +112,7 @@
 			</c:if>
 			
 			<c:if test="${param.ducktype==1}">
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'">삭제</button>
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'">삭제</button>
 			</c:if>
 			<c:if test="${param.ducktype==2}">
 			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'">삭제</button>

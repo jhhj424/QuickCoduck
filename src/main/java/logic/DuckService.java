@@ -459,4 +459,7 @@ public class DuckService {
 	public void add20duck(String userid, int boardnum) {
 		boardDao.add20duck(userid,boardnum);
 	}
+	public void duckcntremove(Integer num) {
+		boardDao.duckcntremove(num);
+	}
 }

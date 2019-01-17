@@ -724,7 +724,12 @@ public class UserController {
 		}else {
 			dtype = ducktype + "";
 		}*/
-		service.userprodelete(userid,num,ducktype);
+		if(ducktype == 1) {
+			service.userprodelete(userid,num,ducktype);
+			service.duckcntremove(num);
+		}else {
+			service.userprodelete(userid,num,ducktype);
+		}
 		System.out.println("userid:" + userid);
 		System.out.println("boardnum:" + num);
 		System.out.println("ducktype:" + ducktype);

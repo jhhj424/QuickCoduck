@@ -392,7 +392,9 @@ function write_submit() {
 																	test="${board.boardtype==1}"> [추천 : ${board.recmd}]</c:if></a>
 														</h3>
 													</div>
-													<div align="right">날짜:${board.regdate}&nbsp;&nbsp;</div>
+													<div align="right">
+                     									<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd hh:mm"/>
+													</div>
 													<div align="right">조회수:${board.readcnt}&nbsp;&nbsp;</div>
 			<div align="right">선택기술:${tech}&nbsp;&nbsp;</div>
 			<div align="right">사용기술:${board.usetech}&nbsp;&nbsp;</div>
