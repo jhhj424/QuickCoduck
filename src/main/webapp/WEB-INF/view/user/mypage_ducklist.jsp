@@ -13,7 +13,7 @@
 		if (searchType == null || searchType.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
-			location.href = "mypage_ducklist.duck?id=" + ${loginUser.userid} + "&pageNum=" + pageNum + "&ducktype=1";
+			location.href = "mypage_ducklist.duck?id=" + ${loginUser.userid} + "&pageNum=" + pageNum + "&ducktype=1&boardtype=1";
 		} else {
 			document.searchform.pageNum.value = pageNum;
 			document.searchform.submit();
