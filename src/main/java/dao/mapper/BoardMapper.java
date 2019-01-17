@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.Board;
+import logic.User;
 public interface BoardMapper  {
 
 	@Select("select ifnull(max(boardnum),0) from board ")
@@ -97,4 +99,10 @@ public interface BoardMapper  {
 
 	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},10)")
 	void add10duck(Map<String, Object> map);
+	
+	@Select("select userid,pass,email,tel,birth,type,usetech,file1 fileurl,pic,creditnum,creditpass,rating,matching,maxcount,profess,proaction,prosatisfact,prodate,procommunicate from user where userid in (select DISTINCT userid from duck where boardnum = #{boardnum} and ducktype = 7)")
+	List<User> completeuserlist(Map<String, Object> map);
+
+	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=20")
+	int twenduck(Map<String, Object> map);
 }

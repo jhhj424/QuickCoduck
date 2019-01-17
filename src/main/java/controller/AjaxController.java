@@ -298,6 +298,37 @@ public class AjaxController {
 		}
         return map;
    }
+    @RequestMapping("user/userevaluation")
+    @ResponseBody
+    public Map<Object,Object> userevaluation(Integer boardnum, String userid) {
+    	System.out.println("userevaluation보드넘:"+boardnum);
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	try {
+    		//평가 내역이 있는지 조회 -> 덕테이블 // userid=#{userid},boardnum=#{boardnum},ducktype=20
+    		int tenduck = service.twenduck(userid,boardnum); // 덕테이블에서 해당 boardnum, 해당 user, 덕타입이 20인값을 가져옴
+    		if(tenduck == 0) { // 평가내역이 없으면.
+    			map.put("msg", "평가페이지로 이동합니다."); 
+    			map.put("ok", "ok");
+    		}else { //평가내역이 있으면
+    			map.put("msg", "이미 평가가 완료된 개발자입니다.");
+    		}
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+        return map;
+   }
+    @RequestMapping("user/completeuserlist")
+    public String userevaluation(Integer boardnum, Model model) {
+    	System.out.println("evaluation보드넘:"+boardnum);
+    	try {
+    		List<User> userlist = service.completeuserlist(boardnum); 
+    		model.addAttribute("userlist",userlist);
+    		model.addAttribute("boardnum", boardnum);
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "ajax/ajax_userlist";
+   }
 	
 	// user_signup
 	@ResponseBody

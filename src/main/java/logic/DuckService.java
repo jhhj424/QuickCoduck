@@ -443,4 +443,12 @@ public class DuckService {
 		userDao.matching(userid,matching);
 		
 	}
+
+	public List<User> completeuserlist(Integer boardnum) {
+		return boardDao.completeuserlist(boardnum);
+	}
+
+	public int twenduck(String userid, Integer boardnum) {
+		return boardDao.twenduck(userid, boardnum);
+	}
 }

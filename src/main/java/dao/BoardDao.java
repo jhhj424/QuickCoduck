@@ -12,6 +12,7 @@ import dao.mapper.BoardMapper;
 import dao.mapper.UserMapper;
 import logic.Board;
 import logic.Duck;
+import logic.User;
 
 @Repository
 public class BoardDao {
@@ -423,5 +424,16 @@ public class BoardDao {
 		map.put("userid", userid);
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).add10duck(map);
+	}
+	public List<User> completeuserlist(Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		return sqlSession.getMapper(BoardMapper.class).completeuserlist(map);
+	}
+	public int twenduck(String userid, Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).twenduck(map);
 	}
 }

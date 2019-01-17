@@ -159,8 +159,10 @@ public class BoardController {
 			return mav;
 		}
 		try {
-			int maxperson = Integer.parseInt(request.getParameter("maxperson"));
-			board.setMaxperson(maxperson);//최대인원 설정
+			if(request.getParameter("maxperson") != null) {
+				int maxperson = Integer.parseInt(request.getParameter("maxperson"));
+				board.setMaxperson(maxperson);//최대인원 설정
+			}			
 			service.boardadd(board, request);
 			board = service.getBoard(board);
 			if(type == 3 && dbuser.getMaxcount() != 0) {//클라이언트 공고게시일때 maxcount -1

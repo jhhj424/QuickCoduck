@@ -5,8 +5,9 @@
 	</decorator>
 	<excludes>
 		<pattern>/user/start*</pattern>
-		<pattern>*ajax_content*</pattern>
+		<pattern>*ajax_*</pattern>
 		<pattern>/board/find.*</pattern>
+		<pattern>*completeuserlist*</pattern>
 	</excludes>
 	<decorator name="mypage" page="mypage_decorator.jsp">
 		<pattern>/user/mypage*</pattern>
