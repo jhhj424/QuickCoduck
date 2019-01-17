@@ -12,8 +12,8 @@ public interface CommentMapper  {
 	@Select("select ifnull(max(num),0) from recomment ")
 	int maxNum();
 	
-	@Insert("insert into recomment (num,userid,boardnum,content,regdate,ref,refstep,reflevel) "
-		 	+ " values(#{num},#{userid},#{boardnum},#{content},now(),#{ref},#{refstep},#{reflevel})")
+	@Insert("insert into recomment (num,userid,boardnum,content,regdate,ref,refstep) "
+		 	+ " values(#{num},#{userid},#{boardnum},#{content},now(),#{ref},#{refstep})")
 	void insert(Comment comment);
 	
 	@Delete("delete from recomment where num = #{num}")

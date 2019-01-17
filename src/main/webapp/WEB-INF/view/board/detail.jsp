@@ -7,41 +7,46 @@
 <meta charset="UTF-8">
 <title>게시물 상세보기</title>
 <style>
-body,h1,h2,h3,h4,h5,h6,b,textarea {font-family: "Montserrat", sans-serif;}
-input[type=text] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  margin: 10px 0 10px 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-width: 0 0 1px 0;
-  border-radius: 0;
-  background: rgba(0, 0, 0, 0);
-  height: 2.5em;
-  font-size:15px;
-  font: inherit;
-  color: inherit;
-  outline: none;
-  transition: all 180ms;
-  padding: 0;
-  text-align:center;
-  width:63%;
+body, h1, h2, h3, h4, h5, h6, b, textarea {
+	font-family: "Montserrat", sans-serif;
 }
+
+input[type=text] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	margin: 10px 0 10px 0;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-width: 0 0 1px 0;
+	border-radius: 0;
+	background: rgba(0, 0, 0, 0);
+	height: 2.5em;
+	font-size: 15px;
+	font: inherit;
+	color: inherit;
+	outline: none;
+	transition: all 180ms;
+	padding: 0;
+	text-align: center;
+	width: 63%;
+}
+
 .half {
-  float: left;
-  width: 46%;
-  margin-bottom: 1em;
+	float: left;
+	width: 46%;
+	margin-bottom: 1em;
 }
 
 .right {
-  width: 52%;
+	width: 52%;
 }
 
 .left {
-  margin-right: 2%;
+	margin-right: 2%;
 }
-.div{
-text-align:left;
-margin:10px 10px 10px 10px;
+
+.div {
+	text-align: left;
+	margin: 10px 10px 10px 10px;
 }
 </style>
 <script type="text/javascript"
@@ -183,18 +188,18 @@ margin:10px 10px 10px 10px;
 		location.href="reply.duck?num="+num+"&reply="+reply+"&type="+type
 	}
 	//답글 폼(?)
-	function replyCommentOpen(num){
-		$("#reply"+num).html(
-				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
-					+'<td>└>답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
-					+'name="reply" id="replycontent'+num+'" >'+'</textarea>'
-					+'<td><button type="button" onclick="location.href='
-					+"'javascript:comment_submit2("+num+")'"
-					+' "class="comment">답변등록!!</button><br>'
-					+'<button onclick="replycancer('+num+')">답변 취소</button>'
-				    +'</td></td></tr></table>'
-		)
-	}
+	   function replyCommentOpen(num){
+	      $("#reply"+num).html(
+	            '<table id="replytb" class="table14_10" style="width: 90%"><tr>'
+	               +'<td>└>답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
+	               +'name="reply" id="replycontent'+num+'" >'+'</textarea>'
+	               +'<td><button type="button" onclick="location.href='
+	               +"'javascript:comment_submit2("+num+")'"
+	               +'"class="comment">답변등록!!</button><br>'
+	               +'<button onclick="replycancer('+num+')">답변 취소</button>'
+	                +'</td></td></tr></table>'
+	      )
+	   }
 	function replycancer(num){
 		$("#reply"+num).html(
 				''
@@ -229,81 +234,90 @@ margin:10px 10px 10px 10px;
 
 </head>
 <body>
-<form action="comment.duck?" name="f" method="post">
-<input type="hidden" value="${param.type}" name="type">
-<input type="hidden" value="${param.num}" name="num">
-<div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
-<h2 class="w3-text-grey w3-padding-16">
-<c:if test="${param.type==1 || boardtype==1}">
-<i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+	<form action="comment.duck?" name="f" method="post">
+		<input type="hidden" value="${param.type}" name="type"> <input
+			type="hidden" value="${param.num}" name="num">
+		<div class="w3-container w3-card w3-white w3-margin-bottom"
+			style="max-width: 80%; margin: 0 auto;">
+			<h2 class="w3-text-grey w3-padding-16">
+				<c:if test="${param.type==1 || boardtype==1}">
+					<i
+						class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 오픈소스게시판</c:if>
-<c:if test="${param.type==2 || boardtype==2}">
-<i class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+				<c:if test="${param.type==2 || boardtype==2}">
+					<i
+						class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 개발자자유게시판</c:if>
-<c:if test="${param.type==3 || boardtype==3}">
-<i class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+				<c:if test="${param.type==3 || boardtype==3}">
+					<i
+						class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 프로젝트공고모집게시판</c:if>
-<c:if test="${param.type==5 || boardtype==5}">
-<i class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+				<c:if test="${param.type==5 || boardtype==5}">
+					<i
+						class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 나만의소스</c:if>
-</h2>
-<div align="center">
-		
-</div>	
-<div class="half left">
-<div class="div">
-<b>글쓴이 : </b>
-${board.userid}
-</div>
-<c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
-<div class="div">
-<c:if test="${param.type==1 || boardtype==1}">
-<b>추천수 : </b>
-</c:if>
-<c:if test="${param.type==3 || boardtype==3}">
-<b>신청자수 : </b>
-</c:if>
-<input class="recview" style="text-align: center;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="${board.recmd}">
-</div>
-</c:if>
-<c:if test="${board.boardtype==3}">
-<div class="div">
-<b>프로젝트 기간 : ${board.schedule} 일</b>
-</div>
-<div class="div">
-<b>프로젝트 금액 : ${board.price} 원</b>
-</div>
-<div class="div">
-<b>프로젝트 인원수 : ${board.maxperson} 명</b>
-</div>
-<div class="div">
-<b>현재 참여한 인원수 : ${board.nowperson} 명</b>
-</div>
-</c:if>
-<div class="div">
-<b>제목 : ${board.subject}</b>
-</div>
-<div class="div">
-<b>첨부파일 : </b>
-<c:if test="${!empty board.fileurl}">
-<a href="../file/${board.fileurl}">${board.fileurl}</a>
-</c:if>
-<c:if test="${empty board.fileurl }">
-<b style="color:red;">등록된 이미지가 없습니다</b>
-</c:if>
-</div>
-<div class="div">
-<div style="width:550px;height:310px;float:left;border:1px solid #000;" class="1">
-<c:if test="${!empty board.fileurl }">
-<img src="${path}/file/${board.fileurl}" style="width:100%;height:100%;">
-<br>
-</c:if>
-<c:if test="${empty board.fileurl}">
-<img src="../workpic/noimage.png" style="width:100%; height:100%;">
-</c:if>
-</div>
-</div>
-</div>
+			</h2>
+			<div align="center"></div>
+			<div class="half left">
+				<div class="div">
+					<b>글쓴이 : </b> ${board.userid}
+				</div>
+				<c:if
+					test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
+					<div class="div">
+						<c:if test="${param.type==1 || boardtype==1}">
+							<b>추천수 : </b>
+						</c:if>
+						<c:if test="${param.type==3 || boardtype==3}">
+							<b>신청자수 : </b>
+						</c:if>
+						<input class="recview"
+							style="text-align: center; border: 1px solid rgba(0, 0, 0, 0.5); border-width: 0 0 1px 0;"
+							readonly value="${board.recmd}">
+					</div>
+				</c:if>
+				<c:if test="${board.boardtype==3}">
+					<div class="div">
+						<b>프로젝트 기간 : ${board.schedule} 일</b>
+					</div>
+					<div class="div">
+						<b>프로젝트 금액 : ${board.price} 원</b>
+					</div>
+					<div class="div">
+						<b>프로젝트 인원수 : ${board.maxperson} 명</b>
+					</div>
+					<div class="div">
+						<b>현재 참여한 인원수 : ${board.nowperson} 명</b>
+					</div>
+				</c:if>
+				<div class="div">
+					<b>제목 : ${board.subject}</b>
+				</div>
+				<div class="div">
+					<b>첨부파일 : </b>
+					<c:if test="${!empty board.fileurl}">
+						<a href="../file/${board.fileurl}">${board.fileurl}</a>
+					</c:if>
+					<c:if test="${empty board.fileurl }">
+						<b style="color: red;">등록된 이미지가 없습니다</b>
+					</c:if>
+				</div>
+				<div class="div">
+					<div
+						style="width: 550px; height: 310px; float: left; border: 1px solid #000;"
+						class="1">
+						<c:if test="${!empty board.fileurl }">
+							<img src="${path}/file/${board.fileurl}"
+								style="width: 100%; height: 100%;">
+							<br>
+						</c:if>
+						<c:if test="${empty board.fileurl}">
+							<img src="../workpic/noimage.png"
+								style="width: 100%; height: 100%;">
+						</c:if>
+					</div>
+				</div>
+			</div>
 			<%-- 
 		<div>
 			<div align="center"><b>프로젝트 금액 : </b>
@@ -313,124 +327,142 @@ ${board.userid}
 		</div>
 		</c:if> --%>
 			<!-- 왼쪽 div 영역 끝나는 지점 -->
-<div class="half right">
-<div style="text-align:center;">
-<b style="text-align:center;">[내용]</b>
-</div>
-<div style="text-align:left;width:800px;max-width:800px;resize:none;font-size:30px;height:500px;float:right;border:1px solid #000;word-break:break-all;overflow:scroll" class="2">
-${fn:replace(board.content, cn, br)}
-</div>
-		<c:if test="${board.boardtype==3}">
-<div style="text-align:center;margin-bottom:20px;">
-		<i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
-		<button type="button" class="myButton" id="duck">스크랩</button>
-		<i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="pro">즉시신청</button>
-		<c:if test="${board.userid == loginUser.userid }">
-		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
-		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
-		</c:if>
-</div>
-		</c:if>
-</div>
+			<div class="half right">
+				<div style="text-align: center;">
+					<b style="text-align: center;">[내용]</b>
+				</div>
+				<div
+					style="text-align: left; width: 800px; max-width: 800px; resize: none; font-size: 30px; height: 500px; float: right; border: 1px solid #000; word-break: break-all; overflow: scroll"
+					class="2">${fn:replace(board.content, cn, br)}</div>
+				<c:if test="${board.boardtype==3}">
+					<div style="text-align: center; margin-bottom: 20px;">
+						<i class="fa fa-star fa-fw w3-xlarge" style="color: #e3e329"></i>
+						<button type="button" class="myButton" id="duck">스크랩</button>
+						<i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
+						<button type="button" class="myButton" id="pro">즉시신청</button>
+						<c:if test="${board.userid == loginUser.userid }">
+							<a
+								href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i
+								class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
+							<a
+								href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i
+								class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
+						</c:if>
+					</div>
+				</c:if>
+			</div>
 
-<div style="text-align:center;margin-bottom:20px;">
-		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
-		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
-		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
-		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
-		</c:if>
-		<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
-		<a href="list.duck?type=${board.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
-		</c:if>
-		<c:if test="${board.boardtype==1}">
-		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec">추천</button>
-		<i class="fa fa-external-link fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="duck">DUCK</button>
-		</c:if>
-		<c:if test="${board.boardtype==2}">
-		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec">추천</button>
-		</c:if>
-</div>
-</div>
-<!-- 아래쪽 하단 버튼 끝 -->
-<div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
-<h2 class="w3-text-grey w3-padding-16">
-<i class="fa fa-comments-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
-<table class="table14_10" style="width: 100%">
+			<div style="text-align: center; margin-bottom: 20px;">
+				<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i
+					class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a> <a
+					href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i
+					class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
+				<c:if test="${param.type==1 || param.type==3 || param.type==5}">
+					<a href="find.duck?type=${param.type}" class="w3-hover"
+						style="color: #000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+				</c:if>
+				<c:if
+					test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
+					<a href="list.duck?type=${board.boardtype}"><i
+						class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+				</c:if>
+				<c:if test="${board.boardtype==1}">
+					<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
+					<button type="button" class="myButton" id="rec">추천</button>
+					<i class="fa fa-external-link fa-fw w3-xlarge"></i>
+					<button type="button" class="myButton" id="duck">DUCK</button>
+				</c:if>
+				<c:if test="${board.boardtype==2}">
+					<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
+					<button type="button" class="myButton" id="rec">추천</button>
+				</c:if>
+			</div>
+		</div>
+		<!-- 아래쪽 하단 버튼 끝 -->
+		<div class="w3-container w3-card w3-white w3-margin-bottom"
+			style="max-width: 80%; margin: 0 auto;">
+			<h2 class="w3-text-grey w3-padding-16">
+				<i
+					class="fa fa-comments-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글
+			</h2>
+			<table class="table14_10" style="width: 100%">
 				<jsp:useBean id="day" class="java.util.Date" />
-					<c:if test="${commentCount==0 }">
+				<c:if test="${commentCount==0 }">
+					<tr>
+						<td colspan="5" align="center">등록된 댓글이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${commentCount > 0}">
+					<tr>
+						<td colspan="3" style="text-align: center;">달린댓글
+							:${commentCount}</td>
+					</tr>
+					<c:forEach items="${comment}" var="c">
 						<tr>
-							<td colspan="5" align="center">등록된 댓글이 없습니다.</td>
-						</tr>
-					</c:if>
-					<c:if test="${commentCount > 0}">
-						<tr>
-							<td colspan="3" style="text-align: center;">달린댓글
-								:${commentCount}</td>
-						</tr>
-						<c:forEach items="${comment}" var="c">
-							<tr>
-								<td>${c.userid}님</td>
-								<td style="min-width: 600px; text-align: left; max-width: 600px">
-									<c:if test="${c.refstep == 0}">
-									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+							<td>${c.userid}님</td>
+							<td style="min-width: 600px; text-align: left; max-width: 600px">
+								<c:if test="${c.refstep == 0}">
+									<div
+										style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
 										${fn:replace(c.content, cn, br)}</div>
+								</c:if> <c:if test="${c.refstep != 0 }">
+									<div
+										style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp;<font
+											style="color: blue">${c.userid}</font>
+										${fn:replace(c.content, cn, br)}
+									</div>
+								</c:if>
+							</td>
+							<td><c:if test="${c.userid == loginUser.userid}">
+									<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+									<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd"
+										var="rdate" />
+									<c:if test="${today == rdate }">
+										<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
 									</c:if>
-									<c:if test="${c.refstep != 0 }">
-									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp;<font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
+									<c:if test="${today != rdate }">
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
 									</c:if>
-								</td>
-								<td><c:if test="${c.userid == loginUser.userid}">
-										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-										<c:if test="${today == rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-										</c:if>
-										<c:if test="${today != rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-										</c:if>
-										<br>
-										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
+									<br>
+									<button type="button"
+										onclick="replyCommentOpen(${c.num})">답변</button>
+									<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
+								</c:if> <c:if test="${c.userid != loginUser.userid }">
+									<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+									<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd"
+										var="rdate" />
+									<c:if test="${today == rdate }">
+										<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+									</c:if>
+									<c:if test="${today != rdate }">
+										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+									</c:if>
+									<br>
+									<button type="button"
+										onclick="replyCommentOpen(${c.num})">답변</button>
+									<c:if test="${loginUser.userid == 'admin'}">
 										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-										<c:if test="${today == rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-										</c:if>
-										<c:if test="${today != rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-										</c:if>
-										<br>
-										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
-										<c:if test="${loginUser.userid == 'admin'}">
-											<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-										</c:if>
-									</c:if></td>
-							</tr>
-							<tr id="reply${c.num}" align="right"></tr>
-						</c:forEach>
-					</c:if>
-				</table>
-<div style="margin:10px 0 10px 0">
-<table class="table14_10" style="width: 100%">
+									</c:if>
+								</c:if></td>
+						</tr>
+						<tr id="reply${c.num}" align="right"></tr>
+					</c:forEach>
+				</c:if>
+			</table>
+			<div style="margin: 10px 0 10px 0">
+				<table class="table14_10" style="width: 100%">
 					<tr>
 						<td>댓글쓰기</td>
 						<td><textarea required="required" rows="2" cols="75"
 								name="content"></textarea></td>
-						<td>
-							<button type="button"
+						<td><button type="button"
 								onclick="location.href='javascript:comment_submit()' "
-								class="comment">댓글등록!!</button>
-						</td>
+								class="comment">댓글등록!!</button></td>
 					</tr>
 				</table>
-</div>
-				</div>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

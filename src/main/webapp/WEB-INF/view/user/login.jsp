@@ -7,6 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 화면</title>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+//네이버 로그인
+	$(function(){
+		var naverlogin = new naver.LoginWithNaverId({
+			clientId : "{hZgcybLLosz6OTLjGrZm}", //클라이언트 ID
+			callbackUrl : "{http://localhost:8080/quickcoduck/user/main.duck}", //콜백 URL
+			isPopup : true, //파업을 통한 연동처리 여부
+			loginButton : {color : "green", type : 3, height : 30} // 로그인 버튼의 타입지정
+		});
+		naverLogin.init();
+	})
+</script>
 <spring:url value="/resources/css/login.css" var="login" />
 <link href="${login}" rel="stylesheet" />
 <style>
@@ -22,7 +37,6 @@ color:#2c2c2c;
    <section id="formHolder">
          <!-- Form Box -->
          <div class="col-sm-6 form" style="max-width:80%;left: 50%;top: 50%;transform: translate(-50%, -50%);">
-
             <!-- Login Form -->
             <div class="login form-peice"style="border: 1px solid #444444;">
                <form class="login-form" action="login.duck" method="post">
@@ -40,7 +54,13 @@ color:#2c2c2c;
                      <input type="submit" value="Login" class="login">
                      <a href="#" class="switch">SignUp</a>
                   </div>
-               </form>
+                  <br>
+				  <div id="naverIdLogin" align="center">
+					<a id="naver-login-btn" href="#" role="button">
+						<img src="https://static.nid.naver.com/oauth/big_g.PNG" width="85%" height="45" />
+					</a>
+				  </div>
+				</form>
             </div><!-- End Login Form -->
 
             <!-- Signup Form -->
@@ -84,11 +104,9 @@ color:#2c2c2c;
                   </div>
                </form>
             </div><!-- End Signup Form -->
-         
-         </div>
-   </section>
+         </div>         
+   </section>   
 </div>
-
 </div>
 
 </body>
