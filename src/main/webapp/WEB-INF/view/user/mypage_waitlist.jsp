@@ -13,7 +13,7 @@
 		if (searchType == null || searchType.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
-			location.href = "myduck.duck?id=" + ${user.userid} + "&pageNum=" + pageNum + "&type=1";
+			location.href = "mypage_waitlist.duck?pageNum=" + pageNum;
 		} else {
 			document.searchform.pageNum.value = pageNum;
 			document.searchform.submit();
@@ -31,7 +31,7 @@
 <table border="1" style="width:100%;">
 <tr>
 	<td colspan="7" align="center">
-		<form action="myduck.duck?id=${user.userid}" method="post"
+		<form action="mypage_waitlist.duck" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
 			<select name="searchType" id="searchType">
@@ -53,11 +53,12 @@
 </tr>
 <tr align="center" valign="middle" bordercolor="#212121">
 	<th width="6%" height="26">번호</th>
-	<th width="10%" height="26">글쓴이</th>
+	<th width="8%" height="26">글쓴이</th>
 	<th width="45%" height="26">제목</th>
-	<th width="8%" height="26">추천수</th>
+	<th width="6%" height="26">추천수</th>
 	<th width="10%" height="26">관심등록수</th>
-	<th width="10%" height="26">조회수</th>
+	<th width="7%" height="26">조회수</th>
+	<th width="18%" height="26">지원자보기</th>
 </tr>
 
 <c:forEach var="board" items="${waitlist}">
@@ -73,6 +74,9 @@
 		<td align="center">${board.recmd}</td>
 		<td align="center">${board.duckcnt}</td>
 		<td align="right">${board.readcnt}</td>
+		<td align="center">
+			<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자보기]</i></a>
+		</td>
 	</tr>
 </c:forEach>
 <tr align="center" height="26">

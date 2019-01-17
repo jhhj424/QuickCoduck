@@ -111,7 +111,7 @@ if (msg) { //삭제
 <table border="1" style="width:100%;">
 <tr>
 	<td colspan="7" align="center">
-		<form action="myduck.duck?id=${user.userid}" method="post"
+		<form action="mypage_completelist.duck" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
 			<select name="searchType" id="searchType">

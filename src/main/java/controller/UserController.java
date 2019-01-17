@@ -708,11 +708,10 @@ public class UserController {
 	}
 	//개발자가 거절&삭제 할때
 	@RequestMapping(value = "user/userprodelete")
-	public ModelAndView userprodelete(HttpSession session, String userid, Integer num, Integer ducktype) {
+	public ModelAndView userprodelete(HttpSession session, String userid, Integer num, Integer ducktype, Integer type) {
 		ModelAndView mav = new ModelAndView("user/myduck");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		
 		/*String dtype = "";
 		if(ducktype == 2) {
 			dtype = "2,3,5";
@@ -723,14 +722,13 @@ public class UserController {
 		System.out.println("userid:" + userid);
 		System.out.println("boardnum:" + num);
 		System.out.println("ducktype:" + ducktype);
-		mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type=3");
-		
-		int duckselect3 = service.sel(userid); //id와/ducktype 2/3/5있는 프로젝트 찾기
+		mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type="+type);
+		/*int duckselect3 = service.sel(userid); //id와/ducktype 2/3/5있는 프로젝트 찾기
 		System.out.println("duckselect3:" + duckselect3);
 		if (duckselect3 < 1) {//신청중이거나 수락받은/거절받은 프로젝트가 없을때
-			service.usernullmatching(userid);
+			//service.usernullmatching(userid);
 			//mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type=3&matching=1");
-		}/* else {// 신청/수락/거절중인 프로젝트가 있을때 거절&삭제
+		}else {// 신청/수락/거절중인 프로젝트가 있을때 거절&삭제
 	
 		}*/
 		return mav;
