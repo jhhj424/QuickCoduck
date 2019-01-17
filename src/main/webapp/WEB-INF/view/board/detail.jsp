@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
+<%@ include file="/WEB-INF/view/style/board_detail_css.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시물 상세보기</title>
 <style>
-body,h1,h2,h3,h4,h5,h6,b,textarea {font-family: "Montserrat", sans-serif;}
+body,h1,h2,h3,h4,h5,h6,textarea {font-family: "Montserrat", sans-serif;}
 input[type=text] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -34,14 +35,23 @@ input[type=text] {
 
 .right {
   width: 52%;
+  text-align:center;
 }
 
 .left {
   margin-right: 2%;
+  margin-top:16%;
 }
 .div{
 text-align:left;
-margin:10px 10px 10px 10px;
+margin:20px 10px 10px 50px;
+border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+width:47%;
+}
+b{
+font-family:"Lato", Arial, sans-serif;
+margin:20px 10px 10px 20px;
+line-height:2;
 }
 </style>
 <script type="text/javascript"
@@ -232,110 +242,114 @@ margin:10px 10px 10px 10px;
 <form action="comment.duck?" name="f" method="post">
 <input type="hidden" value="${param.type}" name="type">
 <input type="hidden" value="${param.num}" name="num">
-<div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
-<h2 class="w3-text-grey w3-padding-16">
-<c:if test="${param.type==1 || boardtype==1}">
+<!-- 작업 시작! -->
+<div class="movie-card">
+
+  <div class="container">
+  
+    <div class="cover">
+    <c:if test="${!empty board.fileurl }">
+    <img src="${path}/file/${board.fileurl}"class="cover" style="width:100%;height:100%;">
+    <br>
+    </c:if>
+    <c:if test="${empty board.fileurl}">
+    <img src="../workpic/noimage.png"class="cover" style="width:100%; height:100%;">
+    </c:if>
+     </div>
+     <!-- 사진 나오는 영역 끝 -->   
+    <div class="hero">
+            
+      <div class="details">
+      
+        <div class="title1">${board.subject}</div>
+
+        <div class="title2">
+        <c:if test="${param.type==1 || boardtype==1}">
 <i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-오픈소스게시판</c:if>
+오픈소스</c:if>
 <c:if test="${param.type==2 || boardtype==2}">
 <i class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 개발자자유게시판</c:if>
 <c:if test="${param.type==3 || boardtype==3}">
 <i class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-프로젝트공고모집게시판</c:if>
+프로젝트 공고모집</c:if>
 <c:if test="${param.type==5 || boardtype==5}">
 <i class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 나만의소스</c:if>
-</h2>
-<div align="center">
-		
-</div>	
-<div class="half left">
+        </div>
+        
+      </div> <!-- 위에 제목이랑 보여주는 부분 -->
+      
+    </div> <!--배경사진 부분 끝 -->
+    
+    <div class="description">
+   <div class="half left">
 <div class="div">
-<b>글쓴이 : </b>
-${board.userid}
-</div>
+<div style="margin-top:20px;margin-bottom:20px;">
+<b><b style="border:1px solid grey">글쓴이</b>  :  ${board.userid}</b><br>
+<b><b style="border:1px solid grey">제목</b> : ${board.subject}</b><br>
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
-<div class="div">
 <c:if test="${param.type==1 || boardtype==1}">
-<b>추천수 : </b>
+<b><b style="border:1px solid grey">추천수  </b> :</b>
 </c:if>
 <c:if test="${param.type==3 || boardtype==3}">
-<b>신청자수 : </b>
+<b><b style="border:1px solid grey">신청자수</b>  : </b>
 </c:if>
-<input class="recview" style="text-align: center;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="${board.recmd}">
-</div>
+<input class="recview" style="text-align: center; width:45%;background-color:#f0f0ed8a;border: 1px solid rgba(0, 0, 0, 0.5);border-width: 0 0 1px 0;" readonly value="${board.recmd}"><br>
+</c:if>
+<c:if test="${!empty board.usetech }">
+<b><b style="border:1px solid grey">사용기술</b> :  
+<c:forEach var="usetech" items="${board.usetech}" varStatus="g" begin="0">
+<span class="tag">${usetech}</span>
+<c:out value="${g.end}" />
+</c:forEach></b><br>
 </c:if>
 <c:if test="${board.boardtype==3}">
-<div class="div">
-<b>프로젝트 기간 : ${board.schedule} 일</b>
-</div>
-<div class="div">
-<b>프로젝트 금액 : ${board.price} 원</b>
-</div>
-<div class="div">
-<b>프로젝트 인원수 : ${board.maxperson} 명</b>
-</div>
-<div class="div">
-<b>현재 참여한 인원수 : ${board.nowperson} 명</b>
-</div>
+<b><b style="border:1px solid grey">프로젝트 기간</b> : ${board.schedule} 일</b><br>
+<b><b style="border:1px solid grey">프로젝트 금액</b> : ${board.price} 원</b><br>
+<b><b style="border:1px solid grey">프로젝트 인원수</b> : ${board.maxperson} 명</b><br>
+<b><b style="border:1px solid grey">현재 참여한 인원수</b> : ${board.nowperson} 명</b><br>
 </c:if>
-<div class="div">
-<b>제목 : ${board.subject}</b>
-</div>
-<div class="div">
-<b>첨부파일 : </b>
+<b><b style="border:1px solid grey">첨부파일</b> : </b>
 <c:if test="${!empty board.fileurl}">
-<a href="../file/${board.fileurl}">${board.fileurl}</a>
+<a href="../file/${board.fileurl}">${board.fileurl}</a><br>
 </c:if>
 <c:if test="${empty board.fileurl }">
-<b style="color:red;">등록된 이미지가 없습니다</b>
-</c:if>
-</div>
-<div class="div">
-<div style="width:550px;height:310px;float:left;border:1px solid #000;" class="1">
-<c:if test="${!empty board.fileurl }">
-<img src="${path}/file/${board.fileurl}" style="width:100%;height:100%;">
-<br>
-</c:if>
-<c:if test="${empty board.fileurl}">
-<img src="../workpic/noimage.png" style="width:100%; height:100%;">
+<b style="color:red; margin-left:-10px;">등록된 이미지가 없습니다</b><br>
 </c:if>
 </div>
 </div>
-</div>
-			<%-- 
-		<div>
-			<div align="center"><b>프로젝트 금액 : </b>
-				<form:input path="price" 
-				<font color="red"><form:errors path="price" /></font>
-			</div>
-		</div>
-		</c:if> --%>
-			<!-- 왼쪽 div 영역 끝나는 지점 -->
+</div><!-- 왼족 div 끝나는 지점 -->
+
 <div class="half right">
-<div style="text-align:center;">
-<b style="text-align:center;">[내용]</b>
+<div style="text-align:center;margin-right:50%;margin-bottom:10px;">
+<b>[공고 내용]</b>
 </div>
-<div style="text-align:left;width:800px;max-width:800px;resize:none;font-size:30px;height:500px;float:right;border:1px solid #000;word-break:break-all;overflow:scroll" class="2">
+<div style="margin-right:70px;line-height:initial;text-align:left;width:1000px;max-width:1000px;resize:none;font-size:30px;max-height:560px;height:60%;float:right;border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);word-break:break-all;overflow:scroll" class="2">
 ${fn:replace(board.content, cn, br)}
 </div>
-		<c:if test="${board.boardtype==3}">
-<div style="text-align:center;margin-bottom:20px;">
+</div><!-- 오른쪽 div 끝나는 지점 -->
+
+    </div> <!-- 내용 나와지는 부분 끝 -->
+
+  </div> <!-- end container -->
+  
+</div> <!-- 전체적인 div 끝 -->
+<!-- 작업 끝! -->
+<c:if test="${board.boardtype==3}">
+<div style="margin-bottom:30px;">
 		<i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
-		<button type="button" class="myButton" id="duck">스크랩</button>
+		<button type="button" class="myButton" id="duck" style="margin-right:15px;">스크랩</button>
 		<i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="pro">즉시신청</button>
+		<button type="button" class="myButton" id="pro" style="margin-right:15px;">즉시신청</button>
 		<c:if test="${board.userid == loginUser.userid }">
 		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
 		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
 		</c:if>
 </div>
-		</c:if>
-</div>
-
-<div style="text-align:center;margin-bottom:20px;">
-		<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
+</c:if>
+<div style="margin-bottom:30px;">
+<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
 		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
 		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
@@ -345,17 +359,16 @@ ${fn:replace(board.content, cn, br)}
 		</c:if>
 		<c:if test="${board.boardtype==1}">
 		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec">추천</button>
+		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
 		<i class="fa fa-external-link fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="duck">DUCK</button>
+		<button type="button" class="myButton" id="duck" style="margin-right:15px;">DUCK</button>
 		</c:if>
 		<c:if test="${board.boardtype==2}">
 		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec">추천</button>
+		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
 		</c:if>
-</div>
-</div>
-<!-- 아래쪽 하단 버튼 끝 -->
+</div><!-- 아래 버튼 부분 끝 -->
+
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
 <i class="fa fa-comments-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
