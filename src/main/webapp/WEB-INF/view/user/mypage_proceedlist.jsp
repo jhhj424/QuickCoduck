@@ -11,7 +11,6 @@
 
 <script type="text/javascript">
 function complete(boardnum){
-	alert("보드넘:"+boardnum)
 	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
 	if (msg) { //삭제
 		$.ajax({

@@ -331,7 +331,7 @@ $("#toggle").click(function(){
   </div>
   <div class="score_main">
     <span>총 평점</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.rating} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.rating}" pattern=".0"/> / 5</span>
   </div>
   </div>
   <!-- 총 평점 끝나는 지점 -->
@@ -417,7 +417,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>만족도</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.prosatisfact} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.prosatisfact}" pattern=".0"/> / 5</span>
     </div>
     </div>
   <!-- 만족도 끝나는 지점 -->
@@ -503,7 +503,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>의사소통</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.procommunicate} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.procommunicate}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 의사소통 끝나는 지점 -->  
@@ -592,7 +592,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>전문성</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.profess} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.profess}" pattern=".0"/> / 5</span>
     </div>
     
     </div>
@@ -679,7 +679,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>적극성</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.proaction} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.proaction}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 적극성 끝나는 지점 -->
@@ -765,7 +765,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>일정준수</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.prodate} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.prodate}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 적극성 끝나는 지점 -->
