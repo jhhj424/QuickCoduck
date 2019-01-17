@@ -793,7 +793,7 @@ public class UserController {
 			board = service.getBoard(board); // 평가하고있는 게시물
 			System.out.println("레이팅보드:"+board);
 			User ratinguser = service.select(userid); // 평가받을 유저
-			int cnt = service.duck20cnt(board.getUserid()); //해당 id가 평가받은 게시글중에, ducktype이 20인 duck테이블 인스턴스의 개수
+			int cnt = service.duck20cnt(userid); //해당 id가 평가받은 게시글중에, ducktype이 20인 duck테이블 인스턴스의 개수
 			System.out.println("평가받은갯수 : " + cnt);
 			int nanum = 0;
 			if(cnt < 1) {
