@@ -485,5 +485,5 @@ public class DuckService {
 
 	public Board getNotice(Board bo) {
 		return boardDao.noticeselect(bo);
-	}
+	} 
 } 
