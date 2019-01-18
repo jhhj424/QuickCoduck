@@ -69,8 +69,8 @@ line-height:2;
 			function() {
 				$("#rec").click(
 						function() {
-							var num = ${board.boardnum}
-							var type = ${board.boardtype}
+							var num = ${board.boardnum}${notice.boardnum}
+							var type = ${board.boardtype}${notice.boardnum}
 							var userid = "${loginUser.userid}"
 							var data = {
 								"num" : num,
@@ -95,8 +95,8 @@ line-height:2;
 				
 				$("#pro").click(
 						function() {
-							var num = ${board.boardnum}
-							var type = ${board.boardtype}
+							var num = ${board.boardnum}${notice.boardnum}
+							var type = ${board.boardtype}${notice.boardnum}
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
 							var data = {
 								"num" : num,
@@ -122,8 +122,8 @@ line-height:2;
 				
 				$("#duck").click(
 						function() {
-							var num = ${board.boardnum}
-							var type = ${board.boardtype}
+							var num = ${board.boardnum}${notice.boardnum}
+							var type = ${board.boardtype}${notice.boardnum}
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
 							var data = {
 								"num" : num,
@@ -220,8 +220,8 @@ line-height:2;
 	}
 			$("#pro").click(
 						function() {
-							var num = ${board.boardnum}
-							var type = ${board.boardtype}
+							var num = ${board.boardnum}${notice.boardnum}
+							var type = ${board.boardtype}${notice.boardnum}
 							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
 							var data = {
 								"num" : num,
