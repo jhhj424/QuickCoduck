@@ -111,7 +111,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif;bac
 <i class="fa fa-share-alt-square"></i>
 
   </div>
-  <p>Quick Coduck<a href="#home"class="w3-hover" style="color:#fff">&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-up w3-margin-right"> Up to top</i></a></p>
+  <p>Quick Coduck<a href="#home"class="w3-hover" style="color:#fff;text-decoration: none;">&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-up w3-margin-right"> Up to top</i></a></p>
 </footer>
 </body>
 </html>

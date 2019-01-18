@@ -57,7 +57,6 @@ width:47%;
 }
 b{
 font-family:"Lato", Arial, sans-serif;
-margin:20px 10px 10px 20px;
 line-height:2;
 }
 
@@ -285,22 +284,20 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
             
       <div class="details">
       
-        <div class="title1">${board.subject}${notice.subject}</div>
-        <div class="title2">
-        <c:if test="${param.type==1 || boardtype==1}">
+        <div class="title1">
+         <c:if test="${param.type==1 || boardtype==1}">
 <i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-오픈소스</c:if>
+[오픈소스] <br>${board.subject}${notice.subject}</c:if>
 <c:if test="${param.type==2 || boardtype==2}">
 <i class="fa fa-wechat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-개발자자유게시판</c:if>
+[개발자자유게시판] <br>${board.subject}${notice.subject}</c:if>
 <c:if test="${param.type==3 || boardtype==3}">
 <i class="fa fa-black-tie fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-프로젝트 공고모집</c:if>
+[프로젝트 공고모집] <br>${board.subject}${notice.subject}</c:if>
 <c:if test="${param.type==5 || boardtype==5}">
 <i class="fa fa-jsfiddle fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-나만의소스</c:if>
+[나만의소스] <br>${board.subject}${notice.subject}</c:if>
         </div>
-        
       </div> <!-- 위에 제목이랑 보여주는 부분 -->
       
     </div> <!--배경사진 부분 끝 -->
@@ -308,7 +305,7 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
     <div class="description">
    <div class="half left">
 <div class="div">
-<div style="margin-top:20px;margin-bottom:20px;">
+<div style="margin-top:10px;margin-bottom:10px;">
 <b><b style="border:1px solid grey">글쓴이</b>  :  ${board.userid}${notice.userid}</b><br>
 <b><b style="border:1px solid grey">제목</b> : ${board.subject}${notice.subject}</b><br>
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
