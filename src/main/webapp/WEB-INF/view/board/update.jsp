@@ -165,7 +165,7 @@ while(reg.test(n)){
 </div>
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <div class="div">
-		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
+		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="${board.usetech}">
 		<input type="button" id="tech_reset" value="reset">
 </div>
 <div class="div">
