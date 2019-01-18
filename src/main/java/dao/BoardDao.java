@@ -467,4 +467,20 @@ public class BoardDao {
 		String col = sqlSession.selectOne(NS + "propro2", map);
 		return col;
 	}
+	
+	public List<Board> noticelist(String searchType, String searchContent, Integer type) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("type", type);
+		return sqlSession.selectList(NS + "notice", map);
+	}
+	public Board noticeselect(Board board) {
+		Map<String, Integer> map= new HashMap<String, Integer>();
+		map.put("boardnum", board.getBoardnum());
+		map.put("type", board.getBoardtype());
+		Board bo = sqlSession.selectOne(NS + "notice",map);
+		System.out.println("notice:"+bo);
+		return sqlSession.selectOne(NS + "notice",map);
+	} 
 }

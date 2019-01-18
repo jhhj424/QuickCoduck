@@ -97,6 +97,45 @@ document.getElementById("searchType").value = '${param.type}';
 <th width="17%" scope="row"><font style="font-weight: bold;">날짜</font></th>
 <th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
 </tr>
+<c:forEach var="notice" items="${noticelist}">
+<tr align="center" valign="middle">
+<td>
+<font style=" color: #8A4B08; font-weight: bold;">
+공지</font>
+</td>
+<!-- 게시글번호 -->
+<td>
+<c:if test="${!empty notice.fileurl }">
+<a href="../file/${notice.fileurl}" style="text-decoration: none;">
+<img src="../workpic/pictures.png" style="width: 20px; height: 20px;">첨부파일</a>
+<%--<img src="file/file12.png" width="20" height="20"> --%>
+</c:if>
+<c:if test="${empty notice.fileurl }">
+<img src="../workpic/nullpic.png" style="width: 20px; height: 20px;">
+</c:if>
+</td>
+<!-- 첨부파일 여부 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+<a href="detail.duck?num=${notice.boardnum}&type=${notice.boardtype}">${notice.subject}
+<c:if test="${notice.boardtype==1}">추천 - ${notice.recmd}</c:if></a></font>
+</td>
+<!-- 제목 디테일 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+${notice.userid}</font>
+</td>
+<!-- 작성자 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+	<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
+	<fmt:formatDate value="${notice.regdate}" pattern="yy/MM/dd hh:mm"/>
+	</font>
+</td>
+<!-- 작성일 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+${notice.readcnt}</font>
+</td>
+<!-- 조회수 -->
+</tr>
+</c:forEach>
 
 <c:forEach var="board" items="${boardlist}">
 <tr align="center" valign="middle">

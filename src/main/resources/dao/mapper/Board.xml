@@ -5,7 +5,7 @@
 <mapper namespace="dao.mapper.BoardMapper">
 
 	<select id="count" resultType="int" parameterType="map">
-		select count(*) from board where boardtype = #{type}
+		select count(*) from board where boardtype = #{type} and userid in (select userid from user where type in (1,2))
 		<if test="id != null">
 			and userid = #{id}
 		</if>
@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type} and userid in (select userid from user where type in (1,2))
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -189,4 +189,15 @@
 	<select id="propro2" resultType="String" parameterType="map">
 		select format(sum(replace(price,',','')),0) as totalprice from board where boardtype in (3,4) 
 	</select>
+	<select id="notice" resultType="Board" parameterType="map">
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type} and userid in (select userid from user where type=3) 
+		<if test="boardnum != null">
+			and boardnum = #{boardnum}
+		</if>
+		<if test="column != null and find != null">
+			and ${column} like '%${find}%'
+		</if>
+		order by regdate desc
+	</select> 
+	
 </mapper>

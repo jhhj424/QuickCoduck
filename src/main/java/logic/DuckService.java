@@ -478,4 +478,12 @@ public class DuckService {
 	public String usertotalcnt() {
 		return userDao.usertotalcnt();
 	}
-}
+	
+	public List<Board> noticelist(String searchType, String searchContent, Integer type) {
+		return boardDao.noticelist(searchType, searchContent, type);
+	}
+
+	public Board getNotice(Board bo) {
+		return boardDao.noticeselect(bo);
+	} 
+} 

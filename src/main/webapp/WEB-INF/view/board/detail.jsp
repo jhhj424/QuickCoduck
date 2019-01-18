@@ -256,12 +256,17 @@ line-height:2;
   <div class="container">
   
     <div class="cover">
+    
     <c:if test="${!empty board.fileurl }">
     <img src="${path}/file/${board.fileurl}"class="cover" style="width:100%;height:100%;">
     <br>
     </c:if>
-    <c:if test="${empty board.fileurl}">
+    <c:if test="${empty board.fileurl && empty notice.fileurl}">
     <img src="../workpic/noimage.png"class="cover" style="width:100%; height:100%;">
+    </c:if>
+    <c:if test="${!empty notice.fileurl }">
+    <img src="${path}/file/${notice.fileurl}"class="cover" style="width:100%;height:100%;">
+    <br>
     </c:if>
      </div>
      <!-- 사진 나오는 영역 끝 -->   
@@ -269,6 +274,7 @@ line-height:2;
             
       <div class="details">
       
+        <div class="title1">${board.subject}${notice.subject}</div>
         <div class="title2">
         <c:if test="${param.type==1 || boardtype==1}">
 <i class="fa fa-github fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
@@ -291,10 +297,10 @@ line-height:2;
     <div class="description">
    <div class="half left">
 <div class="div">
-<div style="margin-top:10px;margin-bottom:10px;">
-<b><b style="border:1px solid grey;border-radius: 5px;">글쓴이</b>  :  ${board.userid}</b><br>
-<b><b style="border:1px solid grey;border-radius: 5px;">제목</b> : ${board.subject}</b><br>
-<c:if test="${param.type==1 || param.type==3 || boardtype==1 || boardtype==3}">
+<div style="margin-top:20px;margin-bottom:20px;">
+<b><b style="border:1px solid grey">글쓴이</b>  :  ${board.userid}${notice.userid}</b><br>
+<b><b style="border:1px solid grey">제목</b> : ${board.subject}${notice.subject}</b><br>
+<c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <c:if test="${param.type==1 || boardtype==1}">
 <b><b style="border:1px solid grey;border-radius: 5px;">추천수  </b> :</b>
 </c:if>
@@ -320,8 +326,11 @@ line-height:2;
 <c:if test="${!empty board.fileurl}">
 <a href="../file/${board.fileurl}">${board.fileurl}</a><br>
 </c:if>
-<c:if test="${empty board.fileurl }">
+<c:if test="${empty board.fileurl && empty notice.fileurl}">
 <b style="color:red; margin-left:-10px;">등록된 이미지가 없습니다</b><br>
+</c:if>
+<c:if test="${!empty notice.fileurl}">
+<a href="../file/${notice.fileurl}">${notice.fileurl}</a><br>
 </c:if>
 </div>
 </div>
@@ -340,7 +349,7 @@ line-height:2;
 </c:if>
 </div>
 <div style="margin-right:70px;line-height:initial;text-align:left;width:1000px;max-width:1000px;resize:none;font-size:30px;max-height:560px;height:60%;float:right;border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);word-break:break-all;overflow:scroll" class="2">
-<pre style="font-size: small; margin: 30px;">${fn:replace(board.content, cn, br)}</pre>
+<pre style="font-size: small; margin: 30px;">${fn:replace(board.content, cn, br)} ${fn:replace(notice.content, cn, br)}</pre>
 </div>
 </div><!-- 오른쪽 div 끝나는 지점 -->
 
@@ -363,13 +372,13 @@ line-height:2;
 </div>
 </c:if>
 <div style="margin-bottom:30px;">
-<a href="update.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
-		<a href="deleteForm.duck?num=${board.boardnum}&type=${board.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
+		<a href="update.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
+		<a href="deleteForm.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
 		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
 		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
 		</c:if>
 		<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
-		<a href="list.duck?type=${board.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+		<a href="list.duck?type=${board.boardtype}${notice.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
 		</c:if>
 		<c:if test="${board.boardtype==1}">
 		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
@@ -380,7 +389,7 @@ line-height:2;
 		<c:if test="${board.boardtype==2}">
 		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
 		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-		</c:if>
+		</c:if> 
 </div><!-- 아래 버튼 부분 끝 -->
 
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
@@ -451,8 +460,7 @@ line-height:2;
 								name="content"></textarea></td>
 						<td>
 							<button type="button"
-								onclick="location.href='javascript:comment_submit()' "
-								class="comment">댓글등록!!</button>
+								onclick="location.href='javascript:comment_submit()' " class="comment">댓글등록!!</button>
 						</td>
 					</tr>
 				</table>
