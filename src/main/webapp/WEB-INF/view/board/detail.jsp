@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
 <%@ include file="/WEB-INF/view/style/board_detail_css.jsp" %>
 <%
-	//줄바꿈
-	pageContext.setAttribute("br","<br/>");
-	pageContext.setAttribute("cn","\n");
+   //줄바꿈
+   pageContext.setAttribute("br","<br/>");
+   pageContext.setAttribute("cn","\n");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,187 +62,187 @@ line-height:2;
 }
 </style>
 <script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#rec").click(
-						function() {
-							var num = ${board.boardnum}${notice.boardnum}
-							var type = ${board.boardtype}${notice.boardnum}
-							var userid = "${loginUser.userid}"
-							var data = {
-								"num" : num,
-								"type" : type,
-								"userid" : userid
-							}
-							$.ajax({
-								url : "recmd.duck",
-								type : "post",
-								data : data,
-								dataType : "json", // ajax 통신으로 받는 타입
-								success : function(data) {
-									alert(data.msg);
-									$(".recview").val(data.recmd);
-								},
-								error : function(xhr, status, error) { //서버응답 실패
-									alert("서버오류 : " + xhr.status + ", error : "
-											+ error + ", status : " + status);
-								}
-							})
-						});
-				
-				$("#pro").click(
-						function() {
-							var num = ${board.boardnum}${notice.boardnum}
-							var type = ${board.boardtype}${notice.boardnum}
-							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
-							var data = {
-								"num" : num,
-								"type" : type,
-								"ducktype" : 2,
-								"userid" : userid
-							}
-							$.ajax({
-								url : "pro.duck",
-								type : "post",
-								data : data,
-								dataType : "json", // ajax 통신으로 받는 타입
-								success : function(data) {
-									alert(data.msg);
-									$(".recview").val(data.recmd);
-								},
-								error : function(xhr, status, error) { //서버응답 실패
-									alert("서버오류 : " + xhr.status + ", error : "
-											+ error + ", status : " + status);
-								}
-							})
-						});
-				
-				$("#duck").click(
-						function() {
-							var num = ${board.boardnum}${notice.boardnum}
-							var type = ${board.boardtype}${notice.boardnum}
-							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
-							var data = {
-								"num" : num,
-								"type" : type,
-								"ducktype" : 1,
-								"userid" : userid
-							}
-							$.ajax({
-								url : "duck.duck",
-								type : "post",
-								data : data,
-								dataType : "json", // ajax 통신으로 받는 타입
-								success : function(data) {
-									alert(data.msg);
-								},
-								error : function(xhr, status, error) { //서버응답 실패
-									alert("서버오류 : " + xhr.status + ", error : "
-											+ error + ", status : " + status);
-								}
-							})
-						})
-			})
-	//댓글 입력창
-	function comment_submit() {
-		if (document.f.content.value == '') {
-			alert("댓글을 입력하세요");
-			document.f.content.focus();
-			return;
-		}
-		document.f.submit();
-	}
-	//댓글 삭제창
-	function delCommentOpen(num) {
-		var boardnum = ${param.num} ;
-		var msg = confirm("댓글을 삭제 하시겠습니까??");
-		if (msg) { //삭제
-			$.ajax({
-				url : "delcomment.duck",
-				type : "post",
-				data : {"boardnum" : boardnum,	"num" : num},
-				dataType : "json",
-				success : function(result) {
-					//alert(result.msg)
-					if (result.msg == "OK") {
-						$('#comment.content').remove();
-						alert("삭제되었습니다.");
-						location.reload();
-					} else {
-						alert("삭제에 실패하였습니다.");
-					}
-				},
-				error : function(xhr, status, error) {
-					alert("서버오류:"+xhr.status+",error:"+error+",status:"+status);
-				}
-			})
-		} else { //삭제 취소
-			//alert("취소")
-			return false;
-		}
-	}
-	//댓글 답변 입력창
-	function comment_submit2(num) {
-		var reply = $("#replycontent"+num).val();
-		//alert(reply);
-		var length = $("#replycontent"+num).val().length;
-		//alert(length);
-		//alert("댓글번호:"+num);
-		var type = ${param.type};
-		if (length < 1) {
-			alert("답변을 입력하세요");
-			return;
-		}else{
-			//alert($("#replycontent").val());
-		}
-		location.href="reply.duck?num="+num+"&reply="+reply+"&type="+type
-	}
-	//답글 폼(?)
-	function replyCommentOpen(num){
-		$("#reply"+num).html(
-				'<table id="replytb" class="table14_10" style="width: 90%"><tr>'
-					+'<td>└>답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
-					+'name="reply" id="replycontent'+num+'" >'+'</textarea>'
-					+'<td><button type="button" onclick="location.href='
-					+"'javascript:comment_submit2("+num+")'"
-					+' "class="comment">답변등록!!</button><br>'
-					+'<button onclick="replycancer('+num+')">답변 취소</button>'
-				    +'</td></td></tr></table>'
-		)
-	}
-	function replycancer(num){
-		$("#reply"+num).html(
-				''
-		)
-	}
-			$("#pro").click(
-						function() {
-							var num = ${board.boardnum}${notice.boardnum}
-							var type = ${board.boardtype}${notice.boardnum}
-							var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
-							var data = {
-								"num" : num,
-								"type" : type,
-								"ducktype" : 2,
-								"userid" : userid
-							}
-							$.ajax({
-								url : "pro.duck",
-								type : "post",
-								data : data,
-								dataType : "json", // ajax 통신으로 받는 타입
-								success : function(data) {
-									alert(data.msg);
-								},
-								error : function(xhr, status, error) { //서버응답 실패
-									alert("서버오류 : " + xhr.status + ", error : "
-											+ error + ", status : " + status);
-								}
-							})
-						});
+   $(document).ready(
+         function() {
+            $("#rec").click(
+                  function() {
+                     var num = ${board.boardnum}${notice.boardnum}
+                     var type = ${board.boardtype}${notice.boardnum}
+                     var userid = "${loginUser.userid}"
+                     var data = {
+                        "num" : num,
+                        "type" : type,
+                        "userid" : userid
+                     }
+                     $.ajax({
+                        url : "recmd.duck",
+                        type : "post",
+                        data : data,
+                        dataType : "json", // ajax 통신으로 받는 타입
+                        success : function(data) {
+                           alert(data.msg);
+                           $(".recview").val(data.recmd);
+                        },
+                        error : function(xhr, status, error) { //서버응답 실패
+                           alert("서버오류 : " + xhr.status + ", error : "
+                                 + error + ", status : " + status);
+                        }
+                     })
+                  });
+            
+            $("#pro").click(
+                  function() {
+                     var num = ${board.boardnum}${notice.boardnum}
+                     var type = ${board.boardtype}${notice.boardnum}
+                     var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+                     var data = {
+                        "num" : num,
+                        "type" : type,
+                        "ducktype" : 2,
+                        "userid" : userid
+                     }
+                     $.ajax({
+                        url : "pro.duck",
+                        type : "post",
+                        data : data,
+                        dataType : "json", // ajax 통신으로 받는 타입
+                        success : function(data) {
+                           alert(data.msg);
+                           $(".recview").val(data.recmd);
+                        },
+                        error : function(xhr, status, error) { //서버응답 실패
+                           alert("서버오류 : " + xhr.status + ", error : "
+                                 + error + ", status : " + status);
+                        }
+                     })
+                  });
+            
+            $("#duck").click(
+                  function() {
+                     var num = ${board.boardnum}${notice.boardnum}
+                     var type = ${board.boardtype}${notice.boardnum}
+                     var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+                     var data = {
+                        "num" : num,
+                        "type" : type,
+                        "ducktype" : 1,
+                        "userid" : userid
+                     }
+                     $.ajax({
+                        url : "duck.duck",
+                        type : "post",
+                        data : data,
+                        dataType : "json", // ajax 통신으로 받는 타입
+                        success : function(data) {
+                           alert(data.msg);
+                        },
+                        error : function(xhr, status, error) { //서버응답 실패
+                           alert("서버오류 : " + xhr.status + ", error : "
+                                 + error + ", status : " + status);
+                        }
+                     })
+                  })
+         })
+   //댓글 입력창
+   function comment_submit() {
+      if (document.f.content.value == '') {
+         alert("댓글을 입력하세요");
+         document.f.content.focus();
+         return;
+      }
+      document.f.submit();
+   }
+   //댓글 삭제창
+   function delCommentOpen(num) {
+      var boardnum = ${param.num} ;
+      var msg = confirm("댓글을 삭제 하시겠습니까??");
+      if (msg) { //삭제
+         $.ajax({
+            url : "delcomment.duck",
+            type : "post",
+            data : {"boardnum" : boardnum,   "num" : num},
+            dataType : "json",
+            success : function(result) {
+               //alert(result.msg)
+               if (result.msg == "OK") {
+                  $('#comment.content').remove();
+                  alert("삭제되었습니다.");
+                  location.reload();
+               } else {
+                  alert("삭제에 실패하였습니다.");
+               }
+            },
+            error : function(xhr, status, error) {
+               alert("서버오류:"+xhr.status+",error:"+error+",status:"+status);
+            }
+         })
+      } else { //삭제 취소
+         //alert("취소")
+         return false;
+      }
+   }
+   //댓글 답변 입력창
+   function comment_submit2(num) {
+      var reply = $("#replycontent"+num).val();
+      //alert(reply);
+      var length = $("#replycontent"+num).val().length;
+      //alert(length);
+      //alert("댓글번호:"+num);
+      var type = ${param.type};
+      if (length < 1) {
+         alert("답변을 입력하세요");
+         return;
+      }else{
+         //alert($("#replycontent").val());
+      }
+      location.href="reply.duck?num="+num+"&reply="+reply+"&type="+type
+   }
+   //답글 폼(?)
+   function replyCommentOpen(num){
+      $("#reply"+num).html(
+            '<table id="replytb" class="table14_10" style="width: 90%"><tr>'
+               +'<td>└>답변쓰기</td><td><textarea required="required" rows="2" cols="75"'
+               +'name="reply" id="replycontent'+num+'" >'+'</textarea>'
+               +'<td><button type="button" onclick="location.href='
+               +"'javascript:comment_submit2("+num+")'"
+               +' "class="comment">답변등록!!</button><br>'
+               +'<button onclick="replycancer('+num+')">답변 취소</button>'
+                +'</td></td></tr></table>'
+      )
+   }
+   function replycancer(num){
+      $("#reply"+num).html(
+            ''
+      )
+   }
+         $("#pro").click(
+                  function() {
+                     var num = ${board.boardnum}${notice.boardnum}
+                     var type = ${board.boardtype}${notice.boardnum}
+                     var userid = "${loginUser.userid}" // 세션에 등록된 로그인 유저
+                     var data = {
+                        "num" : num,
+                        "type" : type,
+                        "ducktype" : 2,
+                        "userid" : userid
+                     }
+                     $.ajax({
+                        url : "pro.duck",
+                        type : "post",
+                        data : data,
+                        dataType : "json", // ajax 통신으로 받는 타입
+                        success : function(data) {
+                           alert(data.msg);
+                        },
+                        error : function(xhr, status, error) { //서버응답 실패
+                           alert("서버오류 : " + xhr.status + ", error : "
+                                 + error + ", status : " + status);
+                        }
+                     })
+                  });
 </script>
 
 </head>
@@ -361,111 +361,111 @@ line-height:2;
 <!-- 작업 끝! -->
 <c:if test="${board.boardtype==3}">
 <div style="margin-bottom:30px;">
-		<i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
-		<button type="button" class="myButton" id="duck" style="margin-right:15px;">스크랩</button>
-		<i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="pro" style="margin-right:15px;">즉시신청</button>
-		<c:if test="${board.userid == loginUser.userid }">
-		<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
-		<a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
-		</c:if>
+      <i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
+      <button type="button" class="myButton" id="duck" style="margin-right:15px;">스크랩</button>
+      <i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
+      <button type="button" class="myButton" id="pro" style="margin-right:15px;">즉시신청</button>
+      <c:if test="${board.userid == loginUser.userid }">
+      <a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
+      <a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
+      </c:if>
 </div>
 </c:if>
 <div style="margin-bottom:30px;">
-		<a href="update.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
-		<a href="deleteForm.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
-		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
-		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
-		</c:if>
-		<c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
-		<a href="list.duck?type=${board.boardtype}${notice.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
-		</c:if>
-		<c:if test="${board.boardtype==1}">
-		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-		<i class="fa fa-external-link fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="duck" style="margin-right:15px;">DUCK</button>
-		</c:if>
-		<c:if test="${board.boardtype==2}">
-		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-		</c:if> 
+      <a href="update.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
+      <a href="deleteForm.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
+      <c:if test="${param.type==1 || param.type==3 || param.type==5}">
+      <a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+      </c:if>
+      <c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
+      <a href="list.duck?type=${board.boardtype}${notice.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
+      </c:if>
+      <c:if test="${board.boardtype==1}">
+      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
+      <button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
+      <i class="fa fa-external-link fa-fw w3-xlarge"></i>
+      <button type="button" class="myButton" id="duck" style="margin-right:15px;">DUCK</button>
+      </c:if>
+      <c:if test="${board.boardtype==2}">
+      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
+      <button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
+      </c:if> 
 </div><!-- 아래 버튼 부분 끝 -->
 
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
 <i class="fa fa-comments-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>댓글</h2>
 <table class="table14_10" style="width: 100%">
-				<jsp:useBean id="day" class="java.util.Date" />
-					<c:if test="${commentCount==0 }">
-						<tr>
-							<td colspan="5" align="center">등록된 댓글이 없습니다.</td>
-						</tr>
-					</c:if>
-					<c:if test="${commentCount > 0}">
-						<tr>
-							<td colspan="3" style="text-align: center;">달린댓글
-								:${commentCount}</td>
-						</tr>
-						<c:forEach items="${comment}" var="c">
-							<tr>
-								<td>${c.userid}님</td>
-								<td style="min-width: 600px; text-align: left; max-width: 600px">
-									<c:if test="${c.refstep == 0}">
-									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
-										${fn:replace(c.content, cn, br)}</div>
-									</c:if>
-									<c:if test="${c.refstep != 0 }">
-									<div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp;<font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
-									</c:if>
-								</td>
-								<td><c:if test="${c.userid == loginUser.userid}">
-										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-										<c:if test="${today == rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-										</c:if>
-										<c:if test="${today != rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-										</c:if>
-										<br>
-										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
-										<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-									</c:if> <c:if test="${c.userid != loginUser.userid }">
-										<fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-										<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-										<c:if test="${today == rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-										</c:if>
-										<c:if test="${today != rdate }">
-											<fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-										</c:if>
-										<br>
-										<button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
-										<c:if test="${loginUser.userid == 'admin'}">
-											<button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-										</c:if>
-									</c:if></td>
-							</tr>
-							<tr id="reply${c.num}" align="right"></tr>
-						</c:forEach>
-					</c:if>
-				</table>
+            <jsp:useBean id="day" class="java.util.Date" />
+               <c:if test="${commentCount==0 }">
+                  <tr>
+                     <td colspan="5" align="center">등록된 댓글이 없습니다.</td>
+                  </tr>
+               </c:if>
+               <c:if test="${commentCount > 0}">
+                  <tr>
+                     <td colspan="3" style="text-align: center;">달린댓글
+                        :${commentCount}</td>
+                  </tr>
+                  <c:forEach items="${comment}" var="c">
+                     <tr>
+                        <td>${c.userid}님</td>
+                        <td style="min-width: 600px; text-align: left; max-width: 600px">
+                           <c:if test="${c.refstep == 0}">
+                           <div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+                              ${fn:replace(c.content, cn, br)}</div>
+                           </c:if>
+                           <c:if test="${c.refstep != 0 }">
+                           <div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp;<font style="color:blue">${c.userid}</font> ${fn:replace(c.content, cn, br)}</div>
+                           </c:if>
+                        </td>
+                        <td><c:if test="${c.userid == loginUser.userid}">
+                              <fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+                              <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
+                              <c:if test="${today == rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+                              </c:if>
+                              <c:if test="${today != rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+                              </c:if>
+                              <br>
+                              <button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
+                              <button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
+                           </c:if> <c:if test="${c.userid != loginUser.userid }">
+                              <fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+                              <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
+                              <c:if test="${today == rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+                              </c:if>
+                              <c:if test="${today != rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+                              </c:if>
+                              <br>
+                              <button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
+                              <c:if test="${loginUser.userid == 'admin'}">
+                                 <button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
+                              </c:if>
+                           </c:if></td>
+                     </tr>
+                     <tr id="reply${c.num}" align="right"></tr>
+                  </c:forEach>
+               </c:if>
+            </table>
 <div style="margin:10px 0 10px 0">
 <table class="table14_10" style="width: 100%">
-					<tr>
-						<td>댓글쓰기</td>
-						<td><textarea required="required" rows="2" cols="75"
-								name="content"></textarea></td>
-						<td>
-							<button type="button"
-								onclick="location.href='javascript:comment_submit()' " class="comment">댓글등록!!</button>
-						</td>
-					</tr>
-				</table>
+               <tr>
+                  <td>댓글쓰기</td>
+                  <td><textarea required="required" rows="2" cols="75"
+                        name="content"></textarea></td>
+                  <td>
+                     <button type="button"
+                        onclick="location.href='javascript:comment_submit()' " class="comment">댓글등록!!</button>
+                  </td>
+               </tr>
+            </table>
 </div>
-				</div>
-	</form>
+            </div>
+   </form>
 </body>
 </html>

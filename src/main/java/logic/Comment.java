@@ -14,7 +14,6 @@ public class Comment {
 	private int recmd;
 	private int ref;
 	private int refstep;
-	private int reflevel;
 	
 	//getter setter toString
 	public int getNum() {
@@ -65,16 +64,9 @@ public class Comment {
 	public void setRefstep(int refstep) {
 		this.refstep = refstep;
 	}
-	public int getReflevel() {
-		return reflevel;
-	}
-	public void setReflevel(int reflevel) {
-		this.reflevel = reflevel;
-	}
 	@Override
 	public String toString() {
 		return "Comment [num=" + num + ", userid=" + userid + ", boardnum=" + boardnum + ", content=" + content
-				+ ", regdate=" + regdate + ", recmd=" + recmd + ", ref=" + ref + ", refstep=" + refstep + ", reflevel="
-				+ reflevel + "]";
+				+ ", regdate=" + regdate + ", recmd=" + recmd + ", ref=" + ref + ", refstep=" + refstep + "]";
 	}
 }

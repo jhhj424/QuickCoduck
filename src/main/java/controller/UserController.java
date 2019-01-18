@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,17 +14,24 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import exception.LoginException;
 import logic.Board;
 import logic.Duck;
 import logic.DuckService;
+import logic.NaverLoginBO;
 import logic.User;
 
 /*
@@ -36,6 +44,14 @@ import logic.User;
 public class UserController {
 	@Autowired
 	private DuckService service;
+	/* NaverLoginBO */
+	@Autowired
+    private NaverLoginBO naverLoginBO;
+    private String apiResult = null;
+    
+    private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+        this.naverLoginBO = naverLoginBO;
+    }
 
 	@RequestMapping("user/start")
 	public ModelAndView start() {
@@ -160,8 +176,10 @@ public class UserController {
 	}
 
 	@RequestMapping("user/loginForm")
-	public ModelAndView loginForm() {
-		ModelAndView mav = new ModelAndView("user/login");
+	public ModelAndView loginForm(HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		ModelAndView mav = new ModelAndView("user/login","url",naverAuthUrl);
+		System.out.println("naverAuthUrl:"+naverAuthUrl);
 		mav.addObject(new User());
 		String projectcnt = service.projectcnt();
 		System.out.println("projectcnt:"+projectcnt);
@@ -173,6 +191,23 @@ public class UserController {
 		return mav;
 	}
 
+    //네이버 로그인 성공시 callback호출 메소드
+    @RequestMapping(value = "/user/callback", method = { RequestMethod.GET, RequestMethod.POST })
+    public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+            throws IOException {
+    	ModelAndView mav = new ModelAndView("user/naverSuccess");
+        System.out.println("여기는 callback");
+        OAuth2AccessToken oauthToken;
+        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        //로그인 사용자 정보를 읽어온다.
+        apiResult = naverLoginBO.getUserProfile(oauthToken);
+        System.out.println(apiResult.toString());
+        model.addAttribute("result", apiResult);
+        System.out.println("result:"+apiResult);
+                
+        return mav;
+    }
+	
 	@RequestMapping("user/logout")
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -277,7 +312,6 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // false:필수입력 true:선택입력
 	}
 
-
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
 	public ModelAndView delete(String id, HttpSession session, String pass) {
 		ModelAndView mav = new ModelAndView();
@@ -311,12 +345,10 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		User user = service.select(id);
 		mav.addObject("user", user);
-		/*String dtype = "";
-		if(ducktype == 2) {
-			dtype = "2,3,5";
-		}else {
-			dtype = ducktype + "";
-		}*/
+		/*
+		 * String dtype = ""; if(ducktype == 2) { dtype = "2,3,5"; }else { dtype =
+		 * ducktype + ""; }
+		 */
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
 		int listcount = service.boardcount(searchType, searchContent, type, id, ducktype);
@@ -387,15 +419,15 @@ public class UserController {
 			}
 			uid += "'" + arr2.get(arr2.size() - 1) + "'";
 			System.out.println(uid);
-			matchinguserList = service.userList(uid); //중복없는 리스트 생성
-			if(matchinguserList.size() > 3) {
-				for (int i=matchinguserList.size();i>3;i--) {
-					int ran = (int)(i * (Math.random()*10))/10;
-					System.out.println("사이즈:"+i+" 랜덤수:"+ran);
+			matchinguserList = service.userList(uid); // 중복없는 리스트 생성
+			if (matchinguserList.size() > 3) {
+				for (int i = matchinguserList.size(); i > 3; i--) {
+					int ran = (int) (i * (Math.random() * 10)) / 10;
+					System.out.println("사이즈:" + i + " 랜덤수:" + ran);
 					matchinguserList.remove(ran);
 				}
 			}
-			System.out.println("리스트:"+matchinguserList);
+			System.out.println("리스트:" + matchinguserList);
 		} catch (Exception e) {// 기술목록에 해당하는 개발자가 없음
 			e.printStackTrace();
 			System.out.println("기술목록에 해당하는 개발자가 없음");
@@ -414,7 +446,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum, userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
@@ -434,7 +466,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		String duckid = service.duckidselect(boardnum,userid); // boardnum값에 대한 duck테이블의 userid가져오기
+		String duckid = service.duckidselect(boardnum, userid); // boardnum값에 대한 duck테이블의 userid가져오기
 		System.out.println("boardnum:" + boardnum);
 		System.out.println("duckid:" + duckid);
 		int ducktype = 2;
@@ -448,9 +480,10 @@ public class UserController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "user/mypage_ducklist")
-	public ModelAndView ducklist(Integer pageNum, String searchType, String searchContent, HttpSession session, String id, Integer ducktype,Integer boardtype) {
+	public ModelAndView ducklist(Integer pageNum, String searchType, String searchContent, HttpSession session,
+			String id, Integer ducktype, Integer boardtype) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -461,13 +494,13 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = service.select(id); //현재 로그인한 유저의 정보
+		User user = service.select(id); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int listcount = service.myduckcount(searchType, searchContent, id, ducktype,boardtype);
+		int listcount = service.myduckcount(searchType, searchContent, id, ducktype, boardtype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype,boardtype);
+		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype, boardtype);
 		System.out.println("boardlist:" + boardlist);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -487,8 +520,10 @@ public class UserController {
 		mav.addObject("type", 1);
 		return mav;
 	}
+
 	@RequestMapping("user/mypage_suggestlist")
-	public ModelAndView mypage_suggestlist(Integer pageNum, String searchType, String searchContent, HttpSession session, String id, Integer ducktype) {
+	public ModelAndView mypage_suggestlist(Integer pageNum, String searchType, String searchContent,
+			HttpSession session, String id, Integer ducktype) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -499,14 +534,14 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = service.select(id); //현재 로그인한 유저의 정보
+		User user = service.select(id); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
-		System.out.println("아이디:"+id);
-		System.out.println("덕타입:"+ducktype);
+		System.out.println("검색타입:" + searchType);
+		System.out.println("검색내용:" + searchContent);
+		System.out.println("아이디:" + id);
+		System.out.println("덕타입:" + ducktype);
 		int listcount = service.myduckcount(searchType, searchContent, id, ducktype);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.myducklist(searchType, searchContent, pageNum, limit, id, ducktype);
@@ -529,6 +564,7 @@ public class UserController {
 		mav.addObject("type", 6);
 		return mav;
 	}
+
 	@RequestMapping("user/mypage_waitlist")
 	public ModelAndView mypage_waitlist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
@@ -541,12 +577,12 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
+		System.out.println("검색타입:" + searchType);
+		System.out.println("검색내용:" + searchContent);
 		int waitlistcount = service.waitlistcount(searchType, searchContent, user.getUserid());
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> waitlist = service.waitlist(searchType, searchContent, pageNum, limit, user.getUserid());
@@ -569,7 +605,8 @@ public class UserController {
 	}
 
 	@RequestMapping("user/mypage_proceedlist")
-	public ModelAndView mypage_proceedlist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+	public ModelAndView mypage_proceedlist(Integer pageNum, String searchType, String searchContent,
+			HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -580,12 +617,12 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
+		System.out.println("검색타입:" + searchType);
+		System.out.println("검색내용:" + searchContent);
 		int proceedlistcnt = service.proceedlistcnt(searchType, searchContent, user.getUserid());
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> proceedlist = service.proceedlist(searchType, searchContent, pageNum, limit, user.getUserid());
@@ -606,8 +643,10 @@ public class UserController {
 		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
+
 	@RequestMapping("user/mypage_completelist")
-	public ModelAndView mypage_completelist(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+	public ModelAndView mypage_completelist(Integer pageNum, String searchType, String searchContent,
+			HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -618,12 +657,12 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
+		System.out.println("검색타입:" + searchType);
+		System.out.println("검색내용:" + searchContent);
 		int completelistcnt = service.completelistcnt(searchType, searchContent, user.getUserid());
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> completelist = service.completelist(searchType, searchContent, pageNum, limit, user.getUserid());
@@ -644,8 +683,10 @@ public class UserController {
 		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
+
 	@RequestMapping("user/mypage_developcomplete")
-	public ModelAndView mypage_developcomplete(Integer pageNum, String searchType, String searchContent, HttpSession session) {
+	public ModelAndView mypage_developcomplete(Integer pageNum, String searchType, String searchContent,
+			HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -656,15 +697,16 @@ public class UserController {
 			searchContent = null;
 		}
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인한 유저의 정보
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인한 유저의 정보
 		mav.addObject("user", user);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		System.out.println("검색타입:"+searchType);
-		System.out.println("검색내용:"+searchContent);
+		System.out.println("검색타입:" + searchType);
+		System.out.println("검색내용:" + searchContent);
 		int developcompletecnt = service.developcompletecnt(searchType, searchContent, user.getUserid());
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
-		List<Board> developcomplete = service.developcomplete(searchType, searchContent, pageNum, limit, user.getUserid());
+		List<Board> developcomplete = service.developcomplete(searchType, searchContent, pageNum, limit,
+				user.getUserid());
 		System.out.println("proceedlist:" + developcomplete);
 		int maxpage = (int) ((double) developcompletecnt / limit + 0.95);
 		int startpage = ((int) ((pageNum / 10.0 + 0.9) - 1)) * 10 + 1;
@@ -682,18 +724,18 @@ public class UserController {
 		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
-	
+
 	@RequestMapping("user/mypage_recmdlist")
 	public ModelAndView mypage_recmdlist(Integer pageNum, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
 		ModelAndView mav = new ModelAndView();
-		User loginUser = (User)session.getAttribute("loginUser");//현재 로그인한 유저의 정보
+		User loginUser = (User) session.getAttribute("loginUser");// 현재 로그인한 유저의 정보
 		mav.addObject("user", loginUser);
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
-		int personcnt = service.personcnt(loginUser.getUserid());//userid를 통해서 추천인재 목록수 가져오기
+		int personcnt = service.personcnt(loginUser.getUserid());// userid를 통해서 추천인재 목록수 가져오기
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<User> recmdpersonlist = service.recmdpersonlist(loginUser.getUserid(), pageNum, limit);
 		System.out.println("boardlist:" + recmdpersonlist);
@@ -713,8 +755,8 @@ public class UserController {
 		mav.addObject("type", 6);
 		return mav;
 	}
-	
-	//개발자가 신청 승낙할때
+
+	// 개발자가 신청 승낙할때
 	@RequestMapping(value = "user/userproaccept")
 	public ModelAndView userproaccept(HttpSession session, String userid, Integer num) {
 		ModelAndView mav = new ModelAndView("user/myduck");
@@ -723,17 +765,18 @@ public class UserController {
 		int duckselect2 = service.select(userid, num);
 		System.out.println("boardnum:" + num);
 		System.out.println("duckselect2:" + duckselect2);
-		if (duckselect2 == 1) {//해당 아이디에 Duck테이블의 값이 있을때 id/num/type=3
-			service.duckdelete(userid,num); //진행중으로 넘어갈때 ducktype이 3이아니면 다 삭제
-			service.userproaccept(userid,num); // matching=2로 변경하여 서로 수락
-			service.nowpersonupdate(num); //현재프로젝트참여인원 + 1
-			mav.setViewName("redirect: myduck.duck?id="+ user.getUserid() +"&ducktype=3&type=3");
+		if (duckselect2 == 1) {// 해당 아이디에 Duck테이블의 값이 있을때 id/num/type=3
+			service.duckdelete(userid, num); // 진행중으로 넘어갈때 ducktype이 3이아니면 다 삭제
+			service.userproaccept(userid, num); // matching=2로 변경하여 서로 수락
+			service.nowpersonupdate(num); // 현재프로젝트참여인원 + 1
+			mav.setViewName("redirect: myduck.duck?id=" + user.getUserid() + "&ducktype=3&type=3");
 		} else {// 해당 게시글에 해당 아이디의 Duck이 없을때
-			 //map.put("msg", "이미 승낙하셨습니다!");
+				// map.put("msg", "이미 승낙하셨습니다!");
 		}
 		return mav;
 	}
-	//개발자가 거절&삭제 할때
+
+	// 개발자가 거절&삭제 할때
 	@RequestMapping(value = "user/userprodelete")
 	public ModelAndView userprodelete(HttpSession session, String userid, Integer num, Integer ducktype, Integer type) {
 		ModelAndView mav = new ModelAndView("user/myduck");
@@ -767,42 +810,46 @@ public class UserController {
 	}
 
 	@RequestMapping("user/rating")
-	public ModelAndView rating(int boardnum, float profess,float proaction,float prosatisfact, float prodate, float procommunicate, HttpSession session) {
+	public ModelAndView rating(int boardnum, float profess, float proaction, float prosatisfact, float prodate,
+			float procommunicate, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("점수나오기! - " + profess +"\n"+ proaction +"\n"+ prosatisfact +"\n"+ prodate +"\n"+ procommunicate +"\n");
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인된 유저
+		System.out.println("점수나오기! - " + profess + "\n" + proaction + "\n" + prosatisfact + "\n" + prodate + "\n"
+				+ procommunicate + "\n");
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인된 유저
 		try {
 			Board board = new Board();
 			board.setBoardnum(boardnum);
 			board.setBoardtype(4);
 			board = service.getBoard(board); // 평가하고있는 게시물
-			System.out.println("레이팅보드:"+board);
+			System.out.println("레이팅보드:" + board);
 			User ratinguser = service.select(board.getUserid()); // 평가받을 유저
-			int cnt = service.duck10cnt(board.getUserid()); //해당 id가 쓴 게시글중에, ducktype이 10인 duck테이블 인스턴스의 개수
+			int cnt = service.duck10cnt(board.getUserid()); // 해당 id가 쓴 게시글중에, ducktype이 10인 duck테이블 인스턴스의 개수
 			System.out.println("평가받은갯수 : " + cnt);
 			int nanum = 0;
-			if(cnt < 1) {
+			if (cnt < 1) {
 				nanum = 1;
-			}else {
-				nanum = cnt +1;
+			} else {
+				nanum = cnt + 1;
 			}
-			if(cnt==0) {
+			if (cnt == 0) {
 				cnt = 1;
 			}
 			System.out.println(ratinguser);
-			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / nanum; //점수 평균내기
-			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / nanum; //점수 평균내기
-			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / nanum; //점수 평균내기
-			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / nanum; //점수 평균내기
-			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / nanum; //점수 평균내기
-			float rating = (profess2+ proaction2+ prosatisfact2+ prodate2+ procommunicate2)/5; //레이팅
-			System.out.println(profess2+"\n"+proaction2+"\n"+prosatisfact2+"\n"+prodate2+"\n"+procommunicate2+"\n"+rating+"\n");
-			service.setrating(board.getUserid(), profess2, proaction2, prosatisfact2, prodate2, procommunicate2,rating);
+			float profess2 = ((ratinguser.getProfess() * cnt) + profess) / nanum; // 점수 평균내기
+			float proaction2 = ((ratinguser.getProaction() * cnt) + proaction) / nanum; // 점수 평균내기
+			float prosatisfact2 = ((ratinguser.getProsatisfact() * cnt) + prosatisfact) / nanum; // 점수 평균내기
+			float prodate2 = ((ratinguser.getProdate() * cnt) + prodate) / nanum; // 점수 평균내기
+			float procommunicate2 = ((ratinguser.getProcommunicate() * cnt) + procommunicate) / nanum; // 점수 평균내기
+			float rating = (profess2 + proaction2 + prosatisfact2 + prodate2 + procommunicate2) / 5; // 레이팅
+			System.out.println(profess2 + "\n" + proaction2 + "\n" + prosatisfact2 + "\n" + prodate2 + "\n"
+					+ procommunicate2 + "\n" + rating + "\n");
+			service.setrating(board.getUserid(), profess2, proaction2, prosatisfact2, prodate2, procommunicate2,
+					rating);
 			// duck테이블에 평가하는유저id, 평가하고있는게시물, ducktype = 10으로 인서트
 			service.add10duck(user.getUserid(), board.getBoardnum()); // 평가 성공
-			mav.addObject("suggest_message","평가에 성공하셨습니다.");
-			mav.addObject("suggest_url","../user/mypage_main.duck?id=" + user.getUserid());
-		}catch (Exception e) {
+			mav.addObject("suggest_message", "평가에 성공하셨습니다.");
+			mav.addObject("suggest_url", "../user/mypage_main.duck?id=" + user.getUserid());
+		} catch (Exception e) {
 			throw new LoginException("평가에 실패하셨습니다.", "../user/mypage_main.duck?id=" + user.getUserid());
 		}
 		return mav;
