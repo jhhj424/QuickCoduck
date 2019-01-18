@@ -482,5 +482,5 @@ public class BoardDao {
 		Board bo = sqlSession.selectOne(NS + "notice",map);
 		System.out.println("notice:"+bo);
 		return sqlSession.selectOne(NS + "notice",map);
-	}
+	} 
 }

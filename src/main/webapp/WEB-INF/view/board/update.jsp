@@ -224,7 +224,7 @@ while(reg.test(n)){
 		<br>
 </div>
 </c:if>
-<div class="div"><b>첨부파일 : </b>
+<div class="div"><b>첨부파일 : </b> 
           <c:if test="${!empty board.fileurl || !empty notice.fileurl}">
 			<div id="file_desc">
 			<a href="../file/${board.fileurl}${notice.fileurl}">${board.fileurl}${notice.fileurl}</a>

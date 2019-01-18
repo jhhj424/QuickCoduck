@@ -375,7 +375,7 @@ ${fn:replace(board.content, cn, br)} ${fn:replace(notice.content, cn, br)}
 		<c:if test="${board.boardtype==2}">
 		<i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
 		<button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-		</c:if>
+		</c:if> 
 </div><!-- 아래 버튼 부분 끝 -->
 
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">

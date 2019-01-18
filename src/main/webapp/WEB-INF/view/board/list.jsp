@@ -97,7 +97,6 @@ document.getElementById("searchType").value = '${param.type}';
 <th width="17%" scope="row"><font style="font-weight: bold;">날짜</font></th>
 <th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
 </tr>
-
 <c:forEach var="notice" items="${noticelist}">
 <tr align="center" valign="middle">
 <td>

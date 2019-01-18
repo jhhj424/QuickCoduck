@@ -198,6 +198,6 @@
 			and ${column} like '%${find}%'
 		</if>
 		order by regdate desc
-	</select>
+	</select> 
 	
 </mapper>
