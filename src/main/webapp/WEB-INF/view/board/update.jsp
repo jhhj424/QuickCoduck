@@ -129,11 +129,11 @@ while(reg.test(n)){
 </head>
 <body>
 <form:form modelAttribute="board" action="update.duck" enctype="multipart/form-data" name="f">
-	<input type="hidden" name="boardnum" value="${board.boardnum}">
-	<form:hidden path="boardnum" value="${board.boardnum}"/>
-	<form:hidden path="boardtype" value="${board.boardtype}"/>
-	<form:hidden path="recmd" value="${board.recmd}"/>
-	<input type="hidden" name="file2" value="${board.fileurl}">
+	<input type="hidden" name="boardnum" value="${board.boardnum}${notice.boardnum}">
+	<form:hidden path="boardnum" value="${board.boardnum}${notice.boardnum}"/>
+	<form:hidden path="boardtype" value="${board.boardtype}${notice.boardtype}"/>
+	<form:hidden path="recmd" value="${board.recmd}${notice.recmd}"/>
+	<input type="hidden" name="file2" value="${board.fileurl}${notice.fileurl}">
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
 <c:if test="${param.type==1 || boardtype==1}">
@@ -225,9 +225,9 @@ while(reg.test(n)){
 </div>
 </c:if>
 <div class="div"><b>첨부파일 : </b>
-          <c:if test="${!empty board.fileurl}">
+          <c:if test="${!empty board.fileurl || !empty notice.fileurl}">
 			<div id="file_desc">
-			<a href="../file/${board.fileurl}">${board.fileurl}</a>
+			<a href="../file/${board.fileurl}${notice.fileurl}">${board.fileurl}${notice.fileurl}</a>
 			<a href="javascript:file_delete()">[첨부파일삭제]</a></div>
 		</c:if>
           <div class="filebox preview-image">
@@ -242,7 +242,7 @@ while(reg.test(n)){
 <div align="center"><b>[내용]</b>
 <font color="red"><form:errors path="content" /></font>		
 </div>
-<div><form:textarea path="content" rows="15" cols="80" style="width:100%;height:530px;resize:none;font-size:20px;" value="${board.content}"/>
+<div><form:textarea path="content" rows="15" cols="80" style="width:100%;height:530px;resize:none;font-size:20px;" value="${board.content}${notice.content}"/>
 </div>
 </div>
 <!-- 오른쪽 div 끝나는 지점 -->
