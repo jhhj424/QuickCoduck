@@ -19,9 +19,8 @@ color:#2c2c2c;
 </style>
 </head>
 <body>
-<!-- /container -->
-	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<!-- (2) LoginWithNaverId Javscript SDK -->
 	<script src="/js/naveridlogin_js_sdk_2.0.0.js"></script>
@@ -37,6 +36,7 @@ color:#2c2c2c;
 			}
 		);
 		/* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
+		alert(naverLogin)
 		naverLogin.init();
 		
 		/* (4-1) 임의의 링크를 설정해줄 필요가 있는 경우 */
@@ -46,6 +46,7 @@ color:#2c2c2c;
 		window.addEventListener('load', function () {
 			naverLogin.getLoginStatus(function (status) {
 				if (status) {
+					alert(status)
 					/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
 					setLoginStatus();
 				}
@@ -55,10 +56,10 @@ color:#2c2c2c;
 		/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
 		function setLoginStatus() {
 			var profileImage = naverLogin.user.getProfileImage();
-			var name = naverLogin.user.getName();
-			$("#naverIdLogin_loginButton").html('<br><br><img src="' + profileImage + '" height=50 /> <p>' + name + '님 반갑습니다.</p>');
+			var uniqId = naverLogin.user.getId();
+			$("#naverIdLogin_loginButton").html('<br><br><img src="' + profileImage + '" height=50 /> <p>' + uniqId + '님 반갑습니다.</p>');
 			$("#gnbLogin").html("Logout");
-			$("#gnbLogin").attr("href", "#");
+			$("#gnbLogin").attr("href", "${url}");
 			/* (7) 로그아웃 버튼을 설정하고 동작을 정의합니다. */
 			$("#gnbLogin").click(function () {
 				naverLogin.logout();
@@ -91,7 +92,7 @@ color:#2c2c2c;
                      <a href="#" class="switch">SignUp</a>
                   </div>
                   <br>
-				  <div id="naverIdLogin">
+				  <div id="naverIdLogin" align="center">
 				  	<a id="naverIdLogin_loginButton" href="${url}" role="button">
 				  		<img src="https://static.nid.naver.com/oauth/big_g.PNG" width="250" height="45" >
 				  	</a>

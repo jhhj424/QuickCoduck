@@ -87,7 +87,7 @@
 			</value>
 		</property>
 	</bean>
-
+	
 	<bean id="echoHandler" class="websocket.EchoHandler" /> <!-- EchoHandler : Chatting 서버의 역할 -->
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/chatting.duck" />

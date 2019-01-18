@@ -25,11 +25,8 @@ public class NaverLoginBO {
     //state: 애플리케이션이 생성한 상태 토큰
 
     private final static String CLIENT_ID = "hZgcybLLosz6OTLjGrZm";       //네이버API Client ID
-
     private final static String CLIENT_SECRET = "aGr27ThmLv";                      
-
     private final static String REDIRECT_URI = "http://localhost:8080/quickcoduck/user/main.duck";
-
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
 

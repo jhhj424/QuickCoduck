@@ -5,8 +5,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <%@include file="/WEB-INF/view/style/start_middle.jsp" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ include file="/WEB-INF/view/style/user_signup.jsp" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@include file="/WEB-INF/view/style/user_signup.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +47,6 @@ text-color:red;
 </style>
 </head>
 <body class="w3-content" style="max-width:100%;">
-<!-- /container -->
 	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -83,10 +82,10 @@ text-color:red;
 		/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
 		function setLoginStatus() {
 			var profileImage = naverLogin.user.getProfileImage();
-			var name = naverLogin.user.getName();
-			$("#naverIdLogin_loginButton").html('<br><br><img src="' + profileImage + '" height=50 /> <p>' + name + '님 반갑습니다.</p>');
+			var uniqId = naverLogin.user.getId();
+			$("#naverIdLogin_loginButton").html('<br><br><img src="' + profileImage + '" height=50 /> <p>' + uniqId + '님 반갑습니다.</p>');
 			$("#gnbLogin").html("Logout");
-			$("#gnbLogin").attr("href", "#");
+			$("#gnbLogin").attr("href", "${url}");
 			/* (7) 로그아웃 버튼을 설정하고 동작을 정의합니다. */
 			$("#gnbLogin").click(function () {
 				naverLogin.logout();
@@ -276,8 +275,8 @@ text-color:red;
                      <input type="submit" value="Login" class="login">
                      <a href="#" class="switch">SignUp</a>
                   </div>
-                  <br>                  
-				  <div id="naverIdLogin"  align="center">
+                  <br>
+				  <div id="naverIdLogin" align="center">
 				  	<a id="naverIdLogin_loginButton" href="${url}" role="button">
 				  		<img src="https://static.nid.naver.com/oauth/big_g.PNG" width="250" height="45" >
 				  	</a>

@@ -178,7 +178,7 @@ public class UserController {
 	}
 
     //네이버 로그인 성공시 callback호출 메소드
-    @RequestMapping(value = "/user/navercallback", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/user/callback", method = { RequestMethod.GET, RequestMethod.POST })
     public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
             throws IOException {
     	ModelAndView mav = new ModelAndView("user/naverSuccess");
@@ -187,7 +187,7 @@ public class UserController {
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
         //로그인 사용자 정보를 읽어온다.
         apiResult = naverLoginBO.getUserProfile(oauthToken);
-        System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+        System.out.println(apiResult.toString());
         model.addAttribute("result", apiResult);
         System.out.println("result:"+apiResult);
                 
