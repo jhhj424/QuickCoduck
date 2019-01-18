@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="select" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type} and userid in (select userid from user where type in (1,2))
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt,duckcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype = #{type} and userid in (select userid from user where type in (1,2))
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -95,7 +95,7 @@
 	</select>
 	
 	<select id="techboardlist" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardnum in (${num})
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt,duckcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardnum in (${num})
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
@@ -125,7 +125,7 @@
 	</select>
 	
 	<select id="recmdpersonlist" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid = #{userid} and maxperson != nowperson and boardtype=3
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt,duckcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid = #{userid} and maxperson != nowperson and boardtype=3
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
@@ -136,7 +136,7 @@
 	</select>
 	
 	<select id="proceedlist" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson,duckcnt from board where boardtype=3 and userid = #{userid} and maxperson = nowperson and boardnum in (select boardnum from duck where ducktype=4)
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
@@ -155,7 +155,7 @@
 	</select>
 	
 	<select id="completelist" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid=#{userid} and boardtype=4 
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson,duckcnt from board where userid=#{userid} and boardtype=4 
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
@@ -172,7 +172,7 @@
 		order by regdate desc
 	</select>
 	<select id="developcomplete" resultType="Board" parameterType="map">
-		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid}) 
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson,duckcnt from board where boardtype=4 and boardnum in (select boardnum from duck where ducktype in (7,10,20) and userid=#{userid}) 
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>

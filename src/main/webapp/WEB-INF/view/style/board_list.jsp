@@ -128,13 +128,13 @@ table td, table th {
 table td {
 	text-align: center;
 	vertical-align: middle;
-	border:1px solid grey;
+	border:1px solid #a9a9a9a1;
     border-radius: 3px;
 }
 
 table td.buttom {
 	text-align: right;
-	border:1px solid grey;
+	border:1px solid #a9a9a9a1;
 	border-radius: 3px;
 	vertical-align: middle;
 }
@@ -152,7 +152,7 @@ table td:last-child {
 
 table th {
 	background-color: #fefefe;
-	border:1px solid grey;
+	border:1px solid #a9a9a9a1;
 	border-radius: 3px;
 	font-weight: 300;
 }
