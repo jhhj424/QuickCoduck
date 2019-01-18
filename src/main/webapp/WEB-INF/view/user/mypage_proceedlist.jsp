@@ -11,7 +11,6 @@
 
 <script type="text/javascript">
 function complete(boardnum){
-	alert("보드넘:"+boardnum)
 	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
 	if (msg) { //삭제
 		$.ajax({
@@ -62,7 +61,7 @@ function complete(boardnum){
 <table border="1" style="width:100%;">
 <tr>
 	<td colspan="7" align="center">
-		<form action="myduck.duck?id=${user.userid}" method="post"
+		<form action="mypage_proceedlist.duck" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
 			<select name="searchType" id="searchType">

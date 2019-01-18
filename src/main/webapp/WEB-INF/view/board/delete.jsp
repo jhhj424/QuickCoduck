@@ -47,8 +47,8 @@ margin:10px 10px 10px 10px;
 </head>
 <body>
 <form action="delete.duck" name="f" method="post">
-	<input type="hidden" name="boardnum" value="${board.boardnum}">
-	<input type="hidden" name="type" value="${board.boardtype}">
+	<input type="hidden" name="boardnum" value="${board.boardnum}${notice.boardnum}">
+	<input type="hidden" name="type" value="${board.boardtype}${notice.boardtype}">
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:50%;height:30%;margin: 0 auto;">
 <h2 class="w3-text-grey w3-padding-16">
 <i class="fa fa-trash-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>삭제</h2><br>
@@ -59,5 +59,5 @@ margin:10px 10px 10px 10px;
 </div>
 </div>
 </form>
-</body>
+</body> 
 </html>

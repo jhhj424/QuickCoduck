@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="../workpic/QuickCoduck.jpg" rel="shortcut icon" type="image/x-icon">
 <style>
 <style>
 

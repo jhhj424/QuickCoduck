@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.Board;
+import logic.User;
 public interface BoardMapper  {
 
 	@Select("select ifnull(max(boardnum),0) from board ")
@@ -83,7 +85,7 @@ public interface BoardMapper  {
 	@Update("update board set boardtype = 4 where boardnum = #{boardnum}")
 	void complete(Integer boardnum);
 
-	@Update("update duck set ducktype = 7 where boardnum = #{boardnum}")
+	@Update("update duck set ducktype = 7 where boardnum = #{boardnum} and ducktype = 4")
 	void duck7update(Integer boardnum);
 	
 	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype != 3")
@@ -97,4 +99,25 @@ public interface BoardMapper  {
 
 	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},10)")
 	void add10duck(Map<String, Object> map);
+	
+	@Select("select userid,pass,email,tel,birth,type,usetech,file1 fileurl,pic,creditnum,creditpass,rating,matching,maxcount,profess,proaction,prosatisfact,prodate,procommunicate from user where userid in (select DISTINCT userid from duck where boardnum = #{boardnum} and ducktype = 7)")
+	List<User> completeuserlist(Map<String, Object> map);
+
+	@Select("select count(*) from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype=20")
+	int twenduck(Map<String, Object> map);
+
+	@Select("select count(*) from duck where ducktype=20 and userid = #{userid}")
+	int duck20cnt(Map<String, Object> map);
+
+	@Insert("insert into duck (userid,boardnum,ducktype) values(#{userid},#{boardnum},20)")
+	void add20duck(Map<String, Object> map);
+
+	@Update("update board set duckcnt = duckcnt-1 where boardnum = #{boardnum}")
+	void duckcntremove(Map<String, Integer> map);
+
+	@Update("update user set matching = 1 where userid in (select userid from duck where ducktype=7 and boardnum =${boardnum})")
+	void matchingto1(Map<String, Integer> map);
+
+	@Delete("delete from duck where boardnum=#{boardnum} and ducktype != 7")
+	void duck12delete(Map<String, Integer> map);
 }

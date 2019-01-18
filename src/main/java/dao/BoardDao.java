@@ -12,6 +12,7 @@ import dao.mapper.BoardMapper;
 import dao.mapper.UserMapper;
 import logic.Board;
 import logic.Duck;
+import logic.User;
 
 @Repository
 public class BoardDao {
@@ -424,4 +425,67 @@ public class BoardDao {
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).add10duck(map);
 	}
+	public List<User> completeuserlist(Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		return sqlSession.getMapper(BoardMapper.class).completeuserlist(map);
+	}
+	public int twenduck(String userid, Integer boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardnum", boardnum);
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).twenduck(map);
+	}
+	public int duck20cnt(String userid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		return sqlSession.getMapper(BoardMapper.class).duck20cnt(map);
+	}
+	public void add20duck(String userid, int boardnum) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userid", userid);
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).add20duck(map);
+	}
+	public void duckcntremove(Integer num) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", num);
+		sqlSession.getMapper(BoardMapper.class).duckcntremove(map);
+	}
+	public void matchingto1(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).matchingto1(map);
+	}
+	public String projectcnt() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro", map);
+		return col;
+	}
+	public String projecttotalprice() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String col = sqlSession.selectOne(NS + "propro2", map);
+		return col;
+	}
+	
+	public List<Board> noticelist(String searchType, String searchContent, Integer type) {
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("column", searchType);
+		map.put("find", searchContent);
+		map.put("type", type);
+		return sqlSession.selectList(NS + "notice", map);
+	}
+	public Board noticeselect(Board board) {
+		Map<String, Integer> map= new HashMap<String, Integer>();
+		map.put("boardnum", board.getBoardnum());
+		map.put("type", board.getBoardtype());
+		Board bo = sqlSession.selectOne(NS + "notice",map);
+		System.out.println("notice:"+bo);
+		return sqlSession.selectOne(NS + "notice",map);
+	}
+	public void duck12delete(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).duck12delete(map);
+	} 
 }

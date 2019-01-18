@@ -42,8 +42,8 @@
 <img src="../workpic/rating.png" style="width: 25px; height: 25px;">
 QuickCoduck
 </th>
-<td colspan="4">
-<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">
+<td colspan="4" style="border-radius: 3px;">
+<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)" style="margin-top:15px;">
 <input type="hidden" name="pageNum" value="1">
 <img src="../workpic/lens.png" style="height: 25px;weight:25px;">
 게시글 찾기:
@@ -63,7 +63,7 @@ document.getElementById("searchType").value = '${param.type}';
 </form>
 </td>
 <c:if test="${param.type==1}">
-<td colspan="1" style="text-align:center;" class="buttom">
+<td colspan="1" style="text-align:center;border:1px solid grey;border-radius: 3px;" class="buttom">
 <font style="font-weight: bold;">
 <img src="../workpic/review.png" style="width: 25px; height: 25px;">
 글개수 : ${listcount}</font>
@@ -97,6 +97,45 @@ document.getElementById("searchType").value = '${param.type}';
 <th width="17%" scope="row"><font style="font-weight: bold;">날짜</font></th>
 <th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
 </tr>
+<c:forEach var="notice" items="${noticelist}">
+<tr align="center" valign="middle">
+<td>
+<font style=" color: #8A4B08; font-weight: bold;">
+공지</font>
+</td>
+<!-- 게시글번호 -->
+<td>
+<c:if test="${!empty notice.fileurl }">
+<a href="../file/${notice.fileurl}" style="text-decoration: none;">
+<img src="../workpic/pictures.png" style="width: 20px; height: 20px;">첨부파일</a>
+<%--<img src="file/file12.png" width="20" height="20"> --%>
+</c:if>
+<c:if test="${empty notice.fileurl }">
+<img src="../workpic/nullpic.png" style="width: 20px; height: 20px;">
+</c:if>
+</td>
+<!-- 첨부파일 여부 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+<a href="detail.duck?num=${notice.boardnum}&type=${notice.boardtype}">${notice.subject}
+<c:if test="${notice.boardtype==1}">추천 - ${notice.recmd}</c:if></a></font>
+</td>
+<!-- 제목 디테일 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+${notice.userid}</font>
+</td>
+<!-- 작성자 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+	<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
+	<fmt:formatDate value="${notice.regdate}" pattern="yy/MM/dd hh:mm"/>
+	</font>
+</td>
+<!-- 작성일 -->
+<td><font style=" color: #8A4B08; font-weight: bold;">
+${notice.readcnt}</font>
+</td>
+<!-- 조회수 -->
+</tr>
+</c:forEach>
 
 <c:forEach var="board" items="${boardlist}">
 <tr align="center" valign="middle">
@@ -127,17 +166,9 @@ ${board.userid}</font>
 </td>
 <!-- 작성자 -->
 <td><font style=" color: #000; font-weight: bold;">
-<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
- <jsp:useBean id="day" class="java.util.Date" />
-  <fmt:formatDate value="${day}" pattern="yyyyMMdd" var="today" />
-   <fmt:formatDate value="${board.regdate}" pattern="yyyyMMdd" var="rdate" />
-    <c:if test="${today == rdate }">
-    <fmt:formatDate value="${board.regdate}" pattern="HH:mm" />
-    </c:if>
-     <c:if test="${today != rdate }">
-     <fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd" />
-     </c:if>
-     </font>
+	<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
+	<fmt:formatDate value="${board.regdate}" pattern="yy/MM/dd hh:mm"/>
+	</font>
 </td>
 <!-- 작성일 -->
 <td><font style=" color: #000; font-weight: bold;">
@@ -158,9 +189,9 @@ ${board.readcnt}</font>
 <th width="11%" scope="row"><font style="font-weight: bold;">조회수</font></th>
 </tr>
 <tr>
-<td ></td>
-<td  colspan="4"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
-<td  align="center">
+<td style="border:none;"></td>
+<td colspan="4" style="border:none;"><font style="font-weight: bold;">등록된 게시글이 없습니다.</font></td>
+<td  align="center" style="border:none;">
 <a href="write.duck?type=${param.type}"><font style="font-weight: bold;"><img src="../workpic/review1.png" style="height: 25px;weight:25px;">
 글쓰기</font>
 </a></td>

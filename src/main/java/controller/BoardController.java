@@ -25,7 +25,7 @@ import logic.User;
 public class BoardController {
 	@Autowired
 	private DuckService service;
-
+	
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
@@ -44,6 +44,9 @@ public class BoardController {
 		int limit = 10; // 한페이지에 출력할 게시물 갯수
 		// 총 게시물 건수
 		int listcount = service.boardcount(searchType, searchContent,type);
+		
+		List<Board> noticelist = service.noticelist(searchType, searchContent, type);
+		mav.addObject("noticelist",noticelist);
 		// boardlist : 한페이지에 출력할 게시물 정보 저장
 		List<Board> boardlist = service.boardlist(searchType, searchContent, pageNum, limit,type);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
@@ -59,6 +62,13 @@ public class BoardController {
 		mav.addObject("listcount", listcount);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardcnt", boardcnt);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	@RequestMapping(value = "board/find")
@@ -159,10 +169,20 @@ public class BoardController {
 			return mav;
 		}
 		try {
-			int maxperson = Integer.parseInt(request.getParameter("maxperson"));
-			board.setMaxperson(maxperson);//최대인원 설정
+			if(request.getParameter("maxperson") != null) {
+				int maxperson = Integer.parseInt(request.getParameter("maxperson"));
+				board.setMaxperson(maxperson);//최대인원 설정
+			}			
 			service.boardadd(board, request);
-			board = service.getBoard(board);
+			if(dbuser.getType()==1) {
+				board = service.getBoard(board);
+			}
+			if(dbuser.getType()==2) {
+				board = service.getBoard(board);
+			}
+			if(dbuser.getType()==3) {
+				board = service.getNotice(board);
+			}
 			if(type == 3 && dbuser.getMaxcount() != 0) {//클라이언트 공고게시일때 maxcount -1
 				service.cntmaxcount(dbuser);
 				User user = service.select(dbuser.getUserid());
@@ -228,24 +248,49 @@ public class BoardController {
 		System.out.println("댓글개수:"+commentCount);
 		Board board = service.getBoard(bo);
 		mav.addObject("board",board);
+		Board notice = service.getNotice(bo);
+		mav.addObject("notice",notice);
 		mav.addObject("comment",comment);
 		mav.addObject("commentCount", commentCount);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	@RequestMapping(value="board/deleteForm")
 	public ModelAndView deleteForm(Integer num, Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView("board/delete");
+		User loginUser = (User)session.getAttribute("loginUser");
 		Board board = new Board();
 		board.setBoardnum(num);
 		board.setBoardtype(type);
-		board = service.getBoard(board);
+		//board = service.getBoard(board);
+		if(loginUser.getType()==1) {
+			board = service.getBoard(board);
+		}
+		if(loginUser.getType()==2) {
+			board = service.getBoard(board);
+		}
+		if(loginUser.getType()==3) {
+			board = service.getNotice(board);
+		}
 		User user = new User();
 		user = service.select(board.getUserid());
-		User loginUser = (User)session.getAttribute("loginUser");
 		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		mav.addObject("board",board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 	
@@ -255,7 +300,17 @@ public class BoardController {
 		Board bo = new Board();
 		bo.setBoardnum(boardnum);
 		bo.setBoardtype(type);
-		bo = service.getBoard(bo); //현재 게시물 객체
+		User loginUser = (User)session.getAttribute("loginUser");
+		//bo = service.getBoard(bo); //현재 게시물 객체
+		if(loginUser.getType()==1) {
+			bo = service.getBoard(bo);
+		}
+		if(loginUser.getType()==2) {
+			bo = service.getBoard(bo);
+		}
+		if(loginUser.getType()==3) {
+			bo = service.getNotice(bo);
+		}
 		User user = new User();
 		user.setUserid(bo.getUserid());
 		user = service.userSelect(user);
@@ -268,7 +323,11 @@ public class BoardController {
 		//비밀번호 확인 성공
 		try {
 			service.boarddelete(bo.getBoardnum());
-			mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());
+			if(type == 2) {
+				mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());				
+			}else {
+				mav.setViewName("redirect:find.duck?type="+bo.getBoardtype());
+			}
 			Board board = new Board();
 			mav.addObject("board",board);
 		} catch (Exception e) {
@@ -292,13 +351,23 @@ public class BoardController {
 		if(request.getParameter("pass")!=null) {
 			pass = request.getParameter("pass");
 		}
-		//System.out.println("비번확인:"+pass);
+		System.out.println("비번확인:"+pass);
 		int num = Integer.parseInt(request.getParameter("boardnum"));
 		Board b1 = new Board();
 		b1.setBoardnum(num);
 		b1.setBoardtype(board.getBoardtype());
-		b1 = service.getBoard(b1); // 기존의 board
+		//b1 = service.getBoard(b1); // 기존의 board
 		//System.out.println("기존의 게시물:"+b1);
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser.getType()==1) {
+			b1 = service.getBoard(b1);
+		}
+		if(loginUser.getType()==2) {
+			b1 = service.getBoard(b1);
+		}
+		if(loginUser.getType()==3) {
+			b1 = service.getNotice(b1);
+		}
 		User user = new User();
 		user = service.select(b1.getUserid());
 		//System.out.println("유저확인:"+user);
@@ -331,22 +400,47 @@ public class BoardController {
 	public ModelAndView getboard(Integer num, HttpServletRequest request , Integer type, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board board = new Board();
+		User loginUser = (User)session.getAttribute("loginUser");
 		if(num!=null) {
 			board.setBoardnum(num);
 			board.setBoardtype(type);
-			board = service.getBoard(board);
+			//board = service.getBoard(board); getBoard와 getNotice를 같이 쓸수 없음
+			if(loginUser.getType()==1) {
+				board = service.getBoard(board);
+			}
+			if(loginUser.getType()==2) {
+				board = service.getBoard(board);
+			}
+			if(loginUser.getType()==3) {
+				board = service.getNotice(board);
+			}
 			User user = new User();
 			user = service.select(board.getUserid());
-			User loginUser = (User)session.getAttribute("loginUser");
 			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
 			}/*
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
 			}*/
-			board = service.getBoard(board);
+			//board = service.getBoard(board);
+			if(loginUser.getType()==1) {
+				board = service.getBoard(board);
+			}
+			if(loginUser.getType()==2) {
+				board = service.getBoard(board);
+			}
+			if(loginUser.getType()==3) {
+				board = service.getNotice(board);
+			}
 		}
 		mav.addObject("board", board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 //	@ResponseBody
@@ -443,6 +537,13 @@ public class BoardController {
     	mav.addObject("developlist",developlist);
     	mav.addObject("refuselist",refuselist);
     	mav.addObject("acceptlist",acceptlist);
+    	String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
     	return mav;
     }
     @RequestMapping("board/suggest_accept")

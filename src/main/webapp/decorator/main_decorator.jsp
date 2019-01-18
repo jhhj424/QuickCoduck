@@ -77,15 +77,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif;bac
 <div class="project w3-container w3-row w3-center"style="margin-bottom:50px;border:1px solid grey;background-color:#ffffff;padding:10px;">
  <div class="w3-col s4 w3-center"style="border-right:1px solid grey">
  <span class="w3-large">등록된 프로젝트</span><br>
-    <span class="w3-xlarge"style="font-weight:bold;">15,400 개</span>
+ <c:set var="projectcnt" value="${projectcnt}" />
+    <span class="w3-xlarge"style="font-weight:bold;">${projectcnt} 개</span>
   </div>
   <div class="w3-col s4 w3-center" style="border-right:1px solid grey">
   <span class="w3-large"> 프로젝트 등록금액</span><br>
-    <span class="w3-xlarge"style="font-weight:bold;">157,096,566 원</span>
+    <span class="w3-xlarge"style="font-weight:bold;">${projecttotalprice} 원</span>
   </div>
  <div class="w3-col s4 w3-center">
  <span class="w3-large">Client & 개발자</span><br>
-    <span class="w3-xlarge"style="font-weight:bold;">57,603 명</span>
+    <span class="w3-xlarge"style="font-weight:bold;">${usertotalcnt} 명</span>
   </div>
 </div>
 </header>
@@ -110,7 +111,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif;bac
 <i class="fa fa-share-alt-square"></i>
 
   </div>
-  <p>Quick Coduck<a href="#home"class="w3-hover" style="color:#fff">&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-up w3-margin-right"> Up to top</i></a></p>
+  <p>Quick Coduck<a href="#home"class="w3-hover" style="color:#fff;text-decoration: none;">&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-up w3-margin-right"> Up to top</i></a></p>
 </footer>
 </body>
 </html>

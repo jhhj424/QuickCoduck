@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.Board;
@@ -273,6 +274,7 @@ public class AjaxController {
         	service.complete(boardnum); 
         	//duck테이블의 해당 boardnum에 해당하는 모든 인스턴스의 ducktype을 7로 변경
         	service.duck7update(boardnum);
+        	service.matchingto1(boardnum); // 완료된 유저의 매칭타입을 2에서 1로 변경
         	map.put("msg", "OK");
     	}catch (Exception e) {
 			e.printStackTrace();
@@ -298,6 +300,37 @@ public class AjaxController {
 		}
         return map;
    }
+    @RequestMapping("user/userevaluation")
+    @ResponseBody
+    public Map<Object,Object> userevaluation(Integer boardnum, String userid) {
+    	System.out.println("userevaluation보드넘:"+boardnum);
+    	Map<Object,Object> map = new HashMap<Object,Object>();
+    	try {
+    		//평가 내역이 있는지 조회 -> 덕테이블 // userid=#{userid},boardnum=#{boardnum},ducktype=20
+    		int tenduck = service.twenduck(userid,boardnum); // 덕테이블에서 해당 boardnum, 해당 user, 덕타입이 20인값을 가져옴
+    		if(tenduck == 0) { // 평가내역이 없으면.
+    			map.put("msg", "평가페이지로 이동합니다."); 
+    			map.put("ok", "ok");
+    		}else { //평가내역이 있으면
+    			map.put("msg", "이미 평가가 완료된 개발자입니다.");
+    		}
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+        return map;
+   }
+    @RequestMapping("user/completeuserlist")
+    public String userevaluation(Integer boardnum, Model model) {
+    	System.out.println("evaluation보드넘:"+boardnum);
+    	try {
+    		List<User> userlist = service.completeuserlist(boardnum); 
+    		model.addAttribute("userlist",userlist);
+    		model.addAttribute("boardnum", boardnum);
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "ajax/ajax_userlist";
+   }
 	
 	// user_signup
 	@ResponseBody
@@ -322,6 +355,9 @@ public class AjaxController {
 								//service.duckcntadd(num); //덕, 스크랩 한 횟수만 적용.
 								map.put("msg", "신청 완료!");
 								//service.supporting(userid);
+								board.setRecmd(board.getRecmd() + 1);
+								int recmd = service.recmd(board, userid);
+								map.put("recmd", recmd);
 							}
 						}else {//개발자가 아닐떄
 							map.put("msg", "개발자만 신청 가능합니다!");
@@ -345,17 +381,23 @@ public class AjaxController {
 	public Map<Object, Object> checkbox(String userid, Integer matching, HttpSession session) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		try {
-			service.matching(userid,matching);
-			User user = service.select(userid);
-			session.setAttribute("loginUser", user);
-			if(user.getMatching()==1) {
-				map.put("msg", "인재추천이 활성화되었습니다.");
-			}else if(user.getMatching() == 0) {
-				map.put("msg", "인재추천이 비활성화되었습니다.");
+			User dbuser = (User)session.getAttribute("loginUser");
+			if(dbuser.getMatching() != 2) {
+				service.matching(userid,matching);
+				User user = service.select(userid);
+				session.setAttribute("loginUser", user);
+				if(user.getMatching()==1) {
+					map.put("msg", "인재등록이 활성화되었습니다.");
+				}else if(user.getMatching() == 0) {
+					map.put("msg", "인재등록이 비활성화되었습니다.");
+				}
+			}else {
+				map.put("msg", "현재 진행중인 프로젝트가 있습니다.");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}		
 		return map;
 	}
+	
 }

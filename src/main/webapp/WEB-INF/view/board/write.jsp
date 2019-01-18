@@ -225,8 +225,10 @@ while(reg.test(n)){
 <div align="center"><b>[내용]</b>
 <font color="red"><form:errors path="content" /></font>		
 </div>
-<div><form:textarea path="content" rows="15" cols="80" style="width:100%;resize:none;font-size:20px;"/>
-
+<div>
+<pre style="font-size: small; margin: 30px;">
+<form:textarea path="content" rows="20" cols="90" style="width:100%;resize:none;font-size:small;"/>
+</pre>
 </div>
 </div>
 <!-- 오른쪽 div 끝나는 지점 -->

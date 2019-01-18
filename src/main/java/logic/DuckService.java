@@ -416,6 +416,7 @@ public class DuckService {
 
 	public void duck7update(Integer boardnum) {
 		boardDao.duck7update(boardnum);
+		boardDao.duck12delete(boardnum);
 	}
 
 	public void duckdelete(String userid, Integer num) {
@@ -443,4 +444,47 @@ public class DuckService {
 		userDao.matching(userid,matching);
 		
 	}
-}
+
+	public List<User> completeuserlist(Integer boardnum) {
+		return boardDao.completeuserlist(boardnum);
+	}
+
+	public int twenduck(String userid, Integer boardnum) {
+		return boardDao.twenduck(userid, boardnum);
+	}
+
+	public int duck20cnt(String userid) {
+		return boardDao.duck20cnt(userid);
+	}
+
+	public void add20duck(String userid, int boardnum) {
+		boardDao.add20duck(userid,boardnum);
+	}
+	public void duckcntremove(Integer num) {
+		boardDao.duckcntremove(num);
+	}
+
+	public void matchingto1(Integer boardnum) {
+		boardDao.matchingto1(boardnum);
+	}
+	
+	public String projectcnt() {
+		return boardDao.projectcnt();
+	}
+
+	public String projecttotalprice() {
+		return boardDao.projecttotalprice();
+	}
+
+	public String usertotalcnt() {
+		return userDao.usertotalcnt();
+	}
+	
+	public List<Board> noticelist(String searchType, String searchContent, Integer type) {
+		return boardDao.noticelist(searchType, searchContent, type);
+	}
+
+	public Board getNotice(Board bo) {
+		return boardDao.noticeselect(bo);
+	} 
+} 
