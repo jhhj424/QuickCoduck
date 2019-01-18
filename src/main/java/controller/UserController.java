@@ -3,7 +3,6 @@ package controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,24 +13,16 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import exception.LoginException;
 import logic.Board;
-import logic.Duck;
 import logic.DuckService;
-import logic.NaverLoginBO;
 import logic.User;
 
 /*
@@ -44,14 +35,6 @@ import logic.User;
 public class UserController {
 	@Autowired
 	private DuckService service;
-	/* NaverLoginBO */
-	@Autowired
-    private NaverLoginBO naverLoginBO;
-    private String apiResult = null;
-    
-    private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-        this.naverLoginBO = naverLoginBO;
-    }
 
 	@RequestMapping("user/start")
 	public ModelAndView start() {
@@ -177,12 +160,10 @@ public class UserController {
 
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm(HttpSession session) {
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		ModelAndView mav = new ModelAndView("user/login","url",naverAuthUrl);
-		System.out.println("naverAuthUrl:"+naverAuthUrl);
+		ModelAndView mav = new ModelAndView("user/login");
 		mav.addObject(new User());
 		String projectcnt = service.projectcnt();
-		System.out.println("projectcnt:"+projectcnt);
+		//System.out.println("projectcnt:"+projectcnt);
 		mav.addObject("projectcnt",projectcnt);
 		String projecttotalprice = service.projecttotalprice();
 		mav.addObject("projecttotalprice",projecttotalprice);
@@ -190,23 +171,6 @@ public class UserController {
 		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
-
-    //네이버 로그인 성공시 callback호출 메소드
-    @RequestMapping(value = "/user/callback", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-            throws IOException {
-    	ModelAndView mav = new ModelAndView("user/naverSuccess");
-        System.out.println("여기는 callback");
-        OAuth2AccessToken oauthToken;
-        oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        //로그인 사용자 정보를 읽어온다.
-        apiResult = naverLoginBO.getUserProfile(oauthToken);
-        System.out.println(apiResult.toString());
-        model.addAttribute("result", apiResult);
-        System.out.println("result:"+apiResult);
-                
-        return mav;
-    }
 	
 	@RequestMapping("user/logout")
 	public ModelAndView logout(HttpSession session) {
