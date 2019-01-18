@@ -42,8 +42,8 @@
 <img src="../workpic/rating.png" style="width: 25px; height: 25px;">
 QuickCoduck
 </th>
-<td colspan="4" style="border:1px solid grey;border-radius: 3px;">
-<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)">
+<td colspan="4" style="border-radius: 3px;">
+<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)" style="margin-top:15px;">
 <input type="hidden" name="pageNum" value="1">
 <img src="../workpic/lens.png" style="height: 25px;weight:25px;">
 게시글 찾기:
