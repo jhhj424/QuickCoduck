@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>아이디</td>
-				<td>이름</td>
+				<td>회원타입</td>
 				<td>전화번호</td>
 				<td>생일</td>
 				<td>이메일</td>
@@ -37,7 +37,9 @@
 			<c:forEach items="${userlist}" var="user">
 				<tr>
 					<td>${user.userid}</td>
-					<td>${user.email}</td>
+					<td><c:if test="${user.type == 1}">개발자</c:if>
+					<c:if test="${user.type == 2}">클라이언트</c:if>
+					<c:if test="${user.type == 3}">관리자</c:if></td>
 					<td>${user.tel}</td>
 					<td><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" /></td>
 					<td>${user.email}</td>

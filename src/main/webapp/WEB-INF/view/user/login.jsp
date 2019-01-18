@@ -36,7 +36,7 @@ color:#2c2c2c;
 			}
 		);
 		/* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
-		alert(naverLogin)
+		//alert(naverLogin)
 		naverLogin.init();
 		
 		/* (4-1) 임의의 링크를 설정해줄 필요가 있는 경우 */

@@ -60,6 +60,17 @@ font-family:"Lato", Arial, sans-serif;
 margin:20px 10px 10px 20px;
 line-height:2;
 }
+
+.ce-linenumber {
+    color: #666;
+    padding-top: 10px;
+    padding-right: 10px;
+    border-right: 2px solid #ccc;
+    float: left;
+    }
+    
+pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
+
 </style>
 <script type="text/javascript"
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -349,7 +360,7 @@ line-height:2;
 </c:if>
 </div>
 <div style="margin-right:70px;line-height:initial;text-align:left;width:1000px;max-width:1000px;resize:none;font-size:30px;max-height:560px;height:60%;float:right;border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);word-break:break-all;overflow:scroll" class="2">
-<pre style="font-size: small; margin: 30px;">${fn:replace(board.content, cn, br)} ${fn:replace(notice.content, cn, br)}</pre>
+<pre style="font-size: medium; margin: 30px;">${fn:replace(board.content, cn, br)} ${fn:replace(notice.content, cn, br)}</pre>
 </div>
 </div><!-- 오른쪽 div 끝나는 지점 -->
 
