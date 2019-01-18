@@ -18,41 +18,46 @@
 <script>
 $(document).ready(function () {
 	var mat = ${loginUser.matching}
-	if(mat == 0) {
-		$(":checkbox[id=toggle]").prop("checked", false);
-	}else{
+	if(mat == 1 || mat == 2) {
 		$(":checkbox[id=toggle]").prop("checked", true);
+	}else{
+		$(":checkbox[id=toggle]").prop("checked", false);
 	}
 	
 $("#toggle").click(function(){
-	var result = confirm("매칭타입을 바꾸시겠습니까?");
-	if(result) {	
-	if($(":checkbox[id=toggle]").is(":checked") == false){
-		$(":checkbox[id=toggle]").prop("checked", false);
-		mat = 0;
-	}else{
-		$(":checkbox[id=toggle]").prop("checked", true);
-		mat = 1;
-	}
-	var userid = '${loginUser.userid}';
-	var data = {
-			"userid" : userid,
-			"matching" : mat
-	}
-	$.ajax({
-		url : "checkbox.duck",
-		type: "post",
-		data: data,
-		dataType: "json",
-		success: function(data){
-			alert(data.msg);
-		},
-		error: function(xhr,status,error){
-			alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
-		}
-	})
-	} else {
+	if(mat==2){
+		alert("현재진행중인 프로젝트가 있습니다.")
 		return false;
+	}else{
+		var result = confirm("매칭타입을 바꾸시겠습니까?");
+		if(result) {	
+		if($(":checkbox[id=toggle]").is(":checked") == false){
+			$(":checkbox[id=toggle]").prop("checked", false);
+			mat = 0;
+		}else{
+			$(":checkbox[id=toggle]").prop("checked", true);
+			mat = 1;
+		}
+		var userid = '${loginUser.userid}';
+		var data = {
+				"userid" : userid,
+				"matching" : mat
+		}
+		$.ajax({
+			url : "checkbox.duck",
+			type: "post",
+			data: data,
+			dataType: "json",
+			success: function(data){
+				alert(data.msg);
+			},
+			error: function(xhr,status,error){
+				alert("서버오류 : "+xhr.status + ", error : "+error + ", status : "+status);
+			}
+		})
+		} else {
+			return false;
+		}
 	}
 });	
 	
@@ -119,6 +124,9 @@ $("#toggle").click(function(){
            </c:if>
            <c:if test="${loginUser.type == '2' }">
            <p class="w3-center"><i class="fa fa-user-secret" style="font-size:100px;color:#7d97a5;"></i></p>
+           </c:if>
+           <c:if test="${loginUser.type == '3' }">
+           <p class="w3-center"><i class="fa fa-android" style="font-size:100px;color:#7d97a5;"></i></p>
            </c:if>
          </c:if>
          <c:if test="${loginUser.type == '1' }">
@@ -245,9 +253,9 @@ $("#toggle").click(function(){
     
     <!-- Middle Column -->
    <div class="w3-twothird">
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white" style="height:350px;width:100%;border-radius: 10px;">
+      <div class="w3-row-padding" style="background-color:#fff0;">
+        <div class="w3-col m12" style="background-color:#fff0;">
+          <div class="w3-card w3-round w3-white" style="box-shadow:none;height:350px;width:100%;border-radius: 10px; background-color:#fff0;z-index:-1">
           <div class="leftdiv">
   <div class="rating_main" data-vote="0">
   <div class="star_main">
@@ -331,7 +339,7 @@ $("#toggle").click(function(){
   </div>
   <div class="score_main">
     <span>총 평점</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.rating} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.rating}" pattern=".0"/> / 5</span>
   </div>
   </div>
   <!-- 총 평점 끝나는 지점 -->
@@ -417,7 +425,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>만족도</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.prosatisfact} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.prosatisfact}" pattern=".0"/> / 5</span>
     </div>
     </div>
   <!-- 만족도 끝나는 지점 -->
@@ -503,7 +511,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>의사소통</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.procommunicate} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.procommunicate}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 의사소통 끝나는 지점 -->  
@@ -592,7 +600,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>전문성</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.profess} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.profess}" pattern=".0"/> / 5</span>
     </div>
     
     </div>
@@ -679,7 +687,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>적극성</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.proaction} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.proaction}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 적극성 끝나는 지점 -->
@@ -765,7 +773,7 @@ $("#toggle").click(function(){
     </div>
     <div class="score_main">
     <span>일정준수</span>&nbsp;&nbsp;
-    <span class="score_main-rating js-score">${loginUser.prodate} / 5</span>
+    <span class="score_main-rating js-score"><fmt:formatNumber value="${loginUser.prodate}" pattern=".0"/> / 5</span>
     </div>
     </div>
     <!-- 적극성 끝나는 지점 -->
@@ -809,7 +817,7 @@ window.chart = new Chart(document.getElementById("canvas"), {
         labels: ["전문성", "적극성", "만족도", "일정준수", "의사소통"],
         datasets: [{
             label: "김도롱",
-            data: [3.2, 1, 2, 4.2, 2.7],
+            data: [${loginUser.profess}, ${loginUser.proaction}, ${loginUser.prosatisfact}, ${loginUser.prodate},${loginUser.procommunicate}],
             fill: true,
             backgroundColor: gradientBlue,
             borderColor: "transparent",
@@ -861,8 +869,8 @@ window.chart = new Chart(document.getElementById("canvas"), {
   <!-- End Grid -->
   </div>
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-32">
-  <div class="w3-xlarge w3-section">
+<footer class="w3-center w3-padding-32" style="background-color:#4d636f">
+  <div class="w3-xlarge w3-section" style="color:#fefefe">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
     <i class="fa fa-snapchat w3-hover-opacity"></i>
@@ -870,7 +878,7 @@ window.chart = new Chart(document.getElementById("canvas"), {
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i><br>
   </div>
-  <p>Quick Coduck<a href="#home"class="w3-hover-text-green">  <i class="fa fa-arrow-up w3-margin-right">Up to top</i></a></p>
+  <p style="color:#fefefe">Quick Coduck<a href="#home"class="w3-hover-text-green" style="color:#fefefe;text-decoration: none;">  <i class="fa fa-arrow-up w3-margin-right" style="color:#fefefe">Up to top</i></a></p>
 </footer>
 <script>
 // Accordion

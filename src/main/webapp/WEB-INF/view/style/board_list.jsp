@@ -103,6 +103,8 @@ body * {
 	font-size: 1.5em;
 	padding: 1rem;
 	text-align: center;
+	border:1px solid grey;
+    border-radius: 3px;
 }
 
 .table-users {
@@ -126,10 +128,14 @@ table td, table th {
 table td {
 	text-align: center;
 	vertical-align: middle;
+	border:1px solid #a9a9a9a1;
+    border-radius: 3px;
 }
 
 table td.buttom {
 	text-align: right;
+	border:1px solid #a9a9a9a1;
+	border-radius: 3px;
 	vertical-align: middle;
 }
 
@@ -145,16 +151,22 @@ table td:last-child {
 }
 
 table th {
-	background-color: #daeff1;
+	background-color: #fefefe;
+	border:1px solid #a9a9a9a1;
+	border-radius: 3px;
 	font-weight: 300;
 }
 
 table tr:nth-child(2n) {
 	background-color: white;
+	border:1px solid grey;
+	border-radius: 3px;
 }
 
 table tr:nth-child(2n+1) {
-	background-color: #edf7f8;
+	background-color: #fefefe;
+	border:1px solid grey;
+	border-radius: 3px;
 }
 sup.admin{
 color:#2ac1bc;
@@ -170,6 +182,8 @@ font-size:15px;
 @media screen and (max-width: 700px) {
 	table, tr, td {
 		display: block;
+		border:1px solid grey;
+	border-radius: 3px;
 	}
 	td:first-child {
 		position: absolute;
@@ -187,6 +201,8 @@ font-size:15px;
 	}
 	td:not (:first-child ):before {
 		color: #91ced4;
+		border:1px solid grey;
+	border-radius: 3px;
 		content: '';
 		display: block;
 		left: 0;
@@ -207,6 +223,8 @@ font-size:15px;
 	tr {
 		padding: 10px 0;
 		position: relative;
+		border:1px solid grey;
+	    border-radius: 3px;
 	}
 	tr:first-child {
 		display: none;
@@ -242,34 +260,40 @@ font-size:15px;
 		margin: 0;
 		padding: 5px 1em;
 		width: 100%;
+		border:1px solid grey;
+	    border-radius: 3px;
 	}
 	td:not (:first-child ):before {
 		font-size: .8em;
 		padding-top: 0.3em;
 		position: relative;
+		border:1px solid grey;
+	    border-radius: 3px;
 	}
 	td:last-child {
 		padding-bottom: 1rem !important;
+		border:1px solid grey;
+	    border-radius: 3px;
 	}
 	tr {
 		background-color: white !important;
-		border: 1px solid #6cbec6;
-		border-radius: 10px;
+		border:1px solid grey;
+	    border-radius: 3px;
 		box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
 		margin: 0.5rem 0;
 		padding: 0;
 	}
 	.table-users {
-		border: none;
-		box-shadow: none;
+		border:1px solid grey;
+	    border-radius: 3px;
 		overflow: visible;
 	}
 	#wrap {
 		position: relative;
 		width: auto;
 		padding: 10px;
-		border: 1px solid #bdbdbd;
-		border-bottom: 1px solid #f1f1f1;
+		border:1px solid grey;
+	    border-radius: 3px;
 		background: #f1f1f1;
 		padding-right: 200px;
 		padding-left: 200px
