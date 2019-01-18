@@ -110,14 +110,14 @@
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
-		order by duckcnt desc
+		order by readcnt desc
 	</select>
 	<select id="mainlist2" resultType="Board" parameterType="map">
 		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, duckcnt from board where boardtype = 3
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
-		order by duckcnt desc
+		order by readcnt desc
 	</select>
 	
 	<select id="duckid" resultType="String" parameterType="map">

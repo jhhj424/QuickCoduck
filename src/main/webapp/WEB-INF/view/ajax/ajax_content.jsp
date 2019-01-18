@@ -77,7 +77,7 @@ function write_submit() {
 															</a>
 														</h3>
 													</div>
-													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br>${board.content }</div>
+													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br><c:out value="${board.content}" escapeXml="true"/></div>
 													<div align="right" class="right"><b>등록일자:</b><fmt:formatDate value="${board.regdate}" pattern="yyyy/MM/dd hh:mm"/>&nbsp;&nbsp;</div>
 													<div align="center"class="right"><b style="margin-left:18%">조회수:</b>${board.readcnt}&nbsp;&nbsp;</div>
 			                                        <div align="right"class="right"><b>선택기술:</b>&nbsp;&nbsp;

@@ -323,7 +323,11 @@ public class BoardController {
 		//비밀번호 확인 성공
 		try {
 			service.boarddelete(bo.getBoardnum());
-			mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());
+			if(type == 2) {
+				mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());				
+			}else {
+				mav.setViewName("redirect:find.duck?type="+bo.getBoardtype());
+			}
 			Board board = new Board();
 			mav.addObject("board",board);
 		} catch (Exception e) {

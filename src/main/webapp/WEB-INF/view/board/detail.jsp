@@ -360,7 +360,10 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
 </c:if>
 </div>
 <div style="margin-right:70px;line-height:initial;text-align:left;width:1000px;max-width:1000px;resize:none;font-size:30px;max-height:560px;height:60%;float:right;border:2px solid #ada6a6;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);word-break:break-all;overflow:scroll" class="2">
-<pre style="font-size: medium; margin: 30px;">${fn:replace(board.content, cn, br)} ${fn:replace(notice.content, cn, br)}</pre>
+<pre style="font-size: medium; margin: 30px;">
+<c:out value="${board.content}" escapeXml="true"/>
+<c:out value="${notice.content}" escapeXml="true"/>
+<%-- ${fn:replace(notice.content, cn, br)} --%></pre>
 </div>
 </div><!-- 오른쪽 div 끝나는 지점 -->
 
