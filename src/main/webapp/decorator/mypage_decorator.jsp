@@ -125,6 +125,9 @@ $("#toggle").click(function(){
            <c:if test="${loginUser.type == '2' }">
            <p class="w3-center"><i class="fa fa-user-secret" style="font-size:100px;color:#7d97a5;"></i></p>
            </c:if>
+           <c:if test="${loginUser.type == '3' }">
+           <p class="w3-center"><i class="fa fa-android" style="font-size:100px;color:#7d97a5;"></i></p>
+           </c:if>
          </c:if>
          <c:if test="${loginUser.type == '1' }">
          <h4 class="w3-center">개발자 : ${user.userid } 님 </h4>
@@ -250,9 +253,9 @@ $("#toggle").click(function(){
     
     <!-- Middle Column -->
    <div class="w3-twothird">
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white" style="height:350px;width:100%;border-radius: 10px;">
+      <div class="w3-row-padding" style="background-color:#fff0;">
+        <div class="w3-col m12" style="background-color:#fff0;">
+          <div class="w3-card w3-round w3-white" style="box-shadow:none;height:350px;width:100%;border-radius: 10px; background-color:#fff0;z-index:-1">
           <div class="leftdiv">
   <div class="rating_main" data-vote="0">
   <div class="star_main">
@@ -866,8 +869,8 @@ window.chart = new Chart(document.getElementById("canvas"), {
   <!-- End Grid -->
   </div>
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-32">
-  <div class="w3-xlarge w3-section">
+<footer class="w3-center w3-padding-32" style="background-color:#4d636f">
+  <div class="w3-xlarge w3-section" style="color:#fefefe">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
     <i class="fa fa-snapchat w3-hover-opacity"></i>
@@ -875,7 +878,7 @@ window.chart = new Chart(document.getElementById("canvas"), {
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i><br>
   </div>
-  <p>Quick Coduck<a href="#home"class="w3-hover-text-green">  <i class="fa fa-arrow-up w3-margin-right">Up to top</i></a></p>
+  <p style="color:#fefefe">Quick Coduck<a href="#home"class="w3-hover-text-green" style="color:#fefefe;text-decoration: none;">  <i class="fa fa-arrow-up w3-margin-right" style="color:#fefefe">Up to top</i></a></p>
 </footer>
 <script>
 // Accordion

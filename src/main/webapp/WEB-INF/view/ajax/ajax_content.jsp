@@ -81,9 +81,6 @@ function write_submit() {
 														<c:if test="${empty board.fileurl}">
 														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>No-Image</span>
 														</c:if>
-														<h3 class="h3">
-															<a style="text-decoration: none;"
-																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
 														<c:if test="${param.type == 1 }">
 														<c:if test="${board.duckcnt > 10}">
 														<span class="tag_duck"><i class="fa fa-github"></i> Hot!</span></c:if>
@@ -100,18 +97,21 @@ function write_submit() {
 														<span class="recmd"><i class="fa fa-thumbs-o-up"></i> 추천 : ${board.recmd}</span>
 														</c:if>
 														</c:if>
+														<h3 class="h3">
+															<a style="text-decoration: none;"
+																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
 														   </a>
 														</h3>
 													</div>
 													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br><c:out value="${board.content}" escapeXml="true"/></div>
 													<div align="right" class="right">
 													<b>등록일자:</b><fmt:formatDate value="${board.regdate}" pattern="yyyy/MM/dd hh:mm"/>&nbsp;&nbsp;<br>
-													<b>조회수:</b>${board.readcnt}&nbsp;&nbsp;
+													<b>조회수:</b>&nbsp;&nbsp;<sup class="readcnt">${board.readcnt}</sup> &nbsp;&nbsp;
 													</div>
 			                                        <div align="right"class="right"><b>선택기술:</b>&nbsp;&nbsp;
 			                                        <c:if test="${!empty tech }">
 			                                        <c:forEach var="utech" items="${tech}" varStatus="g" begin="0">
-                                                    <span class="tag"><i class="fa fa-search"></i>${utech}</span>
+                                                    <span class="tag_check"><i class="fa fa-search"></i>${utech}</span>
                                                     <c:out value="${g.end}" />
                                                     </c:forEach>
                                                     </c:if>
@@ -235,9 +235,6 @@ function write_submit() {
 														<c:if test="${empty board.fileurl}">
 														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>No-Image</span>
 														</c:if>
-														<h3 class="h3">
-															<a style="text-decoration: none;"
-																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
 														<c:if test="${param.type == 1 }">
 														<c:if test="${board.duckcnt > 10}">
 														<span class="tag_duck"><i class="fa fa-github"></i> Hot!</span></c:if>
@@ -254,18 +251,21 @@ function write_submit() {
 														<span class="recmd"><i class="fa fa-thumbs-o-up"></i> 추천 : ${board.recmd}</span>
 														</c:if>
 														</c:if>
+														<h3 class="h3">
+															<a style="text-decoration: none;"
+																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
 														   </a>
 														</h3>
 													</div>
 													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br>${board.content }</div>
 													<div align="right" class="right">
 													<b>등록일자:</b><fmt:formatDate value="${board.regdate}" pattern="yyyy/MM/dd hh:mm"/>&nbsp;&nbsp;<br>
-													<b>조회수:</b>${board.readcnt}&nbsp;&nbsp;
+													<b>조회수:</b>&nbsp;&nbsp;<sup class="readcnt">${board.readcnt}</sup> &nbsp;&nbsp;
 													</div>
 			                                        <div align="right"class="right"><b>선택기술:</b>&nbsp;&nbsp;
 			                                        <c:if test="${!empty tech }">
 			                                        <c:forEach var="utech" items="${tech}" varStatus="g" begin="0">
-                                                    <span class="tag"><i class="fa fa-search"></i>${utech}</span>
+                                                    <span class="tag_check"><i class="fa fa-search"></i>${utech}</span>
                                                     <c:out value="${g.end}" />
                                                     </c:forEach>
                                                     </c:if>

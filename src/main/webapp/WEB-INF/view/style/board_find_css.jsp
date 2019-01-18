@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <style>
+.readcnt {
+	font-weight: bold;
+	font-size: 15px;
+	top: -0.15em;
+}
+
 .div {
 	font-family: "Roboto", sans-serif;
 	border: 2px solid #ada6a6;
@@ -179,7 +185,7 @@ a {
 }
 
 .tag_new {
-	background: #009688;
+	background: #ff7800;
 	color: #fff;
 	border-radius: 10px;
 	padding: 2px 5px;
@@ -192,6 +198,16 @@ a {
 
 .tag {
 	background: #009688;
+	color: #fff;
+	border-radius: 10px;
+	padding: 2px 5px;
+	font-size: 13px;
+	margin-right: 2px;
+	line-height: 30px;
+	cursor: pointer;
+}
+.tag_check {
+	background: #00bc70;
 	color: #fff;
 	border-radius: 10px;
 	padding: 2px 5px;
@@ -231,6 +247,7 @@ a {
 	font-size: 13px;
 	font-weight: lighter;
 	margin-left: 10px;
+	margin-right: 10px;
 	line-height: 30px;
 	cursor: pointer;
 }
