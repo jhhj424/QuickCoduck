@@ -42,14 +42,14 @@
 	</select>
 	
 	<select id="select2" resultType="Duck" parameterType="map">
-		select * from duck where ducktype = #{ducktype}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from duck where ducktype = #{ducktype}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
 	</select>
 	
 	<select id="ducklist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype}) and boardtype = #{type}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype}) and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -68,7 +68,7 @@
 		</if>
 	</select>
 	<select id="ducklist2" resultType="Board" parameterType="map">
-		select * from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardnum in (select boardnum from duck where userid=#{userid} and ducktype = #{ducktype})
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
@@ -81,7 +81,7 @@
 		</if>
 	</select>
 	<select id="mylist" resultType="Board" parameterType="map">
-		select * from board where userid=#{userid} and boardtype = #{type}
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where userid=#{userid} and boardtype = #{type}
 		<if test="boardnum != null">
 			and boardnum = #{boardnum}
 		</if>
