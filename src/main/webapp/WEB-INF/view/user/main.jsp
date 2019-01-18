@@ -12,8 +12,8 @@
 </head>
 <body>
 <div id="all">
-		<div class="hp-container"style="border:1px solid #444444;max-width:100%">
-			<div id="container" class="clear" style="padding: 0px 26px 0px;max-width:100%">
+		<div class="hp-container"style="border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);max-width:100%">
+			<div id="container" class="clear" style="padding: 0px 26px 0px;max-width:100%;border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);">
 				<div id="content">
 					<div id="gap">
 						<script

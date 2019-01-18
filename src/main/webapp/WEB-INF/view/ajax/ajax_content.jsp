@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
+<%@include file="/WEB-INF/view/style/board_find_css.jsp"%>
 <script type="text/javascript">
 function write_submit() {
 	var usertype = ${loginUser.type}
@@ -18,14 +19,14 @@ function write_submit() {
 }
 </script>
 <c:if test="${type!=5}">
-<div class="table14_10" style="width: 100%">
+<div class="div" style="width: 100%">
 									<div>
 										<div align="center">
 
 											<div align="center"
-												onmouseover="this.style.backgroundColor='#5CD1E5'"
+												onmouseover="this.style.backgroundColor=''"
 												onmouseout="this.style.backgroundColor=''"
-												style="border: 1px solid; border-color: grey; margin-bottom: 3px; margin-top: 3px">
+												>
 													<div align="right">													
 														<b>글개수:${listcount}</b>
 													</div>
@@ -49,25 +50,59 @@ function write_submit() {
 
 <c:if test="${ON != 1}">
 	<c:forEach var="board" items="${boardlist}">
-		<div align="center" onmouseover="this.style.backgroundColor='#5CD1E5'"
+		<div align="center" onmouseover="this.style.backgroundColor='#dcdcdcad'"
 			onmouseout="this.style.backgroundColor=''"
-			style="border: 1px solid; border-color: grey; margin-bottom: 3px;">
+			class="content">
 			<div align="left">
-				<c:if test="${! empty board.fileurl}">
-					<a href="../file/${board.fileurl}">@</a>
-				</c:if>
-				<c:if test="${empty board.fileurl}">&nbsp;&nbsp;&nbsp;</c:if>
-				<h3>
-					<a style="text-decoration: none;"
-						href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;${board.subject}<c:if
-							test="${board.boardtype==1}"> [추천 : ${board.recmd}]</c:if></a>
-				</h3>
-			</div>
-			<div align="right">날짜:${board.regdate}&nbsp;&nbsp;</div>
-			<div align="right">조회수:${board.readcnt}&nbsp;&nbsp;</div>
-			<div align="right">선택기술:${tech}&nbsp;&nbsp;</div>
-			<div align="right">사용기술:${board.usetech}&nbsp;&nbsp;</div>
-		</div>
+														<c:if test="${! empty board.fileurl}">
+															<a href="../file/${board.fileurl}">
+															<span class="span"><i class="fa fa-file-image-o w3-margin-right"></i>Image</span>
+															</a>
+														</c:if>
+														<c:if test="${empty board.fileurl}">
+														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>No-Image</span>
+														</c:if>
+														<h3 class="h3">
+															<a style="text-decoration: none;"
+																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
+														<c:if test="${param.type == 1 }">
+														<c:if test="${board.duckcnt > 10}">
+														<span class="tag_duck"><i class="fa fa-thumbs-o-up"></i> Hot!</span></c:if>
+														</c:if><!-- 이벤트! -->
+														<c:if test="${param.type == 3 }">
+														<c:if test="${board.duckcnt >= 2 || board.nowperson >= 1 }">
+														<span class="tag4"><i class="fa fa-certificate"></i> 마감임박!</span></c:if>
+														</c:if>	<!-- 임의로 이벤트 하나 만든거임 -->
+														<c:if test="${board.boardtype==1}"> [추천 : ${board.recmd}]</c:if>
+															</a>
+														</h3>
+													</div>
+													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br>${board.content }</div>
+													<div align="right" class="right"><b>등록일자:</b><fmt:formatDate value="${board.regdate}" pattern="yyyy/MM/dd hh:mm"/>&nbsp;&nbsp;</div>
+													<div align="center"class="right"><b style="margin-left:18%">조회수:</b>${board.readcnt}&nbsp;&nbsp;</div>
+			                                        <div align="right"class="right"><b>선택기술:</b>&nbsp;&nbsp;
+			                                        <c:if test="${!empty tech }">
+			                                        <c:forEach var="utech" items="${tech}" varStatus="g" begin="0">
+                                                    <span class="tag"><i class="fa fa-search"></i>${utech}</span>
+                                                    <c:out value="${g.end}" />
+                                                    </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${empty tech }">
+                                                    <span class="tag3"><i class="fa fa-search"></i>검색</span>
+                                                    </c:if>
+			                                        </div><!-- 선택기술 -->
+			                                        <div align="right" class="right"><b>사용기술:</b>&nbsp;&nbsp;
+			                                        <c:if test="${!empty board.usetech }">
+			                                        <c:forEach var="usetech" items="${board.usetech}" varStatus="g" begin="0">
+                                                    <span class="tag">${usetech}</span>
+                                                    <c:out value="${g.end}" />
+                                                    </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${empty board.usetech }">
+                                                    <span class="tag2">Empty Tech</span>
+                                                    </c:if>
+			                                        </div><!-- 사용기술 -->
+				</div>
 	</c:forEach>
 	<div align="center">
 											<div>
@@ -89,9 +124,9 @@ function write_submit() {
 										</div>
 </c:if>
 <c:if test="${ON == 1}">
-	<div align="center" onmouseover="this.style.backgroundColor='#5CD1E5'"
+	<div align="center" onmouseover="this.style.backgroundColor='#dcdcdcad'"
 		onmouseout="this.style.backgroundColor=''"
-		style="border: 1px solid; border-color: grey; margin-bottom: 3px;">
+		class="content">
 		<div align="center">
 			<h1>게시물이 없음</h1>
 		</div>
@@ -108,14 +143,14 @@ function write_submit() {
 </c:if>
 <c:if test="${type==5}">
 
-<div class="table14_10" style="width: 100%">
+<div class="div" style="width: 100%">
 									<div>
 										<div align="center">
 
 											<div align="center"
-												onmouseover="this.style.backgroundColor='#5CD1E5'"
+												onmouseover="this.style.backgroundColor=''"
 												onmouseout="this.style.backgroundColor=''"
-												style="border: 1px solid; border-color: grey; margin-bottom: 3px; margin-top: 3px">
+												>
 													<div align="right">													
 														<b>나만의소스개수:${mycount}</b>
 													</div>
@@ -139,25 +174,59 @@ function write_submit() {
 
 <c:if test="${ON != 1}">
 	<c:forEach var="board" items="${mylist}">
-		<div align="center" onmouseover="this.style.backgroundColor='#5CD1E5'"
+		<div align="center" onmouseover="this.style.backgroundColor='#dcdcdcad'"
 			onmouseout="this.style.backgroundColor=''"
-			style="border: 1px solid; border-color: grey; margin-bottom: 3px;">
+			class="content">
 			<div align="left">
-				<c:if test="${! empty board.fileurl}">
-					<a href="../file/${board.fileurl}">@</a>
-				</c:if>
-				<c:if test="${empty board.fileurl}">&nbsp;&nbsp;&nbsp;</c:if>
-				<h3>
-					<a style="text-decoration: none;"
-						href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;${board.subject}<c:if
-							test="${board.boardtype==1}"> [추천 : ${board.recmd}]</c:if></a>
-				</h3>
+														<c:if test="${! empty board.fileurl}">
+															<a href="../file/${board.fileurl}">
+															<span class="span"><i class="fa fa-file-image-o w3-margin-right"></i>Image</span>
+															</a>
+														</c:if>
+														<c:if test="${empty board.fileurl}">
+														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>No-Image</span>
+														</c:if>
+														<h3 class="h3">
+															<a style="text-decoration: none;"
+																href="detail.duck?num=${board.boardnum}&type=${board.boardtype}">&nbsp;&nbsp;&nbsp;<b>${board.subject}</b>
+														<c:if test="${param.type == 1 }">
+														<c:if test="${board.duckcnt > 10}">
+														<span class="tag_duck"><i class="fa fa-thumbs-o-up"></i> Hot!</span></c:if>
+														</c:if><!-- 이벤트! -->
+														<c:if test="${param.type == 3 }">
+														<c:if test="${board.duckcnt >= 2 || board.nowperson >= 1 }">
+														<span class="tag4"><i class="fa fa-certificate"></i> 마감임박!</span></c:if>
+														</c:if>	<!-- 임의로 이벤트 하나 만든거임 -->
+														<c:if test="${board.boardtype==1}"> [추천 : ${board.recmd}]</c:if>
+															</a>
+														</h3>
+													</div>
+													<div align="left" class="thumb"><b style="margin:5px 5px 5px 5px;font-weight:bold;color:#000 !important;"><i class="fa fa-low-vision"></i>내용 미리보기</b><br>${board.content }</div>
+													<div align="right" class="right"><b>등록일자:</b><fmt:formatDate value="${board.regdate}" pattern="yyyy/MM/dd hh:mm"/>&nbsp;&nbsp;</div>
+													<div align="center"class="right"><b style="margin-left:18%">조회수:</b>${board.readcnt}&nbsp;&nbsp;</div>
+			                                        <div align="right"class="right"><b>선택기술:</b>&nbsp;&nbsp;
+			                                        <c:if test="${!empty tech }">
+			                                        <c:forEach var="utech" items="${tech}" varStatus="g" begin="0">
+                                                    <span class="tag"><i class="fa fa-search"></i>${utech}</span>
+                                                    <c:out value="${g.end}" />
+                                                    </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${empty tech }">
+                                                    <span class="tag3"><i class="fa fa-search"></i>검색</span>
+                                                    </c:if>
+			                                        </div><!-- 선택기술 -->
+			                                        <div align="right" class="right"><b>사용기술:</b>&nbsp;&nbsp;
+			                                        <c:if test="${!empty board.usetech }">
+			                                        <c:forEach var="usetech" items="${board.usetech}" varStatus="g" begin="0">
+                                                    <span class="tag">${usetech}</span>
+                                                    <c:out value="${g.end}" />
+                                                    </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${empty board.usetech }">
+                                                    <span class="tag2">Empty Tech</span>
+                                                    </c:if>
+			                                        </div><!-- 사용기술 -->
 			</div>
-			<div align="right">날짜:${board.regdate}&nbsp;&nbsp;</div>
-			<div align="right">조회수:${board.readcnt}&nbsp;&nbsp;</div>
-			<div align="right">선택기술:${tech}&nbsp;&nbsp;</div>
-			<div align="right">사용기술:${board.usetech}&nbsp;&nbsp;</div>
-		</div>
 	</c:forEach>
 	<div align="center">
 											<div>
@@ -179,9 +248,9 @@ function write_submit() {
 										</div>
 </c:if>
 <c:if test="${ON == 1}">
-	<div align="center" onmouseover="this.style.backgroundColor='#5CD1E5'"
+	<div align="center" onmouseover="this.style.backgroundColor='#dcdcdcad'"
 		onmouseout="this.style.backgroundColor=''"
-		style="border: 1px solid; border-color: grey; margin-bottom: 3px;">
+		style="">
 		<div align="center">
 			<h1>게시물이 없음</h1>
 		</div>

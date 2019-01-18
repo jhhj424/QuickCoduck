@@ -230,7 +230,8 @@ li {
 }
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li.nb a {
-	border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
 	padding: 0;
 	padding-bottom: 30px;
 }
@@ -264,6 +265,7 @@ li {
 	{
 	width: 270px !important;
 	height: 230px !important;
+	border-radius: 10px;
 }
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li a span.title {
@@ -371,6 +373,7 @@ li {
 
 .widgetContainer #widgetPageBox_2018cms .normal_list li.nb a {
 	border: 1px solid #888888;
+	border-radius: 10px;box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
 	padding: 0;
 	padding-bottom: 30px;
 }

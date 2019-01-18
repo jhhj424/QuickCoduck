@@ -95,7 +95,7 @@
 	</select>
 	
 	<select id="techboardlist" resultType="Board" parameterType="map">
-		select * from board where boardnum in (${num})
+		select boardnum,userid,boardtype,subject,content,regdate, readcnt, recmd, file1 fileurl, pic, usetech, price, schedule, maxperson, nowperson from board where boardnum in (${num})
 		<if test="column != null and find != null">
 			and ${column} like '%${find}%'
 		</if>
