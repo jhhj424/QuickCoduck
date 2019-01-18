@@ -482,5 +482,10 @@ public class BoardDao {
 		Board bo = sqlSession.selectOne(NS + "notice",map);
 		System.out.println("notice:"+bo);
 		return sqlSession.selectOne(NS + "notice",map);
+	}
+	public void duck12delete(Integer boardnum) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("boardnum", boardnum);
+		sqlSession.getMapper(BoardMapper.class).duck12delete(map);
 	} 
 }

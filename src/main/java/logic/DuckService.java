@@ -416,6 +416,7 @@ public class DuckService {
 
 	public void duck7update(Integer boardnum) {
 		boardDao.duck7update(boardnum);
+		boardDao.duck12delete(boardnum);
 	}
 
 	public void duckdelete(String userid, Integer num) {

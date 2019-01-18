@@ -85,7 +85,7 @@ public interface BoardMapper  {
 	@Update("update board set boardtype = 4 where boardnum = #{boardnum}")
 	void complete(Integer boardnum);
 
-	@Update("update duck set ducktype = 7 where boardnum = #{boardnum}")
+	@Update("update duck set ducktype = 7 where boardnum = #{boardnum} and ducktype = 4")
 	void duck7update(Integer boardnum);
 	
 	@Delete("delete from duck where userid=#{userid} and boardnum=#{boardnum} and ducktype != 3")
@@ -117,4 +117,7 @@ public interface BoardMapper  {
 
 	@Update("update user set matching = 1 where userid in (select userid from duck where ducktype=7 and boardnum =${boardnum})")
 	void matchingto1(Map<String, Integer> map);
+
+	@Delete("delete from duck where boardnum=#{boardnum} and ducktype != 7")
+	void duck12delete(Map<String, Integer> map);
 }
