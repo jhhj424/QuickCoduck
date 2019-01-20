@@ -52,4 +52,21 @@
 	<select id="propro3" resultType="String" parameterType="map">
 		select format(count(*),0) from user  
 	</select>
+	
+	<select id="alluser" resultType="User" parameterType="map">
+		select * from user where type = 1 and rating != 0 
+	</select>
+	
+	<select id="allclient" resultType="User" parameterType="map">
+		select * from user where type = 2 and rating != 0 
+	</select>
+	
+	<select id="user_tech" resultType="String" parameterType="map">
+		select usetech from user where type = 1 and usetech IS NOT NULL
+	</select>
+	
+	<select id="client_tech" resultType="String" parameterType="map">
+		select usetech from user where type = 2 and usetech IS NOT NULL
+	</select>
+	
 </mapper>

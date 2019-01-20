@@ -174,4 +174,20 @@ public class UserDao {
 		String col = sqlSession.selectOne(NS + "propro3", map);
 		return col;
 	}
+	public List<User> alluser() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "alluser", map);
+	}
+	public List<User> allclient() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "allclient", map);
+	}
+	public List<String> user_tech() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "user_tech", map);
+	}
+	public List<String> client_tech() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "client_tech", map);
+	}
 }

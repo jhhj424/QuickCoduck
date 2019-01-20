@@ -89,7 +89,7 @@
 		<th width="16%" height="26">삭제</th>
 	</c:if>
 	<c:if test="${param.ducktype==3}">
-		<th width="16%" height="26">수락&거절</th>
+		<th width="16%" height="26">수락 & 거절</th>
 	</c:if>
 	<c:if test="${param.ducktype==5}">
 		<th width="16%" height="26">삭제</th>

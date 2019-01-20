@@ -49,7 +49,7 @@ font {
 	background: #009688;
 	color: #fff;
 	border-radius : 10px;
-	padding: 2px 5px;
+	padding: 2px 4px;
 	font-size: 13px;
 	margin-right: 2px;
 	line-height: 30px;
@@ -60,7 +60,7 @@ font {
 	background: #f95959b8;
 	color: #fff;
 	border-radius: 10px;
-	padding: 2px 5px;
+	padding: 2px 4px;
 	font-size: 13px;
 	margin-right: 2px;
 	line-height: 30px;
@@ -76,7 +76,7 @@ font {
 }
 
 .tech {
-	width: 40%
+	width: 35%
 }
 
 .email {
@@ -84,11 +84,62 @@ font {
 }
 
 .info {
-	width: 25%;
+	width: 27%;
 }
 
 .chk {
-	width: 3%;
+	width: 6%;
+	text-align:center;
+}
+.button {
+	background: #009688;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	width: 100%;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 100%;
+	font-size: 1.8em;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 100%;
+}
+
+.button:hover {
+	background: #fff;
+	color: #009688;
+	border-radius: 5px;
+}
+
+.button:before, .button:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #009688;
+	transition: 400ms ease all;
+}
+
+.button:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.button:hover:before, .button:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
 }
 </style>
 </head>
@@ -104,7 +155,7 @@ font {
 				class="table">
 				<tr>
 					<td colspan="6"><i
-						class="fa fa-address-card-o fa-fw w3-margin-right w3-xlarge w3-text-teal w3-margin-left"></i><font>회원목록</font>
+						class="fa fa-users fa-fw w3-margin-right w3-xlarge w3-text-teal w3-margin-left"></i><font>회원목록</font>
 					</td>
 				</tr>
 				<tr>
@@ -113,7 +164,7 @@ font {
 					<td class="th">기술목록</td>
 					<td class="th">이메일</td>
 					<td class="th">정보수정</td>
-					<td class="th"><input type="checkbox" name="allchk"
+					<td class="th"style="text-align:center;"><input type="checkbox" name="allchk"
 						onchange="allchkbox(this)"></td>
 				</tr>
 				<c:forEach items="${userlist}" var="user">
@@ -136,20 +187,22 @@ font {
 							</td>
 						<td class="email">${user.email}</td>
 						<td class="info" style="text-align: center;"><a
-							href="../user/mypage_update.duck?id=${user.userid}">수정</a> <a
-							href="../user/mypage_delete.duck?id=${user.userid}">강제탈퇴</a> <a
-							href="../user/mypage_info.duck?id=${user.userid}">회원정보</a></td>
+							href="../user/mypage_update.duck?id=${user.userid}">
+							<i class="fa fa-user-plus">수정</i></a> <a
+							href="../user/mypage_delete.duck?id=${user.userid}">
+							<i class="fa fa-user-times">탈퇴</i></a> <a
+							href="../user/mypage_info.duck?id=${user.userid}">
+							<i class="fa fa-user">정보</i></a></td>
 						<td class="chk"><input type="checkbox" name="idchks"
 							value="${user.userid}"></td>
 					</tr>
 				</c:forEach>
 				<tr>
-					<td colspan="6" align="center"><input type="submit"
-						value="메일보내기"></td>
+					<td colspan="6" align="center">
+					<input type="submit" value="메일보내기" class="button"></td>
 				</tr>
 			</table>
 		</form>
-		<div style="margin-bottom: 30px;"></div>
 	</div>
 </body>
 </html>

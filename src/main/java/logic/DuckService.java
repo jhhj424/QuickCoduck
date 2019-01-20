@@ -486,5 +486,22 @@ public class DuckService {
 
 	public Board getNotice(Board bo) {
 		return boardDao.noticeselect(bo);
-	} 
+	}
+
+	public List<User> alluser() {
+		return userDao.alluser();
+	}
+
+	public List<User> allcliet() {
+		return userDao.allclient();
+	}
+
+	public List<String> user_tech() {
+		return userDao.user_tech();
+	}
+
+	public List<String> client_tech() {
+		return userDao.client_tech();
+	}
+
 } 
