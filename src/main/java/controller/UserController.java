@@ -674,10 +674,11 @@ public class UserController {
 				matchinguserList.addAll(service.matchinguserList(tech[i] + ",")); // 기술목록에 맞는 유저 리스트
 			}
 			for (int i = 0; i < matchinguserList.size(); i++) { // 여러개의 tech가 들어올시 중복값이 있는 list
-				useridlist.add(matchinguserList.get(i).getUserid()); // 게시글번호만 저장
+				useridlist.add(matchinguserList.get(i).getUserid()); // 유저아이디만 저장
 			}
 			matchinguserList.clear(); // 중복요소잇는 리스트 비우기
 			TreeSet<String> arr1 = new TreeSet<String>(useridlist);
+			System.out.println(useridlist);
 			ArrayList<String> arr2 = new ArrayList<String>(arr1);
 			String uid = "'" + arr2.get(0) + "',";
 			for (int i = 1; i < arr2.size() - 1; i++) {

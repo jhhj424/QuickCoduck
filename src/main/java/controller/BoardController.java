@@ -268,18 +268,21 @@ public class BoardController {
 		Board board = new Board();
 		board.setBoardnum(num);
 		board.setBoardtype(type);
+		User user = new User();
 		//board = service.getBoard(board);
 		if(loginUser.getType()==1) {
 			board = service.getBoard(board);
+			user = service.select(board.getUserid());
 		}
 		if(loginUser.getType()==2) {
 			board = service.getBoard(board);
+			user = service.select(board.getUserid());
 		}
 		if(loginUser.getType()==3) {
-			board = service.getNotice(board);
+			//board = service.getNotice(board);
+			board = service.getBoard(board);
+			user = service.select(loginUser.getUserid());
 		}
-		User user = new User();
-		user = service.select(board.getUserid());
 		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
@@ -302,17 +305,20 @@ public class BoardController {
 		bo.setBoardtype(type);
 		User loginUser = (User)session.getAttribute("loginUser");
 		//bo = service.getBoard(bo); //현재 게시물 객체
+		User user = new User();
 		if(loginUser.getType()==1) {
 			bo = service.getBoard(bo);
+			user.setUserid(bo.getUserid());
 		}
 		if(loginUser.getType()==2) {
 			bo = service.getBoard(bo);
+			user.setUserid(bo.getUserid());
 		}
 		if(loginUser.getType()==3) {
-			bo = service.getNotice(bo);
+			//bo = service.getNotice(bo);
+			bo = service.getBoard(bo);
+			user.setUserid(loginUser.getUserid());
 		}
-		User user = new User();
-		user.setUserid(bo.getUserid());
 		user = service.userSelect(user);
 		if(user == null) {
 			throw new LoginException("해당유저없음", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
@@ -405,17 +411,19 @@ public class BoardController {
 			board.setBoardnum(num);
 			board.setBoardtype(type);
 			//board = service.getBoard(board); getBoard와 getNotice를 같이 쓸수 없음
+			User user = new User();
 			if(loginUser.getType()==1) {
 				board = service.getBoard(board);
+				user = service.select(board.getUserid());
 			}
 			if(loginUser.getType()==2) {
 				board = service.getBoard(board);
+				user = service.select(board.getUserid());
 			}
 			if(loginUser.getType()==3) {
 				board = service.getNotice(board);
+				user = service.select(loginUser.getUserid());
 			}
-			User user = new User();
-			user = service.select(board.getUserid());
 			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
 			}/*
@@ -423,15 +431,6 @@ public class BoardController {
 				service.readcntadd(num); // 조회수 증가
 			}*/
 			//board = service.getBoard(board);
-			if(loginUser.getType()==1) {
-				board = service.getBoard(board);
-			}
-			if(loginUser.getType()==2) {
-				board = service.getBoard(board);
-			}
-			if(loginUser.getType()==3) {
-				board = service.getNotice(board);
-			}
 		}
 		mav.addObject("board", board);
 		String projectcnt = service.projectcnt();

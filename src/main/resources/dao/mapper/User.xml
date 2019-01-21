@@ -7,12 +7,14 @@
 		select userid,pass,email,tel,birth,type,usetech,file1 fileurl,pic,creditnum,creditpass,rating,matching,maxcount,profess,proaction,prosatisfact,prodate,procommunicate from user
 		<if test="userid != null">
 			where userid=#{userid}
+		order by userid
 		</if>
 		<if test="userid2 != null">
-			where userid in (${userid2}) and matching = 1
+			where userid in (${userid2}) and matching = 1 order by rating desc limit 3
 		</if>
 		<if test="usetech != null">
 			where usetech like '%${usetech}%'
+		order by userid
 		</if>
 		<if test="ids != null">
 			where userid in
@@ -20,8 +22,8 @@
 				separator=",">
 				#{userid}
 			</foreach>
-		</if>
 		order by userid
+		</if>
 	</select>
 
 	<select id="supporterlist" resultType="User" parameterType="map">
