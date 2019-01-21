@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -532,15 +533,16 @@ public class UserController {
 			} else if (count == 1 && user.getCreditpass().length() == 4) {// 중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
 				throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 			}
+			
 		} else {
 			service.userUpdate(user, request);
 			User user1 = service.select(user.getUserid());
 			session.setAttribute("loginUser", user1);
 			mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
 		}
+		
 		return mav;
 	}
-
 	@RequestMapping(value = "user/payment*", method = RequestMethod.POST)
 	public ModelAndView payment(HttpSession session, User user, HttpServletRequest request)
 			throws NoSuchAlgorithmException {
@@ -677,6 +679,20 @@ public class UserController {
 				useridlist.add(matchinguserList.get(i).getUserid()); // 게시글번호만 저장
 			}
 			matchinguserList.clear(); // 중복요소잇는 리스트 비우기
+			
+			/*System.out.println("useridlist:"+useridlist);
+			Map<String,Integer> test_map = new LinkedHashMap<String,Integer>();
+			for(int i =0;i<useridlist.size();i++) {
+				if(test_map.get(useridlist.get(i)) == null) {
+					test_map.put(useridlist.get(i), 1);
+				} else {
+					int c = test_map.get(useridlist.get(i));
+					test_map.put(useridlist.get(i), c+1);
+				}
+			}
+			System.out.println("test_map:"+test_map);*/
+			//반복값 뽑아내기
+			
 			TreeSet<String> arr1 = new TreeSet<String>(useridlist);
 			ArrayList<String> arr2 = new ArrayList<String>(arr1);
 			String uid = "'" + arr2.get(0) + "',";

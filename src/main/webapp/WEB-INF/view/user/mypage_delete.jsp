@@ -4,7 +4,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+.pass{
+  width: 260px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+.delete{
+  width: 20%;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+input:focus {
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
+input:hover{
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
+</style>
 </head>
 <body>
 
@@ -15,8 +52,8 @@
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-keyboard-o fa-fw w3-margin-right"></i><b>비밀번호</b></h5>
           <h6 class="w3-text-teal">
-          <input type="password" name="pass" required="required">
-          <input type="submit" value="탈퇴하기">
+          <input type="password" name="pass" required="required" class="pass">
+          <input type="submit" value="탈퇴하기" class="delete">
           </h6>
           <hr>
       </div>

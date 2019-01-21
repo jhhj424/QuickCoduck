@@ -64,4 +64,5 @@ public interface UserMapper {
    
 	@Update("update user set matching = #{matching} where userid = #{userid}")
 	void matching(Map<String, Object> map);
+	
 }

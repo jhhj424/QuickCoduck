@@ -144,7 +144,6 @@ $("#toggle").click(function(){
          <c:if test="${loginUser.type == '1' }">
          <button onclick="location.href='../board/find.duck?type=5'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 나만의 소스보기</button>
          <button onclick="location.href='../user/mypage_ducklist.duck?id=${loginUser.userid}&ducktype=1&boardtype=1'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 'Duck' 한 오픈소스</button>
-
          </c:if>
          <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
          </div>
@@ -170,13 +169,9 @@ $("#toggle").click(function(){
 
         </c:if>
         <c:if test="${loginUser.type == '2'}">
-          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록</button> --%>
           <button onclick="location.href='../user/mypage_recmdlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 추천인재 목록test</button>
-          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트</button> --%>
           <button onclick="location.href='../user/mypage_waitlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트test</button>
-          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button> --%>
           <button onclick="location.href='../user/mypage_proceedlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트test</button>
-          <%-- <button onclick="location.href='../user/myduck.duck?id=${user.userid}&type=4'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button> --%>
           <button onclick="location.href='../user/mypage_completelist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트test</button>
         </c:if>
         <c:if test="${loginUser.type == '3'}">
