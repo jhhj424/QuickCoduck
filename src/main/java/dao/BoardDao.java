@@ -487,5 +487,13 @@ public class BoardDao {
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		map.put("boardnum", boardnum);
 		sqlSession.getMapper(BoardMapper.class).duck12delete(map);
+	}
+	public List<String> board_price() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "board_price", map);
+	}
+	public List<String> project_tech() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		return sqlSession.selectList(NS + "project_tech", map);
 	} 
 }

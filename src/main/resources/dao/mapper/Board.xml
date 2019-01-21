@@ -199,5 +199,11 @@
 		</if>
 		order by regdate desc
 	</select> 
+	<select id="board_price" resultType="String" parameterType="map">
+	 select price from board where boardtype = 3 and price IS NOT NULL
+	</select>
+	<select id="project_tech" resultType="String" parameterType="map">
+	 select usetech from board where boardtype = 3 and usetech IS NOT NULL
+	</select>
 	
 </mapper>

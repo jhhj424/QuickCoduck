@@ -18,6 +18,9 @@
 span,label{
 color:#2c2c2c;
 }
+i{
+margin:0 2.5px 0 2.5px;
+}
 </style>
 <spring:url value="/resources/css/login.css" var="login" />
 <spring:url value="/resources/css/full-page-scroll.css" var="mainCss" />
@@ -96,7 +99,7 @@ text-color:red;
 <!-- Header with Slideshow -->
 <div id="main" class="scroll-container">
 <section class="section1">
-<header class="w3-display-container w3-center" style="background-image:url( '../workpic/title7.jpg' );height:100%">
+<header class="w3-display-container w3-center" style="background-image:url( '../workpic/title7.jpg' );height:100%;filter: grayscale(30%);">
   <button class="w3-button w3-block w3-green w3-hide-large w3-hide-medium" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-android"></i> <i class="fa fa-apple"></i> <i class="fa fa-windows"></i></button>
   <div class="mySlides w3-animate-opacity" style=" background-image:url( '../workpic/title1.jpg' );height:700px">
   </div>

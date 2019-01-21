@@ -504,4 +504,16 @@ public class DuckService {
 		return userDao.client_tech();
 	}
 
+	public List<String> all_tech() {
+		return userDao.all_tech();
+	}
+
+	public List<String> board_price() {
+		return boardDao.board_price();
+	}
+
+	public List<String> project_tech() {
+		return boardDao.project_tech();
+	}
+
 } 

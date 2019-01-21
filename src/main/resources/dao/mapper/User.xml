@@ -69,4 +69,8 @@
 		select usetech from user where type = 2 and usetech IS NOT NULL
 	</select>
 	
+	<select id="all_tech" resultType="String" parameterType="map">
+		select usetech from user where usetech IS NOT NULL
+	</select>
+	
 </mapper>

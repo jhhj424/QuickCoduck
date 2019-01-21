@@ -268,6 +268,12 @@ public class UserController {
 			prodate += allclient.get(i).getProdate();
 			procommunicate += allclient.get(i).getProcommunicate();
 		}
+		profess = (profess / allclient.size());
+		proaction = (proaction / allclient.size());
+		prosatisfact = (prosatisfact / allclient.size());
+		prodate = (prodate / allclient.size());
+		procommunicate = (procommunicate / allclient.size());
+		
 		User avgclient = new User();//avgclient 객체로 session에 addObject() 해주기
 		avgclient.setProfess(profess);
 		avgclient.setProaction(proaction);
@@ -275,12 +281,10 @@ public class UserController {
 		avgclient.setProdate(prodate);
 		avgclient.setProcommunicate(procommunicate);
 		
-		List<String> user_tech = new ArrayList<String>();// type = 1 인 usertech 리스트로 가져오기
-		user_tech = service.user_tech();
+		List<String> all_tech = new ArrayList<String>();
+		all_tech = service.all_tech();
 		
-		System.out.println("user_tech : " + user_tech);
-		String user_string = "";
-		
+		String all_string = "";
 		
 		int Ajax = 0,Android = 0,C_plus = 0,C = 0,JSP = 0,Java = 0,
 		Python = 0,Ruby = 0,Unity = 0,jQuery = 0;//변수 선언(개발쪽)
@@ -289,13 +293,12 @@ public class UserController {
 		int BootStrap = 0,CSS = 0,DreamWeaver = 0,HTML = 0,JavaScript = 0,
 		PhotoShop = 0,Sketch = 0,Unity3d = 0,XML = 0,iOS = 0;//변수 선언(디자인쪽)
 		
-		
-		for(int i =0; i<user_tech.size(); i++){
-			user_string += user_tech.get(i);
+		for(int i =0; i<all_tech.size(); i++){
+			all_string += all_tech.get(i);
 		}//리스트를 하나의 string으로 변환
-		String techarr[] = user_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
+		String allarr[] = all_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
 		
-		for(String b : techarr) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
+		for(String b : allarr) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
 			if(b.equals("Ajax")) {Ajax++;}if(b.equals("Android")) {Android++;}
 			if(b.equals("C++")) {C_plus++;}if(b.equals("C")) {C++;}
 			if(b.equals("JSP")) {JSP++;}if(b.equals("Java")) {Java++;}
@@ -309,6 +312,7 @@ public class UserController {
 			if(b.equals("XML")) {XML++;}if(b.equals("iOS")) {iOS++;}
 			//디자인 파트 카운트 끝!
 		}
+		
 		TreeMap<String,Object> map = new TreeMap<String,Object>();//보유기술 Map
 		map.put("Ajax", Ajax);map.put("Android", Android);map.put("C_plus", C_plus);
 		map.put("C", C);map.put("JSP", JSP);map.put("Java",Java);map.put("Python", Python);
@@ -319,20 +323,18 @@ public class UserController {
 		
 		Iterator raking = sortByValue(map).iterator();//Iterator 형태로 해서 sort후 내림차순 정렬
 		int cnt = 0;//횟수 재한용 변수
-		List<String> top3_key = new ArrayList<String>();
-		List<Integer> top3_value = new ArrayList<Integer>();
+		List<String> top5_key = new ArrayList<String>();
+		List<Integer> top5_value = new ArrayList<Integer>();
 	        System.out.println("------------sort 후 -------------");
 	        while(raking.hasNext()) {
 	            String key = (String) raking.next();
 	            int value = (int) map.get(key);
-	            top3_key.add(key);
-	            top3_value.add(value);
+	            top5_key.add(key);
+	            top5_value.add(value);
 	            cnt++;
-	            if(cnt >2) break;
-	        }// top3 뽑아내는 while 구문
-	     
-	        
-	  
+	            if(cnt >4) break;
+	        }// top5 뽑아내는 while 구문
+	        cnt = 0;//재활용 변수
 	     
 	     Iterator<String> iteratorKey = map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
 	     List<String> user_key = new ArrayList<String>();
@@ -381,7 +383,7 @@ public class UserController {
 			
 			
 			Iterator<String> iteratorKey2 = client_map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
-		     List<Integer> client_value = new ArrayList<Integer>();
+		    List<Integer> client_value = new ArrayList<Integer>();
 		     
 		     while(iteratorKey2.hasNext()) {
 		    	 String key = iteratorKey2.next();
@@ -389,26 +391,89 @@ public class UserController {
 		    	 client_value.add(value);
 		    	 System.out.println(key+","+client_map.get(key));
 		     }
+		     
+		     Ajax = 0;Android = 0;C_plus = 0;C = 0;JSP = 0;Java = 0;Python = 0;Ruby = 0;
+		        Unity = 0;jQuery = 0;BootStrap = 0;CSS = 0;DreamWeaver = 0;HTML = 0;JavaScript = 0;
+		        PhotoShop = 0;Sketch = 0;Unity3d = 0;XML = 0;iOS = 0; // 변수 초기화(재활용)
+		        
+		     List<String> project_tech = new ArrayList<String>();
+		     project_tech = service.project_tech();
+			 String project_string = "";
+			 for(int i =0; i<project_tech.size(); i++){
+				 project_string += project_tech.get(i);
+				}//리스트를 하나의 string으로 변환
+				String techarr3[] = project_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
+				
+				for(String b : techarr3) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
+					if(b.equals("Ajax")) {Ajax++;}if(b.equals("Android")) {Android++;}
+					if(b.equals("C++")) {C_plus++;}if(b.equals("C")) {C++;}
+					if(b.equals("JSP")) {JSP++;}if(b.equals("Java")) {Java++;}
+					if(b.equals("Python")) {Python++;}if(b.equals("Ruby")) {Ruby++;}
+					if(b.equals("Unity")) {Unity++;}if(b.equals("jQuery")) {jQuery++;}
+					//개발쪽 파트 카운트 끝
+					if(b.equals("BootStrap")) {BootStrap++;}if(b.equals("CSS")) {CSS++;}
+					if(b.equals("DreamWeaver")) {DreamWeaver++;}if(b.equals("HTML")) {HTML++;}
+					if(b.equals("JavaScript")) {JavaScript++;}if(b.equals("PhotoShop")) {PhotoShop++;}
+					if(b.equals("Sketch")) {Sketch++;}if(b.equals("Unity3d")) {Unity3d++;}
+					if(b.equals("XML")) {XML++;}if(b.equals("iOS")) {iOS++;}
+					//디자인 파트 카운트 끝!
+				}
+				TreeMap<String,Object> project_map = new TreeMap<String,Object>();//보유기술 Map
+				project_map.put("Ajax", Ajax);project_map.put("Android", Android);project_map.put("C_plus", C_plus);
+				project_map.put("C", C);project_map.put("JSP", JSP);project_map.put("Java",Java);project_map.put("Python", Python);
+				project_map.put("Ruby", Ruby);project_map.put("Unity", Unity);project_map.put("jQuery", jQuery);
+				project_map.put("BootStrap", BootStrap);project_map.put("CSS", CSS);project_map.put("DreamWeaver", DreamWeaver);
+				project_map.put("HTML", HTML);project_map.put("JavaScript", JavaScript);project_map.put("PhotoShop",PhotoShop);
+				project_map.put("Sketch", Sketch);project_map.put("Unity3d", Unity3d);project_map.put("XML", XML);project_map.put("iOS", iOS);
+				
+
+				Iterator<String> iteratorKey3 = project_map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
+			    List<Integer> project_value = new ArrayList<Integer>();
+			     
+			     while(iteratorKey3.hasNext()) {
+			    	 String key = iteratorKey3.next();
+			    	 int value = (int) project_map.get(key);
+			    	 project_value.add(value);
+			    	 System.out.println(key+","+project_map.get(key));
+			     }
+				
+		     
 		
-		TreeMap<String,Object> map1 = new TreeMap<String,Object>();//개발쪽 Map
-		map1.put("Ajax", Ajax);map1.put("Android", Android);map1.put("C_plus", C_plus);
-		map1.put("C", C);map1.put("JSP", JSP);map1.put("Java",Java);map1.put("Python", Python);
-		map1.put("Ruby", Ruby);map1.put("Unity", Unity);map1.put("jQuery", jQuery);
-		
-		TreeMap<String,Object> map2 = new TreeMap<String,Object>();//디자인쪽 Map
-		map2.put("BootStrap", BootStrap);map2.put("CSS", CSS);map2.put("DreamWeaver", DreamWeaver);
-		map2.put("HTML", HTML);map2.put("JavaScript", JavaScript);map2.put("PhotoShop",PhotoShop);
-		map2.put("Sketch", Sketch);map2.put("Unity3d", Unity3d);map2.put("XML", XML);map2.put("iOS", iOS);
-		
-		
-		mav.addObject("user", user);
+		long price_a = 5000000;long price_b = 10000000;long price_c = 25000000; long price_d = 50000000; long price_e = 75000000; long price_f = 100000000;//범위설정
+		int price_a_cnt,price_b_cnt,price_c_cnt,price_d_cnt,price_e_cnt,price_f_cnt;//카운트 값
+		price_a_cnt = 0;price_b_cnt=0;price_c_cnt=0;price_d_cnt=0;price_e_cnt=0;price_f_cnt=0;//변수 초기화
+		List<String> board_price = new ArrayList<String>();//뽑아온 String 형태의 가격 리스트
+		List<Integer> price = new ArrayList<Integer>();//String --> Integer 형태로 가격비교 할 수 있게 형변환
+		ArrayList<Integer> price_cnt = new ArrayList<Integer>();//해당 금액 카운트 값 저장 리스트
+		board_price = service.board_price();
+		for(String a : board_price) {
+			System.out.println(a);
+			a = a.replaceAll(",", "");
+			int b = Integer.parseInt(a);
+			price.add(b);
+		}
+		for(int a : price) {//금액별로 카운트 세기
+			if(a > 0 && a < price_b) {price_a_cnt++;};
+			if(a>= price_b && a<price_c) {price_b_cnt++;};
+			if(a>= price_c && a<price_d) {price_c_cnt++;};
+			if(a>= price_d && a<price_e) {price_d_cnt++;};
+			if(a>= price_e && a<price_f) {price_e_cnt++;};
+			if(a>= price_f) {price_f_cnt++;};
+		}
+		price_cnt.add(price_a_cnt);price_cnt.add(price_b_cnt);
+	    price_cnt.add(price_c_cnt);price_cnt.add(price_d_cnt);
+	    price_cnt.add(price_e_cnt);price_cnt.add(price_f_cnt);//카운트 값을 리스트에 넣어주자
+
+	    mav.addObject("user", user);
 		mav.addObject("avguser",avguser);
 		mav.addObject("avgclient",avgclient);
-		mav.addObject("top3_key",top3_key);
-		mav.addObject("top3_value",top3_value);
+		mav.addObject("top5_key",top5_key);
+		mav.addObject("top5_value",top5_value);
 		mav.addObject("user_key",user_key);
 		mav.addObject("user_value",user_value);
 		mav.addObject("client_value",client_value);
+		mav.addObject("project_value",project_value);
+		mav.addObject("price_cnt",price_cnt);
 		return mav;
 	}
 

@@ -93,13 +93,13 @@ main {
     <div class="chart radar-chart light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
       <h3 class="title">회원 평균 점수</h3>
-      <p class="tagline">${loginUser.rating } / 5</p>
+      <p class="tagline">${loginUser.rating } / 5 (5점 만점)</p>
       <canvas height="400" id="radarChartLight"></canvas>
     </div>
     <div class="chart polar-chart light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">Top 3 Technology</h3>
-      <p class="tagline">QuickCoduck (in 2019, from Development)</p>
+      <h3 class="title">Top 5 Technology</h3>
+      <p class="tagline">QuickCoduck (in 2018, from Development)</p>
       <canvas height="400" id="polarChartLight"></canvas>
     </div>
     <div class="chart line-chart light">
@@ -111,19 +111,19 @@ main {
     <div class="chart line-chart-curved light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
       <h3 class="title">프로젝트 평균금액</h3>
-      <p class="tagline">Area chart</p>
+      <p class="tagline"> &#8361; 1,000,000  단위</p>
       <canvas height="400" id="lineChartCLight"></canvas>
     </div>
     <div class="chart bar-chart light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">프로젝트 평균기술</h3>
-      <p class="tagline">2015 (in thousands US$)</p>
+      <h3 class="title">프로젝트 월별매칭</h3>
+      <p class="tagline">.건당 (in 2018 기준)</p>
       <canvas height="400" id="barChartLight"></canvas>
     </div>
     <div class="chart doughnut-chart light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">프로젝트 평균기술</h3>
-      <p class="tagline">2015 (in billion US$)</p>
+      <h3 class="title">QuickCoduck 평균매칭률</h3>
+      <p class="tagline">.건당 (in 2018 기준)</p>
       <canvas height="400" id="doughnutChartLight"></canvas>
     </div>
   </main>
@@ -201,8 +201,8 @@ var Charts = /** @class */ (function () {
             data: {
                 datasets: [{
                         data: [
-                <c:forEach var="value" items="${top3_value}" varStatus="g" begin="0">
-                   ${value},
+                <c:forEach var="tvalue" items="${top5_value}" varStatus="g" begin="0">
+                   ${tvalue},
                 <c:out value="${g.end}" />
                 </c:forEach>
                         	],
@@ -211,6 +211,8 @@ var Charts = /** @class */ (function () {
                             this.convertHex(this.colors[0], 60),
                             this.convertHex(this.colors[1], 60),
                             this.convertHex(this.colors[2], 60),
+                            "rgba(52,152,219,0.4)", 
+                            "rgba(12,152,19,0.4)", 
                         ],
                         hoverBackgroundColor: [
                             this.colors[0],
@@ -219,8 +221,8 @@ var Charts = /** @class */ (function () {
                         ]
                     }],
                 labels: [
-                	<c:forEach var="key" items="${top3_key}" varStatus="h" begin="0">
-                	"${key}",
+                	<c:forEach var="tkey" items="${top5_key}" varStatus="h" begin="0">
+                	"${tkey}",
                 	<c:out value="${h.end}"/>
                 	</c:forEach>
                 ]
@@ -293,6 +295,27 @@ var Charts = /** @class */ (function () {
                         	<c:out value="${c.end}"/>
                         	</c:forEach>
                         ]
+                    },
+                    {
+                        label: "프로젝트 공고",
+                        fill: false,
+                        lineTension: 0,
+                        borderColor: this.colors[2],
+                        pointBackgroundColor: this.colors[2],
+                        pointBorderColor: "white",
+                        pointBorderWidth: 1,
+                        pointRadius: 4,
+                        pointHoverBackgroundColor: this.colors[2],
+                        pointHoverBorderColor: "white",
+                        pointHoverBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10,
+                        data: [
+                        	<c:forEach var="pvalue" items="${project_value}" varStatus="t" begin="0">
+                        	"${pvalue}",
+                        	<c:out value="${t.end}"/>
+                        	</c:forEach>
+                        ]
                     }
                 ]
             },
@@ -326,10 +349,10 @@ var Charts = /** @class */ (function () {
         var ctxD = $("#lineChartCDark"), ctxL = $("#lineChartCLight"), chartData = {
             type: 'line',
             data: {
-                labels: ["A", "B", "C", "D", "E", "F"],
+                labels: ["500만원", "1000만원", "2500만원", "5000만원", "7500만원", "10000만원"],
                 datasets: [
                     {
-                        label: "Current",
+                        label: "QuickCoduck 평균",
                         lineTension: 0.3,
                         borderColor: this.colors[0],
                         backgroundColor: this.convertHex(this.colors[0], 50),
@@ -342,23 +365,12 @@ var Charts = /** @class */ (function () {
                         pointHoverBorderWidth: 0,
                         pointRadius: 0,
                         pointHitRadius: 10,
-                        data: [83, 109, 88, 117, 81, 95, 95]
-                    },
-                    {
-                        label: "Last",
-                        lineTension: 0.3,
-                        borderColor: this.colors[1],
-                        backgroundColor: this.convertHex(this.colors[1], 50),
-                        pointBackgroundColor: this.colors[1],
-                        pointBorderColor: "white",
-                        pointBorderWidth: 0,
-                        pointRadius: 0,
-                        pointHoverBackgroundColor: this.colors[1],
-                        pointHoverBorderColor: "white",
-                        pointHoverBorderWidth: 0,
-                        pointHoverRadius: 0,
-                        pointHitRadius: 10,
-                        data: [130, 86, 69, 101, 127, 77, 44]
+                        data: [
+                        	<c:forEach var="pcnt" items="${price_cnt}" varStatus="i" begin="0">
+                        	"${pcnt}",
+                        	<c:out value="${i.end}"/>
+                        	</c:forEach>
+                        ]
                     }
                 ]
             },
@@ -368,8 +380,8 @@ var Charts = /** @class */ (function () {
                             ticks: {
                                 fontColor: this.tickColor,
                                 min: 0,
-                                max: 175,
-                                stepSize: 25
+                                max: 50,
+                                stepSize: 5
                             }
                         }],
                     xAxes: [{
@@ -392,27 +404,19 @@ var Charts = /** @class */ (function () {
         var ctxD = $("#barChartDark"), ctxL = $("#barChartLight"), chartData = {
             type: 'bar',
             data: {
-                labels: [
-                	
-                ],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                        data: [
-                        	
-                        ],
+                        data: [27, 59, 18, 26, 79, 55, 36, 23, 44, 30, 55, 64],
                         backgroundColor: this.colors[0],
                         hoverBackgroundColor: this.convertHex(this.colors[0], 70)
                     },
                     {
-                        data: [
-                        	
-                        ],
+                        data: [36, 23, 44, 30, 79, 55, 61, 14, 27, 59, 18, 91],
                         backgroundColor: this.colors[1],
                         hoverBackgroundColor: this.convertHex(this.colors[1], 70)
                     },
                     {
-                        data: [
-                        	
-                       ],
+                        data: [28, 31, 87, 61, 14, 27, 59, 18, 96, 26, 79, 14],
                         backgroundColor: this.colors[2],
                         hoverBackgroundColor: this.convertHex(this.colors[2], 70)
                     }]
@@ -433,8 +437,8 @@ var Charts = /** @class */ (function () {
                             ticks: {
                                 fontColor: this.tickColor,
                                 min: 0,
-                                max: 25,
-                                stepSize: 5
+                                max: 175,
+                                stepSize: 25
                             }
                         }]
                 },
@@ -497,9 +501,9 @@ var Charts = /** @class */ (function () {
         var ctxD = $('#doughnutChartDark'), ctxL = $('#doughnutChartLight'), chartData = {
             type: 'doughnut',
             data: {
-                labels: ["Brasil", "India", "China"],
+                labels: ["매칭성공", "매칭대기중", "매칭실패"],
                 datasets: [{
-                        data: [300, 50, 100],
+                        data: [235, 83, 23],
                         borderWidth: 0,
                         backgroundColor: [
                             this.convertHex(this.colors[0], 60),
