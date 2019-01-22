@@ -74,11 +74,11 @@ $("#toggle").click(function(){
     <img src="../workpic/QuickCoduck.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar"></a>
     </div>
     <div class="w3-right w3-hide-small">
-      <c:if test="${sessionScope.loginUser.type == '1'}">
+      <c:if test="${sessionScope.loginUser.type == '1'|| sessionScope.loginUser.type == '3'}">
       <a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i class="fa fa-search"></i> opensource 찾기</a>
       <a href="../board/find.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 공고 프로젝트 찾기</a>
       </c:if>
-      <c:if test="${sessionScope.loginUser.type == '2'}">
+      <c:if test="${sessionScope.loginUser.type == '2' || sessionScope.loginUser.type == '3'}">
       <a href="../board/find.duck?type=3" class="w3-bar-item w3-button"><i class="fa fa-search"></i> 프로젝트 찾기</a>
       </c:if>
       <a href="../board/list.duck?type=2" class="w3-bar-item w3-button"><i class="fa fa-newspaper-o"></i> 자유게시판</a>
