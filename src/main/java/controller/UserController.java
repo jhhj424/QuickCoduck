@@ -498,7 +498,7 @@ public class UserController {
 		User dbuser = service.select(id);
 		System.out.println("maxcount" + dbuser.getMaxcount());
 		User user = (User) session.getAttribute("loginUser");
-		if (!dbuser.getUserid().equals(user.getUserid()) && !user.getUserid().equals("admin")) {
+		if (!dbuser.getUserid().equals(user.getUserid()) && user.getType() !=3) {
 			throw new LoginException("본인정보만 조회 가능합니다", "../user/mypage_main.duck?id=" + user.getUserid());
 		}
 		mav.addObject("user", dbuser);
@@ -602,7 +602,7 @@ public class UserController {
 		if (loginUser.getPass().equals(pass)) {
 			try {
 				service.userDelete(id);
-				if (!loginUser.getUserid().equals("admin")) {
+				if (loginUser.getType() != 3) {
 					session.invalidate();
 					mav.setViewName("redirect:loginForm.duck");
 				} else {// 관리자
