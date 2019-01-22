@@ -384,7 +384,9 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
 </c:if>
 <div style="margin-bottom:30px;">
       <a href="update.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[게시물수정]</i></a>
-      <a href="adminupdateForm.duck?num=${notice.boardnum}&type=${notice.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[공지수정할때만(관리자)]</i></a>
+      <c:if test="${loginUser.type==3}">
+      		<a href="adminupdateForm.duck?num=${notice.boardnum}${board.boardnum}&type=${notice.boardtype}${board.boardtype}"><i class="fa fa-rotate-right w3-margin-right">[공지수정]</i></a>
+      </c:if>
       <a href="deleteForm.duck?num=${board.boardnum}${notice.boardnum}&type=${board.boardtype}${notice.boardtype}"><i class="fa fa-trash-o w3-margin-right">[게시물삭제]</i></a>
       <c:if test="${param.type==1 || param.type==3 || param.type==5}">
       <a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>

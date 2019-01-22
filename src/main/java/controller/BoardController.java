@@ -412,6 +412,9 @@ public class BoardController {
 			board.setBoardnum(num);
 			board.setBoardtype(type);
 			board = service.getBoard(board);// getBoard와 getNotice를 같이 쓸수 없음
+			if(board == null) {
+				throw new LoginException("공지 수정을 눌러주세요.", "detail.duck?num=" + num+"&type=" + type);
+			}
 			/*if(loginUser.getType()==1) {
 				board = service.getBoard(board);
 				user = service.select(board.getUserid());
@@ -428,7 +431,8 @@ public class BoardController {
 			user = service.select(board.getUserid());
 			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
-			}/*
+			}
+			/*
 			if (request.getRequestURI().contains("detail")) { // 페이지경로가 datail을 포함할때 (상세보기)
 				service.readcntadd(num); // 조회수 증가
 			}*/
@@ -679,6 +683,9 @@ public class BoardController {
 			board = service.getBoard(board);
 		}*/
 		board = service.getNotice(board);
+		if(board == null) {
+			throw new LoginException("곻지가 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
+		}
 		User user = new User();
 		user = service.select(board.getUserid());
 		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
