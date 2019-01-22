@@ -123,8 +123,6 @@ function write_submit() {
 					style="height: 23px; width: 23px" alt="Avatar"></a>
 			</div>
 			<div class="w3-right w3-hide-small">
-				<a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i
-					class="fa fa-info"></i> 이용방법</a>
 				<c:if test="${sessionScope.loginUser.type == '1'}">
 					<a href="../board/find.duck?type=1" class="w3-bar-item w3-button"><i
 						class="fa fa-search"></i> opensource 찾기</a>

@@ -26,14 +26,6 @@ public class BoardController {
 	@Autowired
 	private DuckService service;
 	
-	@RequestMapping(value="board/info")
-	public ModelAndView info(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser");
-		user = service.select(user.getUserid());
-		mav.addObject("user",user);
-		return mav;
-	}
 	@RequestMapping(value = "board/list")
 	public ModelAndView list(Integer pageNum, String searchType, String searchContent, Integer type, HttpSession session) {
 		if (pageNum == null || pageNum.toString().equals("")) {
