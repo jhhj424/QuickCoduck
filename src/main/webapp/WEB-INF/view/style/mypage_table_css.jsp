@@ -56,6 +56,108 @@ font {
 	font-weight: 600;
 	text-shadow: 0px 0px 0px #666666;
 }
+.button {
+	background: #009688d1;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	width: 100%;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 18px;;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 96%;
+}
+
+.button:hover {
+	background: #fff;
+	color: #009688;
+	border-radius: 5px;
+}
+
+.button:before, .button:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #009688;
+	transition: 400ms ease all;
+}
+
+.button:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.button:hover:before, .button:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
+.button1 {
+	background: #f95959bf;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	width: 100%;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 18px;;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 96%;
+}
+
+.button1:hover {
+	background: #fff;
+	color: #f95959bf;
+	border-radius: 5px;
+}
+
+.button1:before, .button1:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #f95959bf;
+	transition: 400ms ease all;
+}
+
+.button1:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.button1:hover:before, .button1:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
 .search{
   width: 260px;
   height: 30px;

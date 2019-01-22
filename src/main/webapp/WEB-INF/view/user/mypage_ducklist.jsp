@@ -71,11 +71,11 @@
 <tr align="center">
 	<th width="6%" class="th" style="font-weight:bold;">번호</th>
 	<th width="10%" class="th" style="font-weight:bold;">글쓴이</th>
-	<th width="45%" class="th" style="font-weight:bold;">제목</th>
+	<th width="40%" class="th" style="font-weight:bold;">제목</th>
 	<th width="10%" class="th" style="font-weight:bold;">추천수</th>
 	<th width="10%" class="th" style="font-weight:bold;">DUCK수</th>
 	<th width="10%" class="th" style="font-weight:bold;">조회수</th>
-	<th width="10%" class="th" style="font-weight:bold;">삭제</th>
+	<th width="15%" class="th" style="font-weight:bold;">삭제</th>
 </tr>
 
 <c:forEach var="board" items="${boardlist}">
@@ -92,7 +92,9 @@
 		<td align="center" class="th">${board.duckcnt}</td>
 		<td align="right" class="th">${board.readcnt}</td>
 		<td>
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'">삭제</button>
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'"class="button">
+			삭제
+			</button>
 		</td>
 	</tr>
 </c:forEach>

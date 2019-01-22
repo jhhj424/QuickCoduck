@@ -134,9 +134,9 @@ if (msg) { //삭제
 <tr align="center" valign="middle" bordercolor="#212121">
 	<th width="6%" class="th" style="font-weight:bold;">번호</th>
 	<th width="10%" class="th" style="font-weight:bold;">글쓴이</th>
-	<th width="45%" class="th" style="font-weight:bold;">제목</th>
+	<th width="40%" class="th" style="font-weight:bold;">제목</th>
 	<th width="10%" class="th" style="font-weight:bold;">조회수</th>
-	<th width="10%" class="th" style="font-weight:bold;">평가하기</th>
+	<th width="15%" class="th" style="font-weight:bold;">평가하기</th>
 	
 </tr>
 
@@ -152,7 +152,7 @@ if (msg) { //삭제
 		</td>
 		<td align="right" class="th">${board.readcnt}</td>
 		<td align="center" class="th">		
-			<button id="btn-open-dialog" onclick="evaluation(${board.boardnum})">선택하기</button>
+			<button id="btn-open-dialog" onclick="evaluation(${board.boardnum})" class="button">선택하기</button>
 		</td>
 	</tr>
 </c:forEach>
@@ -175,7 +175,7 @@ if (msg) { //삭제
 <div align="center"><h2>[참여한 개발자 목록]</h2></div>
 <div id="my-userlist"> 
 			<!-- ajax으로 유저리스트 받아오면됨 -->
-		</div>
+</div>
 </div>
 <div id="dialog-background">
 </div>
