@@ -481,7 +481,7 @@ function write_submit() {
 															</a>
 														</c:if>
 														<c:if test="${empty board.fileurl}">
-														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>No-Image</span>
+														<span class="span2"><i class="fa fa-frown-o w3-margin-right"></i>Image</span>
 														</c:if>
 														<c:if test="${param.type == 1 }">
 														<c:if test="${board.duckcnt > 10}">
@@ -491,7 +491,7 @@ function write_submit() {
 														<c:if test="${board.maxperson-1 <=  board.nowperson}">
 														<span class="tag4"><i class="fa fa-certificate"></i> 마감임박!</span></c:if>
 														<c:if test="${board.maxperson == board.nowperson}">
-														<span class="tag4"><i class="fa fa-certificate"></i> 모집종료</span></c:if>
+														<span class="tag5"><i class="fa fa-rocket"></i> 모집종료</span></c:if>
 														<c:if test="${board.nowperson == 0}">
 														<span class="tag_new"><sup>New</sup> 신규등록!</span></c:if>
 														</c:if>	<!-- 임의로 이벤트 하나 만든거임 -->

@@ -251,6 +251,17 @@ a {
 	line-height: 30px;
 	cursor: pointer;
 }
+.tag5 {
+	background: #022dcfd6;
+	color: #fff;
+	border-radius: 10px;
+	padding: 2px 5px;
+	font-size: 13px;
+	font-weight: lighter;
+	margin-right: 10px;
+	line-height: 30px;
+	cursor: pointer;
+}
 
 .tag_duck {
 	background: #3034bac2;
