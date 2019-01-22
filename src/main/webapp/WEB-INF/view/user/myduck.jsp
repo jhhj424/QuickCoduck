@@ -113,19 +113,19 @@
 		<td align="right" class="th">${board.readcnt}</td>
 			
 			<c:if test="${param.ducktype==1}">
-				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'">삭제</button></td>
+				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'" class="button1">삭제</button></td>
 			</c:if>
 			<c:if test="${param.ducktype==2}">
-				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'">삭제</button></td>
+				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=2&type=3'"class="button1">삭제</button></td>
 			</c:if>
 			<c:if test="${param.ducktype==3}">
 				<td>
-					<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">수락</button>
-					<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'">거절</button>	
+					<button type="button" id="userproaccept" onclick="location.href='userproaccept.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'"class="button">수락</button>
+					<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=3&type=3'"class="button1">거절</button>	
 				</td>
 			</c:if>
 			<c:if test="${param.ducktype==5}">
-				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=5&type=3'">삭제</button></td>
+				<td><button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=5&type=3'"class="button1">삭제</button></td>
 			</c:if>
 	</tr>
 </c:forEach>
