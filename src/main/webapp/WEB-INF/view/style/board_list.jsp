@@ -11,6 +11,13 @@
 	font-weight: 600;
 	text-shadow: 0px 0px 0px #666666;
 }
+.notice{
+	background: #f95959c9;
+	border-radius: 5px;
+	color: #fefefe;
+	font-size: 18px;
+	padding: 0px 10px;
+}
 .search{
   width: 260px;
   height: 30px;

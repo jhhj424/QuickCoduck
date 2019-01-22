@@ -100,8 +100,9 @@ QuickCoduck
 <c:forEach var="notice" items="${noticelist}">
 <tr align="center" valign="middle">
 <td>
-<font style=" color: #8A4B08; font-weight: bold;">
-공지</font>
+<span class="notice">
+<font style=" color: #fff; font-weight: bold; font-size:15px;">
+<i class="fa fa-bullhorn w3-margin-right"></i>공지</font></span>
 </td>
 <!-- 게시글번호 -->
 <td>
@@ -115,22 +116,22 @@ QuickCoduck
 </c:if>
 </td>
 <!-- 첨부파일 여부 -->
-<td><font style=" color: #8A4B08; font-weight: bold;">
-<a href="detail.duck?num=${notice.boardnum}&type=${notice.boardtype}">${notice.subject}
-<c:if test="${notice.boardtype==1}">추천 - ${notice.recmd}</c:if></a></font>
+<td>
+<a href="detail.duck?num=${notice.boardnum}&type=${notice.boardtype}" style="color:#e40000;font-weight:bold;font-size:16px;">${notice.subject}
+<c:if test="${notice.boardtype==1}">추천 - ${notice.recmd}</c:if></a>
 </td>
 <!-- 제목 디테일 -->
-<td><font style=" color: #8A4B08; font-weight: bold;">
+<td><font style="color:#e40000;font-weight:bold;font-size:16px;">
 ${notice.userid}</font>
 </td>
 <!-- 작성자 -->
-<td><font style=" color: #8A4B08; font-weight: bold;">
+<td><font style="color:#e40000;font-weight:bold;font-size:16px;">
 	<!-- 오늘올린 게시물이면 HH:mm 과거에 올렸던건 yy/MM/dd -->
 	<fmt:formatDate value="${notice.regdate}" pattern="yy/MM/dd hh:mm"/>
 	</font>
 </td>
 <!-- 작성일 -->
-<td><font style=" color: #8A4B08; font-weight: bold;">
+<td><font style="color:#e40000;font-weight:bold;font-size:16px;">
 ${notice.readcnt}</font>
 </td>
 <!-- 조회수 -->
