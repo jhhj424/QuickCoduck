@@ -458,7 +458,7 @@ function write_submit() {
                                                     <span class="tag3"><i class="fa fa-search"></i>검색</span>
                                                     </c:if>
 			                                        </div><!-- 선택기술 -->
-			                                        <div align="right" class="right"><b>사용기술:</b>&nbsp;&nbsp;
+			                                        <div align="right" class="right"><b>요구기술:</b>&nbsp;&nbsp;
 			                                        <c:if test="${!empty board.usetech }">
 			                                        <c:forEach var="usetech" items="${board.usetech}" varStatus="g" begin="0">
                                                     <span class="tag">${usetech}</span>
@@ -468,7 +468,7 @@ function write_submit() {
                                                     <c:if test="${empty board.usetech }">
                                                     <span class="tag2">Empty Tech</span>
                                                     </c:if>
-			                                        </div><!-- 사용기술 -->
+			                                        </div><!-- 요구기술 -->
 												</div>
 											</c:forEach>
 										</div>
