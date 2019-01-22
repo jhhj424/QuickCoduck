@@ -92,7 +92,7 @@
 		<td align="center" class="th">${board.duckcnt}</td>
 		<td align="right" class="th">${board.readcnt}</td>
 		<td>
-			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'"class="button">
+			<button type="button" id="userprodelete" onclick="location.href='userprodelete.duck?userid=${user.userid}&num=${board.boardnum}&ducktype=1&type=1'"class="button1">
 			삭제
 			</button>
 		</td>

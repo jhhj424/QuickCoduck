@@ -152,7 +152,7 @@ if (msg) { //삭제
 		</td>
 		<td align="right" class="th">${board.readcnt}</td>
 		<td align="center" class="th">		
-			<button id="btn-open-dialog" onclick="evaluation(${board.boardnum})" class="button">선택하기</button>
+			<button id="btn-open-dialog" onclick="evaluation(${board.boardnum})" class="button">평가하기</button>
 		</td>
 	</tr>
 </c:forEach>
@@ -170,14 +170,19 @@ if (msg) { //삭제
 	</c:if> <c:if test="${pageNum >= maxpage}">다음<i class="fa fa-arrow-right w3-large"></i></c:if></td>
 </tr>
 </table>
-<div id="my-dialog" style="width: 20%; height: 8%">
+<div id="my-dialog" style="width: 20%; height: 8%; background-color:rgba(0, 0, 0, 0);">
 	
-<div align="center"><h2>[참여한 개발자 목록]</h2></div>
+<div align="center" class="table">
+<h2 class="w3-padding-16" style="font-weight:bold;color:#252c30;">
+<i class="fa fa-group fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>참여한 개발자 목록
+</h2>
+</div>
 <div id="my-userlist"> 
-			<!-- ajax으로 유저리스트 받아오면됨 -->
+<!-- ajax으로 유저리스트 받아오면됨 -->
 </div>
 </div>
-<div id="dialog-background">
+<div id="dialog-background" >
+
 </div>
 <p></p>
 </div>

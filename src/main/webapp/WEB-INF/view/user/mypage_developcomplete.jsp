@@ -99,7 +99,7 @@ function evaluation(boardnum){
 			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 		</td>
 		<td align="right" class="th">${board.readcnt}</td>
-		<td align="center" class="th"><input type="button" value="선택하기" onclick="evaluation(${board.boardnum})" class="button"></td>
+		<td align="center" class="th"><input type="button" value="평가하기" onclick="evaluation(${board.boardnum})" class="button"></td>
 	</tr>
 </c:forEach>
 <tr align="center" class="page">

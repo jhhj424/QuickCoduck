@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@ include file="/WEB-INF/view/style/mypage_star_rating_css.jsp" %>
 <%@ include file="/WEB-INF/view/style/mypage_star_rating_js.jsp" %>
+<%@ include file="/WEB-INF/view/style/mypage_table_css.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,7 +213,7 @@
 
 <div class="average">
   <span class="text">클라이언트 평균점수는?</span><div class=" score-average js-average"></div>
-  <span class="text">평가하기 : <input type="submit" id="btn" value="눌러주세용"></span>
+  <span class="text"><input type="submit" id="btn" value="제출하기" class="button"></span>
   
 </div>
 

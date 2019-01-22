@@ -100,7 +100,7 @@ function complete(boardnum){
 		</td>
 		<td align="center"class="th">${board.readcnt}</td>
 		<td align="center"class="th">
-		<input type="button" class="btn" value="완료하기" onclick="complete(${board.boardnum})"></td>
+		<input type="button" class="button" value="완료하기" onclick="complete(${board.boardnum})"></td>
 	</tr>
 </c:forEach>
 <tr align="center" class="page">
