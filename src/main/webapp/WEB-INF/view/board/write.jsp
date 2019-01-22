@@ -281,7 +281,7 @@ while(reg.test(n)){
 <div style="text-align:center;margin-bottom:20px;">
 		<a href="javascript:document.f.submit()"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-edit "></i>게시물등록</a>
 		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
-		<a href="find.duck?type=${param.type}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물등록</a>
+		<a href="find.duck?type=${param.type}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물목록</a>
 		</c:if>
 		<c:if test="${boardtype==1 || boardtype==3 || boardtype==5 }">
 		<a href="find.duck?type=${boardtype}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물목록</a>
