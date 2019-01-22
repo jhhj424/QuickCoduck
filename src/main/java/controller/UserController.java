@@ -56,12 +56,12 @@ public class UserController {
 	private DuckService service;
 	/* NaverLoginBO */
 	@Autowired
-    private NaverLoginBO naverLoginBO;
-    private String apiResult = null;
-    
-    private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-        this.naverLoginBO = naverLoginBO;
-    }
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 
 	@RequestMapping("user/start")
 	public ModelAndView start() {
@@ -79,12 +79,12 @@ public class UserController {
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardlist2", boardlist2);
 		String projectcnt = service.projectcnt();
-		System.out.println("projectcnt:"+projectcnt);
-		mav.addObject("projectcnt",projectcnt);
+		System.out.println("projectcnt:" + projectcnt);
+		mav.addObject("projectcnt", projectcnt);
 		String projecttotalprice = service.projecttotalprice();
-		mav.addObject("projecttotalprice",projecttotalprice);
+		mav.addObject("projecttotalprice", projecttotalprice);
 		String usertotalcnt = service.usertotalcnt();
-		mav.addObject("usertotalcnt",usertotalcnt);
+		mav.addObject("usertotalcnt", usertotalcnt);
 		return mav;
 	}
 
@@ -175,12 +175,18 @@ public class UserController {
 		String pass1 = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
 
-		if (pass1.equals(pass2) && !(pass1.length() < 4 || pass1.length() > 12)) { // 비밀번호 일치
-			service.userCreate(user, request);
-			mav.addObject("user", user);
-			mav.setViewName("redirect:loginForm.duck");
+		int count = service.idchk(user.getUserid());
+
+		if (count != 0) {
+			throw new LoginException("아이디 중복입니다", "../user/loginForm.duck");
 		} else {
-			throw new LoginException("비밀번호를 확인해주세여", "../user/loginForm.duck");
+			if (pass1.equals(pass2) && !(pass1.length() < 4 || pass1.length() > 12)) { // 비밀번호 일치
+				service.userCreate(user, request);
+				mav.addObject("user", user);
+				mav.setViewName("redirect:loginForm.duck");
+			} else {
+				throw new LoginException("비밀번호를 확인해주세여", "../user/loginForm.duck");
+			}
 		}
 		return mav;
 	}
@@ -188,36 +194,36 @@ public class UserController {
 	@RequestMapping("user/loginForm")
 	public ModelAndView loginForm(HttpSession session) {
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		ModelAndView mav = new ModelAndView("user/login","url",naverAuthUrl);
-		System.out.println("naverAuthUrl:"+naverAuthUrl);
+		ModelAndView mav = new ModelAndView("user/login", "url", naverAuthUrl);
+		System.out.println("naverAuthUrl:" + naverAuthUrl);
 		mav.addObject(new User());
 		String projectcnt = service.projectcnt();
-		System.out.println("projectcnt:"+projectcnt);
-		mav.addObject("projectcnt",projectcnt);
+		System.out.println("projectcnt:" + projectcnt);
+		mav.addObject("projectcnt", projectcnt);
 		String projecttotalprice = service.projecttotalprice();
-		mav.addObject("projecttotalprice",projecttotalprice);
+		mav.addObject("projecttotalprice", projecttotalprice);
 		String usertotalcnt = service.usertotalcnt();
-		mav.addObject("usertotalcnt",usertotalcnt);
+		mav.addObject("usertotalcnt", usertotalcnt);
 		return mav;
 	}
 
-    //네이버 로그인 성공시 callback호출 메소드
-    @RequestMapping(value = "/user/callback", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-            throws IOException {
-    	ModelAndView mav = new ModelAndView("user/naverSuccess");
-        System.out.println("여기는 callback");
-        OAuth2AccessToken oauthToken;
-        oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        //로그인 사용자 정보를 읽어온다.
-        apiResult = naverLoginBO.getUserProfile(oauthToken);
-        System.out.println(apiResult.toString());
-        model.addAttribute("result", apiResult);
-        System.out.println("result:"+apiResult);
-                
-        return mav;
-    }
-	
+	// 네이버 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/user/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state,
+			HttpSession session) throws IOException {
+		ModelAndView mav = new ModelAndView("user/naverSuccess");
+		System.out.println("여기는 callback");
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		// 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken);
+		System.out.println(apiResult.toString());
+		model.addAttribute("result", apiResult);
+		System.out.println("result:" + apiResult);
+
+		return mav;
+	}
+
 	@RequestMapping("user/logout")
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -235,10 +241,10 @@ public class UserController {
 		float prosatisfact = 0;
 		float prodate = 0;
 		float procommunicate = 0;
-		//평균 측정 점수들 변수선언
-		
-		List<User> alluser = service.alluser();//유저 중에서 rating 있는 사람의 수 / 평균점수
-		for(int i = 0; i < alluser.size(); i ++) {
+		// 평균 측정 점수들 변수선언
+
+		List<User> alluser = service.alluser();// 유저 중에서 rating 있는 사람의 수 / 평균점수
+		for (int i = 0; i < alluser.size(); i++) {
 			profess += alluser.get(i).getProfess();
 			proaction += alluser.get(i).getProaction();
 			prosatisfact += alluser.get(i).getProsatisfact();
@@ -250,19 +256,23 @@ public class UserController {
 		prosatisfact = (prosatisfact / alluser.size());
 		prodate = (prodate / alluser.size());
 		procommunicate = (procommunicate / alluser.size());
-		
-		User avguser = new User();//평균 유저 객체로 session 에다가 addObject 해주기
+
+		User avguser = new User();// 평균 유저 객체로 session 에다가 addObject 해주기
 		avguser.setProfess(profess);
 		avguser.setProaction(proaction);
 		avguser.setProsatisfact(prosatisfact);
 		avguser.setProdate(prodate);
 		avguser.setProcommunicate(procommunicate);
-		
-		profess = 0;proaction = 0; prosatisfact = 0; prodate = 0; procommunicate = 0;
-		//변수 초기화 해서 재사용
-		
-		List<User> allclient = service.allcliet();//client 중에서 rating 있는 사람수 / 평균점수
-		for(int i = 0; i < allclient.size(); i ++) {
+
+		profess = 0;
+		proaction = 0;
+		prosatisfact = 0;
+		prodate = 0;
+		procommunicate = 0;
+		// 변수 초기화 해서 재사용
+
+		List<User> allclient = service.allcliet();// client 중에서 rating 있는 사람수 / 평균점수
+		for (int i = 0; i < allclient.size(); i++) {
 			profess += allclient.get(i).getProfess();
 			proaction += allclient.get(i).getProaction();
 			prosatisfact += allclient.get(i).getProsatisfact();
@@ -274,211 +284,464 @@ public class UserController {
 		prosatisfact = (prosatisfact / allclient.size());
 		prodate = (prodate / allclient.size());
 		procommunicate = (procommunicate / allclient.size());
-		
-		User avgclient = new User();//avgclient 객체로 session에 addObject() 해주기
+
+		User avgclient = new User();// avgclient 객체로 session에 addObject() 해주기
 		avgclient.setProfess(profess);
 		avgclient.setProaction(proaction);
 		avgclient.setProsatisfact(prosatisfact);
 		avgclient.setProdate(prodate);
 		avgclient.setProcommunicate(procommunicate);
-		
+
 		List<String> all_tech = new ArrayList<String>();
 		all_tech = service.all_tech();
-		
+
 		String all_string = "";
-		
-		int Ajax = 0,Android = 0,C_plus = 0,C = 0,JSP = 0,Java = 0,
-		Python = 0,Ruby = 0,Unity = 0,jQuery = 0;//변수 선언(개발쪽)
-		
-		
-		int BootStrap = 0,CSS = 0,DreamWeaver = 0,HTML = 0,JavaScript = 0,
-		PhotoShop = 0,Sketch = 0,Unity3d = 0,XML = 0,iOS = 0;//변수 선언(디자인쪽)
-		
-		for(int i =0; i<all_tech.size(); i++){
+
+		int Ajax = 0, Android = 0, C_plus = 0, C = 0, JSP = 0, Java = 0, Python = 0, Ruby = 0, Unity = 0, jQuery = 0;// 변수
+																														// 선언(개발쪽)
+
+		int BootStrap = 0, CSS = 0, DreamWeaver = 0, HTML = 0, JavaScript = 0, PhotoShop = 0, Sketch = 0, Unity3d = 0,
+				XML = 0, iOS = 0;// 변수 선언(디자인쪽)
+
+		for (int i = 0; i < all_tech.size(); i++) {
 			all_string += all_tech.get(i);
-		}//리스트를 하나의 string으로 변환
-		String allarr[] = all_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
-		
-		for(String b : allarr) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
-			if(b.equals("Ajax")) {Ajax++;}if(b.equals("Android")) {Android++;}
-			if(b.equals("C++")) {C_plus++;}if(b.equals("C")) {C++;}
-			if(b.equals("JSP")) {JSP++;}if(b.equals("Java")) {Java++;}
-			if(b.equals("Python")) {Python++;}if(b.equals("Ruby")) {Ruby++;}
-			if(b.equals("Unity")) {Unity++;}if(b.equals("jQuery")) {jQuery++;}
-			//개발쪽 파트 카운트 끝
-			if(b.equals("BootStrap")) {BootStrap++;}if(b.equals("CSS")) {CSS++;}
-			if(b.equals("DreamWeaver")) {DreamWeaver++;}if(b.equals("HTML")) {HTML++;}
-			if(b.equals("JavaScript")) {JavaScript++;}if(b.equals("PhotoShop")) {PhotoShop++;}
-			if(b.equals("Sketch")) {Sketch++;}if(b.equals("Unity3d")) {Unity3d++;}
-			if(b.equals("XML")) {XML++;}if(b.equals("iOS")) {iOS++;}
-			//디자인 파트 카운트 끝!
+		} // 리스트를 하나의 string으로 변환
+		String allarr[] = all_string.split(",");// 한줄의 string 값을 "," 으로 쪼개기
+
+		for (String b : allarr) {// 쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
+			if (b.equals("Ajax")) {
+				Ajax++;
+			}
+			if (b.equals("Android")) {
+				Android++;
+			}
+			if (b.equals("C++")) {
+				C_plus++;
+			}
+			if (b.equals("C")) {
+				C++;
+			}
+			if (b.equals("JSP")) {
+				JSP++;
+			}
+			if (b.equals("Java")) {
+				Java++;
+			}
+			if (b.equals("Python")) {
+				Python++;
+			}
+			if (b.equals("Ruby")) {
+				Ruby++;
+			}
+			if (b.equals("Unity")) {
+				Unity++;
+			}
+			if (b.equals("jQuery")) {
+				jQuery++;
+			}
+			// 개발쪽 파트 카운트 끝
+			if (b.equals("BootStrap")) {
+				BootStrap++;
+			}
+			if (b.equals("CSS")) {
+				CSS++;
+			}
+			if (b.equals("DreamWeaver")) {
+				DreamWeaver++;
+			}
+			if (b.equals("HTML")) {
+				HTML++;
+			}
+			if (b.equals("JavaScript")) {
+				JavaScript++;
+			}
+			if (b.equals("PhotoShop")) {
+				PhotoShop++;
+			}
+			if (b.equals("Sketch")) {
+				Sketch++;
+			}
+			if (b.equals("Unity3d")) {
+				Unity3d++;
+			}
+			if (b.equals("XML")) {
+				XML++;
+			}
+			if (b.equals("iOS")) {
+				iOS++;
+			}
+			// 디자인 파트 카운트 끝!
 		}
-		
-		TreeMap<String,Object> map = new TreeMap<String,Object>();//보유기술 Map
-		map.put("Ajax", Ajax);map.put("Android", Android);map.put("C_plus", C_plus);
-		map.put("C", C);map.put("JSP", JSP);map.put("Java",Java);map.put("Python", Python);
-		map.put("Ruby", Ruby);map.put("Unity", Unity);map.put("jQuery", jQuery);
-		map.put("BootStrap", BootStrap);map.put("CSS", CSS);map.put("DreamWeaver", DreamWeaver);
-		map.put("HTML", HTML);map.put("JavaScript", JavaScript);map.put("PhotoShop",PhotoShop);
-		map.put("Sketch", Sketch);map.put("Unity3d", Unity3d);map.put("XML", XML);map.put("iOS", iOS);
-		
-		Iterator raking = sortByValue(map).iterator();//Iterator 형태로 해서 sort후 내림차순 정렬
-		int cnt = 0;//횟수 재한용 변수
+
+		TreeMap<String, Object> map = new TreeMap<String, Object>();// 보유기술 Map
+		map.put("Ajax", Ajax);
+		map.put("Android", Android);
+		map.put("C_plus", C_plus);
+		map.put("C", C);
+		map.put("JSP", JSP);
+		map.put("Java", Java);
+		map.put("Python", Python);
+		map.put("Ruby", Ruby);
+		map.put("Unity", Unity);
+		map.put("jQuery", jQuery);
+		map.put("BootStrap", BootStrap);
+		map.put("CSS", CSS);
+		map.put("DreamWeaver", DreamWeaver);
+		map.put("HTML", HTML);
+		map.put("JavaScript", JavaScript);
+		map.put("PhotoShop", PhotoShop);
+		map.put("Sketch", Sketch);
+		map.put("Unity3d", Unity3d);
+		map.put("XML", XML);
+		map.put("iOS", iOS);
+
+		Iterator raking = sortByValue(map).iterator();// Iterator 형태로 해서 sort후 내림차순 정렬
+		int cnt = 0;// 횟수 재한용 변수
 		List<String> top5_key = new ArrayList<String>();
 		List<Integer> top5_value = new ArrayList<Integer>();
-	        System.out.println("------------sort 후 -------------");
-	        while(raking.hasNext()) {
-	            String key = (String) raking.next();
-	            int value = (int) map.get(key);
-	            top5_key.add(key);
-	            top5_value.add(value);
-	            cnt++;
-	            if(cnt >4) break;
-	        }// top5 뽑아내는 while 구문
-	        cnt = 0;//재활용 변수
-	     
-	     Iterator<String> iteratorKey = map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
-	     List<String> user_key = new ArrayList<String>();
-	     List<Integer> user_value = new ArrayList<Integer>();
-	     
-	     while(iteratorKey.hasNext()) {
-	    	 String key = iteratorKey.next();
-	    	 int value = (int) map.get(key);
-	    	 user_key.add(key);
-	         user_value.add(value);
-	    	 System.out.println(key+","+map.get(key));
-	     }
-	        Ajax = 0;Android = 0;C_plus = 0;C = 0;JSP = 0;Java = 0;Python = 0;Ruby = 0;
-	        Unity = 0;jQuery = 0;BootStrap = 0;CSS = 0;DreamWeaver = 0;HTML = 0;JavaScript = 0;
-	        PhotoShop = 0;Sketch = 0;Unity3d = 0;XML = 0;iOS = 0; // 변수 초기화(재활용)
-	        
-	        List<String> client_tech = new ArrayList<String>();
-			client_tech = service.client_tech();
-			String client_string = "";
-			for(int i =0; i<client_tech.size(); i++){
-				client_string += client_tech.get(i);
-			}//리스트를 하나의 string으로 변환
-			String techarr2[] = client_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
-			
-			for(String b : techarr2) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
-				if(b.equals("Ajax")) {Ajax++;}if(b.equals("Android")) {Android++;}
-				if(b.equals("C++")) {C_plus++;}if(b.equals("C")) {C++;}
-				if(b.equals("JSP")) {JSP++;}if(b.equals("Java")) {Java++;}
-				if(b.equals("Python")) {Python++;}if(b.equals("Ruby")) {Ruby++;}
-				if(b.equals("Unity")) {Unity++;}if(b.equals("jQuery")) {jQuery++;}
-				//개발쪽 파트 카운트 끝
-				if(b.equals("BootStrap")) {BootStrap++;}if(b.equals("CSS")) {CSS++;}
-				if(b.equals("DreamWeaver")) {DreamWeaver++;}if(b.equals("HTML")) {HTML++;}
-				if(b.equals("JavaScript")) {JavaScript++;}if(b.equals("PhotoShop")) {PhotoShop++;}
-				if(b.equals("Sketch")) {Sketch++;}if(b.equals("Unity3d")) {Unity3d++;}
-				if(b.equals("XML")) {XML++;}if(b.equals("iOS")) {iOS++;}
-				//디자인 파트 카운트 끝!
-			}
-			TreeMap<String,Object> client_map = new TreeMap<String,Object>();//보유기술 Map
-			client_map.put("Ajax", Ajax);client_map.put("Android", Android);client_map.put("C_plus", C_plus);
-			client_map.put("C", C);client_map.put("JSP", JSP);client_map.put("Java",Java);client_map.put("Python", Python);
-			client_map.put("Ruby", Ruby);client_map.put("Unity", Unity);client_map.put("jQuery", jQuery);
-			client_map.put("BootStrap", BootStrap);client_map.put("CSS", CSS);client_map.put("DreamWeaver", DreamWeaver);
-			client_map.put("HTML", HTML);client_map.put("JavaScript", JavaScript);client_map.put("PhotoShop",PhotoShop);
-			client_map.put("Sketch", Sketch);client_map.put("Unity3d", Unity3d);client_map.put("XML", XML);client_map.put("iOS", iOS);
-			
-			
-			Iterator<String> iteratorKey2 = client_map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
-		    List<Integer> client_value = new ArrayList<Integer>();
-		     
-		     while(iteratorKey2.hasNext()) {
-		    	 String key = iteratorKey2.next();
-		    	 int value = (int) client_map.get(key);
-		    	 client_value.add(value);
-		    	 System.out.println(key+","+client_map.get(key));
-		     }
-		     
-		     Ajax = 0;Android = 0;C_plus = 0;C = 0;JSP = 0;Java = 0;Python = 0;Ruby = 0;
-		        Unity = 0;jQuery = 0;BootStrap = 0;CSS = 0;DreamWeaver = 0;HTML = 0;JavaScript = 0;
-		        PhotoShop = 0;Sketch = 0;Unity3d = 0;XML = 0;iOS = 0; // 변수 초기화(재활용)
-		        
-		     List<String> project_tech = new ArrayList<String>();
-		     project_tech = service.project_tech();
-			 String project_string = "";
-			 for(int i =0; i<project_tech.size(); i++){
-				 project_string += project_tech.get(i);
-				}//리스트를 하나의 string으로 변환
-				String techarr3[] = project_string.split(",");//한줄의 string 값을 "," 으로 쪼개기
-				
-				for(String b : techarr3) {//쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
-					if(b.equals("Ajax")) {Ajax++;}if(b.equals("Android")) {Android++;}
-					if(b.equals("C++")) {C_plus++;}if(b.equals("C")) {C++;}
-					if(b.equals("JSP")) {JSP++;}if(b.equals("Java")) {Java++;}
-					if(b.equals("Python")) {Python++;}if(b.equals("Ruby")) {Ruby++;}
-					if(b.equals("Unity")) {Unity++;}if(b.equals("jQuery")) {jQuery++;}
-					//개발쪽 파트 카운트 끝
-					if(b.equals("BootStrap")) {BootStrap++;}if(b.equals("CSS")) {CSS++;}
-					if(b.equals("DreamWeaver")) {DreamWeaver++;}if(b.equals("HTML")) {HTML++;}
-					if(b.equals("JavaScript")) {JavaScript++;}if(b.equals("PhotoShop")) {PhotoShop++;}
-					if(b.equals("Sketch")) {Sketch++;}if(b.equals("Unity3d")) {Unity3d++;}
-					if(b.equals("XML")) {XML++;}if(b.equals("iOS")) {iOS++;}
-					//디자인 파트 카운트 끝!
-				}
-				TreeMap<String,Object> project_map = new TreeMap<String,Object>();//보유기술 Map
-				project_map.put("Ajax", Ajax);project_map.put("Android", Android);project_map.put("C_plus", C_plus);
-				project_map.put("C", C);project_map.put("JSP", JSP);project_map.put("Java",Java);project_map.put("Python", Python);
-				project_map.put("Ruby", Ruby);project_map.put("Unity", Unity);project_map.put("jQuery", jQuery);
-				project_map.put("BootStrap", BootStrap);project_map.put("CSS", CSS);project_map.put("DreamWeaver", DreamWeaver);
-				project_map.put("HTML", HTML);project_map.put("JavaScript", JavaScript);project_map.put("PhotoShop",PhotoShop);
-				project_map.put("Sketch", Sketch);project_map.put("Unity3d", Unity3d);project_map.put("XML", XML);project_map.put("iOS", iOS);
-				
+		System.out.println("------------sort 후 -------------");
+		while (raking.hasNext()) {
+			String key = (String) raking.next();
+			int value = (int) map.get(key);
+			top5_key.add(key);
+			top5_value.add(value);
+			cnt++;
+			if (cnt > 4)
+				break;
+		} // top5 뽑아내는 while 구문
+		cnt = 0;// 재활용 변수
 
-				Iterator<String> iteratorKey3 = project_map.keySet( ).iterator( );//키값 오름차순 정렬(기본)
-			    List<Integer> project_value = new ArrayList<Integer>();
-			     
-			     while(iteratorKey3.hasNext()) {
-			    	 String key = iteratorKey3.next();
-			    	 int value = (int) project_map.get(key);
-			    	 project_value.add(value);
-			    	 System.out.println(key+","+project_map.get(key));
-			     }
-				
-		     
-		
-		long price_a = 5000000;long price_b = 10000000;long price_c = 25000000; long price_d = 50000000; long price_e = 75000000; long price_f = 100000000;//범위설정
-		int price_a_cnt,price_b_cnt,price_c_cnt,price_d_cnt,price_e_cnt,price_f_cnt;//카운트 값
-		price_a_cnt = 0;price_b_cnt=0;price_c_cnt=0;price_d_cnt=0;price_e_cnt=0;price_f_cnt=0;//변수 초기화
-		List<String> board_price = new ArrayList<String>();//뽑아온 String 형태의 가격 리스트
-		List<Integer> price = new ArrayList<Integer>();//String --> Integer 형태로 가격비교 할 수 있게 형변환
-		ArrayList<Integer> price_cnt = new ArrayList<Integer>();//해당 금액 카운트 값 저장 리스트
+		Iterator<String> iteratorKey = map.keySet().iterator();// 키값 오름차순 정렬(기본)
+		List<String> user_key = new ArrayList<String>();
+		List<Integer> user_value = new ArrayList<Integer>();
+
+		while (iteratorKey.hasNext()) {
+			String key = iteratorKey.next();
+			int value = (int) map.get(key);
+			user_key.add(key);
+			user_value.add(value);
+			System.out.println(key + "," + map.get(key));
+		}
+		Ajax = 0;
+		Android = 0;
+		C_plus = 0;
+		C = 0;
+		JSP = 0;
+		Java = 0;
+		Python = 0;
+		Ruby = 0;
+		Unity = 0;
+		jQuery = 0;
+		BootStrap = 0;
+		CSS = 0;
+		DreamWeaver = 0;
+		HTML = 0;
+		JavaScript = 0;
+		PhotoShop = 0;
+		Sketch = 0;
+		Unity3d = 0;
+		XML = 0;
+		iOS = 0; // 변수 초기화(재활용)
+
+		List<String> client_tech = new ArrayList<String>();
+		client_tech = service.client_tech();
+		String client_string = "";
+		for (int i = 0; i < client_tech.size(); i++) {
+			client_string += client_tech.get(i);
+		} // 리스트를 하나의 string으로 변환
+		String techarr2[] = client_string.split(",");// 한줄의 string 값을 "," 으로 쪼개기
+
+		for (String b : techarr2) {// 쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
+			if (b.equals("Ajax")) {
+				Ajax++;
+			}
+			if (b.equals("Android")) {
+				Android++;
+			}
+			if (b.equals("C++")) {
+				C_plus++;
+			}
+			if (b.equals("C")) {
+				C++;
+			}
+			if (b.equals("JSP")) {
+				JSP++;
+			}
+			if (b.equals("Java")) {
+				Java++;
+			}
+			if (b.equals("Python")) {
+				Python++;
+			}
+			if (b.equals("Ruby")) {
+				Ruby++;
+			}
+			if (b.equals("Unity")) {
+				Unity++;
+			}
+			if (b.equals("jQuery")) {
+				jQuery++;
+			}
+			// 개발쪽 파트 카운트 끝
+			if (b.equals("BootStrap")) {
+				BootStrap++;
+			}
+			if (b.equals("CSS")) {
+				CSS++;
+			}
+			if (b.equals("DreamWeaver")) {
+				DreamWeaver++;
+			}
+			if (b.equals("HTML")) {
+				HTML++;
+			}
+			if (b.equals("JavaScript")) {
+				JavaScript++;
+			}
+			if (b.equals("PhotoShop")) {
+				PhotoShop++;
+			}
+			if (b.equals("Sketch")) {
+				Sketch++;
+			}
+			if (b.equals("Unity3d")) {
+				Unity3d++;
+			}
+			if (b.equals("XML")) {
+				XML++;
+			}
+			if (b.equals("iOS")) {
+				iOS++;
+			}
+			// 디자인 파트 카운트 끝!
+		}
+		TreeMap<String, Object> client_map = new TreeMap<String, Object>();// 보유기술 Map
+		client_map.put("Ajax", Ajax);
+		client_map.put("Android", Android);
+		client_map.put("C_plus", C_plus);
+		client_map.put("C", C);
+		client_map.put("JSP", JSP);
+		client_map.put("Java", Java);
+		client_map.put("Python", Python);
+		client_map.put("Ruby", Ruby);
+		client_map.put("Unity", Unity);
+		client_map.put("jQuery", jQuery);
+		client_map.put("BootStrap", BootStrap);
+		client_map.put("CSS", CSS);
+		client_map.put("DreamWeaver", DreamWeaver);
+		client_map.put("HTML", HTML);
+		client_map.put("JavaScript", JavaScript);
+		client_map.put("PhotoShop", PhotoShop);
+		client_map.put("Sketch", Sketch);
+		client_map.put("Unity3d", Unity3d);
+		client_map.put("XML", XML);
+		client_map.put("iOS", iOS);
+
+		Iterator<String> iteratorKey2 = client_map.keySet().iterator();// 키값 오름차순 정렬(기본)
+		List<Integer> client_value = new ArrayList<Integer>();
+
+		while (iteratorKey2.hasNext()) {
+			String key = iteratorKey2.next();
+			int value = (int) client_map.get(key);
+			client_value.add(value);
+			System.out.println(key + "," + client_map.get(key));
+		}
+
+		Ajax = 0;
+		Android = 0;
+		C_plus = 0;
+		C = 0;
+		JSP = 0;
+		Java = 0;
+		Python = 0;
+		Ruby = 0;
+		Unity = 0;
+		jQuery = 0;
+		BootStrap = 0;
+		CSS = 0;
+		DreamWeaver = 0;
+		HTML = 0;
+		JavaScript = 0;
+		PhotoShop = 0;
+		Sketch = 0;
+		Unity3d = 0;
+		XML = 0;
+		iOS = 0; // 변수 초기화(재활용)
+
+		List<String> project_tech = new ArrayList<String>();
+		project_tech = service.project_tech();
+		String project_string = "";
+		for (int i = 0; i < project_tech.size(); i++) {
+			project_string += project_tech.get(i);
+		} // 리스트를 하나의 string으로 변환
+		String techarr3[] = project_string.split(",");// 한줄의 string 값을 "," 으로 쪼개기
+
+		for (String b : techarr3) {// 쪼갠 값을 case 문으로 해당 값이 있을때마다 값 증가시키기
+			if (b.equals("Ajax")) {
+				Ajax++;
+			}
+			if (b.equals("Android")) {
+				Android++;
+			}
+			if (b.equals("C++")) {
+				C_plus++;
+			}
+			if (b.equals("C")) {
+				C++;
+			}
+			if (b.equals("JSP")) {
+				JSP++;
+			}
+			if (b.equals("Java")) {
+				Java++;
+			}
+			if (b.equals("Python")) {
+				Python++;
+			}
+			if (b.equals("Ruby")) {
+				Ruby++;
+			}
+			if (b.equals("Unity")) {
+				Unity++;
+			}
+			if (b.equals("jQuery")) {
+				jQuery++;
+			}
+			// 개발쪽 파트 카운트 끝
+			if (b.equals("BootStrap")) {
+				BootStrap++;
+			}
+			if (b.equals("CSS")) {
+				CSS++;
+			}
+			if (b.equals("DreamWeaver")) {
+				DreamWeaver++;
+			}
+			if (b.equals("HTML")) {
+				HTML++;
+			}
+			if (b.equals("JavaScript")) {
+				JavaScript++;
+			}
+			if (b.equals("PhotoShop")) {
+				PhotoShop++;
+			}
+			if (b.equals("Sketch")) {
+				Sketch++;
+			}
+			if (b.equals("Unity3d")) {
+				Unity3d++;
+			}
+			if (b.equals("XML")) {
+				XML++;
+			}
+			if (b.equals("iOS")) {
+				iOS++;
+			}
+			// 디자인 파트 카운트 끝!
+		}
+		TreeMap<String, Object> project_map = new TreeMap<String, Object>();// 보유기술 Map
+		project_map.put("Ajax", Ajax);
+		project_map.put("Android", Android);
+		project_map.put("C_plus", C_plus);
+		project_map.put("C", C);
+		project_map.put("JSP", JSP);
+		project_map.put("Java", Java);
+		project_map.put("Python", Python);
+		project_map.put("Ruby", Ruby);
+		project_map.put("Unity", Unity);
+		project_map.put("jQuery", jQuery);
+		project_map.put("BootStrap", BootStrap);
+		project_map.put("CSS", CSS);
+		project_map.put("DreamWeaver", DreamWeaver);
+		project_map.put("HTML", HTML);
+		project_map.put("JavaScript", JavaScript);
+		project_map.put("PhotoShop", PhotoShop);
+		project_map.put("Sketch", Sketch);
+		project_map.put("Unity3d", Unity3d);
+		project_map.put("XML", XML);
+		project_map.put("iOS", iOS);
+
+		Iterator<String> iteratorKey3 = project_map.keySet().iterator();// 키값 오름차순 정렬(기본)
+		List<Integer> project_value = new ArrayList<Integer>();
+
+		while (iteratorKey3.hasNext()) {
+			String key = iteratorKey3.next();
+			int value = (int) project_map.get(key);
+			project_value.add(value);
+			System.out.println(key + "," + project_map.get(key));
+		}
+
+		long price_a = 5000000;
+		long price_b = 10000000;
+		long price_c = 25000000;
+		long price_d = 50000000;
+		long price_e = 75000000;
+		long price_f = 100000000;// 범위설정
+		int price_a_cnt, price_b_cnt, price_c_cnt, price_d_cnt, price_e_cnt, price_f_cnt;// 카운트 값
+		price_a_cnt = 0;
+		price_b_cnt = 0;
+		price_c_cnt = 0;
+		price_d_cnt = 0;
+		price_e_cnt = 0;
+		price_f_cnt = 0;// 변수 초기화
+		List<String> board_price = new ArrayList<String>();// 뽑아온 String 형태의 가격 리스트
+		List<Integer> price = new ArrayList<Integer>();// String --> Integer 형태로 가격비교 할 수 있게 형변환
+		ArrayList<Integer> price_cnt = new ArrayList<Integer>();// 해당 금액 카운트 값 저장 리스트
 		board_price = service.board_price();
-		for(String a : board_price) {
+		for (String a : board_price) {
 			System.out.println(a);
 			a = a.replaceAll(",", "");
 			int b = Integer.parseInt(a);
 			price.add(b);
 		}
-		for(int a : price) {//금액별로 카운트 세기
-			if(a > 0 && a < price_b) {price_a_cnt++;};
-			if(a>= price_b && a<price_c) {price_b_cnt++;};
-			if(a>= price_c && a<price_d) {price_c_cnt++;};
-			if(a>= price_d && a<price_e) {price_d_cnt++;};
-			if(a>= price_e && a<price_f) {price_e_cnt++;};
-			if(a>= price_f) {price_f_cnt++;};
+		for (int a : price) {// 금액별로 카운트 세기
+			if (a > 0 && a < price_b) {
+				price_a_cnt++;
+			}
+			;
+			if (a >= price_b && a < price_c) {
+				price_b_cnt++;
+			}
+			;
+			if (a >= price_c && a < price_d) {
+				price_c_cnt++;
+			}
+			;
+			if (a >= price_d && a < price_e) {
+				price_d_cnt++;
+			}
+			;
+			if (a >= price_e && a < price_f) {
+				price_e_cnt++;
+			}
+			;
+			if (a >= price_f) {
+				price_f_cnt++;
+			}
+			;
 		}
-		price_cnt.add(price_a_cnt);price_cnt.add(price_b_cnt);
-	    price_cnt.add(price_c_cnt);price_cnt.add(price_d_cnt);
-	    price_cnt.add(price_e_cnt);price_cnt.add(price_f_cnt);//카운트 값을 리스트에 넣어주자
+		price_cnt.add(price_a_cnt);
+		price_cnt.add(price_b_cnt);
+		price_cnt.add(price_c_cnt);
+		price_cnt.add(price_d_cnt);
+		price_cnt.add(price_e_cnt);
+		price_cnt.add(price_f_cnt);// 카운트 값을 리스트에 넣어주자
 
-	    mav.addObject("user", user);
-		mav.addObject("avguser",avguser);
-		mav.addObject("avgclient",avgclient);
-		mav.addObject("top5_key",top5_key);
-		mav.addObject("top5_value",top5_value);
-		mav.addObject("user_key",user_key);
-		mav.addObject("user_value",user_value);
-		mav.addObject("client_value",client_value);
-		mav.addObject("project_value",project_value);
-		mav.addObject("price_cnt",price_cnt);
+		mav.addObject("user", user);
+		mav.addObject("avguser", avguser);
+		mav.addObject("avgclient", avgclient);
+		mav.addObject("top5_key", top5_key);
+		mav.addObject("top5_value", top5_value);
+		mav.addObject("user_key", user_key);
+		mav.addObject("user_value", user_value);
+		mav.addObject("client_value", client_value);
+		mav.addObject("project_value", project_value);
+		mav.addObject("price_cnt", price_cnt);
 		return mav;
 	}
 
-	private static List sortByValue(TreeMap<String, Object> map) {//map value 기준으로 역정렬 시키는 메서드
+	private static List sortByValue(TreeMap<String, Object> map) {// map value 기준으로 역정렬 시키는 메서드
 		List<String> list = new ArrayList<String>();
 		list.addAll(map.keySet());
 		Collections.sort(list, new Comparator<Object>() {
@@ -533,16 +796,17 @@ public class UserController {
 			} else if (count == 1 && user.getCreditpass().length() == 4) {// 중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
 				throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 			}
-			
+
 		} else {
 			service.userUpdate(user, request);
 			User user1 = service.select(user.getUserid());
 			session.setAttribute("loginUser", user1);
 			mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
 		}
-		
+
 		return mav;
 	}
+
 	@RequestMapping(value = "user/payment*", method = RequestMethod.POST)
 	public ModelAndView payment(HttpSession session, User user, HttpServletRequest request)
 			throws NoSuchAlgorithmException {
@@ -653,12 +917,12 @@ public class UserController {
 		mav.addObject("user", user);
 		mav.addObject("supporterlist", supporterlist);
 		String projectcnt = service.projectcnt();
-		System.out.println("projectcnt:"+projectcnt);
-		mav.addObject("projectcnt",projectcnt);
+		System.out.println("projectcnt:" + projectcnt);
+		mav.addObject("projectcnt", projectcnt);
 		String projecttotalprice = service.projecttotalprice();
-		mav.addObject("projecttotalprice",projecttotalprice);
+		mav.addObject("projecttotalprice", projecttotalprice);
 		String usertotalcnt = service.usertotalcnt();
-		mav.addObject("usertotalcnt",usertotalcnt);
+		mav.addObject("usertotalcnt", usertotalcnt);
 		return mav;
 	}
 
@@ -679,20 +943,17 @@ public class UserController {
 				useridlist.add(matchinguserList.get(i).getUserid()); // 유저아이디만 저장
 			}
 			matchinguserList.clear(); // 중복요소잇는 리스트 비우기
-			
-			/*System.out.println("useridlist:"+useridlist);
-			Map<String,Integer> test_map = new LinkedHashMap<String,Integer>();
-			for(int i =0;i<useridlist.size();i++) {
-				if(test_map.get(useridlist.get(i)) == null) {
-					test_map.put(useridlist.get(i), 1);
-				} else {
-					int c = test_map.get(useridlist.get(i));
-					test_map.put(useridlist.get(i), c+1);
-				}
-			}
-			System.out.println("test_map:"+test_map);*/
-			//반복값 뽑아내기
-			
+
+			/*
+			 * System.out.println("useridlist:"+useridlist); Map<String,Integer> test_map =
+			 * new LinkedHashMap<String,Integer>(); for(int i =0;i<useridlist.size();i++) {
+			 * if(test_map.get(useridlist.get(i)) == null) { test_map.put(useridlist.get(i),
+			 * 1); } else { int c = test_map.get(useridlist.get(i));
+			 * test_map.put(useridlist.get(i), c+1); } }
+			 * System.out.println("test_map:"+test_map);
+			 */
+			// 반복값 뽑아내기
+
 			TreeSet<String> arr1 = new TreeSet<String>(useridlist);
 			System.out.println(useridlist);
 			ArrayList<String> arr2 = new ArrayList<String>(arr1);
@@ -1066,30 +1327,30 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user/myduck");
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
-		/*String dtype = "";
-		if(ducktype == 2) {
-			dtype = "2,3,5";
-		}else {
-			dtype = ducktype + "";
-		}*/
-		if(ducktype == 1) {
-			service.userprodelete(userid,num,ducktype);
+		/*
+		 * String dtype = ""; if(ducktype == 2) { dtype = "2,3,5"; }else { dtype =
+		 * ducktype + ""; }
+		 */
+		if (ducktype == 1) {
+			service.userprodelete(userid, num, ducktype);
 			service.duckcntremove(num);
-		}else {
-			service.userprodelete(userid,num,ducktype);
+		} else {
+			service.userprodelete(userid, num, ducktype);
 		}
 		System.out.println("userid:" + userid);
 		System.out.println("boardnum:" + num);
 		System.out.println("ducktype:" + ducktype);
-		mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type="+type);
-		/*int duckselect3 = service.sel(userid); //id와/ducktype 2/3/5있는 프로젝트 찾기
-		System.out.println("duckselect3:" + duckselect3);
-		if (duckselect3 < 1) {//신청중이거나 수락받은/거절받은 프로젝트가 없을때
-			//service.usernullmatching(userid);
-			//mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype="+ducktype+"&type=3&matching=1");
-		}else {// 신청/수락/거절중인 프로젝트가 있을때 거절&삭제
-	
-		}*/
+		mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() + "&ducktype=" + ducktype + "&type=" + type);
+		/*
+		 * int duckselect3 = service.sel(userid); //id와/ducktype 2/3/5있는 프로젝트 찾기
+		 * System.out.println("duckselect3:" + duckselect3); if (duckselect3 < 1)
+		 * {//신청중이거나 수락받은/거절받은 프로젝트가 없을때 //service.usernullmatching(userid);
+		 * //mav.setViewName("redirect:myduck.duck?id=" + user.getUserid() +
+		 * "&ducktype="+ducktype+"&type=3&matching=1"); }else {// 신청/수락/거절중인 프로젝트가 있을때
+		 * 거절&삭제
+		 * 
+		 * }
+		 */
 		return mav;
 	}
 
@@ -1138,43 +1399,47 @@ public class UserController {
 		}
 		return mav;
 	}
+
 	@RequestMapping("user/rating2")
-	public ModelAndView rating2(int boardnum, float profess,float proaction,float prosatisfact, float prodate, float procommunicate, String userid, HttpSession session) {
+	public ModelAndView rating2(int boardnum, float profess, float proaction, float prosatisfact, float prodate,
+			float procommunicate, String userid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("점수나오기! - " + profess +"\n"+ proaction +"\n"+ prosatisfact +"\n"+ prodate +"\n"+ procommunicate +"\n");
-		User user = (User)session.getAttribute("loginUser"); //현재 로그인된 유저
+		System.out.println("점수나오기! - " + profess + "\n" + proaction + "\n" + prosatisfact + "\n" + prodate + "\n"
+				+ procommunicate + "\n");
+		User user = (User) session.getAttribute("loginUser"); // 현재 로그인된 유저
 		try {
 			Board board = new Board();
 			board.setBoardnum(boardnum);
 			board.setBoardtype(4);
 			board = service.getBoard(board); // 평가하고있는 게시물
-			System.out.println("레이팅보드:"+board);
+			System.out.println("레이팅보드:" + board);
 			User ratinguser = service.select(userid); // 평가받을 유저
-			int cnt = service.duck20cnt(userid); //해당 id가 평가받은 게시글중에, ducktype이 20인 duck테이블 인스턴스의 개수
+			int cnt = service.duck20cnt(userid); // 해당 id가 평가받은 게시글중에, ducktype이 20인 duck테이블 인스턴스의 개수
 			System.out.println("평가받은갯수 : " + cnt);
 			int nanum = 0;
-			if(cnt < 1) {
+			if (cnt < 1) {
 				nanum = 1;
-			}else {
-				nanum = cnt +1;
+			} else {
+				nanum = cnt + 1;
 			}
-			if(cnt==0) {
+			if (cnt == 0) {
 				cnt = 1;
 			}
 			System.out.println(ratinguser);
-			float profess2 = ((ratinguser.getProfess()*cnt) + profess) / nanum; //점수 평균내기
-			float proaction2 = ((ratinguser.getProaction()*cnt) + proaction) / nanum; //점수 평균내기
-			float prosatisfact2 = ((ratinguser.getProsatisfact()*cnt) + prosatisfact) / nanum; //점수 평균내기
-			float prodate2 = ((ratinguser.getProdate()*cnt) + prodate) / nanum; //점수 평균내기
-			float procommunicate2 = ((ratinguser.getProcommunicate()*cnt) + procommunicate) / nanum; //점수 평균내기
-			float rating = (profess2+ proaction2+ prosatisfact2+ prodate2+ procommunicate2)/5; //레이팅
-			System.out.println(profess2+"\n"+proaction2+"\n"+prosatisfact2+"\n"+prodate2+"\n"+procommunicate2+"\n"+rating+"\n");
-			service.setrating(userid, profess2, proaction2, prosatisfact2, prodate2, procommunicate2,rating);
+			float profess2 = ((ratinguser.getProfess() * cnt) + profess) / nanum; // 점수 평균내기
+			float proaction2 = ((ratinguser.getProaction() * cnt) + proaction) / nanum; // 점수 평균내기
+			float prosatisfact2 = ((ratinguser.getProsatisfact() * cnt) + prosatisfact) / nanum; // 점수 평균내기
+			float prodate2 = ((ratinguser.getProdate() * cnt) + prodate) / nanum; // 점수 평균내기
+			float procommunicate2 = ((ratinguser.getProcommunicate() * cnt) + procommunicate) / nanum; // 점수 평균내기
+			float rating = (profess2 + proaction2 + prosatisfact2 + prodate2 + procommunicate2) / 5; // 레이팅
+			System.out.println(profess2 + "\n" + proaction2 + "\n" + prosatisfact2 + "\n" + prodate2 + "\n"
+					+ procommunicate2 + "\n" + rating + "\n");
+			service.setrating(userid, profess2, proaction2, prosatisfact2, prodate2, procommunicate2, rating);
 			// duck테이블에 평가하는유저id, 평가하고있는게시물, ducktype = 20으로 인서트
 			service.add20duck(userid, board.getBoardnum()); // 평가 성공
-			mav.addObject("suggest_message","평가에 성공하셨습니다.");
-			mav.addObject("suggest_url","../user/mypage_main.duck?id=" + user.getUserid());
-		}catch (Exception e) {
+			mav.addObject("suggest_message", "평가에 성공하셨습니다.");
+			mav.addObject("suggest_url", "../user/mypage_main.duck?id=" + user.getUserid());
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LoginException("평가에 실패하셨습니다.", "../user/mypage_main.duck?id=" + user.getUserid());
 		}
