@@ -130,13 +130,13 @@ $("#toggle").click(function(){
            </c:if>
          </c:if>
          <c:if test="${loginUser.type == '1' }">
-         <h4 class="w3-center">개발자 : ${user.userid } 님 </h4>
+         <h4 class="w3-center">개발자 : ${loginUser.userid } 님 </h4>
          </c:if>
          <c:if test="${loginUser.type == '2' }">
-         <h4 class="w3-center">Client : ${user.userid } 님</h4>
+         <h4 class="w3-center">Client : ${loginUser.userid } 님</h4>
          </c:if>
          <c:if test="${loginUser.type == '3' }">
-         <h4 class="w3-center">관리자 : ${user.userid } 님</h4>
+         <h4 class="w3-center">관리자 : ${loginUser.userid } 님</h4>
          </c:if>
          <div style="text-align:left;">
          <button onclick="location.href='../user/mypage_info.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-address-book fa-fw w3-margin-right"></i> 회원정보 보기</button>
@@ -146,6 +146,9 @@ $("#toggle").click(function(){
          <button onclick="location.href='../user/mypage_ducklist.duck?id=${loginUser.userid}&ducktype=1&boardtype=1'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cloud-upload fa-fw w3-margin-right"></i> 'Duck' 한 오픈소스</button>
          </c:if>
          <button onclick="location.href='../user/mypage_delete.duck?id=${loginUser.userid}'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-user-times fa-fw w3-margin-right"></i> 회원탈퇴</button>
+        <c:if test="${loginUser.type == '3'}">
+          <button onclick="location.href='../admin/list.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 회원 목록</button>
+        </c:if>
          </div>
         </div>
       </div>
@@ -156,6 +159,7 @@ $("#toggle").click(function(){
 대기중인 프로젝트
 진행중인 프로젝트
 완료한 프로젝트 -->
+	<c:if test="${loginUser.type != 3 }">
       <div class="w3-card w3-round">
         <div class="w3-white">
         <c:if test="${loginUser.type == '1'}">
@@ -173,12 +177,6 @@ $("#toggle").click(function(){
           <button onclick="location.href='../user/mypage_waitlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트test</button>
           <button onclick="location.href='../user/mypage_proceedlist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트test</button>
           <button onclick="location.href='../user/mypage_completelist.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트test</button>
-        </c:if>
-        <c:if test="${loginUser.type == '3'}">
-          <button onclick="location.href='../admin/list.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 회원 목록</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=2&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 대기중인 프로젝트</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
-          <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
         </c:if>
         </div>      
       </div>
@@ -216,6 +214,7 @@ $("#toggle").click(function(){
 			<p></p>
 		</div>
 	 </div><br>
+      </c:if>
 	 <c:if test="${loginUser.type == '2' }">
 	   <div class="w3-card w3-round w3-white w3-hide-small">
 	     <div class="w3-container">

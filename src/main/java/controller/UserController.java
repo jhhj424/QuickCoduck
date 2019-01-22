@@ -516,29 +516,42 @@ public class UserController {
 			throws NoSuchAlgorithmException {
 		ModelAndView mav = new ModelAndView("user/mypage_update");
 		user.setFileurl(request.getParameter("file2"));
+		User loginUser = (User)session.getAttribute("loginUser"); // 현재 로그인된 유저
 		if (user.getType() == 2 && user.getCreditpass().length() == 4) {
 			int count = service.creditchk(user.getCreditnum());
 			if (count == 0) {
 				String hashpass = service.getHashvalue(user.getCreditpass());
 				user.setCreditpass(hashpass);
 				service.userUpdate(user, request);
-				User user1 = service.select(user.getUserid());
-				session.setAttribute("loginUser", user1);
-				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+				if (loginUser.getType() != 3) { // 로그인한 유저의 타입이 관리자가 아닐때
+					User user1 = service.select(user.getUserid());
+					session.setAttribute("loginUser", user1);				
+					mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+				}else { // 로그인 유저가 관리자 일때
+					mav.setViewName("redirect:../admin/list.duck?id=" + loginUser.getUserid());
+				}
 			} else if (count == 1 && user.getCreditpass().length() > 4) {// 중복이지만 이미 creditpass가 해쉬알고리즘 화 되어있는 경우
 				service.userUpdate(user, request);
-				User user1 = service.select(user.getUserid());
-				session.setAttribute("loginUser", user1);
-				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+				if (loginUser.getType() != 3) { // 로그인한 유저의 타입이 관리자가 아닐때
+					User user1 = service.select(user.getUserid());
+					session.setAttribute("loginUser", user1);				
+					mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+				}else { // 로그인 유저가 관리자 일때
+					mav.setViewName("redirect:../admin/list.duck?id=" + loginUser.getUserid());
+				}
 			} else if (count == 1 && user.getCreditpass().length() == 4) {// 중복이고 처음에 해쉬알고리즘 화 하기 전 pass 자리수가 4자리일 경우
 				throw new LoginException("카드번호 중복입니다 확인해주세요", "../user/mypage_update.duck?id=" + user.getUserid());
 			}
 			
 		} else {
 			service.userUpdate(user, request);
-			User user1 = service.select(user.getUserid());
-			session.setAttribute("loginUser", user1);
-			mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+			if (loginUser.getType() != 3) { // 로그인한 유저의 타입이 관리자가 아닐때
+				User user1 = service.select(user.getUserid());
+				session.setAttribute("loginUser", user1);				
+				mav.setViewName("redirect:mypage_main.duck?id=" + user1.getUserid());
+			}else { // 로그인 유저가 관리자 일때
+				mav.setViewName("redirect:../admin/list.duck?id=" + loginUser.getUserid());
+			}
 		}
 		
 		return mav;
