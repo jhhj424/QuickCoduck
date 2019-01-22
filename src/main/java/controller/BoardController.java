@@ -268,21 +268,12 @@ public class BoardController {
 		Board board = new Board();
 		board.setBoardnum(num);
 		board.setBoardtype(type);
+		board = service.getBoard(board);
+		if(board == null) {
+			throw new LoginException("공지삭제 버튼을 눌러주세요.", "detail.duck?num=" + num+"&type=" + type);
+		}
 		User user = new User();
-		//board = service.getBoard(board);
-		if(loginUser.getType()==1) {
-			board = service.getBoard(board);
-			user = service.select(board.getUserid());
-		}
-		if(loginUser.getType()==2) {
-			board = service.getBoard(board);
-			user = service.select(board.getUserid());
-		}
-		if(loginUser.getType()==3) {
-			//board = service.getNotice(board);
-			board = service.getBoard(board);
-			user = service.select(loginUser.getUserid());
-		}
+		user = service.select(board.getUserid());
 		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
@@ -304,21 +295,9 @@ public class BoardController {
 		bo.setBoardnum(boardnum);
 		bo.setBoardtype(type);
 		User loginUser = (User)session.getAttribute("loginUser");
-		//bo = service.getBoard(bo); //현재 게시물 객체
+		bo = service.getBoard(bo); //현재 게시물 객체
 		User user = new User();
-		if(loginUser.getType()==1) {
-			bo = service.getBoard(bo);
-			user.setUserid(bo.getUserid());
-		}
-		if(loginUser.getType()==2) {
-			bo = service.getBoard(bo);
-			user.setUserid(bo.getUserid());
-		}
-		if(loginUser.getType()==3) {
-			//bo = service.getNotice(bo);
-			bo = service.getBoard(bo);
-			user.setUserid(loginUser.getUserid());
-		}
+		user.setUserid(bo.getUserid());
 		user = service.userSelect(user);
 		if(user == null) {
 			throw new LoginException("해당유저없음", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
@@ -413,7 +392,7 @@ public class BoardController {
 			board.setBoardtype(type);
 			board = service.getBoard(board);// getBoard와 getNotice를 같이 쓸수 없음
 			if(board == null) {
-				throw new LoginException("공지 수정을 눌러주세요.", "detail.duck?num=" + num+"&type=" + type);
+				throw new LoginException("공지수정 버튼을 눌러주세요.", "detail.duck?num=" + num+"&type=" + type);
 			}
 			/*if(loginUser.getType()==1) {
 				board = service.getBoard(board);
@@ -684,7 +663,7 @@ public class BoardController {
 		}*/
 		board = service.getNotice(board);
 		if(board == null) {
-			throw new LoginException("곻지가 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
+			throw new LoginException("곻지만 수정 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		User user = new User();
 		user = service.select(board.getUserid());
@@ -699,6 +678,67 @@ public class BoardController {
 		mav.addObject("projecttotalprice",projecttotalprice);
 		String usertotalcnt = service.usertotalcnt();
 		mav.addObject("usertotalcnt",usertotalcnt);
+		return mav;
+	}
+    
+    @RequestMapping(value="board/admindeleteForm")
+	public ModelAndView admindeleteForm(Integer num, Integer type, HttpSession session) {
+		ModelAndView mav = new ModelAndView("board/admindelete");
+		User loginUser = (User)session.getAttribute("loginUser");
+		Board board = new Board();
+		board.setBoardnum(num);
+		board.setBoardtype(type);
+		board = service.getNotice(board);
+		if(board == null) {
+			throw new LoginException("공지만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
+		}
+		User user = new User();
+		user = service.select(board.getUserid());
+		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
+		}
+		mav.addObject("board",board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
+		return mav;
+	}
+	
+	@RequestMapping(value = "board/admindelete", method = RequestMethod.POST)
+	public ModelAndView admindelete(Integer boardnum,Integer type, String pass, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Board bo = new Board();
+		bo.setBoardnum(boardnum);
+		bo.setBoardtype(type);
+		User loginUser = (User)session.getAttribute("loginUser");
+		bo = service.getNotice(bo);
+		User user = new User();
+		user.setUserid(bo.getUserid());
+		user = service.userSelect(user);
+		if(user == null) {
+			throw new LoginException("해당유저없음", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
+		if(!user.getPass().equals(pass)) {
+			throw new LoginException("비밀번호 오류", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
+		//비밀번호 확인 성공
+		try {
+			service.boarddelete(bo.getBoardnum());
+			if(type == 2) {
+				mav.setViewName("redirect:list.duck?type="+bo.getBoardtype());				
+			}else {
+				mav.setViewName("redirect:find.duck?type="+bo.getBoardtype());
+			}
+			Board board = new Board();
+			mav.addObject("board",board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new LoginException("게시글 삭제에 실패했습니다", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
+		}
 		return mav;
 	}
 }
