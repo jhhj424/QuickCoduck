@@ -490,6 +490,8 @@ function write_submit() {
 														<c:if test="${param.type == 3 }">
 														<c:if test="${board.maxperson-1 <=  board.nowperson}">
 														<span class="tag4"><i class="fa fa-certificate"></i> 마감임박!</span></c:if>
+														<c:if test="${board.maxperson == board.nowperson}">
+														<span class="tag4"><i class="fa fa-certificate"></i> 모집종료</span></c:if>
 														<c:if test="${board.nowperson == 0}">
 														<span class="tag_new"><sup>New</sup> 신규등록!</span></c:if>
 														</c:if>	<!-- 임의로 이벤트 하나 만든거임 -->
