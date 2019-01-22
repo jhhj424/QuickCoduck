@@ -274,7 +274,7 @@ public class BoardController {
 		}
 		User user = new User();
 		user = service.select(board.getUserid());
-		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+		if(loginUser.getType() != 3&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		mav.addObject("board",board);
@@ -302,7 +302,7 @@ public class BoardController {
 		if(user == null) {
 			throw new LoginException("해당유저없음", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
 		}
-		if(!user.getPass().equals(pass)) {
+		if(!user.getPass().equals(pass) && loginUser.getType()!=3) {
 			throw new LoginException("비밀번호 오류", "deleteForm.duck?num=" + bo.getBoardnum()+"&type=" + bo.getBoardtype());
 		}
 		//비밀번호 확인 성공
@@ -362,7 +362,7 @@ public class BoardController {
 			mav.addObject("board", b1);
 			return mav;
 		}
-		if (pass==null || !pass.equals(user.getPass())) {// 비밀번호 오류
+		if (!pass.equals(user.getPass()) && loginUser.getType() != 3) {// 비밀번호 오류
 			throw new LoginException("비밀번호를 확인하세요", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
 		} else { // 비번통과
 			board.setFileurl(request.getParameter("file2")); //기존의 파일로 url 넣어놓기
@@ -408,7 +408,7 @@ public class BoardController {
 			}*/
 			User user = new User();
 			user = service.select(board.getUserid());
-			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+			if(loginUser.getType() != 3&&!loginUser.getUserid().equals(user.getUserid())) {
 				throw new LoginException("본인 게시물이 아닙니다.", "detail.duck?num=" + num+"&type=" + type);
 			}
 			/*
@@ -667,7 +667,7 @@ public class BoardController {
 		}
 		User user = new User();
 		user = service.select(board.getUserid());
-		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+		if(loginUser.getType() != 3&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		mav.addObject("board",board);
@@ -694,7 +694,7 @@ public class BoardController {
 		}
 		User user = new User();
 		user = service.select(board.getUserid());
-		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+		if(loginUser.getType() != 3&&!loginUser.getUserid().equals(user.getUserid())) {
 			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
 		}
 		mav.addObject("board",board);
