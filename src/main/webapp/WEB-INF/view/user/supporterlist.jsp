@@ -25,7 +25,10 @@
 	</tr>
 	<c:forEach items="${supporterlist}" var="user">
 	<tr>
-		<td class="th"><img src="../file/${user.fileurl}" /></td>
+		<td align="center" class="th"><a href="../file/${user.fileurl}"> <img
+						src="../file/${user.fileurl}"
+						style="height: 120px; width: 90px; border-radius: 5px;margin:1px 1px 1px 1px;" alt="사진없음">
+				</a></td>
 		<td class="th">${user.userid}</td>
 		<td class="th">${user.email}</td>
 		<td class="th" align="center">${user.tel}</td>

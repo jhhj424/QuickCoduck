@@ -239,7 +239,7 @@ $("#toggle").click(function(){
           <i class="fa fa-remove"></i>
         </span>
         <p><strong>반갑습니다!</strong></p>
-        <p>QuickCoduck은 회원님을의 성공을 바랍니다! <i class="fa fa-thumbs-o-up"></i></p>
+        <p>QuickCoduck은 회원님의 성공을 바랍니다! <i class="fa fa-thumbs-o-up"></i></p>
       </div>
     
     <!-- End Left Column -->

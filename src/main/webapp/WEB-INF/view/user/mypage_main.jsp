@@ -285,7 +285,7 @@ var Charts = /** @class */ (function () {
                             ticks: {
                                 fontColor: this.tickColor,
                                 min: 0,
-                                max: 20,
+                                max: 55,
                                 stepSize: 5
                             }
                         }],

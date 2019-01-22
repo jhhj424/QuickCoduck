@@ -9,7 +9,7 @@
 <title>게시판 목록</title>
 <script type="text/javascript">
 	function list(pageNum) {
-		var type = document.searchform.type.value;
+		var type = document.searchform.searchType.value;
 		if (type == null || type.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
