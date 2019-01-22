@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<%@ include file="/WEB-INF/view/style/mypage_table_css.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>진행중인 프로젝트</title>
-
 <script type="text/javascript">
 function complete(boardnum){
 	var msg = confirm("해당 프로젝트를 완료하시겠습니까?");
@@ -58,10 +57,10 @@ function complete(boardnum){
 <h2 class="w3-text-grey w3-padding-16">
 <i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트
 </h2>
-<table border="1" style="width:100%;">
+<table border="1" style="width:100%;" class="table">
 <tr>
 	<td colspan="7" align="center">
-		<form action="mypage_proceedlist.duck" method="post"
+	    <form action="mypage_proceedlist.duck" method="post"
 			name="searchform" onsubmit="return list(1)">
 			<input type="hidden" name="pageNum" value="1"> 
 			<select name="searchType" id="searchType">
@@ -75,47 +74,47 @@ function complete(boardnum){
 					document.getElementById("searchType").value = '${param.searchType}';
 				}
 			</script>
-			<input type="text" name="searchContent"
-				value="${param.searchContent}"> <input type="submit"
-				value="검색">
+			<input type="text" name="searchContent" value="${param.searchContent}" class="search" placeholder="내용을 입력해주세요">
+		    <input type="submit" value="검색"class="submit">
 		</form>
 	</td>
 </tr>
-<tr align="center" valign="middle" bordercolor="#212121">
-	<th width="6%" height="26">번호</th>
-	<th width="10%" height="26">글쓴이</th>
-	<th width="45%" height="26">제목</th>
-	<th width="10%" height="26">조회수</th>
-	<th width="15%" height="26">클라이언트확인</th>
+<tr align="center">
+	<th width="6%" class="th" style="font-weight:bold;">번호</th>
+	<th width="10%" class="th"style="font-weight:bold;">글쓴이</th>
+	<th width="45%" class="th"style="font-weight:bold;">제목</th>
+	<th width="10%" class="th"style="font-weight:bold;">조회수</th>
+	<th width="15%" class="th"style="font-weight:bold;">클라이언트확인</th>
 	
 </tr>
 
 <c:forEach var="board" items="${proceedlist}">
-	<tr align="center" valign="middle" bordercolor="#333333"
-		onmouseover="this.style.backgroundColor='#5CD1E5'"
+	<tr align="center" valign="middle" 
+		onmouseover="this.style.backgroundColor='#0096884f'"
 		onmouseout="this.style.backgroundColor=''">
 	<c:set var="boardcnt" value="${boardcnt-1}" />
-		<td height="23"> ${boardcnt+1} </td> <%--duck개시물번호 --%>
-		<td align="left">${board.userid}</td>
-		<td align="left">
+		<td class="th"> ${boardcnt+1} </td> <%--duck개시물번호 --%>
+		<td align="center"class="th">${board.userid}</td>
+		<td align="left"class="th">
 			<a href="../board/detail.duck?num=${board.boardnum}&type=${board.boardtype}">${board.subject}</a>
 		</td>
-		<td align="right">${board.readcnt}</td>
-		<td align="center"><input type="button" class="btn" value="완료하기" onclick="complete(${board.boardnum})"></td>
+		<td align="center"class="th">${board.readcnt}</td>
+		<td align="center"class="th">
+		<input type="button" class="btn" value="완료하기" onclick="complete(${board.boardnum})"></td>
 	</tr>
 </c:forEach>
-<tr align="center" height="26">
+<tr align="center" class="page">
 	<td colspan="7"><c:if test="${pageNum > 1}">
-		<a href="javascript:list(${pageNum -1})">[이전]</a>
-	</c:if> <c:if test="${pageNum <= 1}">[이전]</c:if>
+		<a href="javascript:list(${pageNum -1})"><i class="fa fa-arrow-left w3-large"></i>이전</a>
+	</c:if> <c:if test="${pageNum <= 1}"><i class="fa fa-arrow-left w3-large"></i>이전</c:if>
 	<c:forEach var="a" begin="${startpage}" end="${endpage}">
 		<c:if test="${a==pageNum}">[${a}]</c:if>
 		<c:if test="${a!=pageNum}">
 			<a href="javascript:list(${a})">[${a}]</a>
 		</c:if>
 	</c:forEach> <c:if test="${pageNum < maxpage}">
-		<a href="javascript:list(${pageNum +1})">[다음]</a>
-	</c:if> <c:if test="${pageNum >= maxpage}">[다음]</c:if></td>
+		<a href="javascript:list(${pageNum +1})">다음<i class="fa fa-arrow-right w3-large"></i></a>
+	</c:if> <c:if test="${pageNum >= maxpage}">다음<i class="fa fa-arrow-right w3-large"></i></c:if></td>
 </tr>
 </table>
 <p></p>
