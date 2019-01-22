@@ -359,7 +359,8 @@ public class BoardController {
 		//b1 = service.getBoard(b1); // 기존의 board
 		//System.out.println("기존의 게시물:"+b1);
 		User loginUser = (User)session.getAttribute("loginUser");
-		if(loginUser.getType()==1) {
+		b1 = service.getBoard(b1);
+		/*if(loginUser.getType()==1) {
 			b1 = service.getBoard(b1);
 		}
 		if(loginUser.getType()==2) {
@@ -367,7 +368,7 @@ public class BoardController {
 		}
 		if(loginUser.getType()==3) {
 			b1 = service.getNotice(b1);
-		}
+		}*/
 		User user = new User();
 		user = service.select(b1.getUserid());
 		//System.out.println("유저확인:"+user);
@@ -404,16 +405,17 @@ public class BoardController {
 		if(num!=null) {
 			board.setBoardnum(num);
 			board.setBoardtype(type);
-			//board = service.getBoard(board); getBoard와 getNotice를 같이 쓸수 없음
-			if(loginUser.getType()==1) {
+			board = service.getBoard(board);// getBoard와 getNotice를 같이 쓸수 없음
+			/*if(loginUser.getType()==1) {
 				board = service.getBoard(board);
 			}
 			if(loginUser.getType()==2) {
 				board = service.getBoard(board);
 			}
 			if(loginUser.getType()==3) {
-				board = service.getNotice(board);
-			}
+				//board = service.getNotice(board);
+				board = service.getBoard(board);
+			}*/
 			User user = new User();
 			user = service.select(board.getUserid());
 			if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
@@ -423,15 +425,6 @@ public class BoardController {
 				service.readcntadd(num); // 조회수 증가
 			}*/
 			//board = service.getBoard(board);
-			if(loginUser.getType()==1) {
-				board = service.getBoard(board);
-			}
-			if(loginUser.getType()==2) {
-				board = service.getBoard(board);
-			}
-			if(loginUser.getType()==3) {
-				board = service.getNotice(board);
-			}
 		}
 		mav.addObject("board", board);
 		String projectcnt = service.projectcnt();
@@ -604,4 +597,93 @@ public class BoardController {
         return mav;
      }
 */ 
+    
+    @RequestMapping(value = "board/adminupdate", method = RequestMethod.POST)
+	public ModelAndView adminupdate(@Valid Board board, BindingResult br, HttpServletRequest request, HttpSession session,String techlist) {
+		//System.out.println("매개변수확인:"+board);
+		ModelAndView mav = new ModelAndView();
+		String pass = null;
+		String finaltech = "";
+		if(techlist!=null) { 
+			board.setUsetech(techlist);
+		}else {
+			board.setUsetech(finaltech);
+		}
+		if(request.getParameter("pass")!=null) {
+			pass = request.getParameter("pass");
+		}
+		System.out.println("비번확인:"+pass);
+		int num = Integer.parseInt(request.getParameter("boardnum"));
+		Board b1 = new Board();
+		b1.setBoardnum(num);
+		b1.setBoardtype(board.getBoardtype());
+		//b1 = service.getBoard(b1); // 기존의 board
+		//System.out.println("기존의 게시물:"+b1);
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser.getType()==1) {
+			b1 = service.getBoard(b1);
+		}
+		if(loginUser.getType()==2) {
+			b1 = service.getBoard(b1);
+		}
+		if(loginUser.getType()==3) {
+			b1 = service.getNotice(b1);
+		}
+		User user = new User();
+		user = service.select(b1.getUserid());
+		//System.out.println("유저확인:"+user);
+		if (br.hasErrors()) { // 유효성 검사
+			mav.getModel().putAll(br.getModel());
+			mav.addObject("board", b1);
+			return mav;
+		}
+		if (pass==null || !pass.equals(user.getPass())) {// 비밀번호 오류
+			throw new LoginException("비밀번호를 확인하세요", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
+		} else { // 비번통과
+			board.setFileurl(request.getParameter("file2")); //기존의 파일로 url 넣어놓기
+			try { // 수정
+				service.boardupdate(board,request);
+				mav.addObject("board",board);
+			} catch (Exception e) { // 수정시 오류 발생
+				e.printStackTrace();
+				throw new LoginException("게시글 수정에 실패했습니다", "update.duck?num=" + board.getBoardnum() + "&type=" + board.getBoardtype());
+			}
+		}
+		if(board.getBoardtype()==2) {
+			mav.setViewName("redirect:list.duck?type="+board.getBoardtype());	
+		}else {
+			mav.setViewName("redirect:find.duck?type="+board.getBoardtype());				
+		}
+		return mav;
+	}
+    @RequestMapping(value = "board/adminupdateForm")
+    public ModelAndView adminupdateForm(HttpSession session, Integer num, Integer type) {
+		ModelAndView mav = new ModelAndView("board/adminupdate");
+		User loginUser = (User)session.getAttribute("loginUser");
+		Board board = new Board();
+		board.setBoardnum(num);
+		board.setBoardtype(type);
+		//board = service.getBoard(board);
+		/*if(loginUser.getType()==1) {
+			board = service.getBoard(board);
+		}
+		if(loginUser.getType()==2) {
+			board = service.getBoard(board);
+		}*/
+		board = service.getNotice(board);
+		User user = new User();
+		user = service.select(board.getUserid());
+		if(!loginUser.getUserid().equals("admin")&&!loginUser.getUserid().equals(user.getUserid())) {
+			throw new LoginException("자신의 게시글만 삭제 가능합니다.", "detail.duck?num=" + num+"&type=" + type);
+		}
+		mav.addObject("board",board);
+		String projectcnt = service.projectcnt();
+		System.out.println("projectcnt:"+projectcnt);
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
+		return mav;
+	}
 }
