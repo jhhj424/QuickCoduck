@@ -91,12 +91,12 @@ input:hover{
   transition: background 0.5s;
 }
 select{
-  width: 10%;
+  width: 12%;
   line-height:0;
   font-align:center;
   height:30px;
   font-weight:bold;
-  font-size: 12px;
+  font-size: 15px;
   border-radius: 10px;
   background: #6978762e;
   border: none;

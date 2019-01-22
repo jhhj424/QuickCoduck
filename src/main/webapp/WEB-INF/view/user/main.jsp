@@ -61,9 +61,9 @@
 																		</p>
 																	</div> <span class="title"> ${board.subject}<!-- 제목 -->
 																		<span style="margin-left: 5px; color: #EE3366; font-size: 0.8em; font-weight: 300;"></span>
-																</span> <span class="browsertitle">
+																</span> <span class="browsertitle" style="text-decoration: none;">
 																<!-- 보드타입 -->
-																<b style="color: blue; font-size: medium;">${board.usetech }</b><br>
+																<b style="color: #346783d6; font-size: medium; text-decoration: none !important;">${board.usetech }</b><br>
 																<c:if test="${board.boardtype==1}">OpenSource</c:if></span>
 																<span class="regdate">
 																<!-- 작성일 -->
@@ -107,7 +107,7 @@
 																		<span style="margin-left: 5px; color: #EE3366; font-size: 0.8em; font-weight: 300;"></span>
 																</span> <span class="browsertitle">
 																<!-- 보드타입 -->
-																<b style="color: blue; font-size: medium;">${board.usetech }</b><br>
+																<b style="color: #346783d6; font-size: medium; text-decoration: none !important;">${board.usetech }</b><br>
 																<c:if test="${board.boardtype==3}">Project</c:if></span>
 																<span class="regdate">
 																<!-- 작성일 -->

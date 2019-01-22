@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <!-- 태그 스타일 -->
 <style>
+*{
+text-decoration : none !important;
+}
 div {
 	display: block;
 }

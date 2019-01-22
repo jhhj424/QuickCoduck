@@ -3,6 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <style>
+.page {
+	font-family: "Roboto", sans-serif;
+	color: #141618;
+	margin: 25px 0 25px 0;
+	text-align: center;
+	font-weight: 600;
+	text-shadow: 0px 0px 0px #666666;
+}
+.search{
+  width: 260px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+.submit{
+  width: 10%;
+  line-height:0;
+  height:30px;
+  font-weight:bold;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+input:focus {
+  outline-width: 0;
+  background: #7d97a566;
+  transition: background 0.5s;
+}
+input:hover{
+  outline-width: 0;
+  background: #7d97a566;
+  transition: background 0.5s;
+}
+select{
+  width: 12%;
+  line-height:0;
+  font-align:center;
+  height:30px;
+  font-weight:bold;
+  font-size: 15px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+select:focus {
+  outline-width: 0;
+  background: #7d97a566;
+  transition: background 0.5s;
+}
+select:hover{
+  outline-width: 0;
+  background: #7d97a566;
+  transition: background 0.5s;
+}
 .pagenation {
 	position: relative;
 	text-align: center;

@@ -7,6 +7,9 @@
 <head>
 <style>
 body,h1,h2,h3,h4,h5,h6,b,textarea {font-family: "Montserrat", sans-serif;}
+a{
+text-decoration:none;
+}
 input[type=text] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -24,6 +27,49 @@ input[type=text] {
   padding: 0;
   text-align:center;
   width:63%;
+}
+.submit{
+  width: 12%;
+  line-height:0;
+  height:30px;
+  font-weight:bold;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+input:focus {
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
+}
+input:hover{
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
+}
+select{
+  width: 12%;
+  line-height:0;
+  font-align:center;
+  height:30px;
+  font-weight:bold;
+  font-size: 14px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+select:focus {
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
+}
+select:hover{
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
 }
 .half {
   float: left;
@@ -154,7 +200,7 @@ while(reg.test(n)){
 <c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
 <div class="div">
 		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="">
-		<input type="button" id="tech_reset" value="reset">
+		<input type="button" id="tech_reset" value="reset" class="submit">
 </div>
 <div class="div">
 <b>선택 리스트:</b>
@@ -233,18 +279,18 @@ while(reg.test(n)){
 </div>
 <!-- 오른쪽 div 끝나는 지점 -->
 <div style="text-align:center;margin-bottom:20px;">
-		<a href="javascript:document.f.submit()"class="w3-hover" style="color:#000"><i class="fa fa-edit w3-margin-right">[게시물등록]</i></a>
+		<a href="javascript:document.f.submit()"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-edit "></i>게시물등록</a>
 		<c:if test="${param.type==1 || param.type==3 || param.type==5}">
-		<a href="find.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list">[게시물목록]</i></a>
+		<a href="find.duck?type=${param.type}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물등록</a>
 		</c:if>
 		<c:if test="${boardtype==1 || boardtype==3 || boardtype==5 }">
-		<a href="find.duck?type=${boardtype}"class="w3-hover" style="color:#000"><i class="fa fa-list">[게시물목록]</i></a>
+		<a href="find.duck?type=${boardtype}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물목록</a>
 		</c:if>
 		<c:if test="${param.type!=1 && param.type!=3 && param.type!=5 && boardtype== null}">
-		<a href="list.duck?type=${param.type}"class="w3-hover" style="color:#000"><i class="fa fa-list">[게시물목록]</i></a>
+		<a href="list.duck?type=${param.type}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물목록</a>
 		</c:if>
 		<c:if test="${boardtype==2}">
-		<a href="list.duck?type=${boardtype}"class="w3-hover" style="color:#000"><i class="fa fa-list">[게시물목록]</i></a>
+		<a href="list.duck?type=${boardtype}"class="w3-hover" style="margin-right:10px;color:#000;font-weight:bold;font-size:16px;"><i class="fa fa-list "></i>게시물목록</a>
 		</c:if>
 </div>
 		</div></form:form></body></html>

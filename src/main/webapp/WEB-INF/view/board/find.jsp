@@ -32,6 +32,62 @@ html, body, h1, h2, h3, h4, h5, h6 {
 	padding: 12px;
 	margin: 5px 15px 5px 15px;
 }
+.search{
+  width: 260px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+.submit{
+  width: 10%;
+  line-height:0;
+  height:30px;
+  font-weight:bold;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+input:focus {
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
+input:hover{
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
+select{
+  width: 12%;
+  line-height:0;
+  font-align:center;
+  height:30px;
+  font-weight:bold;
+  font-size: 14px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+select:focus {
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
+select:hover{
+  outline-width: 0;
+  background: #0096884f;
+  transition: background 0.5s;
+}
 </style>
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
@@ -359,16 +415,25 @@ function write_submit() {
 														</c:if>
 													</div>
 												<div align="center" style="margin-top: 5px;">
-													<form action="find.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)" class="form">
-														게시글 검색 <input type="hidden" name="pageNum" value="1">
-														<select name="searchType">
+													<form action="find.duck?type=${param.type}" method="post"
+														name="searchform" onsubmit="return list(1)">
+														<input type="hidden" name="pageNum" value="1"> <select
+															name="searchType" id="searchType">
 															<option value="">선택하세요</option>
 															<option value="subject">제목</option>
 															<option value="userid">글쓴이</option>
 															<option value="content">내용</option>
-														</select>&nbsp; 
-														<input type="text" name="searchContent" value="${param.searchContent}"> 
-														<input type="submit" value="검색">
+														</select>&nbsp;
+														<script type="text/javascript">
+															if ('${param.searchType}' != '') {
+																document
+																		.getElementById("searchType").value = '${param.searchType}';
+															}
+														</script>
+														<input type="text" name="searchContent"
+															value="${param.searchContent}" class="search"
+															placeholder="내용을 입력해주세요"> <input type="submit"
+															value="검색" class="submit">
 													</form>
 												</div>
 												<div>

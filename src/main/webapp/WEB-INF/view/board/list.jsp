@@ -25,7 +25,7 @@
 </script>
 </head>
 <body>
-<div id="wrap">
+<div id="wrap" style="margin-bottom:50px;">
 <div class="table-users">
 <div class="header">
   <div class="pagenation">
@@ -43,23 +43,23 @@
 QuickCoduck
 </th>
 <td colspan="4" style="border-radius: 3px;">
-<form action="list.duck?type=${param.type}" method="post" name="searchform" onsubmit="return list(1)" style="margin-top:15px;">
-<input type="hidden" name="pageNum" value="1">
-<img src="../workpic/lens.png" style="height: 25px;weight:25px;">
-게시글 찾기:
-<select name="searchType" id="type">
-<option value="">선택하세요</option>
-<option value="subject">제목</option>
-<option value="userid">글쓴이</option>
-<option value="content">내용</option>
-</select>
-<!-- <script type="text/javascript">
-if ('${param.type}' != '') {
-document.getElementById("searchType").value = '${param.type}';
-}
-</script> -->
-<input type="text" name="searchContent" size="50" value="${param.searchContent}">
-<input type="submit"value="검색">
+<form action="list.duck?type=${param.type}" method="post"
+			name="searchform" onsubmit="return list(1)" style="">
+			<input type="hidden" name="pageNum" value="1">
+			<img src="../workpic/lens.png" style="height: 25px;weight:25px;">게시글 찾기: 
+			<select name="searchType" id="searchType">
+				<option value="">선택하세요</option>
+				<option value="subject">제목</option>
+				<option value="userid">글쓴이</option>
+				<option value="content">내용</option>
+			</select>&nbsp;
+			<script type="text/javascript">
+				if ('${param.searchType}' != '') {
+					document.getElementById("searchType").value = '${param.searchType}';
+				}
+			</script>
+			<input type="text" name="searchContent" value="${param.searchContent}" class="search" placeholder="내용을 입력해주세요">
+		    <input type="submit" value="검색"class="submit">
 </form>
 </td>
 <c:if test="${param.type==1}">
@@ -201,31 +201,18 @@ ${board.readcnt}</font>
 <c:if test="${listcount != 0}">
 <tr align="center">
 <td></td>
-<td colspan="4">
-<c:if test="${pageNum > 1}"><font style="font-weight: bold;">
-<a href="javascript:list(${pageNum -1})">[이전]</a></font>
-</c:if>
-<c:if test="${pageNum <= 1}">
-<font style="font-weight: bold;">
-[이전]</font></c:if>
-<c:forEach var="a" begin="${startpage}" end="${endpage}">
-
-<c:if test="${a==pageNum}">
-<font style="font-weight: bold;">
-[${a}]</font>
-</c:if>
-<c:if test="${a!=pageNum}">
-<font style="font-weight: bold;">
-<a href="javascript:list(${a})">
-[${a}]</a></font>
-</c:if>
-</c:forEach>
-<c:if test="${pageNum < maxpage}"><font style="font-weight: bold;">
-<a href="javascript:list(${pageNum +1})">[다음]</a></font>
-</c:if>
-<c:if test="${pageNum >= maxpage}">
-<font style="font-weight: bold;">
-[다음]</font></c:if>
+<td colspan="4" class="page">
+<c:if test="${pageNum > 1}">
+		<a href="javascript:list(${pageNum -1})"><i class="fa fa-arrow-left w3-large"></i>이전</a>
+	</c:if> <c:if test="${pageNum <= 1}"><i class="fa fa-arrow-left w3-large"></i>이전</c:if>
+	<c:forEach var="a" begin="${startpage}" end="${endpage}">
+		<c:if test="${a==pageNum}">[${a}]</c:if>
+		<c:if test="${a!=pageNum}">
+			<a href="javascript:list(${a})">[${a}]</a>
+		</c:if>
+	</c:forEach> <c:if test="${pageNum < maxpage}">
+		<a href="javascript:list(${pageNum +1})">다음<i class="fa fa-arrow-right w3-large"></i></a>
+	</c:if> <c:if test="${pageNum >= maxpage}">다음<i class="fa fa-arrow-right w3-large"></i></c:if>
 </td>
 <td colspan="1" align="right" class="top">
 <a href="write.duck?type=${param.type}">
