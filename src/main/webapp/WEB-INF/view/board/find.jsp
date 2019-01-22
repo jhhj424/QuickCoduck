@@ -403,12 +403,12 @@ function write_submit() {
 												onmouseout="this.style.backgroundColor=''"
 												>
 													<div align="right" class="listcount_div">
-														<c:if test="${type != 5}">														
+														<c:if test="${param.type != 5}">														
 														<b class="listcount_b">
 														<i class="fa fa-asterisk w3-text-teal"></i>
 														글개수: ${listcount}</b>
 														</c:if>
-														<c:if test="${type == 5}">														
+														<c:if test="${param.type == 5}">														
 														<b class="listcount_b">
 														<i class="fa fa-cloud-upload w3-text-teal"></i>
 														나만의소스개수: ${mycount}</b>
