@@ -75,9 +75,10 @@
 		<td align="center"class="th">${board.duckcnt}</td>
 		<td align="center"class="th">${board.readcnt}</td>
 		<td align="center"class="th">
-			<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}">
-			<i class="fa fa-users w3-margin-right w3-margin-left">[지원자보기]</i></a>
-			<a href="../board/selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[인재보기]</i></a>
+			<a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}" style="font-weight:bold;">
+			<i class="fa fa-users w3-margin-right w3-margin-left">지원자보기</i></a>
+			<a href="../board/selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"style="font-weight:bold;">
+			<i class="fa fa-handshake-o w3-margin-right">인재보기</i></a>
 		</td>
 	</tr>
 </c:forEach>

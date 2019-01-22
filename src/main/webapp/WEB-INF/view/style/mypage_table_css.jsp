@@ -48,6 +48,18 @@ font {
 	cursor: pointer;
 	border-radius: 10px;
 }
+.tag2 {
+	background: #f95959b8;
+	color: #fff;
+	border-radius: 10px;
+	padding: 2px 5px;
+	font-size: 13px;
+	margin-right: 2px;
+	margin-left: 2px;
+	line-height: 30px;
+	cursor: pointer;
+}
+
 .page {
 	font-family: "Roboto", sans-serif;
 	color: #141618;
