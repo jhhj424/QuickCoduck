@@ -104,7 +104,7 @@ $("#toggle").click(function(){
     <div class="w3-third" style="padding:10px 50px 0px 50px;">
 
       <!-- Profile -->
-      <div class="w3-card w3-round w3-white" style="text-align:center;">
+      <div class="w3-card w3-round w3-white" style="text-align:center;" id="profile">
         <div class="w3-container" style="padding:0 0 0 0;">
         <c:if test="${loginUser.type == 1 }">
         <div style="text-align:left;">
@@ -238,8 +238,8 @@ $("#toggle").click(function(){
         <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
           <i class="fa fa-remove"></i>
         </span>
-        <p><strong>Hello!</strong></p>
-        <p>These page is Mypage So 알아서 하시길~~받아올거 있으면 말씀하시쥬</p>
+        <p><strong>반갑습니다!</strong></p>
+        <p>QuickCoduck은 회원님을의 성공을 바랍니다! <i class="fa fa-thumbs-o-up"></i></p>
       </div>
     
     <!-- End Left Column -->
