@@ -128,7 +128,7 @@ while(reg.test(n)){
 <title>게시물 수정</title>
 </head>
 <body>
-<form:form modelAttribute="board" action="update.duck" enctype="multipart/form-data" name="f">
+<form:form modelAttribute="board" action="adminupdate.duck" enctype="multipart/form-data" name="f">
 	<input type="hidden" name="boardnum" value="${board.boardnum}${notice.boardnum}">
 	<form:hidden path="boardnum" value="${board.boardnum}${notice.boardnum}"/>
 	<form:hidden path="boardtype" value="${board.boardtype}${notice.boardtype}"/>
@@ -163,67 +163,7 @@ while(reg.test(n)){
 <div class="div">
 		<b>제목 : </b><form:input path="subject"/><font color="red"><form:errors path="subject" /></font>
 </div>
-<c:if test="${param.type==1 || param.type==3 || param.type==5 || boardtype==1 || boardtype==3 || boardtype==5}">
-<div class="div">
-		<b>사용기술 : </b><input readonly type="text" id="tech_box" name="techlist" value="${board.usetech}">
-		<input type="button" id="tech_reset" value="reset">
-</div>
-<div class="div">
-<b>선택 리스트:</b>
-<select id="develop_select">
-			<option value="">Develop</option>
-			<option value="C">C</option>
-			<option value="C++">C++</option>
-			<option value="Java">Java</option>
-			<option value="JSP">JSP</option>
-			<option value="Python">Python</option>
-			<option value="Ajax">Ajax</option>
-			<option value="jQuery">jQuery</option>
-			<option value="Ruby">Ruby</option>
-			<option value="Android">Android</option>
-			<option value="Unity">Unity</option>
-		</select>
-		<select id="design_select">
-			<option value="">Design</option>
-			<option value="HTML">HTML</option>
-			<option value="CSS">CSS</option>
-			<option value="BootStrap">BootStrap</option>
-			<option value="DreamWeaver">DreamWeaver</option>
-			<option value="PhotoShop">PhotoShop</option>
-			<option value="XML">XML</option>
-			<option value="Sketch">Sketch</option>
-			<option value="JavaScript">JavaScript</option>
-			<option value="Unity3d">Unity3d</option>
-			<option value="iOS">iOS</option>
-		</select>
-</div>
-		</c:if>
-		<%-- 
-		<div>
-			<div align="center"><b>프로젝트 금액 : </b>
-				<form:input path="price" 
-				<font color="red"><form:errors path="price" /></font>
-			</div>
-		</div>
-		</c:if> --%>
-<c:if test="${param.type==3 || boardtype==3}">
-<div class="div">
-		<b>가격 : </b><form:input path="price" onkeyup="number_chk(this);" onkeypress="javascript:if((event.keyCode<48)||(event.keyCode>57))event.returnValue=false;" style="ime-mode:disabled; text-align: right;" />원<font color="red"><form:errors path="price" /></font>
-		<br>
-		<b>기간 : </b><form:input path="schedule" style="ime-mode:disabled; text-align: right;"/>일<font color="red"><form:errors path="schedule" /></font>
-		<br>
-		<b>인원수 : </b>
-		<select name="maxperson">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>		
-		</select>명
-		<br>
-</div>
-</c:if>
+
 <div class="div"><b>첨부파일 : </b> 
           <c:if test="${!empty board.fileurl || !empty notice.fileurl}">
 			<div id="file_desc">
