@@ -2,9 +2,39 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@ include file="/WEB-INF/view/style/user_mypage_fileupload.jsp" %>
+<%@ include file="/WEB-INF/view/style/mypage_update_css.jsp" %>
+<%@ include file="/WEB-INF/view/style/input_css.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.tech{
+  width: 70%;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+.reset{
+  width: 10%;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+</style>
 <meta charset="UTF-8">
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
@@ -190,8 +220,8 @@ function unNumberFormat(num)
 		</select>
 		</div>
           <h6 class="w3-text-teal">
-          <input readonly type="text" id="tech_box" name="usetech" value="${user.usetech }">
-		<input type="button" id="tech_reset" value="reset">
+          <input readonly type="text" id="tech_box" name="usetech" value="${user.usetech }" class="tech">
+		<input type="button" id="tech_reset" value="reset" class="reset">
           </h6>
           <hr>
        </div>
@@ -226,6 +256,28 @@ function unNumberFormat(num)
     <c:if test="${user.type == '2' }">
     <div class="w3-container w3-card w3-white w3-round w3-margin">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-krw fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> 결제정보</h2>
+        <div class="container">
+  <div class="col1">
+    <div class="card">
+      <div class="front">
+        <div class="type">
+          <img class="bankid"/>
+        </div>
+        <span class="chip"></span>
+        <span class="card_number">
+        <c:if test="${empty user.creditnum }">
+        &#x25CF;&#x25CF;&#x25CF;&#x25CF; &#x25CF;&#x25CF;&#x25CF;&#x25CF; &#x25CF;&#x25CF;&#x25CF;&#x25CF; &#x25CF;&#x25CF;&#x25CF;&#x25CF;
+        </c:if>
+        <c:if test="${!empty user.creditnum }">
+        ${loginUser.creditnum }
+        </c:if>
+         </span>
+        <div class="date"><span class="date_value">MM / YYYY</span></div>
+        <span class="fullname" style="margin-top:10px;">${loginUser.userid }</span>
+      </div>
+    </div>
+  </div>
+</div>
        <c:if test="${empty user.creditnum }">
        <div class="w3-container">
           <h5 class="w3-opacity"><i class="fa fa-credit-card fa-fw w3-margin-right"></i><b>카드번호</b></h5>

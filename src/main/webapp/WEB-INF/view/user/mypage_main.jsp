@@ -1,91 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<%@ include file="/WEB-INF/view/style/user_mypage_main_css.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-.chart {
-  border-radius: 3px;
-  box-shadow: 0 0 10px -3px black;
-  float: left;
-  margin: 15px 2.5%;
-  position: relative;
-  width: 45%;
-}
-canvas {
-  height: 400px;
-  margin: 20px 0;
-  width: 100%;
-}
-.header {
-  *zoom: 1;
-}
-.header:before,
-.header:after {
-  content: "";
-  display: table;
-}
-.header:after {
-  clear: both;
-}
-.header span {
-  cursor: pointer;
-  display: inline-block;
-  font-size: 20px;
-  margin: 5px;
-  padding: 4px;
-}
-.header .left {
-  float: left;
-}
-.header .right {
-  float: right;
-}
-.title {
-  font-size: 18px;
-  margin: 0;
-  padding: 15px 0 5px;
-}
-.title + .tagline {
-  margin-top: 10px;
-}
-.tagline {
-  font-size: 12px;
-}
-.light {
-  background-color: #FBFCFD;
-  color: #274A61;
-}
-.dark {
-  background-color: #274A61;
-  color: #FBFCFD;
-}
-main {
-  text-align: center;
-}
-.hidden {
-  display: none;
-}
-.container {
-  *zoom: 1;
-  font-size: 0;
-  margin: 0 auto 145px;
-  max-width: 960px;
-  padding: 0;
-  width: 100%;
-}
-.container:before,
-.container:after {
-  content: "";
-  display: table;
-}
-.container:after {
-  clear: both;
-}
-
-</style>
 </head>
 <body>
 <div class="container">
@@ -114,18 +34,6 @@ main {
       <p class="tagline"> &#8361; 1,000,000  단위</p>
       <canvas height="400" id="lineChartCLight"></canvas>
     </div>
-    <div class="chart bar-chart light">
-      <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">프로젝트 월별매칭</h3>
-      <p class="tagline">.건당 (in 2018 기준)</p>
-      <canvas height="400" id="barChartLight"></canvas>
-    </div>
-    <div class="chart doughnut-chart light">
-      <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">QuickCoduck 평균매칭률</h3>
-      <p class="tagline">.건당 (in 2018 기준)</p>
-      <canvas height="400" id="doughnutChartLight"></canvas>
-    </div>
   </main>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
@@ -138,9 +46,6 @@ var Charts = /** @class */ (function () {
         this.initPolar();
         this.initLine();
         this.initLineCurved();
-        this.initBar();
-        this.initBarHorizontal();
-        this.initDoughnut();
     }
     Charts.prototype.initRadar = function () {
         var ctxD = $('#radarChartDark'), ctxL = $('#radarChartLight'), chartData = {
@@ -391,136 +296,6 @@ var Charts = /** @class */ (function () {
                         }]
                 },
                 legend: {
-                    labels: {
-                        boxWidth: 11,
-                        fontColor: this.tickColor,
-                        fontSize: 11
-                    }
-                }
-            }
-        }, myDarkRadarChart = new Chart(ctxD, chartData), myLightRadarChart = new Chart(ctxL, chartData);
-    };
-    Charts.prototype.initBar = function () {
-        var ctxD = $("#barChartDark"), ctxL = $("#barChartLight"), chartData = {
-            type: 'bar',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                        data: [27, 59, 18, 26, 79, 55, 36, 23, 44, 30, 55, 64],
-                        backgroundColor: this.colors[0],
-                        hoverBackgroundColor: this.convertHex(this.colors[0], 70)
-                    },
-                    {
-                        data: [36, 23, 44, 30, 79, 55, 61, 14, 27, 59, 18, 91],
-                        backgroundColor: this.colors[1],
-                        hoverBackgroundColor: this.convertHex(this.colors[1], 70)
-                    },
-                    {
-                        data: [28, 31, 87, 61, 14, 27, 59, 18, 96, 26, 79, 14],
-                        backgroundColor: this.colors[2],
-                        hoverBackgroundColor: this.convertHex(this.colors[2], 70)
-                    }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                            stacked: true,
-                            ticks: {
-                                fontColor: this.tickColor
-                            },
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }],
-                    yAxes: [{
-                            stacked: true,
-                            ticks: {
-                                fontColor: this.tickColor,
-                                min: 0,
-                                max: 175,
-                                stepSize: 25
-                            }
-                        }]
-                },
-                legend: {
-                    display: false
-                }
-            }
-        }, myDarkRadarChart = new Chart(ctxD, chartData), myLightRadarChart = new Chart(ctxL, chartData);
-    };
-    Charts.prototype.initBarHorizontal = function () {
-        var ctxD = $("#barChartHDark"), ctxL = $("#barChartHLight"), chartData = {
-            type: 'horizontalBar',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                        data: [27, 59, 68, 26, 79, 55, 36, 43, 44, 30, 55, 64],
-                        backgroundColor: this.colors[0],
-                        hoverBackgroundColor: this.convertHex(this.colors[0], 70)
-                    },
-                    {
-                        data: [136, 23, 44, 30, 79, 55, 61, 94, 27, 59, 98, 91],
-                        backgroundColor: this.colors[1],
-                        hoverBackgroundColor: this.convertHex(this.colors[1], 70)
-                    },
-                    {
-                        data: [88, 31, 87, 61, 77, 27, 59, 58, 136, 26, 79, 85],
-                        backgroundColor: this.colors[2],
-                        hoverBackgroundColor: this.convertHex(this.colors[2], 70)
-                    }]
-            },
-            options: {
-                barThickness: 10,
-                scales: {
-                    xAxes: [{
-                            stacked: true,
-                            ticks: {
-                                fontColor: this.tickColor
-                            },
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }],
-                    yAxes: [{
-                            stacked: true,
-                            ticks: {
-                                fontColor: this.tickColor,
-                                min: 0,
-                                max: 175,
-                                stepSize: 25
-                            }
-                        }]
-                },
-                legend: {
-                    display: false
-                }
-            }
-        }, myDarkRadarChart = new Chart(ctxD, chartData), myLightRadarChart = new Chart(ctxL, chartData);
-    };
-    Charts.prototype.initDoughnut = function () {
-        var ctxD = $('#doughnutChartDark'), ctxL = $('#doughnutChartLight'), chartData = {
-            type: 'doughnut',
-            data: {
-                labels: ["매칭성공", "매칭대기중", "매칭실패"],
-                datasets: [{
-                        data: [235, 83, 23],
-                        borderWidth: 0,
-                        backgroundColor: [
-                            this.convertHex(this.colors[0], 60),
-                            this.convertHex(this.colors[1], 60),
-                            this.convertHex(this.colors[2], 60),
-                        ],
-                        hoverBackgroundColor: [
-                            this.colors[0],
-                            this.colors[1],
-                            this.colors[2],
-                        ]
-                    }]
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: "bottom",
                     labels: {
                         boxWidth: 11,
                         fontColor: this.tickColor,

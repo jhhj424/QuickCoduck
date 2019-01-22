@@ -194,4 +194,5 @@ public class UserDao {
 		Map<String,Object> map = new HashMap<String,Object>();
 		return sqlSession.selectList(NS + "all_tech", map);
 	}
+	
 }
