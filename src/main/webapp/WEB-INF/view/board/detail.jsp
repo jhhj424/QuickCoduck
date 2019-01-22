@@ -378,7 +378,7 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
       <button type="button" class="myButton" id="pro" style="margin-right:15px;">즉시신청</button>
       <c:if test="${board.userid == loginUser.userid }">
       <a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
-      <a href="selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
+      <a href="../board/selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
       </c:if>
 </div>
 </c:if>
