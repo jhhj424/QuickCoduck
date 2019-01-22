@@ -22,7 +22,7 @@
 	</tr>
 	<c:forEach items="${supporterlist}" var="user">
 	<tr>
-		<td>${user.pic}</td>
+		<td><img src="../file/${user.fileurl}" /></td>
 		<td>${user.userid}</td>
 		<td>${user.email}</td>
 		<td>${user.tel}</td>
