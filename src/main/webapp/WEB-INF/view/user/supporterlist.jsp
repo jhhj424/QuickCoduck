@@ -12,7 +12,7 @@
 <body>
 <table border="1" style="border-collapse:collapse; width:100%">
 	<tr>
-		<th>-(사진)</th>
+		<th>사진</th>
 		<th>아이디</th>
 		<th>이메일</th>
 		<th>전화번호</th>

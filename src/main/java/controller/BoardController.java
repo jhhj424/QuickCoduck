@@ -540,6 +540,14 @@ public class BoardController {
     public ModelAndView suggest_accept(String userid, Integer boardnum, HttpSession session, HttpServletRequest request) {
     	ModelAndView mav = new ModelAndView();
 		//현재 보드객체의 board에 nowperson을 1 증가시킴
+    	//인원초과-----------
+    			Board bo = new Board();
+    			bo.setBoardnum(boardnum);
+    			bo.setBoardtype(3);
+    			bo = service.getBoard(bo);
+    			if(bo.getMaxperson() == bo.getNowperson()) 
+    				throw new LoginException("인원 초과", "../board/suggest_detail.duck?boardnum="+boardnum+"&type=3");
+    			//---------------
 		try {
 			User user = service.select(userid);
 			System.out.println("유저:"+user);

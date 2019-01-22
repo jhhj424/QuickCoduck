@@ -1028,6 +1028,14 @@ public class UserController {
 	@RequestMapping(value = "user/accept")
 	public ModelAndView accept(HttpSession session, Integer boardnum, String userid) {
 		ModelAndView mav = new ModelAndView("user/supporterlist");
+		//인원초과-----------
+		Board bo = new Board();
+		bo.setBoardnum(boardnum);
+		bo.setBoardtype(3);
+		bo = service.getBoard(bo);
+		if(bo.getMaxperson() == bo.getNowperson()) 
+			throw new LoginException("인원 초과", "../user/supporterlist.duck?boardnum="+boardnum+"&userid="+userid);
+		//---------------
 		User user = (User) session.getAttribute("loginUser");
 		mav.addObject("user", user);
 		String duckid = service.duckidselect(boardnum, userid); // boardnum값에 대한 duck테이블의 userid가져오기
@@ -1325,6 +1333,14 @@ public class UserController {
 	public ModelAndView userproaccept(HttpSession session, String userid, Integer num) {
 		ModelAndView mav = new ModelAndView("user/myduck");
 		User user = (User) session.getAttribute("loginUser");
+		//인원초과-----------
+				Board bo = new Board();
+				bo.setBoardnum(num);
+				bo.setBoardtype(3);
+				bo = service.getBoard(bo);
+				if(bo.getMaxperson() == bo.getNowperson()) 
+					throw new LoginException("인원 초과", "../user/myduck.duck?id="+userid+"&ducktype=3&type=3");
+				//---------------
 		mav.addObject("user", user);
 		int duckselect2 = service.select(userid, num);
 		System.out.println("boardnum:" + num);
