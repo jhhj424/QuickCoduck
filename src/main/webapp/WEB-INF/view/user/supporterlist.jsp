@@ -17,7 +17,6 @@
 		<th>이메일</th>
 		<th>전화번호</th>
 		<th>사용기술</th>
-		<th>매칭여부</th>
 		<th>확인</th>
 	</tr>
 	<c:forEach items="${supporterlist}" var="user">
@@ -27,7 +26,6 @@
 		<td>${user.email}</td>
 		<td>${user.tel}</td>
 		<td>${user.usetech}</td>
-		<td>${user.matching}</td>
 		<td>
 			<button type="button" id="accept" onclick="location.href='accept.duck?userid=${user.userid}&boardnum=${param.boardnum}'">수락</button>
 			<button type="button" id="fail" onclick="location.href='fail.duck?userid=${user.userid}&boardnum=${param.boardnum}'">거절</button>

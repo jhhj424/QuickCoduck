@@ -216,6 +216,12 @@ public class BoardController {
 		mav.addObject("User", user);
 		session.setAttribute("loginUser", user);
 		session.setAttribute("clientboard", board);
+		String projectcnt = service.projectcnt();
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}	
 	

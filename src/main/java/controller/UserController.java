@@ -996,6 +996,12 @@ public class UserController {
 		session.setAttribute("loginUser", user);
 		mav.addObject("userlist", matchinguserList);
 		mav.addObject("clientboard", board);
+		String projectcnt = service.projectcnt();
+		mav.addObject("projectcnt",projectcnt);
+		String projecttotalprice = service.projecttotalprice();
+		mav.addObject("projecttotalprice",projecttotalprice);
+		String usertotalcnt = service.usertotalcnt();
+		mav.addObject("usertotalcnt",usertotalcnt);
 		return mav;
 	}
 

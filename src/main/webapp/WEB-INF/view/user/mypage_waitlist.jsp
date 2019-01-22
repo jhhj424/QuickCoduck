@@ -55,8 +55,8 @@
 	<th width="6%" class="th" style="font-weight:bold;">번호</th>
 	<th width="8%" class="th"style="font-weight:bold;">글쓴이</th>
 	<th width="45%" class="th"style="font-weight:bold;">제목</th>
-	<th width="6%" class="th"style="font-weight:bold;">추천수</th>
-	<th width="10%" class="th"style="font-weight:bold;">관심등록수</th>
+	<th width="8%" class="th"style="font-weight:bold;">지원자수</th>
+	<th width="8%" class="th"style="font-weight:bold;">관심수</th>
 	<th width="7%" class="th"style="font-weight:bold;">조회수</th>
 	<th width="18%" class="th"style="font-weight:bold;">지원자보기</th>
 </tr>
