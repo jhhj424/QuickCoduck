@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <style>
+input[type=checkbox] {
+	margin-left: 5px;
+}
+
 .readcnt {
 	font-weight: bold;
 	font-size: 15px;
@@ -116,6 +120,7 @@
 	margin-left: 12px;
 	background: #009688;
 	border-radius: 6px;
+	margin-right: 10px;
 	color: #fefefe;
 	font-size: 16px;
 	padding: 0px 7px;
@@ -149,6 +154,7 @@
 	margin-left: 12px;
 	background: #f95959b8;
 	border-radius: 6px;
+	margin-right: 10px;
 	color: #fefefe;
 	font-size: 16px;
 	padding: 0px 7px;
@@ -206,6 +212,7 @@ a {
 	line-height: 30px;
 	cursor: pointer;
 }
+
 .tag_check {
 	background: #00bc70;
 	color: #fff;
@@ -251,6 +258,7 @@ a {
 	line-height: 30px;
 	cursor: pointer;
 }
+
 .tag5 {
 	background: #022dcfd6;
 	color: #fff;

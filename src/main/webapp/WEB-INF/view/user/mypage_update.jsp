@@ -34,6 +34,28 @@
   border: none;
   transition: background 0.5s;
 }
+select{
+  width: 12%;
+  line-height:0;
+  font-align:center;
+  height:30px;
+  font-weight:bold;
+  font-size: 14px;
+  border-radius: 10px;
+  background: #6978762e;
+  border: none;
+  transition: background 0.5s;
+}
+select:focus {
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
+}
+select:hover{
+  outline-width: 0;
+  background: #4dc6b66e;
+  transition: background 0.5s;
+}
 </style>
 <meta charset="UTF-8">
 <script type="text/javascript"

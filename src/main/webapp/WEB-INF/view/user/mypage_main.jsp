@@ -24,7 +24,7 @@
     </div>
     <div class="chart line-chart light">
       <div class="header"><span class="left glyphicon glyphicon-menu-hamburger"></span><span class="right glyphicon glyphicon-cog"></span></div>
-      <h3 class="title">개발자 기술 / 클라이언트 프로젝트 기술</h3>
+      <h3 class="title">기술 분포도</h3>
       <p class="tagline">5% in / 100%</p>
       <canvas height="400" id="lineChartLight"></canvas>
     </div>
@@ -87,7 +87,8 @@ var Charts = /** @class */ (function () {
                         fontColor: this.tickColor
                     },
                     ticks: {
-                    	beginAtZero: true ,
+                    	suggestedMax : 5,
+                    	suggestedMin : 0,
                         display: false,
                         stepSize: 1.0
                     }
@@ -257,7 +258,7 @@ var Charts = /** @class */ (function () {
         var ctxD = $("#lineChartCDark"), ctxL = $("#lineChartCLight"), chartData = {
             type: 'line',
             data: {
-                labels: ["500만원", "1000만원", "2500만원", "5000만원", "7500만원", "10000만원"],
+                labels: ["10만원","50만원", "100만원", "500만원", "1000만원", "2500만원", "5000만원","7500만원","1억"],
                 datasets: [
                     {
                         label: "QuickCoduck 평균",

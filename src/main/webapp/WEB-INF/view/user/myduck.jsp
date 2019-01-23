@@ -32,11 +32,11 @@
 <c:if test="${loginUser.type == '1' && param.ducktype == '2' && param.type == '3' }">
 <i class="fa fa-vcard-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원내역</c:if>
 <c:if test="${loginUser.type == '1' && param.ducktype == '3' && param.type == '3' }">
-<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원선택된 프로젝트</c:if>
+<i class="fa fa-check-circle-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원선택된 프로젝트</c:if>
 <c:if test="${loginUser.type == '1' && param.ducktype == '4' && param.type == '3' }">
-<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
+<i class="fa fa-handshake-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>진행중인 프로젝트</c:if>
 <c:if test="${loginUser.type == '1' && param.ducktype == '5' && param.type == '3' }">
-<i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원탈락된 프로젝트</c:if>
+<i class="fa fa-close fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>지원탈락된 프로젝트</c:if>
 
 
 <c:if test="${loginUser.type == '2' && param.ducktype == '1' && param.type == '3' }">

@@ -27,7 +27,7 @@
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin">
 <h2 class="w3-text-grey w3-padding-16">
-<i class="fa fa-heart fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>제안받은 프로젝트
+<i class="fa fa-bell-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>제안받은 프로젝트
 </h2>
 <table border="1" style="width:100%;" class="table">
 <tr>

@@ -164,9 +164,9 @@ $("#toggle").click(function(){
         <c:if test="${loginUser.type == '1'}">
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=1&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-heart fa-fw w3-margin-right"></i> 관심프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=2&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원내역</button>
-		  <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원선택된 프로젝트</button>
-		  <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=5&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 지원탈락된 프로젝트</button>
-          <button onclick="location.href='../user/mypage_suggestlist.duck?id=${loginUser.userid}&ducktype=6'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-vcard-o fa-fw w3-margin-right"></i> 제안받은 프로젝트</button>
+		  <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=3&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-circle-o fa-fw w3-margin-right"></i> 지원선택된 프로젝트</button>
+		  <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=5&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-close fa-fw w3-margin-right"></i> 지원탈락된 프로젝트</button>
+          <button onclick="location.href='../user/mypage_suggestlist.duck?id=${loginUser.userid}&ducktype=6'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-bell-o fa-fw w3-margin-right"></i> 제안받은 프로젝트</button>
           <button onclick="location.href='../user/myduck.duck?id=${user.userid}&ducktype=4&type=3'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-handshake-o fa-fw w3-margin-right"></i> 진행중인 프로젝트</button>
           <button onclick="location.href='../user/mypage_developcomplete.duck'" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-check-square-o fa-fw w3-margin-right"></i> 완료한 프로젝트</button>
 

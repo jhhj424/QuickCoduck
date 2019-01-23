@@ -89,11 +89,11 @@ text-color:red;
 <div class="w3-padding-64 w3-white" style="height:970px;">
   <div class="w3-row-padding"style="padding-top:180px;">
     <div class="w3-col l8 m6">
-      <h1 class="w3-jumbo"><b>The Web</b></h1>
+      <h1 class="w3-jumbo"><b>Developer</b></h1>
       <h1 class="w3-xxxlarge w3-text-green"><b>Why Use it?</b></h1>
-	   <p><span class="w3-xlarge">We Provide OpenSource Cloud.</span>
-	    We provide opensource space for developers.Based on the data,
-	    We provide better talent for clients. 
+	   <p><span class="w3-xlarge">We Provide OpenSource Cloud.</span><br>
+	    We provide opensource space for developers.Based on the data,<br>
+	    We provide better talent for clients.<br> 
 	    We reorganize and satisfy both sides with brokerage service.</p>
 	  <button class="w3-button w3-light-grey w3-padding-large w3-section w3-hide-small" onclick="document.getElementById('free').style.display='block'">
         <i class="fa fa-download"></i>Get For Free
@@ -106,7 +106,7 @@ text-color:red;
 	  </p>
     </div>
     <div class="w3-col l4 m6">
-      <img src="../workpic/QuickCoduck.jpg" class="w3-image w3-right w3-hide-small" width="335" height="471">
+      <img src="../workpic/pic1.png" class="w3-image w3-right w3-hide-small" width="100%" height="471">
     </div>
   </div>
 </div>
@@ -117,13 +117,15 @@ text-color:red;
 <div class="w3-padding-64 w3-light-grey" style="height:970px;">
   <div class="w3-row-padding"style="padding-top:200px;">
     <div class="w3-col l4 m6">
-      <img class="w3-image w3-round-large w3-hide-small w3-grayscale" src="../workpic/title3.jpg" alt="App" width="335" height="471">
+      <img class="w3-image w3-round-large w3-hide-small w3-grayscale" src="../workpic/pic2.png" alt="App" width="90%" height="471">
     </div>
     <div class="w3-col l8 m6">
-      <h1 class="w3-jumbo"><b>Clarity</b></h1>
-      <h1 class="w3-xxxlarge w3-text-red"><b>Pixels, who?</b></h1>
-      <p><span class="w3-xlarge">A revolution in resolution.</span> Sharp and clear photos with the world's best photo engine, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <h1 class="w3-jumbo"><b>Client</b></h1>
+      <h1 class="w3-xxxlarge w3-text-red"><b>Provide, who?</b></h1>
+      <p><span class="w3-xlarge">A revolution in resolution.</span>
+      In order to provide better services to our clients,<br>
+       we are providing customized talent to the announcements based on our own data.<br>
+       Clients can receive a variety of talent after simple payment at the time of registration.</p>
     </div>
   </div>
 </div>
@@ -132,7 +134,7 @@ text-color:red;
 <section class="section4">
 <div class="w3-container w3-padding-64 w3-dark-grey w3-center" style="height:970px;">
   <h1 class="w3-jumbo"><b>Features</b></h1>
-  <p>This web is easy to use.</p>
+  <p><i class="fa fa-copyright"></i>2019 QuickCoduck Corp</p>
 
   <div class="w3-row" style="margin-top:64px">
     <div class="w3-col s3">

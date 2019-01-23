@@ -32,6 +32,206 @@ input[type=text] {
   text-align:center;
   width:63%;
 }
+.button3 {
+	background: #009688d1;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 18px;;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 12%;
+}
+
+.button3:hover {
+	background: #fff;
+	color: #009688;
+	border-radius: 5px;
+}
+
+.button3:before, .button3:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #009688;
+	transition: 400ms ease all;
+}
+
+.button3:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.button3:hover:before, .button3:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
+.comment {
+	background: #009688d1;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 18px;;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 60%;
+}
+
+.comment:hover {
+	background: #fff;
+	color: #009688;
+	border-radius: 5px;
+}
+
+.comment:before, .comment:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #009688;
+	transition: 400ms ease all;
+}
+
+.comment:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.comment:hover:before, .comment:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
+.comment1 {
+	background: #009688d1;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 30%;
+}
+
+.comment1:hover {
+	background: #fff;
+	color: #009688;
+	border-radius: 5px;
+}
+
+.comment1:before, .comment1:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #009688;
+	transition: 400ms ease all;
+}
+
+.comment1:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.comment1:hover:before, .comment1:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
+.comment2 {
+	background: #f95959bf;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top:15px;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 50px;
+	font-size: 15px;;
+	font-weight: bold;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+	padding: 0 2em;
+	width: 30%;
+}
+
+.comment2:hover {
+	background: #fff;
+	color: #f95959bf;
+	border-radius: 5px;
+}
+
+.comment2:before, .comment2:after {
+	content: '';
+	position: absolute;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #f95959bf;
+	transition: 400ms ease all;
+}
+
+.comment2:after {
+	right: inherit;
+	border-radius: 5px;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+.comment2:hover:before, .comment2:hover:after {
+	width: 100%;
+	border-radius: 5px;
+	transition: 800ms ease all;
+}
 .half {
   float: left;
   width: 46%;
@@ -218,8 +418,8 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
                +'name="reply" id="replycontent'+num+'" >'+'</textarea>'
                +'<td><button type="button" onclick="location.href='
                +"'javascript:comment_submit2("+num+")'"
-               +' "class="comment">답변등록!!</button><br>'
-               +'<button onclick="replycancer('+num+')">답변 취소</button>'
+               +' "class="comment1"  style="margin-right:5px;">등록</button>'
+               +'<button onclick="replycancer('+num+')" class="comment2">취소</button>'
                 +'</td></td></tr></table>'
       )
    }
@@ -372,14 +572,29 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
 <!-- 작업 끝! -->
 <c:if test="${board.boardtype==3}">
 <div style="margin-bottom:30px;">
-      <i class="fa fa-star fa-fw w3-xlarge" style="color:#e3e329"></i>
-      <button type="button" class="myButton" id="duck" style="margin-right:15px;">스크랩</button>
-      <i class="fa fa-handshake-o fa-fw w3-xlarge"></i>
-      <button type="button" class="myButton" id="pro" style="margin-right:15px;">즉시신청</button>
+      
+      <button type="button" class="button3" id="duck" style="margin-right:15px;">
+      <i class="fa fa-star fa-fw w3-xlarge w3-margin-right" style="color:#e3e329"></i>스크랩</button>
+      <button type="button" class="button3" id="pro" style="margin-right:15px;">
+      <i class="fa fa-handshake-o fa-fw w3-xlarge w3-margin-right"></i>즉시신청</button>
       <c:if test="${board.userid == loginUser.userid }">
       <a href="../user/supporterlist.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-users w3-margin-right w3-margin-left">[지원자목록보기]</i></a>
       <a href="../board/selectdevelop.duck?boardnum=${board.boardnum}&userid=${board.userid}"><i class="fa fa-handshake-o w3-margin-right">[선택한개발자목록]</i></a>
       </c:if>
+</div>
+</c:if>
+<c:if test="${board.boardtype == 1 }">
+<div style="margin-bottom:30px;">
+     <c:if test="${board.boardtype==1}">
+      <button type="button" class="button3" id="rec" style="margin-right:15px;">
+      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge w3-margin-right"></i>추천</button>
+      <button type="button" class="button3" id="duck" style="margin-right:15px;">
+      <i class="fa fa-external-link fa-fw w3-xlarge w3-margin-right"></i>DUCK</button>
+      </c:if>
+      <c:if test="${board.boardtype==2}">
+      <button type="button" class="button3" id="rec" style="margin-right:15px;">
+      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge w3-margin-right"></i>추천</button>
+      </c:if> 
 </div>
 </c:if>
 <div style="margin-bottom:30px;">
@@ -395,16 +610,7 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
       <c:if test="${board.boardtype!=1 && board.boardtype!=3 && board.boardtype!=5 }">
       <a href="list.duck?type=${board.boardtype}${notice.boardtype}"><i class="fa fa-list w3-margin-right">[게시물목록]</i></a>
       </c:if>
-      <c:if test="${board.boardtype==1}">
-      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-      <button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-      <i class="fa fa-external-link fa-fw w3-xlarge"></i>
-      <button type="button" class="myButton" id="duck" style="margin-right:15px;">DUCK</button>
-      </c:if>
-      <c:if test="${board.boardtype==2}">
-      <i class="fa fa-thumbs-o-up fa-fw w3-xlarge"></i>
-      <button type="button" class="myButton" id="rec" style="margin-right:15px;">추천</button>
-      </c:if> 
+ 
 </div><!-- 아래 버튼 부분 끝 -->
 
 <div class="w3-container w3-card w3-white w3-margin-bottom"style="max-width:80%;margin: 0 auto;">
@@ -424,7 +630,17 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
                   </tr>
                   <c:forEach items="${comment}" var="c">
                      <tr>
-                        <td>${c.userid}님</td>
+                        <td style="width:15%">${c.userid}님
+                        <sub style="font-weight:bold;color:#929292;">
+                        <fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
+                              <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
+                              <c:if test="${today == rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
+                              </c:if>
+                              <c:if test="${today != rdate }">
+                                 <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
+                              </c:if>
+                        </sub></td>
                         <td style="min-width: 600px; text-align: left; max-width: 600px">
                            <c:if test="${c.refstep == 0}">
                            <div style="width: 100%; height: 100%; margin-left: 10%; padding-right: 20%">
@@ -436,30 +652,13 @@ pre{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace}
                            </c:if>
                         </td>
                         <td><c:if test="${c.userid == loginUser.userid}">
-                              <fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-                              <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-                              <c:if test="${today == rdate }">
-                                 <fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-                              </c:if>
-                              <c:if test="${today != rdate }">
-                                 <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-                              </c:if>
-                              <br>
-                              <button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
-                              <button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
-                           </c:if> <c:if test="${c.userid != loginUser.userid }">
-                              <fmt:formatDate value="${day}" pattern="yy/MM/dd" var="today" />
-                              <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" var="rdate" />
-                              <c:if test="${today == rdate }">
-                                 <fmt:formatDate value="${c.regdate}" pattern="HH:mm:ss" />
-                              </c:if>
-                              <c:if test="${today != rdate }">
-                                 <fmt:formatDate value="${c.regdate}" pattern="yy/MM/dd" />
-                              </c:if>
-                              <br>
-                              <button type="button" onclick="replyCommentOpen(${c.num})">답변</button>
+                              <button type="button" onclick="replyCommentOpen(${c.num})" class="comment1">답변</button>
+                              <button type="button" onclick="delCommentOpen(${c.num})" class="comment2">삭제</button>
+                           </c:if>
+                            <c:if test="${c.userid != loginUser.userid }">
+                              <button type="button" onclick="replyCommentOpen(${c.num})" class="comment">답변</button>
                               <c:if test="${loginUser.userid == 'admin'}">
-                                 <button type="button" onclick="delCommentOpen(${c.num})">삭제</button>
+                                 <button type="button" onclick="delCommentOpen(${c.num})" class="comment2">삭제</button>
                               </c:if>
                            </c:if></td>
                      </tr>

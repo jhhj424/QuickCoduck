@@ -672,19 +672,24 @@ public class UserController {
 			System.out.println(key + "," + project_map.get(key));
 		}
 
-		long price_a = 5000000;
-		long price_b = 10000000;
-		long price_c = 25000000;
-		long price_d = 50000000;
-		long price_e = 75000000;
-		long price_f = 100000000;// 범위설정
-		int price_a_cnt, price_b_cnt, price_c_cnt, price_d_cnt, price_e_cnt, price_f_cnt;// 카운트 값
+		long price_a = 500000;
+		long price_b = 1000000;
+		long price_c = 5000000;
+		long price_d = 10000000;
+		long price_e = 25000000;
+		long price_f = 50000000;
+		long price_g = 75000000;
+		long price_h = 100000000;// 범위설정
+		int price_a_cnt, price_b_cnt, price_c_cnt, price_d_cnt, price_e_cnt, price_f_cnt,price_g_cnt,price_h_cnt,price_i_cnt;// 카운트 값
 		price_a_cnt = 0;
 		price_b_cnt = 0;
 		price_c_cnt = 0;
 		price_d_cnt = 0;
 		price_e_cnt = 0;
-		price_f_cnt = 0;// 변수 초기화
+		price_f_cnt = 0;
+		price_g_cnt = 0;
+		price_h_cnt = 0;
+		price_i_cnt = 0;// 변수 초기화
 		List<String> board_price = new ArrayList<String>();// 뽑아온 String 형태의 가격 리스트
 		List<Integer> price = new ArrayList<Integer>();// String --> Integer 형태로 가격비교 할 수 있게 형변환
 		ArrayList<Integer> price_cnt = new ArrayList<Integer>();// 해당 금액 카운트 값 저장 리스트
@@ -696,28 +701,40 @@ public class UserController {
 			price.add(b);
 		}
 		for (int a : price) {// 금액별로 카운트 세기
-			if (a > 0 && a < price_b) {
+			if (a > 0 && a < price_a) {
 				price_a_cnt++;
 			}
 			;
-			if (a >= price_b && a < price_c) {
+			if (a >= price_a && a < price_b) {
 				price_b_cnt++;
 			}
 			;
-			if (a >= price_c && a < price_d) {
+			if (a >= price_b && a < price_c) {
 				price_c_cnt++;
 			}
 			;
-			if (a >= price_d && a < price_e) {
+			if (a >= price_c && a < price_d) {
 				price_d_cnt++;
 			}
 			;
-			if (a >= price_e && a < price_f) {
+			if (a >= price_d && a < price_e) {
 				price_e_cnt++;
 			}
 			;
-			if (a >= price_f) {
+			if (a >= price_e && a < price_f) {
 				price_f_cnt++;
+			}
+			;
+			if (a >= price_f && a < price_g) {
+				price_g_cnt++;
+			}
+			;
+			if (a >= price_g && a < price_h) {
+				price_h_cnt++;
+			}
+			;
+			if (a >= price_h) {
+				price_i_cnt++;
 			}
 			;
 		}
@@ -726,7 +743,10 @@ public class UserController {
 		price_cnt.add(price_c_cnt);
 		price_cnt.add(price_d_cnt);
 		price_cnt.add(price_e_cnt);
-		price_cnt.add(price_f_cnt);// 카운트 값을 리스트에 넣어주자
+		price_cnt.add(price_f_cnt);
+		price_cnt.add(price_g_cnt);
+		price_cnt.add(price_h_cnt);
+		price_cnt.add(price_i_cnt);// 카운트 값을 리스트에 넣어주자
 
 		mav.addObject("user", user);
 		mav.addObject("avguser", avguser);
