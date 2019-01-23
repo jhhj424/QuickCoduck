@@ -31,7 +31,7 @@
   <div class="pagenation">
     <a class="pager-home" style="color:white;">
      <c:if test="${param.type==1}">오픈소스 게시판</c:if>
-     <c:if test="${param.type==2}">개발자 자유게시판</c:if>
+     <c:if test="${param.type==2}">자유게시판</c:if>
      <c:if test="${param.type==3}">프로젝트 공고모집 게시판</c:if></a>
   </div>
 </div>

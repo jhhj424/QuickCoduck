@@ -203,6 +203,7 @@ public class AjaxController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 		int boardcnt = listcount - (pageNum - 1) * limit;
+		model.addAttribute("loginUser",user);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("maxpage", maxpage);
 		model.addAttribute("startpage", startpage);

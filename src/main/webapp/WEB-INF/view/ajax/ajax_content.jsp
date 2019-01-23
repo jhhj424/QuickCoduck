@@ -4,14 +4,8 @@
 <%@include file="/WEB-INF/view/style/board_find_css.jsp"%>
 <script type="text/javascript">
 	function write_submit() {
-		var usertype = $
-		{
-			loginUser.type
-		}
-		var boardtype = $
-		{
-			param.type
-		}
+		var usertype = ${loginUser.type}
+		var boardtype = ${param.type}
 		var userid = '${loginUser.userid}'
 		if (usertype != 1 && boardtype == 1 && userid != 'admin') {
 			alert("개발자만 글을 쓸 수 있습니다.");
