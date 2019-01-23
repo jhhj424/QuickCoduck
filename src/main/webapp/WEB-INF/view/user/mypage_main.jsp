@@ -48,6 +48,8 @@ var Charts = /** @class */ (function () {
         this.initLineCurved();
     }
     Charts.prototype.initRadar = function () {
+    	var userprofess = ${avguser.profess}
+    	userprofess = userprofess.toFixed(2);
         var ctxD = $('#radarChartDark'), ctxL = $('#radarChartLight'), chartData = {
             type: 'radar',
             data: {
@@ -59,7 +61,7 @@ var Charts = /** @class */ (function () {
                         borderColor: this.colors[0],
                         borderWidth: 1,
                         pointRadius: 2,
-                        data: [${avguser.profess},${avguser.proaction},${avguser.prosatisfact},${avguser.prodate},${avguser.procommunicate}]
+                        data: [userprofess,${avguser.proaction}.toFixed(2),${avguser.prosatisfact}.toFixed(2),${avguser.prodate}.toFixed(2),${avguser.procommunicate}.toFixed(2)]
                     },
                     {
                         label: "클라이언트",
@@ -67,7 +69,7 @@ var Charts = /** @class */ (function () {
                         borderColor: this.colors[1],
                         borderWidth: 1,
                         pointRadius: 2,
-                        data: [${avgclient.profess},${avgclient.proaction},${avgclient.prosatisfact},${avgclient.prodate},${avgclient.procommunicate}]
+                        data: [${avgclient.profess}.toFixed(2),${avgclient.proaction}.toFixed(2),${avgclient.prosatisfact}.toFixed(2),${avgclient.prodate}.toFixed(2),${avgclient.procommunicate}.toFixed(2)]
                     },
                     {
                         label: "사용자",
@@ -75,7 +77,7 @@ var Charts = /** @class */ (function () {
                         borderColor: this.colors[2],
                         borderWidth: 1,
                         pointRadius: 2,
-                        data: [${loginUser.profess}, ${loginUser.proaction},${loginUser.prosatisfact},${loginUser.prodate},${loginUser.procommunicate}]
+                        data: [${loginUser.profess}.toFixed(2), ${loginUser.proaction}.toFixed(2),${loginUser.prosatisfact}.toFixed(2),${loginUser.prodate}.toFixed(2),${loginUser.procommunicate}.toFixed(2)]
                     }
                 ]
             },
@@ -85,8 +87,9 @@ var Charts = /** @class */ (function () {
                         fontColor: this.tickColor
                     },
                     ticks: {
+                    	beginAtZero: true ,
                         display: false,
-                        stepSize: 1
+                        stepSize: 1.0
                     }
                 },
                 legend: {
