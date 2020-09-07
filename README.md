@@ -57,7 +57,7 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
  ### 로그인
  ![로그인](https://user-images.githubusercontent.com/46177529/92350560-4f484e00-f114-11ea-85f6-39b1c156299a.png)
 
- ### 메인 (인기소스, 인기프로젝트 : 스크랩/Duck, 조회수 등을 통한 게시글 순위 선정) : 로그인 이후 이용 가능
+ ### 메인 (인기소스, 인기프로젝트) : 스크랩/Duck, 조회수 등을 참고하여 순위 설정
  ![메인인기소스](https://user-images.githubusercontent.com/46177529/92350571-57a08900-f114-11ea-8dd5-542d38155263.png)
  ---
  ![메인인기프로젝트](https://user-images.githubusercontent.com/46177529/92350582-5ec79700-f114-11ea-879d-693b2216f373.png)
@@ -77,7 +77,7 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
 <summary>개발자 페이지</summary>
 <div markdown="1">
  
- ### 마이페이지 - 퀵코덕 통계 + 클라이언트 별점 평가
+ ### 마이페이지 - 퀵코덕 통계 + 클라이언트가 평가한 개인 별점
 ![개발자마이페이지](https://user-images.githubusercontent.com/46177529/92351566-02b24200-f117-11ea-8f53-792ee5e9d576.png)
  ### 회원정보 보기
 ![회원정보](https://user-images.githubusercontent.com/46177529/92351578-05ad3280-f117-11ea-9beb-ab19c7f81311.png)
@@ -101,13 +101,48 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
 ![진행중인프로젝트](https://user-images.githubusercontent.com/46177529/92351577-05ad3280-f117-11ea-8087-a83e525a7743.png)
  ### 완료한 프로젝트 - 클라이언트가 프로젝트 완료를 진행 한 프로젝트
 ![완료한프로젝트](https://user-images.githubusercontent.com/46177529/92351572-047c0580-f117-11ea-82b5-a199da06be2b.png)
- ### 완료한 프로젝트 - 완료 된 프로젝트의 클라이언트를 평가
+ ### 클라이언트 평가 - 완료 된 프로젝트의 클라이언트를 별점 평가 진행
 ![완료프로젝트클라이언트평가](https://user-images.githubusercontent.com/46177529/92351571-03e36f00-f117-11ea-954a-f70de26b8683.png)
  
 </div>
 </details>
 
+ <details>
+<summary>클라이언트 페이지</summary>
+<div markdown="1">
 
+ ### 마이페이지 - 퀵코덕 통계 + 개발자가 평가한 개인 별점
+![클라이언트마이페이지](https://user-images.githubusercontent.com/46177529/92353132-99343280-f11a-11ea-8425-b31169a41abe.png)
+ ### 프로젝트 공고 등록 아이템 리스트/구매 - 퀵코덕에 결제 후 정해진 갯수 만큼 프로젝트 공고 등록 가능
+![프로젝트공고등록아이템리스트](https://user-images.githubusercontent.com/46177529/92353138-9b968c80-f11a-11ea-8f4a-ff59a257825e.png)
+![프로젝트공고등록아이템구매](https://user-images.githubusercontent.com/46177529/92353137-9afdf600-f11a-11ea-90d7-7b7de18e100a.png)
+ ### 회원정보 보기
+![클라이언트회원정보보기](https://user-images.githubusercontent.com/46177529/92353134-99ccc900-f11a-11ea-84eb-34c9d5cd5de5.png)
+ ### 회원정보 수정
+![마이페이지정보수정](https://user-images.githubusercontent.com/46177529/92353145-9e917d00-f11a-11ea-84d3-2a9502d3e17f.png)
+ ### 추천인재 목록 - 추천인재 매칭 시스템을 통해 요청을 보낸 개발자 전체 목록
+![추천받은인재목록](https://user-images.githubusercontent.com/46177529/92353129-976a6f00-f11a-11ea-9d94-d8825c815983.png)
+ ### 대기중인 프로젝트 - 개발자 지원을 아직 받고있는 프로젝트
+![대기중인프로젝트](https://user-images.githubusercontent.com/46177529/92353144-9df8e680-f11a-11ea-9b93-ccaee323e614.png)
+ ### 진행중인 프로젝트 - 개발자 선정이 다 끝난 프로젝트 -> 진행 (클라이언트는 다수의 프로젝트 진행 가능)
+![진행중인프로젝트](https://user-images.githubusercontent.com/46177529/92353128-96d1d880-f11a-11ea-9eab-d17cabad041c.png)
+ ### 완료한 프로젝트 - 프로젝트 완료를 진행 한 프로젝트
+![완료된프로젝트](https://user-images.githubusercontent.com/46177529/92353148-a05b4080-f11a-11ea-8332-eb78cac7dfc2.png)
+ ### 개발자 평가 - 완료한 프로젝트 각각의 개발자를 선택하여 별점 평가 진행
+![완료된프로젝트참여개발자목록보기](https://user-images.githubusercontent.com/46177529/92353149-a0f3d700-f11a-11ea-9f21-19c3b21a0442.png)
+![개발자평가](https://user-images.githubusercontent.com/46177529/92353143-9d605000-f11a-11ea-85f5-04b3f296d37e.png)
+ ### 프로젝트 공고 글쓰기 - 클라이언트이고 공고 등록 아이템 개수가 남았을 경우에만 등록가능
+![프로젝트공고글쓰기](https://user-images.githubusercontent.com/46177529/92353135-9a655f80-f11a-11ea-8b5e-c473a1627641.png)
+ ### 프로젝트 공고 등록 완료 - 공고 등록 후 매칭 인재 시스템을 이용 여부를 결정할 수 있음
+![프로젝트공고등록완료](https://user-images.githubusercontent.com/46177529/92353139-9c2f2300-f11a-11ea-90f6-c69322f8aa21.png)
+ ### 매칭 유저 리스트 - 해당 프로젝트의 기술스택, 개발자 평점등을 이용한 인재 매칭
+![매칭유저리스트](https://user-images.githubusercontent.com/46177529/92353147-9f2a1380-f11a-11ea-9fb3-2f1b7686d04c.png)
+ ### 프로젝트 지원자 목록 - 공고를 통해 지원한 개발자 목록
+![지원자목록](https://user-images.githubusercontent.com/46177529/92353122-95081500-f11a-11ea-9aca-4fab7471c7b1.png)
+ ### 프로젝트 추천 인재 목록 - 매칭 시스템을 통해 요청을 보낸 해당 프로젝트 개발자 목록
+![추천인재목록](https://user-images.githubusercontent.com/46177529/92353130-98030580-f11a-11ea-892e-edd626030225.png)
 
+</div>
+</details>
 
 
