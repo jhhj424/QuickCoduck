@@ -43,6 +43,11 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
 
  
  ## 페이지 예시
+ 
+ <details>
+<summary>공통 페이지</summary>
+<div markdown="1">
+ 
  ### 시작 페이지
  ![시작페이지](https://user-images.githubusercontent.com/46177529/92350454-13ad8400-f114-11ea-9285-b9b51c2dabdb.png)
 
@@ -64,6 +69,8 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
  ![프로젝트공고게시판](https://user-images.githubusercontent.com/46177529/92350603-6d15b300-f114-11ea-8d99-35198109d306.png)
  ---
  ![자유게시판](https://user-images.githubusercontent.com/46177529/92351078-b4e90a00-f115-11ea-86c8-728a7a85ecb9.PNG)
+</div>
+</details>
 
 
 
