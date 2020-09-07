@@ -54,13 +54,17 @@ Spring Framework로 구현 된 개발자를위한 아웃소싱 (매칭 시스템
 
  ### 메인 페이지 (인기소스, 인기프로젝트 : 스크랩/Duck, 조회수 등을 통한 게시글 순위 선정) : 로그인 이후 이용 가능
  ![메인인기소스](https://user-images.githubusercontent.com/46177529/92350571-57a08900-f114-11ea-8dd5-542d38155263.png)
+ ---
  ![메인인기프로젝트](https://user-images.githubusercontent.com/46177529/92350582-5ec79700-f114-11ea-879d-693b2216f373.png)
 
 
  ### 게시판 (오픈소스, 프로젝트공고, 자유) : 로그인 이후 이용 가능, 좌측 체크박스를 클릭할 시 Ajax 요청&응답에 의해 게시글 목록 Update
  ![오픈소스게시판](https://user-images.githubusercontent.com/46177529/92350592-66873b80-f114-11ea-852d-9bd9aff24d91.png)
+ ---
  ![프로젝트공고게시판](https://user-images.githubusercontent.com/46177529/92350603-6d15b300-f114-11ea-8d99-35198109d306.png)
- ![자유게시판](https://user-images.githubusercontent.com/46177529/92350617-743cc100-f114-11ea-9390-78c20f46d931.png)
+ ---
+ ![자유게시판](https://user-images.githubusercontent.com/46177529/92351078-b4e90a00-f115-11ea-86c8-728a7a85ecb9.PNG)
+
 
 
 
